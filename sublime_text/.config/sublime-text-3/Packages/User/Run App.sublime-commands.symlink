@@ -1,0 +1,34 @@
+[
+    {
+        "caption": "Run: Git",
+        "command": "runapp",
+        "args":{
+            "app": "D:\\Tools\\Git\\git-bash.exe",
+            "args": ["--cd=$DIR$"],
+            "type": "none"
+        }
+
+    },
+
+    {
+        "caption": "Run: haroopad",
+        "command": "runapp",
+        "args":{
+            "app": "haroopad",
+            "args": [],
+            "type": "file"
+        }
+
+    },
+
+    {
+        "caption": "Run: Chrome",
+        "command": "runapp",
+        "args":{
+            "app": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "args": [],
+            "type": "file"
+        }
+
+    },
+]

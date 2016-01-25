@@ -1,0 +1,33 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+		"AutoHotkey",
+		"REG"
+	],
+	"installed_packages":
+	[
+		"Alignment",
+		"AutoHotkey",
+		"Clickable URLs",
+		"Colorsublime",
+		"FileDiffs",
+		"Filter Lines",
+		"HTML-CSS-JS Prettify",
+		"Monokai Extended",
+		"Package Control",
+		"REG",
+		"Run Apps",
+		"Seti_UI",
+		"SideBarEnhancements",
+		"SublimeHighlight",
+		"Trimmer",
+		"Vintageous",
+		"VN_IME"
+	],
+	"repositories":
+	[
+		"https://github.com/n1k0/SublimeHighlight/tree/python3",
+		"https://github.com/yehnkay/VN_IME"
+	]
+}

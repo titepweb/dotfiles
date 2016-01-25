@@ -1,0 +1,58 @@
+{
+	"Default_encoding": "UTF-8",
+	"Seti_SB_big": true,
+	"Seti_SB_bright": true,
+	"Seti_blue_label": true,
+	"Seti_bold_heading": true,
+	"Seti_bold_slctdfile_labels": true,
+	"Seti_bold_slctdtab_labels": true,
+	"Seti_heading_font_12": true,
+	"Seti_orange_button": true,
+	"Seti_orange_label": true,
+	"Seti_pad_3": true,
+	"Seti_panel_nrml": true,
+	"Seti_sb_small_padding": true,
+	"Seti_sb_tree_small": true,
+	"Seti_sidebar_font_size_12": true,
+	"Seti_tab_font_12": true,
+	"Seti_tabs_small": true,
+	"alert_when_encoding_is_not":
+	[
+		"UTF-8",
+		"ISO-8859-1"
+	],
+	"always_show_minimap_viewport": true,
+	"bold_folder_labels": true,
+	"caret_extra_bottom": 1,
+	"caret_extra_top": 1,
+	"caret_extra_width": 1,
+	"caret_style": "phase",
+	"color_scheme": "Packages/Colorsublime - Themes/NMODE_ColorSublime.tmTheme",
+	"detect_slow_plugins": false,
+	"draw_minimap_border": true,
+	"fade_fold_buttons": false,
+	"font_face": "Input",
+	"font_size": 9,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"AutoHotkey",
+		"Markdown",
+		"REG"
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"margin": 2,
+	"mouse_wheel_tabswitch": true,
+	"overlay_scroll_bars": "enabled",
+	"show_encoding": true,
+	"tab_size": 2,
+	"telex": true,
+	"theme": "Seti_orig.sublime-theme",
+	"update_check": false,
+	"vintage_start_in_command_mode": true,
+	"word_wrap": true
+}

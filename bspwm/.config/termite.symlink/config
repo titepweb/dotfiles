@@ -1,0 +1,88 @@
+# ----------------------------------------------------------------------
+# file:     ~/.config/termite/config
+# man termite for shortcut keys
+# Tools : 
+#   + https://github.com/chriskempson/base16-builder/tree/master/templates
+#   + http://stayradiated.github.io/termcolors-web/
+# ----------------------------------------------------------------------
+
+[options]
+resize_grip = false
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+visible_bell = false
+mouse_autohide = false
+allow_bold = true
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+font = GohuFont 10
+scrollback_lines = 10000
+search_wrap = true
+# icon_name = terminal
+# geometry = 640x480
+ 
+# 0.0: opaque, 1.0: transparent
+transparency = 1.0
+pseudo_transparency = false
+ 
+# "system", "on" or "off"
+cursor_blink = system
+ 
+# "block", "underline" or "ibeam"
+cursor_shape = block
+ 
+# $BROWSER is used by default
+browser = firefox
+ 
+# word characters used for word selection
+# (default if unset: all graphic non-punctuation/space characters)
+# word_chars = -A-Za-z0-9,./?%&#:_=+@~
+
+[colors]
+foreground = #f5f2df
+foreground_dim = #888888
+foreground_bold = #f5f2df
+background = #002b36
+cursor = #93a1a1
+
+# if unset, will reverse foreground and background
+#highlight = #839496
+
+# black
+color0  = #0b0d22
+color8  = #252525
+# red
+color1  = #eb0c4f
+color9  = #ff4262
+# green
+color2  = #97bf5f
+color10 = #b1e06f
+# yellow
+color3  = #cccc3d
+color11 = #ebe200
+# blue
+color4  = #3a9495
+color12 = #0adcdd
+# magenta
+color5  = #850cd5
+color13 = #d900ff
+# cyan
+color6  = #7accc5
+color14 = #66fff2
+# white
+color7  = #f5f2df
+color15 = #ffffff
+
+[hints]
+# font = Monospace 12
+# foreground = #dcdccc
+# background = #3f3f3f
+# padding = 2
+# border = #3f3f3f
+# border_width = 0.5
+# roundness = 2.0
+ 
+# vim: ft=dosini cms=#%s
+# vim: set ai et fenc=utf-8 ft=conf nu si sts=0 sw=4 ts=8 tw=0 :

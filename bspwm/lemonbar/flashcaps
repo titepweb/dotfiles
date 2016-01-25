@@ -1,0 +1,45 @@
+#! /bin/bash
+
+FLASHES=5
+DELAY=.1
+
+function finish {
+# turn led off on exit
+xset -led named "Caps Lock"
+}
+
+function showusage {
+cat << "EOF"
+usage: flashcaps [-h | -f | -d]
+	-h show this help
+	-d set duration of flashes in seconds
+	-f set number of flashes
+EOF
+}
+
+# graceful exit
+trap finish SIGHUP SIGINT SIGTERM EXIT
+
+# read command line parameters
+while [ $# -gt 0  ]; do
+	case "$1" in
+		-f|--flash)
+			FLASHES="$2"
+			;;
+		-d|--delay)
+			DELAY="$2"
+			;;
+		-h|--help)
+			showusage
+			exit
+			;;
+	esac
+	shift
+done
+
+for i in $(seq $FLASHES -1 1); do
+	xset led named "Caps Lock"
+	sleep $DELAY
+	xset -led named "Caps Lock"
+	sleep $DELAY
+done

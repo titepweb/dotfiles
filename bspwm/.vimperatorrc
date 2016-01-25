@@ -1,0 +1,7 @@
+#settings for vimperator, will porbably look ridiculous if used on a non-highdpi monitor
+colorscheme zenburn
+hi CmdLine -append font-size:24px
+hi CompDesc -append font-size:24px
+hi CompItem>* -append font-size:24px
+hi CompMsg -append font-style: italic; margin-left: 24px;
+hi Hint font-size:100%;color:white;background-color:red;padding:2px;

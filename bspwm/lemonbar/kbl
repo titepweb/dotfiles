@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# path to keyboard backlight led
+path="/sys/class/leds/asus::kbd_backlight"
+
+# maximum brightness
+max=$(cat ${path}/max_brightness)
+
+# current brightness
+previous=$(cat ${path}/brightness)
+
+function changebrightness {
+# make sure brightness is a number
+if [[ $1 = [0-9]* ]]
+then
+	if [[ $1 -gt $max ]]
+	then
+		# max brightness if passed larger than max
+		next=$max
+	elif [[ $1 -lt 0 ]]
+	then
+		# turn off if less than zero
+		next=0
+	else
+		# pass valid brightness
+		next=$1
+	fi
+	# echo brightness to led
+	echo $next >> ${path}/brightness
+	exit 0
+else
+	# exit with error if not a number
+	exit 1
+fi
+}
+
+case "$1" in
+	up)
+		changebrightness $(($previous + 1))
+	;;
+	down)
+		changebrightness $(($previous - 1))
+	;;
+	max)
+		changebrightness $max
+	;;
+	on)
+		changebrightness $max
+	;;
+	off)
+		changebrightness 0
+	;;
+	show)
+		echo $previous
+	;;
+	night)
+		changebrightness 1
+	;;
+	allowusers)
+		# Allow members of users group to change brightness
+		chgrp users ${path}/brightness
+		chmod g+w ${path}/brightness
+	;;
+	disallowusers)
+		# Allow members of users group to change brightness
+		chgrp root ${path}/brightness
+		chmod g-w ${path}/brightness
+	;;
+	*)
+		changebrightness $1
+	;;
+esac
+
+exit 0

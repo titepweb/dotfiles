@@ -1,0 +1,38 @@
+#! /bin/bash
+
+# path to keyboard backlight led
+path="/sys/class/leds/asus::kbd_backlight"
+
+# interval between brightness changes
+delay=.1
+# maximum brightness
+max=$(cat ${path}/max_brightness)
+# current brightness
+previous=$(cat ${path}/brightness)
+
+function finish {
+# return to brightness before executted
+echo $previous >>${path}/brightness
+exit 0
+}
+
+
+function changebrightness {
+echo $1 >>${path}/brightness
+}
+
+# ensure graceful exit
+trap finish SIGHUP SIGINT SIGTERM EXIT
+
+for i in $(seq $1 -1 1); do
+	for i in $(seq 0 $max); do
+		changebrightness $i
+		sleep $delay
+	done
+	for i in $(seq $max -1 0); do
+		changebrightness $i
+		sleep $delay
+	done
+done
+
+finish

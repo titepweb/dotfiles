@@ -1,0 +1,147 @@
+#!/bin/bash
+#xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
+
+read lo int1 int2 <<< `ip link | sed -n 's/^[0-9]: \(.*\):.*$/\1/p'`
+if iwconfig $int1 >/dev/null 2>&1; then
+    wifi=$int1 ; eth0=$int2
+else
+    wifi=$int2 ; eth0=$int1
+fi
+ip link show $eth0 | grep 'state UP' >/dev/null && int=$eth0 ||int=$wifi
+
+#int=eth0
+
+ping -c 1 8.8.8.8 >/dev/null 2>&1 && 
+    echo "$int connected" || echo "$int disconnected"
+
+exit
+
+#============================
+
+# change default shell
+chsh -s $(which zsh)
+chsh -s $(which /bin/bash)
+
+#============================
+
+heading="COMMAND SUBSTITUTION:"
+echo -e "\n\e[4m\033[1m$heading\033[0m"
+echo -e "Syntax:\n\t\$( <commands> )\n\t\` <commands> \`\n" 
+rstring="even \\n with 'echo -e' , are removed."
+subcmd=$(echo -e " ALL trailing newlines ,\n"
+         # comment here is OK
+         echo "$rstring"
+        )
+echo $subcmd
+exit
+
+#============================
+# TEST NEWLY-LEARNED COMMANDS
+dotDir=$HOME/dotfiles
+ListMinimalSymLink=".bash_profile,.bashrc"
+ListMinimalSymLink="-name ${ListMinimalSymLink/,/ -o -name }"
+echo $ListMinimalSymLink
+
+find "$dotDir" -type f $ListMinimalSymLink -printf "%f:%p\n" | while IFS=":" read FNAME FPATH 
+  do 
+    echo -e "FNAME=$FNAME\nFPATH=$FPATH"
+  done
+exit
+
+#SHJRT FORM: BATCH RENAME USING EXEC 
+find "$dotDir/test" -type d -name '*.txt' -exec sh -c 'mv "$0" "${0%.txt}.txt_bak"' {} \;
+
+#LONG FORM
+	find "$dotDir" \
+    -not -path "*/*\.ignore/*" \
+    -and \( \( -type f $ListMinimalSymLink \
+    -not -path "*/.hg/*" \
+    -not -path "*/.git/*" \
+    -not -path "$binDir/*" \
+    -not -path "$docsDir/*" \
+    -not -path "$backupDir/*" \
+    -not -path "$tempDir/*" \
+    -not -path "$logfile" \
+    -not -path "$dotDir/.gitignore" \
+    -not -path "$dotDir/README.md" \
+    -not -path "*.lnk/*" \) \
+    -o -type d -path "*.lnk" \) \
+  \
+  -exec sh -c 'echo "=={}"' \;
+
+#LONG FORM with FOR
+for file in $( \
+	find "$dotDir" \
+    -not -path "*/*\.ignore/*" \
+    -and \( \( -type f $ListMinimalSymLink \
+    -not -path "*/.hg/*" \
+    -not -path "*/.git/*" \
+    -not -path "$binDir/*" \
+    -not -path "$docsDir/*" \
+    -not -path "$backupDir/*" \
+    -not -path "$tempDir/*" \
+    -not -path "$logfile" \
+    -not -path "$dotDir/.gitignore" \
+    -not -path "$dotDir/README.md" \
+    -not -path "*.lnk/*" \) \
+    -o -type d -path "*.lnk" \) \
+  \
+	 ); do
+	echo "==>>" $file
+done
+
+#Rename .lnk sub-directories of another .lnk directory
+for i in `seq 1 10`; #10 here is customizable
+  do
+  	find "$dotDir/test" -maxdepth $i -type d -name '*.lnk' -exec sh -c ' {
+  	  if [[ -d "$0" ]] && [[ $0 =~ .*\.lnk/.*\.lnk ]]; then
+  			mv "$0" "${0%.lnk}"
+  		fi
+  	}' {} \;
+  done  
+echo "--------------------"
+
+#COUNT ITMES
+find "$dotDir" \( -type f $ListMinimalSymLink \
+	-not -path "$dotDir/.bashrc" \) \
+	-o -type d -path "*.lnk" | wc -l
+
+#USE FOR
+for file in $(find "$dotDir" \( -type f $ListMinimalSymLink \
+	-not -path "$dotDir/.bashrc" \) \
+	-o -type d -path "*.lnk"); do
+	echo "$file"
+	done
+
+exit
+
+# USER XARGS : BATCH RENAME
+find "$dotDir" -type d -path "*.lnk/*.lnk" -print0 | xargs -0 -I {} sh -c 'export file={}; mv $file ${file/_test.rb/_spec.rb}'
+find "$dotDir/test" -type d -path "*.lnk/*.lnk" -print0 | xargs -0 -I {} sh -c 'export file={}; 
+{
+  index=0
+  echo -e "$file"
+	if [[ -d "$file" ]] && [[ $file =~ .*\.lnk/.*\.lnk ]]; then
+	  echo -e "rename>${file%.lnk}"
+    mv "$file" "${file%.lnk}"
+	fi
+}'
+
+exit
+
+#EVALUATE PARAMENTER
+while getopts ":a:hpa" opt; do
+  case $opt in
+    a)
+      echo "-a was triggered, Parameter: $OPTARG" >&2
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done

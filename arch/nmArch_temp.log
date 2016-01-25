@@ -1,0 +1,36 @@
+;================[ VOZFORUMS ]================
+vnguye - gentoo
+whatthef***	duo8	theai
+Fedora Gnome: http://chantrongchien1977.deviantart.com/
+
+;================[ Setting Prompt With Color: BASH profile cua kientux ]================
+xem: https://help.ubuntu.com/community/CustomizingBashPrompt#Setting_Prompt_With_Color
+xem: http://www.arwin.net/tech/bash.php#s_1
+
+
+
+# coloring bash
+export TERM=xterm-color
+export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+#return value visualisation
+PS1="\$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]:)\"; else echo \"\[\033[01;31m\]:(\"; fi) $(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]\u'; else echo '\[\033[01;32m\]\u'; fi)\[\033[01;34m\] \w \$\[\033[00m\] "
+
+#bash_completion
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
+
+fortune | cowsay -f small -p
+
+======== COMMAND =======
+https://sublimebullshit.wordpress.com/2013/03/22/response-to-andrew-rays-blog-post/
+
+
+==========
+udisk và udisk2 rồi, user thuộc wheel,stogare và power luôn. Nhưng trong rule.d ko có 50-udisk.rules chỉ có 50-default.rules thôi thím ợ 
+
+gento: build from scratch because all are not packaged
+	
