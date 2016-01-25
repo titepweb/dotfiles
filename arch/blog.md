@@ -72,4 +72,4 @@ REMOVE SUBMODULE: Currently, we must do it manuually
 **Reference**
 1. [ragerdudler's guide to use git](http://rogerdudler.github.io/git-guide/) 
 2. [arnklint's Git Submodule Guide](http://arnklint.com/technology/git-submodules.html)
-
+3. [cheetsheat](http://cheat.errtheblog.com/s/git)

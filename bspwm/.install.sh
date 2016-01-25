@@ -10,15 +10,27 @@ if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
 	config "Downloading ${bold}${blue}vim-plug${reset} plugins manager for neovim."
 	curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	config "Downloaded ${bold}${blue}vim-plug${reset} plugins manager for neovim."
 fi
 # Manually run :PlugInstall to install plugins for neovim, OR : 
 config "Downloading ${bold}${blue}plugins${reset} for neovim."
 nvim +PlugInstall +qall
+config "Downloaded ${bold}${blue}plugins${reset} for neovim."
 
 # mpd
 touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 mkdir -p ~/.config/mpd/playlists
 config "Created ${bold}${blue}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
+
+# zplug
+if [[ ! -e ~/.zplug ]]; then
+	config "Downloading ${bold}${blue}zplug${reset} ..."
+	curl -fsSL  https://raw.githubusercontent.com/b4b4r07/zplug/master/zplug -o ~/.zplug
+	config "Downloaded ${bold}${blue}zplug${reset}!"
+else
+	config "${bold}${blue}zplug${reset} exists. Please go to its homepage to update."
+fi
+
 
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
