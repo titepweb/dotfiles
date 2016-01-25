@@ -11,6 +11,9 @@ if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
 	curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
+# Manually run :PlugInstall to install plugins for neovim, OR : 
+config "Downloading ${bold}${blue}plugins${reset} for neovim."
+nvim +PlugInstall +qall
 
 # mpd
 touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
@@ -41,7 +44,6 @@ cat << EOF
 │ - $ chsh -s $(which zsh) <-- set zsh as your login shell                    │
 │ - ~/.dotfiles/lemonbar/panel_config                                         │
 │ - ~/.config/bspwm/bspwmrc <-- $ xprop | grep CLASS <-- pacman -S xorg-utils │
-│ - Manually run :PlugInstall to install plugins for neovim                   │
 │ - Manually configure ~/muttrc with your emai address & password             │
 │ - Add your feeds in ~/.newsbeuter/urls                                      │
 └─────────────────────────────────────────────────────────────────────────────┘

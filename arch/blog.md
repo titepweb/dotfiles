@@ -66,6 +66,8 @@ UPDATE SUBMODULE
 1. cd <submodule_folder>
 2. git checkout master
 3. git pull
+REMOVE SUBMODULE: Currently, we must do it manuually
+
 
 **Reference**
 1. [ragerdudler's guide to use git](http://rogerdudler.github.io/git-guide/) 

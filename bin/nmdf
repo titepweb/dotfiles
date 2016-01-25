@@ -564,7 +564,7 @@ install_dotfiles () {
 
       # Run optional install script.
       # 1. remember to set execute permissions chmod +x <script> for the .install.sh scripts. Otherwise, nmdf skip running it.
-      # 2. make sure that the script doesn't stop nmdf (for example: vim +PluginInstall +qall command)
+      # 2. make sure that the script doesn't stop nmdf to continue scanning topic and installing dotfiles
       local install="$topic/.install.sh"
       if [ -x "$install" ]; then
         info "Running ${green}$install${reset}"
@@ -742,11 +742,12 @@ install_dotfiles () {
 #          - Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
 #----------------------------------------------------------------------------------------
   if [ -n "$installOption" ]; then
+    # for the first time, submodule need to be 
+    displayTitle "INITIALIZING SUBMODULES"
+    cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
+    info "Completed!"
     # ContextualSymlinkList
     install_dotfiles
-    # info "Initializing submodule(s)"
-    # cd "$dotDir" && git submodule update --init --recursive
-    # info "Initialized submodule(s)"
   fi
 
   if [ "$showStats" == "true" ]; then
