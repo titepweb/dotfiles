@@ -144,5 +144,5 @@ XF86AudioPrev
   mpc prev
 
 # make sxhkd reload its configuration files:
-super + Escape
+super + q
 	pkill -USR1 -x sxhkd

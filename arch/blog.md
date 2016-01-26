@@ -52,7 +52,7 @@ COMPUTER B - client
 
 **BRANCH & MERGE**
 
-**SUBMODULE**
+**SUBMODULE** ==> *USE subtree INSTEAD*
 ADDING
 cd to local repo
 1. git submodule add <URI> <path> , for example zsh
@@ -68,8 +68,11 @@ UPDATE SUBMODULE
 3. git pull
 REMOVE SUBMODULE: Currently, we must do it manuually
 
+**subtree**
+
 
 **Reference**
 1. [ragerdudler's guide to use git](http://rogerdudler.github.io/git-guide/) 
 2. [arnklint's Git Submodule Guide](http://arnklint.com/technology/git-submodules.html)
 3. [cheetsheat](http://cheat.errtheblog.com/s/git)
+4. [learn git in wizard way](http://gitimmersion.com/)

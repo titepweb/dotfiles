@@ -23,12 +23,12 @@ mkdir -p ~/.config/mpd/playlists
 config "Created ${bold}${blue}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
 
 # zplug
-if [[ ! -e ~/.zplug ]]; then
+if [[ ! -e ~/.zplug/zplug ]]; then
 	config "Downloading ${bold}${blue}zplug${reset} ..."
-	curl -fsSL  https://raw.githubusercontent.com/b4b4r07/zplug/master/zplug -o ~/.zplug
+	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
 	config "Downloaded ${bold}${blue}zplug${reset}!"
 else
-	config "${bold}${blue}zplug${reset} exists. Please go to its homepage to update."
+	config "${bold}${blue}zplug${reset} exists. Please check for its update."
 fi
 
 
@@ -36,21 +36,22 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                          COMBO 2 : My WM of CHOICE                          │
 │ REQUIRED PACKAGES                                                           │
-│ - bspwm rofi rxvt-unicode termite                                           │
+│ - bspwm rofi rxvt-unicode termite zsh                                       │
 │ - lemonbar-git (AUR) (patched with xft support) + xtitle-git (AUR) + dzen2  │
-│ - zsh zsh-syntax-highlighting (submodule) + pretzo                          │
-│ - TEXT EDITOR : neovim + vim-plug > vundle + gruvbox > base-16 colorscheme  │
+│ - neovim + vim-plug > vundle + gruvbox > base-16 colorscheme                │
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
-│ - ncmpcpp [mpd|mopidy] mpc mpv cava                                         │
-│ - paper-gtk-theme Ark-Darker | ultra-flat-icons                             │
+│ - ncmpcpp [mpd|mopidy] mpc cava                                             │
 │                                                                             │
 │ OPTIONAL RECOMMENDED SOFTWARES                                              │
+│ - zplug --> + + pretzo + oh-my-zsh + zsh-syntax-highlighting                │
+│ - Video player: smplayer/mpv                                                │
 │ - File Manager: pcmanfm engrampa unrar zip unzip p7zip   +   ranger + w3m   │
 │ - PDF READER  : zathura zathura-pdf-poppler zathura-djvu                    │
 │ - HEX EDITOR  : bviplus                                                     │
 │ - redshift                                                                  │
 │ - htop htop-temperature (AUR)                                               │
 │ - i3lock + xautolock                                                        │
+│ - paper-gtk-theme Ark-Darker | ultra-flat-icons                             │
 │                                                                             │
 │ CONFIGURATION                                                               │
 │ - $ chsh -s $(which zsh) <-- set zsh as your login shell                    │

@@ -720,6 +720,7 @@ install_dotfiles () {
 
   # @FIXME:
   # sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf`"
+  # sh -c "$(wget https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf -O -)"
   # bash <(wget -nv -O -https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf)
   # if this script is running from a remote location and the dotfiles directory was empty, download and save nmdf to the bin directory, however, 
   if [ ! -f "$binDir/nmdf" ] && [ ! hash nmdf >/dev/null 2>&1 ]; then
