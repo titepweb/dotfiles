@@ -1,6 +1,6 @@
 local destination="$1"
 
-verbose Downloading $fg[cyan]zplug$reset_color to $fg[green]$destination$reset_color
+verbose Downloading $fg[cyan]zplug$reset_color to $fg[green]$destination$reset_color -- by $fg[cyan]$(basename "$0")$reset_color
 
 if (($+commands[wget])); then
   mkdir --parents "$(dirname "$destination")"

@@ -25,12 +25,11 @@ setopt completealiases
 autoload -Uz compinit promptinit
 compinit
 promptinit
-# prompt
-prompt elite
+prompt adam2
 
 # Syntax highlighting
-source ~/PROJECT/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+# source ~/PROJECT/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 #-------------------
 # Personnal Aliases
@@ -272,8 +271,8 @@ build_prompt() {
   prompt_end
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt)
-%{%F{yellow}%}%B>%B'
+# PROMPT='%{%f%b%k%}$(build_prompt)
+# %{%F{yellow}%}%B>%B'
 
 zstyle ':completion:*' menu select
 

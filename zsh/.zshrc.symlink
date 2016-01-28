@@ -1,6 +1,6 @@
 # Loaded for all shells.
 
-verbose $fg_bold[red]Loading$reset_color $fg_bold[green]zshrc$reset_color ...
+verbose $fg_bold[red]Loading$reset_color $fg_bold[green]zshrc$reset_color -- by $fg[cyan]$(basename "$0")$reset_color
 
 function() {
   # Cache function results.
@@ -24,7 +24,7 @@ function() {
   nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh'
 
   # Set theme.
-  nice=-18; zplug "$DOTFILES/zsh/themes", from:local, nice:$nice, of:'agross.zsh-theme'
+  # nice=-18; zplug "$DOTFILES/zsh/themes", from:local, nice:$nice, of:'agross.zsh-theme'
 
   # zsh #4 : Load postinit last.
   nice=9;   zplug "$DOTFILES", from:local, nice:$nice, of:'**/postinit.zsh'
@@ -57,7 +57,7 @@ function() {
   options[extended_glob]=$eg
 
   # Finally, ... ----------------------------------------------------------------------------------------
-  # startup-directory ~/PROJECT #/scratch
+  startup-directory ~/PROJECT #/scratch
 
   # Clean up after ourselves.
   undefine-startup-functions

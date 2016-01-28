@@ -1,5 +1,5 @@
 # Make sure we start in /scratch unless specified otherwise.
-verbose ✔ Make sure we start in $fg[yellow]$1$reset_color unless specified otherwise:
+verbose ✔ Make sure we start in $fg[yellow]$1$reset_color unless specified otherwise -- by $fg[cyan]$(basename "$0")$reset_color
 
 if [[ -n $KEEP_DIR ]]; then
   verbose \ \ Keeping current directory $fg[green]$PWD$reset_color

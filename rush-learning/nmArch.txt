@@ -716,7 +716,7 @@ COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 
 	PARSING with awk cut grep sed test tr
 	$ ps aux | less
-	$ ps aux k%cpu | grep chrome 				---> $ kill -<PID>
+	$ ps uxf k%cpu | grep chrome 				---> $ kill -<PID>
 	# killall chrome
 	$ grep <regex> file
 	$ cal | cut -c 3-5

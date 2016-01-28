@@ -20,7 +20,8 @@ for fun in $functions; do
 
   verbose ✔ Caching result of $fg[red]$fun$reset_color \
     with output $fg[green]\"${_function_cache[${fun}_output]}\"$reset_color \
-    and exit code $fg[green]${_function_cache[${fun}_exit_code]}$reset_color
+    and exit code $fg[green]${_function_cache[${fun}_exit_code]}$reset_color \
+    -- by $fg[cyan]$(basename "$0")$reset_color
 
   # Redefine function to return result.
   function $fun () {

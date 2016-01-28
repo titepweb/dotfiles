@@ -1,6 +1,5 @@
 # Loaded for login shells only, i.e. not for screen sessions.
-
-verbose $fg_bold[red]Loading$reset_color $fg_bold[green]zprofile$reset_color ...
+verbose $fg_bold[red]Loading$reset_color $fg_bold[green]zprofile$reset_color -- by $fg[cyan]$(basename "$0")$reset_color
 
 # zsh #1 : run for login shells
 local profile

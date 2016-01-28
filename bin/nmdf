@@ -12,7 +12,7 @@ REPO_BRANCH=master
 APP_URL=https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf
 
 # @todo: use variable instead of value
-app_name=nmdf
+app_name="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
 _symlink=.symlink
 _copy=.copy
 

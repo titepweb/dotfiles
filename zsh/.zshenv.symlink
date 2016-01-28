@@ -14,4 +14,4 @@ autoload -Uz $DOTFILES/zsh/functions/startup/*(:t)
 # Load color support.
 autoload -U colors && colors
 
-verbose $fg_bold[red]Loaded$reset_color $fg_bold[green]zshenv$reset_color
+verbose $fg_bold[red]Loaded$reset_color $fg_bold[green]zshenv$reset_color -- by $fg[cyan]$(basename "$0")$reset_color
