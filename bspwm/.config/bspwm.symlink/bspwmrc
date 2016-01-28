@@ -13,7 +13,7 @@ bspc config normal_frame_opacity 0.0
 bspc config focused_frame_opacity 0.1
 bspc config focus_follows_pointer true
 
-bspc monitor -d $(echo -e '\uf120') $(echo -e '\uf269') $(echo -e '\uf121') $(echo -e '\uf268') $(echo -e '\uf07c') $(echo -e '\uf03e') $(echo -e '\uf008') $(echo -e '\uf0e6') $(echo -e '\uf109') $(echo -e '\uf141')
+bspc monitor -d $(echo -e '\uf120') $(echo -e '\uf1a0') $(echo -e '\uf121') $(echo -e '\uf02d') $(echo -e '\uf07c') $(echo -e '\uf03e') $(echo -e '\uf16a') $(echo -e '\uf0e6') $(echo -e '\uf023') $(echo -e '\uf141')
 # terminal 	Firefox 	coding 	chrome 	file navigation 	graphic 	players 	chatting 	network 	...	
 
 bspc config normal_border_color '#282828'
@@ -38,4 +38,4 @@ bspc rule -a Gimp desktop=^6 follow=on floating=on
 bspc rule -a mpv desktop=^7
 
 
-~/.dotfiles/bspwm/lemonbar/panel &
+panel &

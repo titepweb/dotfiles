@@ -1,0 +1,7 @@
+if [[ -n $ZSH_VERBOSE ]]; then
+  for p in $@; do
+    >&2 printf "%s " "$p"
+  done
+  unset p
+  >&2 printf '\n'
+fi

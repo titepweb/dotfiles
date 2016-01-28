@@ -22,15 +22,6 @@ touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 mkdir -p ~/.config/mpd/playlists
 config "Created ${bold}${blue}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
 
-# zplug
-if [[ ! -e ~/.zplug/zplug ]]; then
-	config "Downloading ${bold}${blue}zplug${reset} ..."
-	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
-	config "Downloaded ${bold}${blue}zplug${reset}!"
-else
-	config "${bold}${blue}zplug${reset} exists. Please check for its update."
-fi
-
 
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -40,7 +31,7 @@ cat << EOF
 │ - lemonbar-git (AUR) (patched with xft support) + xtitle-git (AUR) + dzen2  │
 │ - neovim + vim-plug > vundle + gruvbox > base-16 colorscheme                │
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
-│ - ncmpcpp [mpd|mopidy] mpc cava                                             │
+│ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
 │                                                                             │
 │ OPTIONAL RECOMMENDED SOFTWARES                                              │
 │ - zplug --> + + pretzo + oh-my-zsh + zsh-syntax-highlighting                │

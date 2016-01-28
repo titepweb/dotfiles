@@ -71,6 +71,7 @@ alias netm='netctl-auto enable "wlp16s0-M454"'
 
 alias fig='figlet -f roman.flf -d ~/.fonts/figlet_fonts'
 alias clock='watch -n1 "date '+%D%n%T'|figlet -f roman.flf -d ~/.fonts/figlet_fonts -k"'
+alias vim='nvim'
 
 #-------------------------------------------------------------
 # The 'ls' family (this assumes you use a recent GNU ls).
@@ -276,4 +277,5 @@ PROMPT='%{%f%b%k%}$(build_prompt)
 
 zstyle ':completion:*' menu select
 
+# For autocompletion of command line switches for aliases, add the following to: 
 setopt completealiases

@@ -99,7 +99,9 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 		(os-prober is necessary for detecting other OS installed)
 	# grub-install --recheck /dev/sda
 	# grub-mkconfig -o /boot/grub/grub.cfg
-	NOTE: how about syslinux, EFISTUB, systemd-boot ? 
+	NOTE: in case of dualboot, use easy-bcd to chain-boot to Linux, use boot.wim for repairing windows boot.
+	NOTE: Recommended : let Linux's grub manage boot menu (repeat grub-install & grub-mkconfig above) 
+	NOTE: how about syslinux, EFISTUB, [systemd-boot] ? 
 --------------------
 7. 
 	# echo marchcom > /etc/hostname
@@ -218,7 +220,7 @@ ONE LINE:
 	# ntfs-3g /dev/sda4 /mnt/sda4
 
 ;================[ MAKE ARCH BEAUTIFUL ]================
-Yaourt--------------------------------
+Yaourt-------------------------------- how about : pacaur, aura?...
 Tham khao: https://archlinux.fr/yaourt-en
 	 64 sudo vim /etc/pacman.conf
 	- uncomment multilib repo
@@ -350,7 +352,7 @@ One could also run ntpd -qg as root.
 LINUX ALTERNATIVE SOFTWARES
 ===========================
 MUSIC PLAYER --------------------------------
-	Audiophile (support bit-perfect) : [audacious]  DeaDBeeF
+	Audiophile (support bit-perfect) : [audacious]  DeaDBeeF sonata
 	Library  : musique , Rhythmbox , spotify
 	# pacman -S ncmpcpp mpd
 VIDEO PLAYER --------------------------------
@@ -410,9 +412,11 @@ reader 			: [zuthura] + plugins: zathura-pdf-mupdf zathura-djvu (0.2.0) : https:
 pdf reader	: mupdf
 Player			: mpc (scripts) --> [ncmpcpp](backend:mpd) OR [clerk](mppc as backend) https://github.com/carnager/clerk 		
 Player 			: mopidy (server) with spotify plugin + ncmpcpp (client)  	cmus 	MoC +-gmusicproxy
+codec 			: flac
 Video player: smplayer/mpv chon /usr/bin/mpv trong option->preferences->general
 Visualizer 	: mpdviz cava
-downloader 	: youtube-dl	[rtorrent] 	wget 	curl/gopher transmission-remote-cli (torrent client) seedbox rutorrent deluge 
+http/fpt 		: youtube-dl 	wget 	curl/gopher  deluge aria2 + flashgot + uget
+torrent			: [rtorrent] transmission-remote-cli (torrent client) seedbox rutorrent qbittorent 
 Set wall		: [feh](0.3MB) << nitrogen
 						: pulseaudio
 *Statusbar	: [lemonbar]	tint2/tint3		dzen2	conky	bmpanel2	
@@ -425,7 +429,8 @@ text expand	: Snippy
 fun 			  : cmatrix cowsay weathercli 	tty-clock
 Browser 	  : [youtube-viewer] [firefox] [chromium] qutebrowser iceweasel lynx
 markdown editors : [haroopad]
-
+ previews       > unixporn screenshots
+ pygments       > add syntax highlighting to cat and less commands
 
 Browser > GUI	:	firefox + pentadactyl - keyboard-only web browsing
 			chromium + Vrome : https://github.com/jinzhu/vrome/tree/master
@@ -691,6 +696,9 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 	+ git submodule
 	+ tmux + tm (nicknisi) + vim
 	+ zsh / base16-shell
+2016-01-27
+	+ man sxhkd
+
 
 COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 -----------------------------------------------

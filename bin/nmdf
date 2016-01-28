@@ -20,8 +20,8 @@ _copy=.copy
 
 function help {
 cat << EOF
--------------------------------------------------------------------------------
-                        THE WORKFLOW OF USING nmdf 
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                nmdf WORKFLOW                                │
 
   (1) Update/Clone dotfiles : $(basename $0) -u [-r repository] [-d path to dir]
 
@@ -51,7 +51,7 @@ cat << EOF
       be generated.
 
   (*) Tips: $(basename $0) -uiba
--------------------------------------------------------------------------------
+ -----------------------------------------------------------------------------
                       The CORE CHARACTERISTICS of nmdf
 
   1. flexibility : cross-platform (not tested yet)
@@ -91,7 +91,7 @@ cat << EOF
 
   7. automatically decide git clone/pull based on whether nmdf is run remotely.
 
--------------------------------------------------------------------------------
+ -----------------------------------------------------------------------------
         The ORAGNIZATION MODEL of DOTFILES UNDER the MANAGEMENT of nmdf 
 
  dotfiles                 # topic-centric organization dotfiles
@@ -101,19 +101,22 @@ cat << EOF
  │  └─ ...                # 
  ├─ temp (optional)       # --> add this folder into .gitignore
  ├─ nmdf.log              # --> add this folder into .gitignore
- ├─ example               # 
- │  ├─ nmExplample.md     # --> a decent place to type your discovering process... 
- │  ├─ related files ...  # 
- │  ├─ ...
- │  ├─ .exclude-platforms # nmdf #1: specifies excluded platforms for this topic
- │  ├─ example.symlink    # nmdf #2a: symlinked to ~/.example if ...
- │  ├─ example.copy       # nmdf #2b: copied to ~/.example if ...
- │  ├─ .install.sh        # nmdf #3: performs additional installation after symlinking
+ ├─ sample topic          # nmdf #1: scan for topics, except *.ignore ones  
+ │  ├─ .exclude-platforms # nmdf #2: specifies excluded platforms for this topic
+ │  ├─ *[.symlink].ignore # nmdf #3: ignore these files/directories
+ │  ├─ *[.copy].80%       # nmdf #3: ignore these files/directories (dev files)
+ │  ├─ any_name.symlink   # nmdf #3: symlinked to ~/.any_name
+ │  ├─ any_name.copy      # nmdf #3: copied to ~/.any_name
+ │  ├─ .install.sh        # nmdf #4: performs additional installation
+ │  ├─ ...                # --> use nice=# for zplug to load scripts orderly
  │  ├─ zprofile.zsh       # zsh #1: run for login shells
  │  ├─ path.zsh           # zsh #2: modifies \$PATH
- │  ├─ something.zsh      # zsh #3: additional setup
+ │  ├─ the_others.zsh     # zsh #3: topic-specific aliases
  │  ├─ postinit.zsh       # zsh #4: run after additional setup
- │  └─ completion.zsh     # zsh #5: zsh completion setup
+ │  ├─ completion.zsh     # zsh #5: zsh completion setup
+ │  ├─ ...
+ │  ├─ nmExplample.md     # a decent place to type your discovering process... 
+ │  └─ other files
  └─ git
     ├─ bin                # contains git scripts
     │  └─ git-specific-script
@@ -121,12 +124,13 @@ cat << EOF
     ├─ aliases.zsh        # sets up git aliases
     ├─ path.zsh           # adds dotfiles/git/bin to \$PATH
     └─ ...
--------------------------------------------------------------------------------
+ -----------------------------------------------------------------------------
         ************************************************************
         *                        WARNING:                          *
         *    Make sure that your sensitive data (SSH keys, ...)    *
         *              are not included in dotfiles.               *
         ************************************************************
+└─────────────────────────────────────────────────────────────────────────────┘
 EOF
 exit 0
 }
@@ -517,7 +521,7 @@ install_dotfiles () {
     # fi
 
     # Find direct child directories (topics), exclude those starting with dots.
-    local topics="$(/usr/bin/find "$dotDir" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -path '*/*.ignore/*' )"
+    local topics="$(/usr/bin/find "$dotDir" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
     while IFS=$'\n' read -r topic; do
       [[ -z "$topic" ]] && continue
 
@@ -663,7 +667,7 @@ install_dotfiles () {
 
   backupDir=$home/dotfiles-backup     #--> This folder should not be in $dotDir because if we delete $dotDir, we also delete $backupDir
   # dotDir will be used to create symlink from $dotDir to $dotDir 
-  dotDirIns=$home/.dotfiles           #--> Don't change this because bashrc, ... use the path ~/.dotfiles
+  dotDirIns=$home/.dotfiles           #--> Don't change this because bashrc and zsh setup contain: 'export DOTFILES=~/.dotfiles'
 
   # If user didn't provide -d path/to/directory, ...
   if [ -z "$dotDir" ]; then

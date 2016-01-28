@@ -11,7 +11,3 @@ export NNTPSERVER='snews://news.eternal-september.org:563'
 export PANEL_FIFO=/tmp/panel.fifo
 export EDITOR=nvim
 export BROWSER=elinks
-
-[[ -d "$HOME/.dotfiles/bin" ]] && PATH="$HOME/.dotfiles/bin:$PATH"
-[[ -d "$HOME/.dotfiles/bspwm/lemonbar" ]] && PATH="$HOME/.dotfiles/bspwm/lemonbar:$PATH"
-[[ -d "$HOME/.dotfiles/bspwm/dzen2" ]] && PATH="$HOME/.dotfiles/bspwm/dzen2:$PATH"

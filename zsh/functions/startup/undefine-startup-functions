@@ -1,0 +1,24 @@
+# Unfunction every function defined in the same folder as this file.
+# http://stackoverflow.com/a/28336473/149264
+local this_directory=${${(%):-%x}:h}
+
+verbose ✔ Unfunction every funtion in $fg[yellow]$this_directory$reset_color
+
+local -a functions
+functions=($this_directory/*(:t))
+
+# First print what will be unfunctioned. We use two loops, one for printing,
+# another for the actual unfunction.
+local fun
+for fun in $functions; do
+  verbose \ \ Unfunction $fg[red]$fun$reset_color
+done
+
+for fun in $functions; do
+  unfunction $fun
+done
+
+# Kill function cache.
+unset function_cache
+
+unset ZSH_VERBOSE

@@ -1,0 +1,10 @@
+# Loaded for login shells only, i.e. not for screen sessions.
+
+verbose $fg_bold[red]Loading$reset_color $fg_bold[green]zprofile$reset_color ...
+
+# zsh #1 : run for login shells
+local profile
+for profile in $DOTFILES/**/zprofile.zsh(N); do
+	verbose ✔ source $fg[green]$profile$reset_color
+  source $profile
+done

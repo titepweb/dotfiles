@@ -27,13 +27,13 @@ NMDF
 2. [agross's bootstrap](https://github.com/agross/dotfiles/blob/master/bootstrap) supports cross-platform bootstrapping.
   * Based on [Holman's bootstrap](https://github.com/holman/dotfiles/blob/master/script/bootstrap)
   * He also use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins.
+  * His brilliant way to manage aliases.sh
 
 (NEO)VIM as IDE vs SUBLIME
 ==========================
 [From Sublime to Vim](http://blog.kewah.com/2014/from-sublime-text-to-vim/)
 [Shu Uesugi's .vimrc](http://chibicode.com/vimrc/)
 [Why Neovim is Better than Vim](http://geoff.greer.fm/2015/01/15/why-neovim-is-better-than-vim/)
-
 
 ==================================================================
 ## installed software
