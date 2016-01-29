@@ -8,8 +8,8 @@ typeset -xr DOTFILES="$HOME/.dotfiles"
 
 # Prepend our startup function path and remove duplicates.
 typeset -Ua fpath
-fpath=("$DOTFILES/zsh/functions/startup" $fpath)
-autoload -Uz $DOTFILES/zsh/functions/startup/*(:t)
+fpath=("$DOTFILES/zsh/startup" $fpath)
+autoload -Uz $DOTFILES/zsh/startup/*(:t)
 
 # Load color support.
 autoload -U colors && colors

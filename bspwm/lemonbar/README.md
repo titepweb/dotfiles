@@ -1,3 +1,4 @@
+### Proper configuration for panel
 You need
 ```bash
 export PANEL_FIFO=/tmp/panel-fifo
@@ -11,4 +12,4 @@ and
 ```bash
 bspc control --subscribe > "$PANEL_FIFO" &
 ```
-in your panel script. If you still have problems you should probably post your ~/.xinitrc and panel script.
+in your panel script.

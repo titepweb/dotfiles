@@ -1,18 +1,9 @@
-export XDG_CONFIG_HOME=~/.config
-export XDG_DATA_HOME=~/.config
+# -----------------------------------------------
+# Set up bspwm & lemonbar
+# -----------------------------------------------
 
-export HACHIMAN="30:85:A9:9A:C7:A2"
-
-# enable ribbon in libreoffice
-export LO_USE_NOTEBOOKBAR=1
-
-export NNTPSERVER='snews://news.eternal-september.org:563'
-export EDITOR=nvim
-export BROWSER=elinks
-
-
-# export english/us/utf8 as language env variable
-export LANG=en_US.UTF-8
+# fix bspwm for running eclipse and android studio (java not correctly detecting non-reparenting window managers)
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # lemonbar
 export PANEL_FIFO=/tmp/panel.fifo

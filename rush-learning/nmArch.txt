@@ -698,6 +698,10 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 	+ zsh / base16-shell
 2016-01-27
 	+ man sxhkd
+2016-01-28
+	+ zplug
+2016-01-29
+	+ man zshmisc
 
 
 COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
@@ -713,6 +717,7 @@ COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 	$ which {command}
 	$ ls -l $(which ls)
 	$ groups
+	$ env
 
 	PARSING with awk cut grep sed test tr
 	$ ps aux | less

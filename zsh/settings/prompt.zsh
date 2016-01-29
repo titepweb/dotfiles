@@ -7,3 +7,5 @@ unsetopt PROMPT_SP
 # Load the prompt theme system.
 autoload -U promptinit
 promptinit
+
+# prompt adam2 # Preview : $ prompt -p

@@ -20,9 +20,9 @@ Step1--- On machine A,B ---
 Step2--- Modify dot files on machine A, then push changes to git repository ---
    $ git config user.email "minhpara@gmail.com"
    $ git config user.name "minhpara"
-   $ git add {folder(s)/file(s)}
+   $ git add {folder(s)/file(s)} 			--> add file(s) to tracked list (called 'staging')
    $ git status
-   $ git commit -am 'your comment here'
+   $ git commit -am 'your comment here' 	--> ~ nop bai kiem tra
    $ git push origin master
 	--> type your username:password
    One line:
@@ -120,13 +120,13 @@ zsh is better than bash:
 	09-cycle through command history		ps {press down n times}
 	10-syntax highlighting (green = valid, red = invalid)
 
-pre-configured zsh with --> oh-my-zsh: http://ohmyz.sh/
-	startup files: .zshenv, .zprofile, [.zshrc], .zlogin
+.zshenv, .zprofile, .zshrc, .zlogin
+-------------------------------------
 
 
 
 Other stuffs -------------------------------------
-GTK theme settings:
-Gtk2 Theme 	: lxappearance	~/.gtkrc-2.0	http://samuelhewitt.com/paper/theme
-Gtk3 Theme	: lxappearance	~/.config/gtk-3.0/setting.ini
+GTK theme settings: (lxappearance)
+Gtk2 Theme 	:	~/.gtkrc-2.0	http://samuelhewitt.com/paper/theme
+Gtk3 Theme	:	~/.config/gtk-3.0/setting.ini
 Vertex Dark

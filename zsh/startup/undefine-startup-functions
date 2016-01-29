@@ -11,7 +11,7 @@ functions=($this_directory/*(:t))
 # another for the actual unfunction.
 local fun
 for fun in $functions; do
-  verbose \ \ Unfunction $fg[red]$fun$reset_color
+  verbose – Unfunction $fg[red]$fun$reset_color
 done
 
 for fun in $functions; do

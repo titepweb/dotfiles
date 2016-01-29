@@ -12,10 +12,10 @@ if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	config "Downloaded ${bold}${blue}vim-plug${reset} plugins manager for neovim."
 fi
-# Manually run :PlugInstall to install plugins for neovim, OR : 
-config "Downloading ${bold}${blue}plugins${reset} for neovim."
-nvim +PlugInstall +qall
-config "Downloaded ${bold}${blue}plugins${reset} for neovim."
+# @FIXME: nvim not quit after install
+# nvim +PlugInstall
+# nvim +PlugInstall +qall
+# config "Downloaded ${bold}${blue}plugins${reset} for neovim."
 
 # mpd
 touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
@@ -42,12 +42,14 @@ cat << EOF
 │ - redshift                                                                  │
 │ - htop htop-temperature (AUR)                                               │
 │ - i3lock + xautolock                                                        │
+│ - NORTIFICATION : twmn                                                      │
 │ - paper-gtk-theme Ark-Darker | ultra-flat-icons                             │
 │                                                                             │
 │ CONFIGURATION                                                               │
 │ - $ chsh -s $(which zsh) <-- set zsh as your login shell                    │
 │ - ~/.dotfiles/lemonbar/panel_config                                         │
 │ - ~/.config/bspwm/bspwmrc <-- $ xprop | grep CLASS <-- pacman -S xorg-utils │
+│ - Manually run :PlugInstall for neovim (and then :PlugClean if needed)      │
 │ - Manually configure ~/muttrc with your emai address & password             │
 │ - Add your feeds in ~/.newsbeuter/urls                                      │
 └─────────────────────────────────────────────────────────────────────────────┘
