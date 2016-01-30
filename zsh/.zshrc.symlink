@@ -72,30 +72,37 @@ function() {
 
 clear
 
-#-------#
+# ------#
 # THEME #
-#-------#
+# ------#
 
-# Base16 Shell
-if [ -z "$THEME" ]; then
-    export THEME="base16-chalk"
-fi
-if [ -z "$BACKGROUND" ]; then
-    export BACKGROUND="dark"
-fi
-
-BASE16_SHELL="$DOTFILES/zsh/base16-shell/$THEME.$BACKGROUND.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-# source $BASE16_SHELL
+THEMEDIR="$DOTFILES/zsh/colorscheme"
+defaulttheme="customscheme.sh"
+[[ -z "$THEME" ]] && export THEME="$THEMEDIR/$defaulttheme"
+source "$THEME"
 
 # reload zsh config
 alias reload!='source ~/.zshrc'
 
 # set the background color to light
-function light() {
-    export BACKGROUND="light" && reload!
+function nexttheme() {
+  local choose=false
+  local count=0
+  for file in $(find "$THEMEDIR" -maxdepth 1 -type f) ; do
+    count=$(($count+1))
+    if [[ $count == 1 ]]; then local firstfile="$file" ; fi
+    if [[ $choose == "true" ]]; then choose="$file" ; fi
+    if [[ $file == "$THEME" ]]; then choose=true ; fi
+  done
+  echo "Ketthuc=$choose"
+  echo
+  if [[ $choose == "true" ]]; then choose="$firstfile" ; fi
+  if [[ $choose != "$THEME" ]]; then export THEME="$choose" && reload! ; fi
+  testcolorscheme
 }
 
-function dark() {
-    export BACKGROUND="dark" && reload!
+function testcolorscheme(){
+  esc=""
+  colors=($(xrdb -query | sed -n 's/.*color\([0-9]\)/\1/p' | sort -nu | cut -f2))
+  for i in {0..7}; do echo -en "${esc}[0;3${i}m▉${esc}[0;9${i}m■" ; done; echo -e "\n"
 }

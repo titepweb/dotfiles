@@ -52,5 +52,8 @@ cat << EOF
 │ - Manually run :PlugInstall for neovim (and then :PlugClean if needed)      │
 │ - Manually configure ~/muttrc with your emai address & password             │
 │ - Add your feeds in ~/.newsbeuter/urls                                      │
+systemctl --user enable redshift.service
+systemctl --user start redshift.service
+~/redshift.com
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF

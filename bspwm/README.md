@@ -1,3 +1,11 @@
+COLORSCHEME
+===========
+Tools : 
++ use [gruvbox](?) , [base16-shell](https://github.com/morhetz/gruvbox) , [solarized](http://ethanschoonover.com/solarized) ...
++ [or create your own](http://ciembor.github.io/4bit)
++ [convert hex-rgb](http://www.zonums.com/online/color_converter]
++ [convert colorschemes](http://stayradiated.github.io/termcolors-web)
+
 REFERENCE FOR CONFIGURING BSPWM
 ===============================
 1. [bspwm for dummies](https://github.com/windelicato/dotfiles/wiki/bspwm-for-dummies)

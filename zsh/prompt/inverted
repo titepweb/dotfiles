@@ -165,7 +165,15 @@ build_prompt() {
 
 PROMPT='%{%f%b%k%}$(build_prompt)
 %F{red}❯%f '
+hg_in_repo() {
+    hg branch 2> /dev/null | awk '{print "on "}'
+}
 
+hg_branch() {
+    hg branch 2> /dev/null | awk '{print $1}'
+}
+
+RPROMPT='$(date +"%_H:%M")'
 # -----------------------------------------------
 #  END
 # -----------------------------------------------

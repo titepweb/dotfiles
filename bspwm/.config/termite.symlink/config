@@ -1,9 +1,7 @@
 # ----------------------------------------------------------------------
-# file:     ~/.config/termite/config
-# man termite for shortcut keys
-# Tools : 
-#   + https://github.com/chriskempson/base16-builder/tree/master/templates
-#   + http://stayradiated.github.io/termcolors-web/
+# file: $XDG_CONFIG_HOME/termite/config
+# $ man -k . == whatis -r . == apropos .
+# $ man -k . | grep termite == man -k termite --> man termite.config
 # ----------------------------------------------------------------------
 
 [options]
@@ -44,35 +42,43 @@ browser = firefox
 foreground = #f5f2df
 foreground_dim = #888888
 foreground_bold = #f5f2df
-background = #002b36
+background = #001620
 cursor = #93a1a1
-
 # if unset, will reverse foreground and background
-#highlight = #839496
+# highlight = #839496
 
+# --- standard colors ---
 # black
-color0  = #0b0d22
-color8  = #252525
+color0 = #000000
+# bright_black
+color8 = #000000
 # red
-color1  = #eb0c4f
-color9  = #ff4262
+color1 = #9b0e23
+# bright_red
+color9 = #ed3a55
 # green
-color2  = #97bf5f
-color10 = #b1e06f
+color2 = #239b0e
+# bright_green
+color10 = #55ed3a
 # yellow
-color3  = #cccc3d
-color11 = #ebe200
+color3 = #9b860e
+# bright_yellow
+color11 = #edd23a
 # blue
-color4  = #3a9495
-color12 = #0adcdd
+color4 = #0e239b
+# bright_blue
+color12 = #3a55ed
 # magenta
-color5  = #850cd5
-color13 = #d900ff
+color5 = #860e9b
+# bright_magenta
+color13 = #d23aed
 # cyan
-color6  = #7accc5
-color14 = #66fff2
+color6 = #0e9b86
+# bright_cyan
+color14 = #3aedd2
 # white
-color7  = #f5f2df
+color7 = #dfdfdf
+# bright_white
 color15 = #ffffff
 
 [hints]
