@@ -2,29 +2,83 @@
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" == "" ] || exit 0
-# startup a "default" session if non currently exists
-# tmux has-session -t _default || tmux new-session -s _default -d
 
-# present menu for user to choose which workspace to open
-PS3="Please choose your session: "
-options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh")
-echo "Available sessions"
-echo "------------------"
-echo " "
-select opt in "${options[@]}"
-do
-	case $opt in
-		"New Session")
-			read -p "Enter new session name: " SESSION_NAME
-			tmux new -s "$SESSION_NAME"
-			break
-			;;
-		"zsh")
-			zsh --login
-			break;;
-		*)
-			tmux attach-session -t $opt
-			break
-			;;
-	esac
-done
+function check_session() {
+	local PROJECT_NAME="$1"
+	local PROJECT_DIR="$PWD"
+	local tmux_conf="$PROJECT_DIR/${PROJECT_NAME}.tmux"
+
+	# startup a "default" session if non currently exists
+	# tmux has-session -t _default || tmux new-session -s _default -d
+
+	tmux has-session -t $PROJECT_NAME 2>/dev/null
+	if [ "$?" -eq 1 ] ; then
+	    echo "No Session found. Loading configuration file \`$tmux_conf\`"
+	    # pushd $PROJECT_DIR
+	    source $tmux_conf
+	    # popd
+	else
+	    echo "Session found. Connecting."
+			tmux attach-session -t $PROJECT_NAME
+	fi
+}
+
+### MAIN ###
+
+if [ ! $# == 0 ]; then
+	check_session "$*"
+else
+	# present menu for user to choose which workspace to open
+	PS3="Enter session: "
+	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh")
+	echo "Available sessions"
+	echo "------------------"
+	echo " "
+	select opt in "${options[@]}"
+	do
+		case $opt in
+			"New Session")
+				read -p "Enter new session name: " SESSION_NAME
+				tmux new -s "$SESSION_NAME"
+				break
+				;;
+			"zsh")
+				zsh --login
+				break;;
+			*)
+				tmux attach-session -t $opt
+				break
+				;;
+		esac
+	done
+fi
+
+return
+### A SAMPLE OF PRE-CONFIGURED TMUX ENVIRONMENT ###
+
+#!/bin/sh
+PROJECT_NAME=$(basename "$0") # /!\ must be UNIQUE
+
+tmux -2 new-session -d -s $PROJECT_NAME
+
+# Setup a window for developing
+tmux new-window -t $PROJECT_NAME:1 -n "vim"
+tmux send-keys "ls" C-m
+tmux split-window -v -p 10
+tmux send-keys "net" C-m
+tmux split-window -h -p 50
+
+# Setup a window for ...
+tmux new-window -t $PROJECT_NAME:2 -n 'pasta'
+tmux send-keys "ls" C-m
+tmux split-window -h
+tmux select-pane -t 1
+tmux split-window -v
+tmux resize-pane -D 10
+
+# Set default window
+tmux select-window -t $PROJECT_NAME:1
+tmux select-pane -t 1
+
+# Attach to session
+tmux -2 attach-session -t $PROJECT_NAME
