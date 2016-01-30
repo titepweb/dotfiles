@@ -1,63 +1,13 @@
 #!/bin/sh
 
-# abort if we're already inside a TMUX session
-[ "$TMUX" == "" ] || exit 0
-
-function check_session() {
-	local PROJECT_NAME="$1"
-	local PROJECT_DIR="$PWD"
-	local tmux_conf="$PROJECT_DIR/${PROJECT_NAME}.tmux"
-
-	# startup a "default" session if non currently exists
-	# tmux has-session -t _default || tmux new-session -s _default -d
-
-	tmux has-session -t $PROJECT_NAME 2>/dev/null
-	if [ "$?" -eq 1 ] ; then
-	    echo "No Session found. Loading configuration file \`$tmux_conf\`"
-	    # pushd $PROJECT_DIR
-	    source $tmux_conf
-	    # popd
-	else
-	    echo "Session found. Connecting."
-			tmux attach-session -t $PROJECT_NAME
-	fi
-}
-
-### MAIN ###
-
-if [ ! $# == 0 ]; then
-	check_session "$*"
-else
-	# present menu for user to choose which workspace to open
-	PS3="Enter session: "
-	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh")
-	echo "Available sessions"
-	echo "------------------"
-	echo " "
-	select opt in "${options[@]}"
-	do
-		case $opt in
-			"New Session")
-				read -p "Enter new session name: " SESSION_NAME
-				tmux new -s "$SESSION_NAME"
-				break
-				;;
-			"zsh")
-				zsh --login
-				break;;
-			*)
-				tmux attach-session -t $opt
-				break
-				;;
-		esac
-	done
-fi
-
-return
 ### A SAMPLE OF PRE-CONFIGURED TMUX ENVIRONMENT ###
 
+function create_tmuxconf() {
+	PROJECT_NAME=$(basename $1)
+	tmux_conf="$1"
+	cat << EOF > $tmux_conf
 #!/bin/sh
-PROJECT_NAME=$(basename "$0") # /!\ must be UNIQUE
+PROJECT_NAME=$PROJECT_NAME # /!\ must be UNIQUE
 
 tmux -2 new-session -d -s $PROJECT_NAME
 
@@ -82,3 +32,57 @@ tmux select-pane -t 1
 
 # Attach to session
 tmux -2 attach-session -t $PROJECT_NAME
+EOF
+}
+
+# abort if we're already inside a TMUX session
+[ "$TMUX" == "" ] || exit 0
+
+if [ ! $# == 0 ]; then
+	if [ ! $# == 1 ]; then
+		echo "Session name must not contain spaces."
+		exit 0
+	fi
+	# startup a "default" session if non currently exists -----------------
+	tmux_conf=$1
+	tmux has-session -t $tmux_conf 2>/dev/null
+	if [ "$?" -eq 1 ] ; then
+	    echo "No Session found."
+	    if [ ! -f $tmux_conf ]; then
+	    	read -p "$tmux_conf not exists. Create one [y/n] ?" -n 1 -r
+	    	echo 
+	    	[[ $REPLY =~ ^[Yy]$ ]] && create_tmuxconf $tmux_conf
+	    fi
+	    echo "Loading configuration file \`$PWD/$tmux_conf\`"
+	    # pushd $PROJECT_DIR
+	    source "$PWD/$tmux_conf"
+	    # popd
+	else
+	    echo "Session found. Connecting."
+			tmux attach-session -t $tmux_conf
+	fi
+else
+	# present menu for user to choose which workspace to open -------------
+	PS3="Enter session: "
+	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh")
+	echo "Available sessions"
+	echo "------------------"
+	echo " "
+	select opt in "${options[@]}"
+	do
+		case $opt in
+			"New Session")
+				read -p "Enter new session name: " SESSION_NAME
+				tmux new -s "$SESSION_NAME"
+				break
+				;;
+			"zsh")
+				zsh --login
+				break;;
+			*)
+				tmux attach-session -t $opt
+				break
+				;;
+		esac
+	done
+fi
