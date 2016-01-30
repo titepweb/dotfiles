@@ -71,3 +71,31 @@ function() {
 }
 
 clear
+
+#-------#
+# THEME #
+#-------#
+
+# Base16 Shell
+if [ -z "$THEME" ]; then
+    export THEME="base16-chalk"
+fi
+if [ -z "$BACKGROUND" ]; then
+    export BACKGROUND="dark"
+fi
+
+BASE16_SHELL="$DOTFILES/zsh/base16-shell/$THEME.$BACKGROUND.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# source $BASE16_SHELL
+
+# reload zsh config
+alias reload!='source ~/.zshrc'
+
+# set the background color to light
+function light() {
+    export BACKGROUND="light" && reload!
+}
+
+function dark() {
+    export BACKGROUND="dark" && reload!
+}

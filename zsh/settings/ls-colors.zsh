@@ -54,7 +54,6 @@ ls_colors=(
   'di=33'           #  DIR Directory
   'ln=36'           #  SYMLINK, LINK, LNK  Symbolic link. 
                     #  If you set this to ‘target’ instead of a numerical value, the color is as for the file pointed to.
-#  MULTIHARDLINK 00 # regular file with more than one link
   'pi=95'           #  FIFO, PIPE  Named pipe
   'do=35'           #  DOOR  Door
   'bd=93'           #  BLOCK, BLK  Block device
@@ -63,21 +62,23 @@ ls_colors=(
   'so=35'           #  SOCK  Socket
   'su=37;41'        #  SETUID  File that is setuid (u+s)
   'sg=30;43'        #  SETGID  File that is setgid (g+s)
-# CAPABILITY 30;41 # file with capability
   'tw=30;42'        # dir that is sticky and other-writable (+t,o+w)
   'ow=34;42'        # dir that is other-writable (o+w) and not sticky
   'st=37;44'        # dir with the sticky bit set (+t) and not other-writable
+
 # This is for files with execute permission:
   "ex=$executable"  # ex  EXEC  Executable file (i.e. has ‘x’ set in permissions)
   # 'mi=1'          #  MISSING Non-existent file pointed to by a symbolic link (visible when you type ls -l)
   # 'lc=2'          #  LEFTCODE, LEFT  Opening terminal code
   # 'rc=3'          #  RIGHTCODE, RIGHT  Closing terminal code
   # 'ec=4'          #  ENDCODE, END  Non-filename text
+
 # Windows executable files
   "*.cmd=$executable"
   "*.exe=$executable"
   "*.com=$executable"
   "*.bat=$executable"
+
 # archives or compressed (bright red)
   "*.tar=$archive"
   "*.tgz=$archive"
@@ -107,6 +108,7 @@ ls_colors=(
   "*.cpio=$archive"
   "*.7z=$archive"
   "*.rz=$archive"
+
 # image formats
   '*.jpg=35'
   '*.jpeg=35'
@@ -150,6 +152,7 @@ ls_colors=(
   '*.xcf=35'
   '*.xwd=35'
   '*.yuv=35'
+  
 # http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
   '*.axv=35'
   '*.anx=35'
@@ -183,26 +186,3 @@ export LS_COLORS=${(j.:.)ls_colors}
 # Use the ls colors for completion lists
 zstyle ':completion:*:default' list-colors $ls_colors
 unset ls_colors
-
-#--------------------------------
-# aliases to always use color output for `grep`
-#--------------------------------
-# Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-  colorflag="--color"
-else # OS X `ls`
-  colorflag="-G"
-fi
-
-
-# List files colorized in long format, add / for directories, group directories first
-alias ls="ls ${colorflag}=auto -lF --human-readable --group-directories"
-
-# List all files colorized in long format, including dot files
-alias la="ls --all"
-
-# List only directories
-alias lsd="ls -F | grep '^d'"
-
-# Colorize grep output
-alias grep='grep ${colorflag}=auto --ignore-case --binary-files=without-match --line-number --initial-tab'

@@ -208,3 +208,6 @@ set laststatus=2 " Always show airline bar
 
 " other mappings
 noremap <Leader>W :w !sudo tee % > /dev/null
+
+" 
+set clipboard=unnamed

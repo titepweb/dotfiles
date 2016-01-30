@@ -36,6 +36,7 @@ bspc rule -a pcmanfm desktop=^5
 bspc rule -a Gimp desktop=^6 follow=on floating=on
 
 bspc rule -a mpv desktop=^7
+bspc rule -a smplayer desktop=^7
 
 
 panel &

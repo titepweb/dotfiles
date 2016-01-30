@@ -30,3 +30,6 @@ setopt hist_verify
 
 # Remove superfluous blanks from each command line being added to the history list. 
 setopt hist_reduce_blanks
+
+# Preventing duplicate lines in the history
+setopt HIST_IGNORE_DUPS 
