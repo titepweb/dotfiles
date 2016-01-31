@@ -72,9 +72,8 @@ function() {
 
 clear
 
-# ------#
-# THEME #
-# ------#
+# COLORSCHEME
+#==============================================================================#
 
 THEMEDIR="$DOTFILES/zsh/colorscheme"
 defaulttheme="customscheme.sh"

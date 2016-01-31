@@ -37,28 +37,35 @@ EOF
 [ "$TMUX" == "" ] || exit 1
 
 if [ ! $# == 0 ]; then
-	if [ ! $# == 1 ]; then
+	# evaluate parameters -------------------------------------------------
+	[[ ! $# == 1 ]] && echo "Too many parameters. Only \`$1\` is used."
+	if [[ "$1" = "${1%[[:space:]]*}" ]]; then
+		echo "Checking for \`$1\` ..."
+		tmux_conf=$1
+	else
 		echo "Session name must not contain spaces."
-		exit 1
+		tmux_conf="$(echo -e "$1" | tr -d '[[:space:]]')"
+  	read -p "Use \`$tmux_conf\` instead [y/n] ?" -n 1 -r && echo
+  	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
 	fi
 	# startup a "default" session if non currently exists -----------------
-	tmux_conf=$1
 	tmux has-session -t $tmux_conf 2>/dev/null
 	if [ "$?" -eq 1 ] ; then
-	    echo "No Session found."
+	    echo "--> No Session found."
 	    if [ ! -f $tmux_conf ]; then
-	    	read -p "$tmux_conf not exists. Create one [y/n] ?" -n 1 -r
-	    	echo 
+	    	echo "--> The file \`$tmux_conf\` not exists. "
+	    	read -p "Create one in the current working directory [y/n] ?" -n 1 -r && echo
 	    	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
 	    	create_tmuxconf "$tmux_conf"
 	    	tmux_conf="$tmux_conf.tmux"
 	    fi
 	    echo "Loading configuration file \`$PWD/$tmux_conf\`"
+	    # Use pushd and popd for faster CLI navigation
 	    # pushd $PROJECT_DIR
 	    source "$PWD/$tmux_conf"
 	    # popd
 	else
-	    echo "Session found. Connecting."
+	    echo "Session found. Connecting $tmux_conf ..."
 			tmux attach-session -t $tmux_conf
 	fi
 else

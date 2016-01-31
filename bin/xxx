@@ -1,6 +1,17 @@
 #!/bin/bash
 #xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
 
+#=====================
+# remove spaces
+FOO=' test test test '
+FOO_NO_WHITESPACE="$(echo -e "${FOO}" | tr -d '[[:space:]]')"
+echo -e "FOO_NO_WHITESPACE='${FOO_NO_WHITESPACE}'"
+# > FOO_NO_WHITESPACE='testtesttest'
+echo -e "length(FOO_NO_WHITESPACE)==$(echo -ne "${FOO_NO_WHITESPACE}" | wc -m)"
+# > length(FOO_NO_WHITESPACE)==12
+exit
+
+
 read lo int1 int2 <<< `ip link | sed -n 's/^[0-9]: \(.*\):.*$/\1/p'`
 if iwconfig $int1 >/dev/null 2>&1; then
     wifi=$int1 ; eth0=$int2

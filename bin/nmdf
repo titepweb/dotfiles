@@ -127,8 +127,8 @@ cat << EOF
  -----------------------------------------------------------------------------
         ************************************************************
         *                        WARNING:                          *
-        *    Make sure that your sensitive data (SSH keys, ...)    *
-        *              are not included in dotfiles.               *
+        *   Make sure that your sensitive data (email password,    *
+        *  ssh keys, API keys, etc.are) not included in dotfiles.  *
         ************************************************************
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
@@ -535,7 +535,7 @@ install_dotfiles () {
       # Remove the taling .symlink in the names of all the sub-directories of another *.symlink directory
       RemoveTailing "$topic"
 
-      # Find files and directories named *.symlink below each topic directory, exclude files in 80% directories.
+      # Recursively search any named *.symlink files/directories below each topic directory, exclude files in 80% directories.
       # local symlinks="$(/usr/bin/find "$topic" -mindepth 1 -maxdepth 1 \( -type f -or -type d \) -name '*.symlink')"
       local symlinks="$(/usr/bin/find "$topic" -mindepth 1 \
         -not -path "*/*.ignore/*" \

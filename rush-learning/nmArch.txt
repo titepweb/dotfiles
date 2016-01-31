@@ -220,7 +220,7 @@ ONE LINE:
 	# ntfs-3g /dev/sda4 /mnt/sda4
 
 ;================[ MAKE ARCH BEAUTIFUL ]================
-Yaourt-------------------------------- how about : pacaur, aura?...
+Yaourt-------------------------------- how about : pacaur, packer, aura?...
 Tham khao: https://archlinux.fr/yaourt-en
 	 64 sudo vim /etc/pacman.conf
 	- uncomment multilib repo
@@ -702,7 +702,9 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 	+ zplug
 2016-01-29
 	+ man zshmisc
-
+2016-01-30
+	+ nexttheme
+	+ tm (enhanced)
 
 COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 -----------------------------------------------
