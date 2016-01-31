@@ -96,7 +96,7 @@ function nexttheme() {
   echo "$THEMEDIR...search for: *.$BACKGROUND.sh"
   local choose=false
   local count=0
-  for file in $(find "$THEMEDIR" -maxdepth 1 -type f -name "*.$BACKGROUND.sh") ; do
+  for file in $(find "$THEMEDIR" -maxdepth 1 -not -type d -name "*.$BACKGROUND.sh") ; do
     count=$(($count+1))
     echo "$count: $file"
     if [[ $count == 1 ]]; then local firstfile="$file" ; fi
