@@ -1,10 +1,14 @@
-COLORSCHEME
-===========
-Tools : 
-+ use [gruvbox](?) , [base16-shell](https://github.com/morhetz/gruvbox) , [solarized](http://ethanschoonover.com/solarized) ...
-+ [or create your own](http://ciembor.github.io/4bit)
-+ [convert hex-rgb](http://www.zonums.com/online/color_converter]
-+ [convert colorschemes](http://stayradiated.github.io/termcolors-web)
+
+REQUIRE SOFTWARE
+=======
+Clipboard manager : [xclip] , xsel , diodon, klipper, glipper, parcellite or xfce4-clipman
+
+==================================================================
+
+GENERAL
+=======
+1. [z3bra's customization guide](http://blog.z3bra.org/2013/10/home-sweet-home.html#term)
+2. [Customize zsh prompt](http://www.nparikh.org/unix/prompt.php#zsh)
 
 REFERENCE FOR CONFIGURING BSPWM
 ===============================
@@ -23,25 +27,14 @@ REFERENCE FOR CONFIGURING BSPWM
 
 Ideas from [windelicato](https://github.com/windelicato/dotfiles) [hamsterslayer](https://github.com/hamsterslayer/dotfiles) [ninetyfourbit](https://github.com/ninetyfourbit/dotfiles) [cozmoss](https://www.reddit.com/r/unixporn/comments/2ye35o/bspwm_sadboys/) [carlaco](https://github.com/calarco/dotfiles) [gamecheet's dzen scripts](https://github.com/gamecheet)
 
-GENERAL
-=======
-1. [z3bra's customization guide](http://blog.z3bra.org/2013/10/home-sweet-home.html#term)
-2. [Customize zsh prompt](http://www.nparikh.org/unix/prompt.php#zsh)
-
-NMDF
+nmdf
 ====
-0. [inspired by nicknisi](https://github.com/nicknisi/dotfiles). [His website](http://nicknisi.com/)
 1. [brettbatie's dotm](https://github.com/brettbatie/dotfiles/blob/master/bin/dotm)
 2. [agross's bootstrap](https://github.com/agross/dotfiles/blob/master/bootstrap) supports cross-platform bootstrapping.
   * Based on [Holman's bootstrap](https://github.com/holman/dotfiles/blob/master/script/bootstrap)
   * He also use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins.
   * His brilliant way to manage aliases.sh
 
-(NEO)VIM as IDE vs SUBLIME
-==========================
-[From Sublime to Vim](http://blog.kewah.com/2014/from-sublime-text-to-vim/)
-[Shu Uesugi's .vimrc](http://chibicode.com/vimrc/)
-[Why Neovim is Better than Vim](http://geoff.greer.fm/2015/01/15/why-neovim-is-better-than-vim/)
 
 ==================================================================
 ## installed software

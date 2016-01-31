@@ -1,14 +1,12 @@
-reset='\e[0m'     ;  	bold='\e[1m'		;			 blue='\e[34m'
-config () {
+inform () {
+	local reset='\e[0m'     ;   	local bold='\e[1m'		;			 local blue='\e[34m'
   echo -e "\r  [${bold}${blue}SCRIPT${reset}] $1" 
 }
 
-#-------
-
-# mpd
+#=[ mpd ]======================================#
 touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 mkdir -p ~/.config/mpd/playlists
-config "Created ${bold}${blue}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
+inform "Created ${bold}${blue}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
 
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -24,11 +22,11 @@ cat << EOF
 │ - File Manager: pcmanfm engrampa unrar zip unzip p7zip   +   ranger + w3m   │
 │ - PDF READER  : zathura zathura-pdf-poppler zathura-djvu                    │
 │ - HEX EDITOR  : bviplus                                                     │
-│ - redshift                                                                  │
 │ - htop htop-temperature (AUR)                                               │
 │ - i3lock + xautolock                                                        │
 │ - NORTIFICATION : twmn                                                      │
 │ - paper-gtk-theme Ark-Darker | ultra-flat-icons                             │
+│ - redshift                                                                  │
 │                                                                             │
 │ CONFIGURATION                                                               │
 │ - ~/.dotfiles/lemonbar/panel_config                                         │

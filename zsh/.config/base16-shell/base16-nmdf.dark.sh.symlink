@@ -6,7 +6,7 @@ if [ "${TERM%%-*}" = 'linux' ]; then
     return 2>/dev/null || exit 0
 fi
 
-color00="00/16/20" # black
+color00="00/08/10" # black
 color08="96/98/96" # bright_black
 color01="ed/3a/55" # red
 color09="9b/0e/23" # bright_red
@@ -30,7 +30,7 @@ color19="58/6e/75" # Base 02
 color20="83/94/96" # Base 04
 color21="ee/e8/d5" # Base 06
 color_foreground="f5/f2/df" # Base 02
-color_background="00/16/20" # Base 07
+color_background="00/08/10" # Base 07
 color_cursor="93/a1/a1" # Base 02
 
 if [ -n "$TMUX" ]; then

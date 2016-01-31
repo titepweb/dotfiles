@@ -7,6 +7,7 @@ Plug 'morhetz/gruvbox'
 " utilities
 Plug 'vim-airline/vim-airline'				" status line
 Plug 'jeffkreeftmeijer/vim-numbertoggle'	" smart relative numbering
+Plug 'tpope/vim-fugitive'                   "
 Plug 'airblade/vim-gitgutter'				" show git diffs
 Plug 'bronson/vim-trailing-whitespace'		" show trailing spaces
 Plug 'jiangmiao/auto-pairs'					" spawn matched brackets / quotes
@@ -45,6 +46,7 @@ endif
 
 set clipboard=unnamed
 
+
 " faster redrawing
 set ttyfast            " Improves redrawing for newer computers
 
@@ -73,7 +75,7 @@ if has('autocmd') && !exists('autocommands_loaded')
     autocmd BufWritePost .vimrc source %
     autocmd BufWritePost .vimrc.local source %
     " save all files on focus lost, ignoring warnings about untitled buffers
-    autocmd FocusLost * silent! wa 
+    autocmd FocusLost * silent! wa
 
     autocmd BufNewFile,BufRead *.ejs set filetype=html
     autocmd BufNewFile,BufRead *.ino set filetype=c

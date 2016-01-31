@@ -4,21 +4,21 @@
 
 function create_tmuxconf() {
 	PROJECT_NAME=$(basename "${1%.*}")
-	cat << EOF > "$1.tmux"
+	cat << EOF > "$PROJECT_NAME.tmux"
 #!/bin/sh
 PROJECT_NAME=$PROJECT_NAME # /!\ must be UNIQUE
 
 tmux -2 new-session -d -s $PROJECT_NAME
 
 # Setup a window for developing
-tmux new-window -t $PROJECT_NAME:1 -n "vim"
-tmux send-keys "$EDITOR $0" C-m
+tmux new-window -t \$PROJECT_NAME:1 -n "vim"
+tmux send-keys "$EDITOR "\$PROJECT_NAME.tmux"" C-m
 tmux split-window -v -p 10
 tmux send-keys "net" C-m
 tmux split-window -h -p 50
 
 # Setup a window for ...
-tmux new-window -t $PROJECT_NAME:2 -n 'pasta'
+tmux new-window -t \$PROJECT_NAME:2 -n 'pasta'
 tmux split-window -h
 tmux select-pane -t 1
 tmux send-keys "ls" C-m
@@ -26,11 +26,11 @@ tmux split-window -v
 tmux resize-pane -D 20
 
 # Set default window
-tmux select-window -t $PROJECT_NAME:1
+tmux select-window -t \$PROJECT_NAME:1
 tmux select-pane -t 1
 
 # Attach to session
-tmux -2 attach-session -t $PROJECT_NAME
+tmux -2 attach-session -t \$PROJECT_NAME
 EOF
 }
 
