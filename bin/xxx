@@ -2,6 +2,9 @@
 #xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
 
 #=====================
+
+
+#=====================
 # remove spaces
 FOO=' test test test '
 FOO_NO_WHITESPACE="$(echo -e "${FOO}" | tr -d '[[:space:]]')"

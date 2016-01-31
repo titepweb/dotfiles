@@ -72,35 +72,61 @@ function() {
 
 clear
 
-# COLORSCHEME
+# COLORSCHEME (base16-shell)
 #==============================================================================#
-
-THEMEDIR="$DOTFILES/zsh/colorscheme"
-defaulttheme="customscheme.sh"
-[[ -z "$THEME" ]] && export THEME="$THEMEDIR/$defaulttheme"
-source "$THEME"
 
 # reload zsh config
 alias reload!='source ~/.zshrc'
 
+# Default THEME and BACKGROUND 
+if [ -z "$THEME" ]; then
+    # export THEME="base16-chalk"
+    export THEME="base16-nmdf"
+fi
+if [ -z "$BACKGROUND" ]; then
+    export BACKGROUND="dark"
+fi
+
+THEMEDIR="$HOME/.config/base16-shell"
+BASE16_SHELL="$THEMEDIR/$THEME.$BACKGROUND.sh"
+[[ -s $BASE16_SHELL ]] && source "$BASE16_SHELL"
+
 # set the background color to light
 function nexttheme() {
+  echo "$THEMEDIR...search for: *.$BACKGROUND.sh"
   local choose=false
   local count=0
-  for file in $(find "$THEMEDIR" -maxdepth 1 -type f) ; do
+  for file in $(find "$THEMEDIR" -maxdepth 1 -type f -name "*.$BACKGROUND.sh") ; do
     count=$(($count+1))
+    echo "$count: $file"
     if [[ $count == 1 ]]; then local firstfile="$file" ; fi
     if [[ $choose == "true" ]]; then choose="$file" ; fi
-    if [[ $file == "$THEME" ]]; then choose=true ; fi
+    if [[ $file == "$THEMEDIR/$THEME.$BACKGROUND.sh" ]]; then choose=true ; fi
   done
-  echo "Ketthuc=$choose"
-  echo
+  echo "-->choose=$choose"
   if [[ $choose == "true" ]]; then choose="$firstfile" ; fi
+  echo "==>choose=$choose"
+
+  # remove .[dark|light].sh from $choose 
+  choose=$(basename "$choose" | cut -d. -f1)
+  echo "==> THEME=$choose"
   if [[ $choose != "$THEME" ]]; then export THEME="$choose" && reload! ; fi
   testcolorscheme
 }
 
+# set the background color to light
+function light() {
+  if [[ $BACKGROUND != "light" ]]; then export BACKGROUND="light" && reload! ; fi
+  testcolorscheme
+}
+
+function dark() {
+  if [[ $BACKGROUND != "dark" ]]; then export BACKGROUND="dark" && reload! ; fi
+  testcolorscheme
+}
+
 function testcolorscheme(){
+  echo -e " THEME=$THEME \n BACKGROUND=$BACKGROUND"
   esc=""
   colors=($(xrdb -query | sed -n 's/.*color\([0-9]\)/\1/p' | sort -nu | cut -f2))
   for i in {0..7}; do echo -en "${esc}[0;3${i}m▉${esc}[0;9${i}m■" ; done; echo -e "\n"

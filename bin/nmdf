@@ -524,8 +524,8 @@ install_dotfiles () {
     local topics="$(/usr/bin/find "$dotDir" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
     while IFS=$'\n' read -r topic; do
       [[ -z "$topic" ]] && continue
-
       scan "-Topic- $topic"
+      additionalinstallation "$topic/.preinstall.sh"
 
       if platform_excluded "$topic" "$platform"; then
         info "Skipped ${green}$topic${reset} as it is excluded for platform ${cyan}$platform${reset}"
@@ -565,15 +565,7 @@ install_dotfiles () {
         scanindex=$(($scanindex+1))
 
       done <<< "$symlinks"
-
-      # Run optional install script.
-      # 1. remember to set execute permissions chmod +x <script> for the .install.sh scripts. Otherwise, nmdf skip running it.
-      # 2. make sure that the script doesn't stop nmdf to continue scanning topic and installing dotfiles
-      local install="$topic/.install.sh"
-      if [ -x "$install" ]; then
-        info "Running ${green}$install${reset}"
-        sh -c "$install"
-      fi
+      additionalinstallation "$topic/.postinstall.sh"
     done <<< "$topics"
 
   # done <<< "$platforms"
@@ -584,6 +576,17 @@ install_dotfiles () {
   info  "${cyan}${bold}$symlinkindex${reset} dotfile(s) are symlinked!"
   info  "${cyan}${bold}$copyindex${reset} dotfile(s) are copied!"
   info  "${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) are installed, totally!"
+}
+
+function additionalinstallation() {
+  # Run optional install script.
+  # 1. remember to set execute permissions chmod +x <script> for the .install.sh scripts. Otherwise, nmdf skip running it.
+  # 2. make sure that the script doesn't stop nmdf to continue scanning topic and installing dotfiles
+  local install="$1"
+  if [ -x "$install" ]; then
+    info "Running ${green}$install${reset}"
+    sh -c "$install"
+  fi
 }
 
 #### MAIN ####################################################################
