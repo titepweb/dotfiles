@@ -1,5 +1,5 @@
 # tmux aliases
 alias ta='tmux attach'
-alias tls='tmux ls'
-alias tat='tmux attach -t'
-alias tns='tmux new-session -s'
+alias tks='tmux kill-session -t'
+# kill all pane except the current one
+alias tka='tmux kill-pane -a'

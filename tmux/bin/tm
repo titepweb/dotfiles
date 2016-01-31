@@ -3,9 +3,8 @@
 ### A SAMPLE OF PRE-CONFIGURED TMUX ENVIRONMENT ###
 
 function create_tmuxconf() {
-	PROJECT_NAME=$(basename $1)
-	tmux_conf="$1"
-	cat << EOF > $tmux_conf
+	PROJECT_NAME=$(basename "${1%.*}")
+	cat << EOF > "$1.tmux"
 #!/bin/sh
 PROJECT_NAME=$PROJECT_NAME # /!\ must be UNIQUE
 
@@ -20,11 +19,10 @@ tmux split-window -h -p 50
 
 # Setup a window for ...
 tmux new-window -t $PROJECT_NAME:2 -n 'pasta'
-tmux send-keys "ls" C-m
 tmux split-window -h
 tmux select-pane -t 1
 tmux split-window -v
-tmux resize-pane -D 10
+tmux resize-pane -D 20
 
 # Set default window
 tmux select-window -t $PROJECT_NAME:1
@@ -36,12 +34,12 @@ EOF
 }
 
 # abort if we're already inside a TMUX session
-[ "$TMUX" == "" ] || exit 0
+[ "$TMUX" == "" ] || exit 1
 
 if [ ! $# == 0 ]; then
 	if [ ! $# == 1 ]; then
 		echo "Session name must not contain spaces."
-		exit 0
+		exit 1
 	fi
 	# startup a "default" session if non currently exists -----------------
 	tmux_conf=$1
@@ -51,7 +49,9 @@ if [ ! $# == 0 ]; then
 	    if [ ! -f $tmux_conf ]; then
 	    	read -p "$tmux_conf not exists. Create one [y/n] ?" -n 1 -r
 	    	echo 
-	    	[[ $REPLY =~ ^[Yy]$ ]] && create_tmuxconf $tmux_conf
+	    	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
+	    	create_tmuxconf "$tmux_conf"
+	    	tmux_conf="$tmux_conf.tmux"
 	    fi
 	    echo "Loading configuration file \`$PWD/$tmux_conf\`"
 	    # pushd $PROJECT_DIR
@@ -63,8 +63,8 @@ if [ ! $# == 0 ]; then
 	fi
 else
 	# present menu for user to choose which workspace to open -------------
-	PS3="Enter session: "
-	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh")
+	PS3="Choose session/command: "
+	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh" "kill all sessions")
 	echo "Available sessions"
 	echo "------------------"
 	echo " "
@@ -78,6 +78,9 @@ else
 				;;
 			"zsh")
 				zsh --login
+				break;;
+			"kill all sessions")
+				for sess in $(tmux ls | awk '{FS=":" ; print $1}' | sed 's/://g') ; do tmux kill-session -t $sess ; done
 				break;;
 			*)
 				tmux attach-session -t $opt
