@@ -7,7 +7,7 @@ if [ "${TERM%%-*}" = 'linux' ]; then
 fi
 
 color00="00/16/20" # black
-color08="00/00/00" # bright_black
+color08="96/98/96" # bright_black
 color01="ed/3a/55" # red
 color09="9b/0e/23" # bright_red
 color02="55/ed/3a" # green
@@ -23,12 +23,12 @@ color14="0e/9b/86" # bright_cyan
 color07="ff/ff/ff" # white
 color15="df/df/df" # bright_white
 # 256 color space
-color16="de/93/5f" # Base 09
-color17="a3/68/5a" # Base 0F
-color18="28/2a/2e" # Base 01
-color19="37/3b/41" # Base 02
-color20="b4/b7/b4" # Base 04
-color21="e0/e0/e0" # Base 06
+color16="cb/4b/16" # Base 09
+color17="d3/36/82" # Base 0F
+color18="07/36/42" # Base 01
+color19="58/6e/75" # Base 02
+color20="83/94/96" # Base 04
+color21="ee/e8/d5" # Base 06
 color_foreground="f5/f2/df" # Base 02
 color_background="00/16/20" # Base 07
 color_cursor="93/a1/a1" # Base 02

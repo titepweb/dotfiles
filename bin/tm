@@ -12,7 +12,7 @@ tmux -2 new-session -d -s $PROJECT_NAME
 
 # Setup a window for developing
 tmux new-window -t $PROJECT_NAME:1 -n "vim"
-tmux send-keys "ls" C-m
+tmux send-keys "$EDITOR $0" C-m
 tmux split-window -v -p 10
 tmux send-keys "net" C-m
 tmux split-window -h -p 50
@@ -21,6 +21,7 @@ tmux split-window -h -p 50
 tmux new-window -t $PROJECT_NAME:2 -n 'pasta'
 tmux split-window -h
 tmux select-pane -t 1
+tmux send-keys "ls" C-m
 tmux split-window -v
 tmux resize-pane -D 20
 
