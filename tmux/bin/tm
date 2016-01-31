@@ -52,13 +52,14 @@ if [ ! $# == 0 ]; then
 	tmux has-session -t $tmux_conf 2>/dev/null
 	if [ "$?" -eq 1 ] ; then
 	    echo "--> No Session found."
-	    if [ ! -f $tmux_conf ]; then
+	    if ! [[ -f $tmux_conf || -f $tmux_conf.tmux ]]; then
 	    	echo "--> The file \`$tmux_conf\` not exists. "
 	    	read -p "Create one in the current working directory [y/n] ?" -n 1 -r && echo
 	    	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
 	    	create_tmuxconf "$tmux_conf"
 	    	tmux_conf="$tmux_conf.tmux"
 	    fi
+	    [ -f $tmux_conf.tmux ] && tmux_conf="$tmux_conf.tmux"
 	    echo "Loading configuration file \`$PWD/$tmux_conf\`"
 	    # Use pushd and popd for faster CLI navigation
 	    # pushd $PROJECT_DIR
