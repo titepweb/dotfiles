@@ -1,7 +1,15 @@
 
-REQUIRE SOFTWARE
-=======
+REQUIRED SOFTWARES
+==================
 Clipboard manager : [xclip] , xsel , diodon, klipper, glipper, parcellite or xfce4-clipman
+
+
+[nale12's GTK theme on deviantart](nale12.deviantart.com/gallery/?catpath=/)
+[FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862)
+
+Reference:
+1. [clipboard problem](https://bugs.launchpad.net/ubuntu/+bug/11334?comments=all)
+2. Mount external drive
 
 ==================================================================
 
@@ -34,6 +42,9 @@ nmdf
   * Based on [Holman's bootstrap](https://github.com/holman/dotfiles/blob/master/script/bootstrap)
   * He also use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins.
   * His brilliant way to manage aliases.sh
+
+
+
 
 
 ==================================================================

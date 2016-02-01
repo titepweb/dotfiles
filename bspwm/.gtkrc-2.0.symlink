@@ -2,8 +2,8 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/march/.gtkrc-2.0.mine"
-gtk-theme-name="Numix"
-gtk-icon-theme-name="Numix-Circle"
+gtk-theme-name="Lime Night"
+gtk-icon-theme-name="Numix Circle"
 gtk-font-name="Source Sans Pro 11"
 gtk-cursor-theme-name="Breeze-Obsidian"
 gtk-cursor-theme-size=0

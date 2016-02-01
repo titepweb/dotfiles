@@ -15,7 +15,6 @@ fi
 # nvim +PlugInstall +qall
 # inform "Downloaded ${bold}${blue}plugins${reset} for neovim."
 
-
 #=[ base16-shell ]=============================#
 THEMEDIR="$HOME/.config/base16-shell"
 if [ ! -d "$THEMEDIR/.git" ]; then
@@ -34,7 +33,7 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │              ZSH + VIM + TMUX and My COLORSCHEME of CHOICE                  │
 │ REQUIRED PACKAGES                                                           │
-│ - neovim + vim-plug > vundle + base16-vim colorscheme + custom theme        │
+│ - neovim + xsel + vim-plug > vundle + base16-vim colorscheme + custom theme │
 │ - zsh + zplug > pretzo > oh-my-zsh + base16-shell + custom color palettes   │
 │                                                                             │
 │ CONFIGURATION                                                               │
