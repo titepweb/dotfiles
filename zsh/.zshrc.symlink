@@ -110,7 +110,7 @@ function nexttheme() {
   # remove .[dark|light].sh from $choose 
   choose=$(basename "$choose" | cut -d. -f1)
   echo "==> THEME=$choose"
-  if [[ $choose != "$THEME" ]]; then export THEME="$choose" && reload! ; fi
+  # if [[ $choose != "$THEME" ]]; then export THEME="$choose" && reload! ; fi
   testcolorscheme
 }
 
@@ -130,4 +130,31 @@ function testcolorscheme(){
   esc=""
   colors=($(xrdb -query | sed -n 's/.*color\([0-9]\)/\1/p' | sort -nu | cut -f2))
   for i in {0..7}; do echo -en "${esc}[0;3${i}m▉${esc}[0;9${i}m■" ; done; echo -e "\n"
+}
+
+# WALLPAPER
+#==============================================================================#
+function nextwall() {
+  # get the current wallpaper from the 2nd line: feh --bg-tile '/home/march/.wallpaper/patterns/fresh.png'
+  local currentwall=$(sed -n '2p' < "$HOME/.fehbg" | sed 's/^.*\(\/home\/*\)/\1/g')
+  # remove the ' at the end
+  currentwall=${currentwall%\'*}
+  # retrieve the wallpaper directory
+  local WALLDIR=$(dirname $currentwall)
+
+  echo "search for: $currentwall in $WALLDIR..."
+  local choose=false
+  local count=0
+  for file in $(find "$WALLDIR/" -maxdepth 1 -not -type d) ; do
+    let count++
+    echo "$count: $file"
+    if [[ $count == 1 ]]; then local firstfile="$file" ; fi
+    if [[ $choose == "true" ]]; then choose="$file" ; fi
+    if [[ $file == "$currentwall" ]]; then choose=true ; fi
+  done
+  echo "-->choose=$choose"
+  if [[ $choose == "true" ]]; then choose="$firstfile" ; fi
+  echo "==>choose=$choose"
+
+  echo -e "#!/bin/sh\nfeh --bg-tile '$choose'" > "$HOME/.fehbg" | sh
 }

@@ -397,6 +397,7 @@ SSH vao remote server -----------------------
 
 CLI & TUI apps
 ==============
+misc        : tree mlocate xsel
 composite 	: xcompmgr or [compton] --> window transition effect: for example, compton -f ==> fade effect.
 shell				: [zsh]		zsh + oh-my-zsh	fish mksh  	
 termnial		: rxvt-unicode	< LilyTerm	< [termite]	Terminator 			Xfce4-terminal  	sakura 	urxvtc + urxvtd
@@ -409,14 +410,17 @@ File manager: [ranger]	> mc pcmanfm spacefm	vifm
 process manager : [htop] iotop [glances] 			$ [dfc]  $ [inxi] -Fi 		$ [ncdu]
 sys info 		: [archey3] 	alsi 	screenfetch
 reader 			: [zuthura] + plugins: zathura-pdf-mupdf zathura-djvu (0.2.0) : https://pwmt.org/projects/zathura/plugins/
-pdf reader	: mupdf
+pdf reader	: mupdf  [Qpdfview] 
+Image editor: gimp pinta
+Compressor  : Xarchiver
 Player			: mpc (scripts) --> [ncmpcpp](backend:mpd) OR [clerk](mppc as backend) https://github.com/carnager/clerk 		
-Player 			: mopidy (server) with spotify plugin + ncmpcpp (client)  	cmus 	MoC +-gmusicproxy
+Player 			: mopidy (server) with spotify plugin + ncmpcpp (client)  	cmus 	MoC (da kem interface) +-gmusicproxy
 codec 			: flac
 Video player: smplayer/mpv chon /usr/bin/mpv trong option->preferences->general
 Visualizer 	: mpdviz cava
 http/fpt 		: youtube-dl 	wget 	curl/gopher  deluge aria2 + flashgot + uget
-torrent			: [rtorrent] transmission-remote-cli (torrent client) seedbox rutorrent qbittorent 
+torrent			: [rtorrent] transmission-remote-cli (torrent client) seedbox rutorrent qbittorent ugetdm
+Image viewer: [GPicView]
 Set wall		: [feh](0.3MB) << nitrogen
 						: pulseaudio
 *Statusbar	: [lemonbar]	tint2/tint3		dzen2	conky	bmpanel2	
@@ -427,7 +431,8 @@ dock				: bar	https://github.com/LemonBoy/bar
 screen capture	: scrot		[teiler]
 text expand	: Snippy
 fun 			  : cmatrix cowsay weathercli 	tty-clock
-Browser 	  : [youtube-viewer] [firefox] [chromium] qutebrowser iceweasel lynx
+Browser GUI : [firefox] [chromium] midori qutebrowser iceweasel  
+Browser CLI : [youtube-viewer] lynx 
 markdown editors : [haroopad]
  previews       > unixporn screenshots
  pygments       > add syntax highlighting to cat and less commands
@@ -532,11 +537,6 @@ bspwm
 		? ndmf <-ref- https://github.com/spf13/spf13-vim
 		? XPos va YPos khong xac dinh duoc 
 2015-01-23
-		? Color cho ls... mathias
-		? bash va zsh xai chung */topic/*/alias.zsh (quan li bang zplug)
-		? zplug -+> prezto < oh-my-zsh (heavy) (as git submodules)
-		? syntax highlighting <--- submodule hay install as package
-		? font terminal la gi day?
 		+ mutt -s "Subject of mail" -c <email add for CC> -b <email-add for BCC> mail address of recipient
 		+ newsbeuter 
 		+ mlocate --> manually update database : sudo updatedb
@@ -551,7 +551,6 @@ bspwm
 		bspc config -d focused top_padding
 		Tien Thanh co ~ script va setting hay
 		Mathias co alias hay
-		zplug+prezto as submodules :)
 
 		tile wallpaper : http://www.squidfingers.com/patterns
 		shred
@@ -569,9 +568,11 @@ alias aimee='mpv --shuffle "https://soundcloud.com/reynolds-ame/likes"'
 
 1.default apps
 2.pass manager?
-? thunar engrampa integration
 ? password manager tren linux (Dashlane? lastpass?)
 ? autohotkey
+? networkmanager, nmcli <> netctl ? stop disable --> start enable
+? clipboard manager --> clipit
+? 
 
 INTERNET CONNECTION PROBLEMS
 ============================
@@ -600,7 +601,6 @@ systemctl --now | grep netctl
 
 Vim
 ===
-+ vim tmux ?
 	SnipMate
 + vim-instant-markdown / node.js to edit markdown format files.
 + nerdtree+airline+syntastic
@@ -705,6 +705,9 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 2016-01-30
 	+ nexttheme
 	+ tm (enhanced)
+2016-01-31
+	+ gtk theme : Lime Night
+	+ qpdfview
 
 COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 -----------------------------------------------

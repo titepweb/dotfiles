@@ -2,8 +2,24 @@
 #xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
 
 #=====================
+# SED
+echo ==Test string==
+teststr="hello world, I am just simple text for display.'"
+echo $teststr
+echo ==Retrive the text before \"I am\" ==
+echo $teststr | sed 's/, I am.*//g'
+echo ==Retrive the text after \"I am\" ==
+echo $teststr | sed 's/^.*\(, I am.*\)/\1/g'
+echo ==Remove the final quote==
+teststr=${teststr%\'}
+echo "$teststr"
 
+# extract text
+teststr="string>![TEST[Extract this string]>/string>"
+echo "$teststr" | sed -e 's/string>!\[TEST\[\(.*\)]>\/string>/\1/' #file
+echo "$teststr" | awk -F'[][]' '{print $3}' #file
 
+exit
 #=====================
 # remove spaces
 FOO=' test test test '
