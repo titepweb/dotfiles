@@ -72,7 +72,7 @@ function() {
 
 clear
 
-# COLORSCHEME (base16-shell)
+# COLORSCHEME (base16-shell) for vim and zsh
 #==============================================================================#
 
 # reload zsh config
@@ -93,7 +93,7 @@ BASE16_SHELL="$THEMEDIR/$THEME.$BACKGROUND.sh"
 
 # set the background color to light
 function nexttheme() {
-  echo "$THEMEDIR...search for: *.$BACKGROUND.sh"
+  echo "Search for: *.$BACKGROUND.sh in $THEMEDIR..."
   local choose=false
   local count=0
   for file in $(find "$THEMEDIR" -maxdepth 1 -not -type d -name "*.$BACKGROUND.sh") ; do

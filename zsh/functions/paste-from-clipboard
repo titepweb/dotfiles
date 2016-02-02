@@ -2,7 +2,7 @@
 # Note that /dev/clipboard will give you access to the clipboard 
 # if you are on Cygwin.
 
-# CLIPOUT=`cat /dev/clipboard`
-CLIPOUT=`xsel -o`
+CLIPOUT=`cat /dev/clipboard`
+# CLIPOUT=`xsel -o`
 BUFFER=$LBUFFER$CLIPOUT$RBUFFER
 CURSOR=$[$CURSOR + ${#CLIPOUT}]
