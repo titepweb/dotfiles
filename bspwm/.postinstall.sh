@@ -8,6 +8,14 @@ touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 mkdir -p ~/.config/mpd/playlists
 inform "Created ${bold}${blue}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
 
+#=[ nmcli_dmenu ]==============================#
+if [[ ! -f ~/.dotfiles/bspwm/bin/nmcli_dmenu ]]; then
+	inform "Downloading ${bold}${blue}nmcli_dmenu${reset} for easily managing network."
+	curl -fLo ~/.dotfiles/bspwm/bin/nmcli_dmenu --create-dirs \
+	    https://raw.githubusercontent.com/firecat53/nmcli-dmenu/master/nmcli_dmenu
+	inform "Downloaded ${bold}${blue}nmcli_dmenu${reset} for easily managing network."
+fi
+
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                          COMBO 2 : My WM of CHOICE                          │
@@ -16,6 +24,7 @@ cat << EOF
 │ - lemonbar-git (AUR) (patched with xft support) + xtitle-git (AUR) + dzen2  │
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
 │ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
+│ - nmcli_dmenu / networkmanager + network-manager-applet + rofi              │
 │                                                                             │
 │ OPTIONAL RECOMMENDED SOFTWARES                                              │
 │ - Video player: smplayer/mpv                                                │
@@ -33,8 +42,10 @@ cat << EOF
 │ - ~/.config/bspwm/bspwmrc <-- $ xprop | grep CLASS <-- pacman -S xorg-utils │
 │ - Manually configure ~/muttrc with your emai address & password             │
 │ - Add your feeds in ~/.newsbeuter/urls                                      │
-systemctl --user enable redshift.service
-systemctl --user start redshift.service
-~/redshift.com
+│ - systemctl disable netctl-auto@wlp16s0.service                             │
+│   sudo systemctl enable NetworkManager && systemctl start NetworkManager    │
+│ - systemctl --user enable redshift.service
+│ - systemctl --user start redshift.service 
+│ ~/redshift.com
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF

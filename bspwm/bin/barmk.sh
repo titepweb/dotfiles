@@ -1,31 +1,26 @@
-# lemonbar
-
-#============================
-# INPUT/OUTPUT REDIRECTION
-
-# vd, termnial = /dev/tty0 <--- 
-# bash open --> 3  standard file descriptors: stdin(0) stdout(2) stderr(2) --> read/write/copy + open then close more file descriptors
-
-#========================================================
-# LEMONBAR - great opportunity to learn grep, sed, awk...
+#!/bin/sh
+#
+# z3bra - (c) wtfpl 2014
+# Fetch infos on your computer, and print them to stdout every second.
 
 clock() {
     date '+%Y-%m-%d %H:%M'
 }
 
-battery() { # this function does not require acpi, but users need to retrieve their own directory instead of 'CMB1'
-  BATC=/sys/class/power_supply/CMB1/capacity
-  BATS=/sys/class/power_supply/CMB1/status
-  # prepend percentage with a '+' if charging, '-' otherwise
-  test "`cat $BATS`" = "Charging" && echo -n '+' || echo -n '-'
-  # print out the content (forced myself to use `sed` :P)
-  sed -n p $BATC
+battery() {
+    BATC=/sys/class/power_supply/CMB1/capacity
+    BATS=/sys/class/power_supply/CMB1/status
+
+    # prepend percentage with a '+' if charging, '-' otherwise
+    test "`cat $BATS`" = "Charging" && echo -n '+' || echo -n '-'
+
+    sed -n p $BATC
 }
 
-volume() { #- always a pain
-  # we need `uniq` because on some hardware, The master is listed twice in "Front Left" and Front Right" (because laptop speakers I guess)
-  amixer get Master | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p'| uniq
-  amixer get Master | grep 'Mono: Playback' | grep -o '\[on]'
+volume() {
+    # we need `uniq` because on some hardware, The master is listed twice in "Front Left" and Front Right" (because laptop speakers I guess)
+    amixer get Master | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p'| uniq
+    amixer get Master | grep 'Mono: Playback' | grep -o '\[on]'
 }
 
 cpuload() {

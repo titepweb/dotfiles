@@ -2,10 +2,14 @@
 REQUIRED SOFTWARES
 ==================
 Clipboard manager : [xclip] , xsel , diodon, klipper, glipper, parcellite or xfce4-clipman
-
-
+[nmcli_menu](https://github.com/firecat53/nmcli-dmenu)
 [nale12's GTK theme on deviantart](nale12.deviantart.com/gallery/?catpath=/)
 [FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862)
+
+[ninetyfourbit's scripts + wallpaper](https://github.com/ninetyfourbit)
+[NickBrisebois](https://github.com/NickBrisebois/dotfiles)
+[Vim colorscheme](https://github.com/flazz/vim-colorschemes/tree/master/colors)
+
 
 Reference:
 1. [clipboard problem](https://bugs.launchpad.net/ubuntu/+bug/11334?comments=all)

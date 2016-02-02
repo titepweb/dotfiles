@@ -9,13 +9,6 @@ alias cls='echo -ne "\033c"'
 alias fig='figlet -f roman.flf -d ~/.fonts/figlet_fonts'
 alias clock='watch -n1 "date '+%D%n%T'|figlet -f roman.flf -d ~/.fonts/figlet_fonts -k"'
 
-#-----------
-# NETWORKING
-#-----------
-alias net='netctl-auto list ; ping -c 5 google.com'
-alias netq='netctl-auto switch-to "wlp16s0-Sophop pho hue"'
-alias netm='netctl-auto switch-to "wlp16s0-M454"'
-
 #---------------------
 # SYSTEM ADMINSTRATION
 #---------------------

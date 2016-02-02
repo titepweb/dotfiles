@@ -1,0 +1,11 @@
+# Quick check for current networking
+(nmcli -p c && echo && nmcli dev wifi) || netctl-auto list
+echo 
+echo "Current enabled services:"
+echo "-------------------------"
+systemctl list-unit-files | grep -n enabled
+echo
+ping -c 5 google.com
+
+# add this to aliases.zsh
+# alias netm='nmcli dev wifi con "M454" password ti845887 name "My Mobistart454"'

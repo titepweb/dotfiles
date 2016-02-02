@@ -572,31 +572,6 @@ alias aimee='mpv --shuffle "https://soundcloud.com/reynolds-ame/likes"'
 ? autohotkey
 ? networkmanager, nmcli <> netctl ? stop disable --> start enable
 ? clipboard manager --> clipit
-? 
-
-INTERNET CONNECTION PROBLEMS
-============================
-	? systemctl --now | grep netctl
-	$ systemctl list-unit-files | grep netctl
-	$ netctl-auto list
-			--> copy profile (profiles trong /etc/netctl/interfaces)
-			--> co the vao /etc/netctl ---> xoa profiles
-	$ netctl-auto enable "wlp16s0-Sophop pho hue"
-	$ ping -c 3 google.com
-	? journalctl -xn ---> xem thong bao loi
-
-
-systemctl list-unit-files | grep enabled
-netctl-auto list
-netctl-auto enable 'wlp16s0-Sophop pho hue'
-netctl-auto enable 'wlp16s0-M454'
-sudo pacman -S networkmanager network-manager-applet
-systemctl enable NetworkManager.service
-sudo pacman -S network-manager-applet
-systemctl list-unit-files | grep Network
-systemctl stop NetworkManager.service
-systemctl --now | grep netctl
-
 
 
 Vim
@@ -769,3 +744,37 @@ COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 
 	# lsusb -v
 
+
+
+
+INTERNET CONNECTION PROBLEMS
+============================
+1. # systemctl disable netctl-auto@wlp16s0.service
+2. https://github.com/firecat53/nmcli-dmenu
+
+	? systemctl --now | grep netctl
+	$ systemctl list-unit-files | grep netctl
+	$ netctl-auto list
+			--> copy profile (profiles trong /etc/netctl/interfaces)
+			--> co the vao /etc/netctl ---> xoa profiles
+	$ netctl-auto enable "wlp16s0-Sophop pho hue"
+	$ ping -c 3 google.com
+	? journalctl -xn ---> xem thong bao loi
+
+
+systemctl list-unit-files | grep enabled
+netctl-auto list
+netctl-auto enable 'wlp16s0-Sophop pho hue'
+netctl-auto enable 'wlp16s0-M454'
+sudo pacman -S networkmanager network-manager-applet
+systemctl enable NetworkManager.service
+sudo pacman -S network-manager-applet
+systemctl list-unit-files | grep Network
+systemctl stop NetworkManager.service
+systemctl --now | grep netctl
+
+2. NETWORK MANAGER for DE: (profiles trong /etc/NetworkManager/system-connections/)
+	# pacman -S networkmanager network-manager-applet
+	# systemctl enable NetworkManager && systemctl start NetworkManager
+	# systemctl disable netctl-auto@wlp16s0.service (có nên ?)
+	$ reboot

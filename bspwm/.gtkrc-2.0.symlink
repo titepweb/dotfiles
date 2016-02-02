@@ -3,7 +3,7 @@
 
 include "/home/march/.gtkrc-2.0.mine"
 gtk-theme-name="Lime Night"
-gtk-icon-theme-name="Numix Circle"
+gtk-icon-theme-name="Numix-Circle"
 gtk-font-name="Source Sans Pro 11"
 gtk-cursor-theme-name="Breeze-Obsidian"
 gtk-cursor-theme-size=0
