@@ -1,11 +1,20 @@
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+else # OS X `ls`
+  colorflag="-G"
+fi
+
 # Quick check for current networking
 (nmcli -p c && echo && nmcli dev wifi) || netctl-auto list
 echo 
 echo "Current enabled services:"
 echo "-------------------------"
-systemctl list-unit-files | grep -n enabled
+systemctl list-unit-files | grep ${colorflag}=auto --ignore-case --binary-files=without-match --line-number --initial-tab net
 echo
 ping -c 5 google.com
 
 # add this to aliases.zsh
 # alias netm='nmcli dev wifi con "M454" password ti845887 name "My Mobistart454"'
+
+

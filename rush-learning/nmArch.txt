@@ -766,15 +766,10 @@ systemctl list-unit-files | grep enabled
 netctl-auto list
 netctl-auto enable 'wlp16s0-Sophop pho hue'
 netctl-auto enable 'wlp16s0-M454'
+
 sudo pacman -S networkmanager network-manager-applet
 systemctl enable NetworkManager.service
 sudo pacman -S network-manager-applet
 systemctl list-unit-files | grep Network
 systemctl stop NetworkManager.service
 systemctl --now | grep netctl
-
-2. NETWORK MANAGER for DE: (profiles trong /etc/NetworkManager/system-connections/)
-	# pacman -S networkmanager network-manager-applet
-	# systemctl enable NetworkManager && systemctl start NetworkManager
-	# systemctl disable netctl-auto@wlp16s0.service (có nên ?)
-	$ reboot
