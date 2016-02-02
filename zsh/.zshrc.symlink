@@ -110,7 +110,7 @@ function nexttheme() {
   # remove .[dark|light].sh from $choose 
   choose=$(basename "$choose" | cut -d. -f1)
   echo "==> THEME=$choose"
-  # if [[ $choose != "$THEME" ]]; then export THEME="$choose" && reload! ; fi
+  if [[ $choose != "$THEME" ]]; then export THEME="$choose" && reload! ; fi
   testcolorscheme
 }
 
@@ -132,7 +132,7 @@ function testcolorscheme(){
   for i in {0..7}; do echo -en "${esc}[0;3${i}m▉${esc}[0;9${i}m■" ; done; echo -e "\n"
 }
 
-# WALLPAPER
+# CHANGING WALLPAPER using feh 
 #==============================================================================#
 function nextwall() {
   # get the current wallpaper from the 2nd line: feh --bg-tile '/home/march/.wallpaper/patterns/fresh.png'
@@ -141,13 +141,11 @@ function nextwall() {
   currentwall=${currentwall%\'*}
   # retrieve the wallpaper directory
   local WALLDIR=$(dirname $currentwall)
-
-  echo "search for: $currentwall in $WALLDIR..."
+  echo "search for: $(basename $currentwall) in $WALLDIR..."
   local choose=false
   local count=0
   for file in $(find "$WALLDIR/" -maxdepth 1 -not -type d) ; do
     let count++
-    echo "$count: $file"
     if [[ $count == 1 ]]; then local firstfile="$file" ; fi
     if [[ $choose == "true" ]]; then choose="$file" ; fi
     if [[ $file == "$currentwall" ]]; then choose=true ; fi
