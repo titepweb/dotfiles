@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ -z $INSTALLOPTION ]; then return; fi
-if [ $INSTALLOPTION != "true" ]; then return ; fi
+if [[ -z $INSTALLOPTION ]]; then return; fi
+if [[ $INSTALLOPTION != "true" ]]; then return ; fi
 
 ######### REQUIRED PACKAGES #########
 
@@ -44,7 +44,7 @@ install git
 # install macvim --override-system-vim
 # install reattach-to-user-namespace 		# for osx
 
-inform " >> message from $BASH_SOURCE :
+warning " >> warning from $BASH_SOURCE :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ MANUALLY INSTALL packages from AUR which cannot be installed automatically: │
 │ - lemonbar-git (AUR) (patched with xft support) + xtitle-git (AUR)          │
@@ -52,13 +52,13 @@ inform " >> message from $BASH_SOURCE :
 "
 
 # nmcli_menu
-if [[ ! -f ~/.dotfiles/bspwm/bin/nmcli_dmenu ]]; then
-	script "Downloading ${bold}${blue}nmcli_dmenu${reset} for easily managing network."
+if [[ ! -f "$dotDir/bspwm/bin/nmcli_dmenu" ]]; then
+	info "Downloading ${bold}${cyan}nmcli_dmenu${reset} for easily managing network."
 	curl -fLo ~/.dotfiles/bspwm/bin/nmcli_dmenu --create-dirs \
 	    https://raw.githubusercontent.com/firecat53/nmcli-dmenu/master/nmcli_dmenu
-	script "Downloaded ${bold}${blue}nmcli_dmenu${reset} for easily managing network."
+	OK "Downloaded ${bold}${green}nmcli_dmenu${reset} for easily managing network."
 else
-	script "✔ ${bold}${green}nmcli_menu${reset} has been installed."
+	OK "✔ ${bold}${green}nmcli_menu${reset} has been installed."
 fi
 
 ########### CONFIGURATION ###########
@@ -66,9 +66,9 @@ fi
 # mpd requires some files to start
 touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 mkdir -p ~/.config/mpd/playlists
-script "Created ${bold}${blue}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
+OK "Created ${bold}${green}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
 
-inform " >> message from $BASH_SOURCE :
+warning " >> warning from $BASH_SOURCE :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION :                                                             │
 │ - ~/.dotfiles/lemonbar/panel_config <-- BATTERY=/sys/class/power_supply/??? │

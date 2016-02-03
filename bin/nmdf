@@ -525,7 +525,6 @@ install_dotfiles () {
     while IFS=$'\n' read -r topic; do
       [[ -z "$topic" ]] && continue
       scan "-Topic- $topic"
-      additionalinstallation "$topic/.preinstall.sh"
 
       if platform_excluded "$topic" "$platform"; then
         info "Skipped ${green}$topic${reset} as it is excluded for platform ${cyan}$platform${reset}"
@@ -565,9 +564,7 @@ install_dotfiles () {
         scanindex=$(($scanindex+1))
 
       done <<< "$symlinks"
-      additionalinstallation "$topic/.postinstall.sh"
     done <<< "$topics"
-
   # done <<< "$platforms"
 
   echo
@@ -576,50 +573,6 @@ install_dotfiles () {
   info "${cyan}${bold}$symlinkindex${reset} dotfile(s) are symlinked!"
   info "${cyan}${bold}$copyindex${reset} dotfile(s) are copied!"
   info "${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) are installed, totally!"
-  echo
-  echo "$message"
-}
-
-#=[ functions ]================================#
-
-function additionalinstallation() {
-  # Run optional install script.
-  # 1. remember to set execute permissions chmod +x <script> for the .install.sh scripts. Otherwise, nmdf skip running it.
-  # 2. make sure that the script doesn't stop nmdf to continue scanning topic and installing dotfiles
-  local install="$1"
-  if [ -x "$install" ]; then
-    info "Running ${green}$install${reset}"
-    source "$install"
-  fi
-}
-
-function installed(){
-  x=`pacman -Q -q $1 >/dev/null`
-  if (pacman -Q $1 >/dev/null)
-    then return 0 #Installed
-    else return 1 #Not Installed
-  fi
-}
-
-function install(){
-  for pkg in $* ; do
-    if installed $pkg
-      then script "✔ ${green}$pkg${reset} has been installed."
-      else
-        script "✱ Installing ${green}$pkg${reset}"
-        echo -----------------------------------
-        sudo pacman -S --noconfirm $pkg
-        echo -----------------------------------
-    fi
-  done
-}
-
-function script () {
-  echo -e "\r  [${bold}${blue}SCRIPT${reset}] $1" 
-}
-
-function inform () {
-  message=$message"$1"
 }
 
 #### MAIN ####################################################################
@@ -630,7 +583,6 @@ function inform () {
     displayTitle "WHAT WOULD YOU LIKE TO LAUNCH ?"
     PS3="Select above option regarding how to create the symlinks:"
     options=("Update/Clone from $REPO_URI"
-    "Install dotfiles, install required packages"
     "Install dotfiles"
     "Reinstall dotfiles"
     "Install dotfiles. Ask before creating each symlink"
@@ -642,7 +594,6 @@ function inform () {
     do
       case $opt in
         "Update/Clone from $REPO_URI")                          pullOption=true ; break ;;
-        "Install dotfiles, install required packages")          installOption="install" ; INSTALLOPTION=true ; break ;;
         "Install dotfiles")                                     installOption="install" ; break ;;
         "Reinstall dotfiles")                                   installOption="install" ; forcefullyOption=true ; break ;;
         "Install dotfiles. Ask before creating each symlink")   askOption=true ; installOption="install" ; break ;;
@@ -663,13 +614,12 @@ function inform () {
     [ "$1" ==  "--help" ] && help
     OPTIND=1 # Reset in case getopts has been used previously in the shell.
     #NOTE: Never use getopt (Traditional versions of getopt cannot handle empty argument strings, or arguments with embedded whitespace.)
-    while getopts :ucliIfaobsd:r:p: OPTION; do
+    while getopts :uclifaobsd:r:p: OPTION; do
       case $OPTION in
         u)  pullOption=true ;;
         c)  installOption="copy" ;;
         l)  installOption="symlink" ;;
         i)  installOption="install" ;;
-        I)  installOption="install" ; INSTALLOPTION="true" ;;
         f)  forcefullyOption=true ;;
         a)  askOption=true ;;
         o)  overwrite_all=true ;;
@@ -740,7 +690,6 @@ function inform () {
     displayTitle "THE CORE PARAMETERS"
     echo "-pullOption    =" $pullOption
     echo "-installOption =" $installOption
-    echo "-INSTALLOPTION =" $INSTALLOPTION
     echo "-overwrite_all =" $overwrite_all
     echo "-backup_all    =" $backup_all
     echo "-skip_all      =" $skip_all

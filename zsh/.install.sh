@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ -z $INSTALLOPTION ]; then return; fi
-if [ $INSTALLOPTION != "true" ]; then return ; fi
+if [[ -z $INSTALLOPTION ]]; then return; fi
+if [[ $INSTALLOPTION != "true" ]]; then return ; fi
 
 ######### REQUIRED PACKAGES #########
 
@@ -21,41 +21,42 @@ install tmux
 #=[ vim-plug ]=================================#
 # better than vunddle , pretzo, or oh-my-zsh
 if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
-	script "Downloading ${bold}${blue}vim-plug${reset} plugins manager for neovim."
+	info "Downloading ${bold}${cyan}vim-plug${reset} plugins manager for neovim."
 	curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	script "Downloaded ${bold}${blue}vim-plug${reset} plugins manager for neovim."
+	OK "Downloaded ${bold}${green}vim-plug${reset} plugins manager for neovim."
 else
-	script "✔ ${bold}${green}vim-plug${reset} has been installed."
+	OK "✔ ${bold}${green}vim-plug${reset} has been installed."
 fi
 # @FIXME: nvim not quit after install
 # nvim +PlugInstall
-# nvim +PlugInstall +qall
-# script "Downloaded ${bold}${blue}plugins${reset} for neovim."
+# @FIXME: not working
+nvim +PlugInstall +qall
+OK "Downloaded ${bold}${green}plugins${reset} for neovim."
 
 #=[ base16-shell ]=============================#
 THEMEDIR="$HOME/.config/base16-shell"
 if [ ! -d "$THEMEDIR/.git" ]; then
 	git clone -b master https://github.com/chriskempson/base16-shell "$THEMEDIR"
-	script "Downloaded ${bold}${blue}base16-shell${reset} colorscheme for zsh."
+	OK "Downloaded ${bold}${green}base16-shell${reset} colorscheme for zsh."
 else
-	script "✔ ${bold}${green}base16-shell${reset} has been installed."
+	OK "✔ ${bold}${green}base16-shell${reset} has been installed."
 fi
 
 #=[ Tmux Plugin Manager ]======================#
 TPMDIR="$HOME/.tmux/plugins/tpm"
 if [ ! -d "$TPMDIR/.git" ]; then
 	git clone -b master https://github.com/tmux-plugins/tpm "$TPMDIR"
-	script "Downloaded ${bold}${blue}Tmux Plugin Manager${reset}."
+	OK "Downloaded ${bold}${green}Tmux Plugin Manager${reset}."
 else
-	script "✔ ${bold}${green}Tmux Plugin Manager${reset} has been installed."
+	OK "✔ ${bold}${green}Tmux Plugin Manager${reset} has been installed."
 fi
 
-inform " >> message from $BASH_SOURCE :
+warning " >> warning from $BASH_SOURCE :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION                                                               │
 │ - Manually run :PlugInstall for neovim (and then :PlugClean if needed)      │
-│   :( remove the symlink in '~/.config/nvim/plugged/base16-vim/colors' first.│
+│   NOTE: remove directories in '~/.config/nvim/plugged/' if failure.         │
 │ - Fetch tmux plugins by manually running 'prefix + I' inside tmux           │
 └─────────────────────────────────────────────────────────────────────────────┘
 "
@@ -63,14 +64,14 @@ inform " >> message from $BASH_SOURCE :
 # change defaull shell <--- !IMPORTANT
 case $SHELL in
 */zsh)
-	script "✔ ${bold}${green}zsh${reset} has been default shell."
+	OK "✔ ${bold}${green}zsh${reset} has been default shell."
 	;;
 */bash)
-	script "Changing default shell to ${bold}${green}zsh${reset}..."
+	info "Changing default shell to ${bold}${green}zsh${reset}..."
 	chsh -s `which zsh`
 	;;
 *)
-	script "Default shell is $(basename $SHELL)"
+	user "Default shell is $(basename $SHELL)"
 	read -p "Change default shell to ${bold}${green}zsh${reset} ? [y/n] " -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
