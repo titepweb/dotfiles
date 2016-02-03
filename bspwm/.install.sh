@@ -29,6 +29,8 @@ install pcmanfm engrampa unrar zip unzip p7zip
 install ranger w3m
 install mutt newsbeuter weechat
 
+install xorg-xsetroot # xsetroot -cursor_name left_ptr
+
 # # development server setup
 # install nginx
 # install dnsmasq
@@ -89,22 +91,23 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING OPTIONAL PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
 │ CLI/TUI                                                                     │
-│ - Video player: smplayer/mpv                                                │
-│ - File Manager: pcmanfm engrampa unrar zip unzip p7zip  +  tree   │
-│ - PDF READER  : zathura zathura-pdf-poppler zathura-djvu                    │
+│ - Video player: smplayer/[mpv]                                                │
+│ - File Manager: tree                                                        │
+│ - READER  : zathura zathura-pdf-poppler zathura-djvu                        │
 │ - HEX EDITOR  : bviplus                                                     │
-│ - htop / htop-temperature (AUR)                                               │
+│ - htop / htop-temperature (AUR)                                             │
 │ - i3lock + xautolock                                                        │
-│ - NORTIFICATION : twmn                                                      │
-│ - paper-gtk-theme Ark-Darker | ultra-flat-icons                             │
-│ - redshift youtube-viewer                                                                  │
-│                                                                             │
+│ - NORTIFICATION : twmn dust                                                 │
+│ - redshift youtube-viewer                                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+EOF
+warning " >> warning from $BASH_SOURCE :
+┌─────────────────────────────────────────────────────────────────────────────┐                                                          
 │ CONFIGURATION                                                               │
 │ - systemctl --user enable redshift.service    														  │
 │ - systemctl --user start redshift.service                                   │
 └─────────────────────────────────────────────────────────────────────────────┘
-EOF
-
+"
 
 # optional packages
 install ack
@@ -114,7 +117,8 @@ install htop
 install youtube-viewer
 
 install mousepad
-
+install redshift
+install mpv
 
 
 

@@ -31,8 +31,8 @@ fi
 # @FIXME: nvim not quit after install
 # nvim +PlugInstall
 # @FIXME: not working
-nvim +PlugInstall +qall
-OK "Downloaded ${bold}${green}plugins${reset} for neovim."
+# nvim +PlugInstall +qall
+# OK "Downloaded ${bold}${green}plugins${reset} for neovim."
 
 #=[ base16-shell ]=============================#
 THEMEDIR="$HOME/.config/base16-shell"

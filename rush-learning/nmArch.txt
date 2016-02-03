@@ -47,10 +47,10 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 	# lsblk /dev/sda
 	# cfdisk
 		--> (for MBR) (NEW -> Bootable -> Write -> {yes} {enter} -> Quit) 
-	# mkfs.ext4 /dev/sda3
+	# mkfs.ext4 /dev/sda3 		--> format
 	# mount /dev/sda3 /mnt
 	HOME
-		# mkfs.ext4 /dev/sda4
+		# mkfs.ext4 /dev/sda4 	--> skip it if reinstall
 		# mkdir /mnt/home
 		# mount /dev/sda4 /mnt/home
 	SWAP (if RAM < 2GiB)
@@ -88,7 +88,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 		# vi /etc/locale.conf
 		create a link to your chosen timezone:
 			# ln -sf /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime
-                                                    [Zone]  [SubZone]
+                                  [Zone]  [SubZone]
 		set the system time from the hardware clock (utc)
 			# hwclock --hctosys --utc
 		Initramfs : Create a new INItial RAM File System:
@@ -176,7 +176,7 @@ DE = DESKTOP MANAGER
 2. NETWORK MANAGER for DE: (profiles trong /etc/NetworkManager/system-connections/)
 	# pacman -S networkmanager network-manager-applet
 	# systemctl enable NetworkManager && systemctl start NetworkManager
-	# systemctl disable netctl-auto@wlp16s0.service (có nên ?)
+	# systemctl disable netctl-auto@wlp16s0.service
 	$ reboot
 ----------
 ?. KDE Plasma 5.4 (DE) + sddm (display manager) 
@@ -268,7 +268,6 @@ XFCE : THEME and COLOR SCHEME
 YouTube Video: https://youtu.be/JkSTa9ITISY
 $ tar -zcvf xfce4_backup.tar.gz ~/.config/xfce4		--> backup!
 $ pacman -Ss numix ----> # pacman -S numix-themes 
-X don't do this : $ pacman -Ss faenza --> install faenza-icon-theme
 vim /home/march/.config/xfce4/terminal/terminalrc
 	--> MiscCursorShape=TERMINAL_CURSOR_SHAPE_UNDERLINE
 
@@ -316,14 +315,13 @@ yaourt --stats
 # pacman -S lm-sensors 
 	$ sensors-detect 
 	$ watch sensors
-? pacman + yaourt = enough > parker + apper
+? pacman + paucaur > yaourt > parker + apper
 
 # blkid
 
 remove orphans: # pacman -Rns $(pacman -Qtdq)
 for k in `dpkg --list | grep linux-image | grep -v $(uname -r) | awk '{print $2 }'`;
-pacman -Qi linux
-pacman -Q | grepo linux
+pacman -Q | grep linux
 
 Maybe this way: comm -23 <(pacman -Qetq) <(pacman -Qgq base base-devel | sort)
 It lists packages to remove except base and base-devel groups. Use this list with pacman -Rsc and you get (more or less) just base Arch installation.
@@ -372,7 +370,6 @@ EMAIL ---------------------------------------
 xdman = xtreme download manager (support YouTube Video Downloader) from http://xdman.sourceforge.net/
 
 DICTIONARY: https://github.com/ciscorn/ldoce5viewer + golden
-OTHERS: mpd + ncmpcpp, rtorrent
 
 CODING : $ pac -S sublime-text-dev
 	 Intelij nó dính đến vấn đề bản quyền --> Eclipse --> https://spring.io/tools (an Eclipse variant)
@@ -503,38 +500,19 @@ bspwm
 		Based on : https://github.com/inject3d/dotfiles + benjcalderon + 
 			Reference : http://blog.z3bra.org/2014/04/meeting-at-the-bar.html
 		COMBO : lemonbar + stalonetray + XFCE4-Power-Manager + nm-applet + caffein
-		~/
-		|__.icons (pointer)
-		|__.fonts 
-		|__.xinitrc
-		|			+ pac -S xorg-xsetroot
 		|__.Xresources : rxvt-unicode + termninal color scheme + cursors + dpi + rofi + ... --> $ xrdb ~/.Xresources
-		|
 		+ yaourt -S lemonbar-xft-git : patched version of the lemonbar with xft support and then play with font size.
 			+ G! : 	1. Font Awesome icon Cheatsheet --> http://fontawesome.io/		
 							2. Foundation Icon Font
 							3. Source Code Pro and Sans,
 							Others: Material Design icon font
-		+ pac -S ncmpcpp mpd mpc mpv
-		+ color palette : gruvbox : https://github.com/morhetz/gruvbox-contrib > solarized
 		+ bspwmrc window management rule : $ xprop | grep WM_CLASS <-- xprop <-- pacman -S xorg-utils 
-		? Opera
 		? pac -S dunst (nortification)
-		+ gtk theme + icon : paper-gtk-theme Ark-Darker --> gtk 2+ 3+
-		? dark background thunar
-		? copy-paste -x-> clipboard cho nvim + apps
 		? xmodmap
-		+ light-house or rofi
 		x yaourt -S compton --> nang ne --> sd wallpaper co showdown --> GIMP : filters>map>tile
 
-		? NEWS : # pacman -S newsbeuter weechat mutt
 		x PIN  : # pacman -S acpi --> % pin
-		? ndmf <-ref- https://github.com/spf13/spf13-vim
-		? XPos va YPos khong xac dinh duoc 
 
-
-
-		nmcli dev wifi connect M454 password ti845887
 
 2015-01-23
 		+ mutt -s "Subject of mail" -c <email add for CC> -b <email-add for BCC> mail address of recipient
@@ -583,8 +561,6 @@ CODING
 # figlet – fancy fonts for Sublime Text minimap
 		$ figlet -f 3d -d ~/.fonts/figlet_fonts "Your Text Here"
 		$ watch -n1 "date '+%D%n%T'|figlet -f roman -d ~/.fonts/figlet_fonts -k"
-# pacman -S sublime-text-dev
-	subl3 file_name
 
 PROGRAMMING FONTS
 -----------------
@@ -675,10 +651,13 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 	+ gtk theme : Lime Night
 	+ qpdfview
 2016-02-02
-	+ mpv : script-opts=osc-layout=bottombar,osc-seekbarstyle=bar
+	+ ~/.config/mpv/mpv.conf : script-opts=osc-layout=bottombar,osc-seekbarstyle=bar
+	+ nextwall
 2016-02-03
+	+ vimrc
 	+ Cai lai may
 	+ networkmanager thay vi netctl NGAY TU DAU
+	+ install.sh
 
 
 COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
@@ -766,12 +745,12 @@ netctl-auto list
 netctl-auto enable 'wlp16s0-Sophop pho hue'
 netctl-auto enable 'wlp16s0-M454'
 
+nmcli dev wifi connect M454 password ti845887
 
 
 1.default apps
 2.pass manager?
 ? password manager tren linux (Dashlane? lastpass?)
 ? autohotkey
-? clipboard manager --> clipit
 
 test *.vimrc : vim -u testing_vimrc

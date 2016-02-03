@@ -31,10 +31,14 @@ warning () {
 #=[ functions ]================================#
 
 installed(){
-  x=`pacman -Q -q $1 >/dev/null`
-  if (pacman -Q $1 >/dev/null)
-    then return 0 #Installed
-    else return 1 #Not Installed
+  if [ "$(uname)" == "Darwin" ]; then
+    echo "@FIXME"
+  elif [[ "$(uname)"=="Linux" ]]; then
+    x=`pacman -Q -q $1 >/dev/null`
+    if (pacman -Q $1 >/dev/null)
+      then return 0 #Installed
+      else return 1 #Not Installed
+    fi
   fi
 }
 
