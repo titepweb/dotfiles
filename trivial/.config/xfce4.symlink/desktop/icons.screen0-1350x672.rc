@@ -1,24 +1,24 @@
 [xfdesktop-version-4.10.3+-rcfile_format]
 4.10.3+=true
 
-[6C44D3A644D37176]
-row=2
-col=0
-
-[3EAA-0067]
-row=0
-col=0
-
-[324CB9E84CB9A74F]
+[2016-02-01-15-37-21-00]
 row=1
 col=0
 
-[Trash]
+[324CB9E84CB9A74F]
+row=2
+col=0
+
+[EC7A7F537A7F1A12]
 row=3
 col=0
 
-[/]
+[Trash]
 row=4
+col=0
+
+[/]
+row=0
 col=0
 
 [/home/march]

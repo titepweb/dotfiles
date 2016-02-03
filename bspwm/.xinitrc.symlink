@@ -47,9 +47,6 @@ sed 's/\!allowExplicit/allowExplicit/' </tmp/xkbconf >/tmp/xkbconfnew
 xkbcomp /tmp/xkbconfnew "$DISPLAY"
 rm -f '/tmp/xkbconf' '/tmp/xkbconfnew'
 
-# keyboard shortcuts for bspwm
-sxhkd -f 100 &
-
 # screen temperature adjustment
 # adjust the coordinates for your location.  in case you were thinknig of going to the coordinates listed
 # below, my she-devil of an ex flatmate lives there, and it is probably best to avoid Charlotte altogether.
@@ -63,8 +60,9 @@ mpd &
 # hide x11 cursor
 unclutter &
 
-# urxvt daemon
+# urxvt daemon is required to start urxvtc
 urxvtd -q -f -o &
 
-# window manager
+# bspwm
+sxhkd -f 100 &
 exec bspwm

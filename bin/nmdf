@@ -197,7 +197,7 @@ bgxterm='\e[48'   ;   bgdefault='\e[49m'  ;
 set -e
 #set -x
 
-# COLORFULLY INFORM ✱✗—•…›✔
+# COLORFULLY INFORM
 # NOTE: echo -e is preffered because of avoiding using \n at the end of the command
 scan () {
   echo -e "\r  [${bold}${magenta} SCAN ${reset}] ${magenta}$1${reset}" 
@@ -571,12 +571,16 @@ install_dotfiles () {
   # done <<< "$platforms"
 
   echo
-  info  "${cyan}${bold}$scanindex${reset} dotfile(s) are scanned from ${cyan}$dotDir${reset}"
-  info  "${red}${bold}$fixnameindex${reset} dotfile(s)'s name(s) are fixed '${strike}${red}.symlink${reset} & ${strike}${red}.copy${reset}'!"
-  info  "${cyan}${bold}$symlinkindex${reset} dotfile(s) are symlinked!"
-  info  "${cyan}${bold}$copyindex${reset} dotfile(s) are copied!"
-  info  "${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) are installed, totally!"
+  info "${cyan}${bold}$scanindex${reset} dotfile(s) are scanned from ${cyan}$dotDir${reset}"
+  info "${red}${bold}$fixnameindex${reset} dotfile(s)'s name(s) are fixed '${strike}${red}.symlink${reset} & ${strike}${red}.copy${reset}'!"
+  info "${cyan}${bold}$symlinkindex${reset} dotfile(s) are symlinked!"
+  info "${cyan}${bold}$copyindex${reset} dotfile(s) are copied!"
+  info "${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) are installed, totally!"
+  echo
+  echo "$message"
 }
+
+#=[ functions ]================================#
 
 function additionalinstallation() {
   # Run optional install script.
@@ -585,8 +589,37 @@ function additionalinstallation() {
   local install="$1"
   if [ -x "$install" ]; then
     info "Running ${green}$install${reset}"
-    sh -c "$install"
+    source "$install"
   fi
+}
+
+function installed(){
+  x=`pacman -Q -q $1 >/dev/null`
+  if (pacman -Q $1 >/dev/null)
+    then return 0 #Installed
+    else return 1 #Not Installed
+  fi
+}
+
+function install(){
+  for pkg in $* ; do
+    if installed $pkg
+      then script "✔ ${green}$pkg${reset} has been installed."
+      else
+        script "✱ Installing ${green}$pkg${reset}"
+        echo -----------------------------------
+        sudo pacman -S --noconfirm $pkg
+        echo -----------------------------------
+    fi
+  done
+}
+
+function script () {
+  echo -e "\r  [${bold}${blue}SCRIPT${reset}] $1" 
+}
+
+function inform () {
+  message=$message"$1"
 }
 
 #### MAIN ####################################################################
@@ -597,8 +630,9 @@ function additionalinstallation() {
     displayTitle "WHAT WOULD YOU LIKE TO LAUNCH ?"
     PS3="Select above option regarding how to create the symlinks:"
     options=("Update/Clone from $REPO_URI"
+    "Install dotfiles, install required packages"
     "Install dotfiles"
-    "Rinnstall dotfiles"
+    "Reinstall dotfiles"
     "Install dotfiles. Ask before creating each symlink"
     "Reinstall dotfiles. Ask before creating each symlink"
     "Show statistic data"
@@ -608,6 +642,7 @@ function additionalinstallation() {
     do
       case $opt in
         "Update/Clone from $REPO_URI")                          pullOption=true ; break ;;
+        "Install dotfiles, install required packages")          installOption="install" ; INSTALLOPTION=true ; break ;;
         "Install dotfiles")                                     installOption="install" ; break ;;
         "Reinstall dotfiles")                                   installOption="install" ; forcefullyOption=true ; break ;;
         "Install dotfiles. Ask before creating each symlink")   askOption=true ; installOption="install" ; break ;;
@@ -628,12 +663,13 @@ function additionalinstallation() {
     [ "$1" ==  "--help" ] && help
     OPTIND=1 # Reset in case getopts has been used previously in the shell.
     #NOTE: Never use getopt (Traditional versions of getopt cannot handle empty argument strings, or arguments with embedded whitespace.)
-    while getopts :uclifaobsd:r:p: OPTION; do
+    while getopts :ucliIfaobsd:r:p: OPTION; do
       case $OPTION in
         u)  pullOption=true ;;
         c)  installOption="copy" ;;
         l)  installOption="symlink" ;;
         i)  installOption="install" ;;
+        I)  installOption="install" ; INSTALLOPTION="true" ;;
         f)  forcefullyOption=true ;;
         a)  askOption=true ;;
         o)  overwrite_all=true ;;
@@ -704,6 +740,7 @@ function additionalinstallation() {
     displayTitle "THE CORE PARAMETERS"
     echo "-pullOption    =" $pullOption
     echo "-installOption =" $installOption
+    echo "-INSTALLOPTION =" $INSTALLOPTION
     echo "-overwrite_all =" $overwrite_all
     echo "-backup_all    =" $backup_all
     echo "-skip_all      =" $skip_all
@@ -803,3 +840,5 @@ exit 0
       scan "Not found any *.symlink files in $src"
     fi
   fi 
+
+# ✱✗—•…›✔i

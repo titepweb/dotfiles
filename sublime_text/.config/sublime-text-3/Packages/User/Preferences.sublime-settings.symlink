@@ -37,7 +37,6 @@
 	"ignored_packages":
 	[
 		"AutoHotkey",
-		"Markdown",
 		"REG",
 		"Sublimerge Pro"
 	],
