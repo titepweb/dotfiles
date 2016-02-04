@@ -7,6 +7,7 @@ if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
   DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
 fi
 source $DOTFILES/install/inform
+
 #=[ functions ]================================#
 
 installed () {

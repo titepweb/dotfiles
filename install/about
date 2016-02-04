@@ -1,41 +1,4 @@
 
-function help {
-cat << EOF
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                                nmdf WORKFLOW                                │
-
-  (1) Update/Clone dotfiles : $(basename $0) -u [-r repository] [-d path to dir]
-
-    If run from remote location, nmdf automatically clone the REPO_URI
-    [$REPO_URI]
-    to the working directory or the specified directory that user give through
-    the option -d {path to dir}. -d would be useful to manage multiple dotfiles.
-
-  (2) Install dotfiles      : $(basename $0) command [options]
-      * command : 
-        -l  : Symlink both *.copy and *.symlink  files
-        -c  : Copy both *.copy and *.symlink files
-        -i  : Install : Copy *.copy files and symlink *.symlink files accordinly. 
-              Skip copying if destination file exists.
-        -if : Reinstall forcefully : Install dotfiles, do not skip copying.
-
-      * options :
-        -o  : Create symlinks without overwrite confirmation.
-        -b  : Create symlinks without backup confirmation.
-        -a  : Ask user for copying each file or creating each symlink.
-
-  (3) Show statistic data about dotfiles : $(basename $0) -s
-
-  (4) Push dotfiles to VSC  : $(basename $0) [-r repo] -p ["commitMessage"]
-
-      If the commitMessage is not specified or too short, an auto-message will 
-      be generated.
-
-  (*) Tips: $(basename $0) -uiba
-└─────────────────────────────────────────────────────────────────────────────┘
-EOF
-}
-
 function about {
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐

@@ -13,7 +13,45 @@ if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
 fi
 source $DOTFILES/install/inform
 source $DOTFILES/install/link
-source $DOTFILES/install/help
+
+#=[ functions ]================================#
+
+function nmdf_help {
+cat << EOF
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ WORKFLOW                                  │
+
+  (1) Update/Clone dotfiles : $(basename $0) -u [-r repository] [-d path to dir]
+
+    If run from remote location, nmdf automatically clone the REPO_URI
+    [$REPO_URI]
+    to the working directory or the specified directory that user give through
+    the option -d {path to dir}. -d would be useful to manage multiple dotfiles.
+
+  (2) Install dotfiles      : $(basename $0) command [options]
+      * command : 
+        -l  : Symlink both *.copy and *.symlink  files
+        -c  : Copy both *.copy and *.symlink files
+        -i  : Install : Copy *.copy files and symlink *.symlink files accordinly. 
+              Skip copying if destination file exists.
+        -if : Reinstall forcefully : Install dotfiles, do not skip copying.
+
+      * options :
+        -o  : Create symlinks without overwrite confirmation.
+        -b  : Create symlinks without backup confirmation.
+        -a  : Ask user for copying each file or creating each symlink.
+
+  (3) Show statistic data about dotfiles : $(basename $0) -s
+
+  (4) Push dotfiles to VSC  : $(basename $0) [-r repo] -p ["commitMessage"]
+
+      If the commitMessage is not specified or too short, an auto-message will 
+      be generated.
+
+  (*) Tips: $(basename $0) -uiba
+└─────────────────────────────────────────────────────────────────────────────┘
+EOF
+}
 
 #### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ###################
 
@@ -30,14 +68,14 @@ function updateRepo {
   # if @1="pull" but there is no repo here create one, otherwise update it afterwards.
   if [ "$1" == "pull" -a ! -d "$dotDir/.git" ]; then
     displayTitle "DOWNLOADING MASTER REPOSITORY"
-    [ -e "$dotDir"] && fail "${red}${bold}$dotDir is a regular file or a not empty directory. 'git clone' only work on empty directory.${reset}"
+    [ -e "$dotDir"] && FAIL "${red}${bold}$dotDir is a regular file or a not empty directory. 'git clone' only work on empty directory.${reset}"
     git clone -b "$REPO_BRANCH" "$REPO_URI" "$dotDir"
     OK "${green}${bold}Cloning $app_name completed!${reset}"
     return
   fi
 
   # If dotDir does not exist, return.
-  [ ! -d "$dotDir" ] && fail "${red}${bold}The dotDir $dotDir does not exist. \nUpdating Repository fails!${reset}"
+  [ ! -d "$dotDir" ] && FAIL "${red}${bold}The dotDir $dotDir does not exist. \nUpdating Repository fails!${reset}"
 
   # Git Pull or Push
   if [ "$1" == "pull" ]; then
@@ -93,8 +131,12 @@ function stats {
   overwrite_all=false backup_all=false skip_all=false
   installOption=false recopy=false
 
-  [ "$1" ==  "--help" ] && help
-  [ "$1" ==  "--about" ] && about
+  if [ $# = 0 ]; then
+    nmdf_help
+    FAIL "Parameters is needed to execute nmdf."
+  fi
+
+  [ "$1" ==  "--help" ] && nmdf_help
   OPTIND=1 # Reset in case getopts has been used previously in the shell.
   #NOTE: Never use getopt (Traditional versions of getopt cannot handle empty argument strings, or arguments with embedded whitespace.)
   while getopts :uclifaobsd:r:p: OPTION; do
@@ -102,7 +144,7 @@ function stats {
       u)  pullOption=true ;;
       c)  installOption="copy" ;;
       l)  installOption="symlink" ;;
-      i)  installOption="install" ;;
+      i)  installOption="symlink+copy" ;;
       f)  recopy=true ;;
       a)  askbeforeaction=true ;;
       o)  overwrite_all=true ;;
@@ -124,7 +166,7 @@ function stats {
           fi
       ;;
       h|\?) # if unrecognized option - show help
-          help
+          nmdf_help
           exit 1
       ;;
     esac
@@ -150,13 +192,13 @@ function stats {
   fi
 
   # After pulling, dotDir must be created or filled with content. So, Quit if dotDir does not exist.
-  [ ! -d "$dotDir" ] && fail "Dotfile directory ${red}'$dotDir'${reset} does not exist. nmdf is terminated."
+  [ ! -d "$dotDir" ] && FAIL "Dotfile directory ${red}'$dotDir'${reset} does not exist. nmdf is terminated."
 
 # STEP 3 # - Create ContextualSymlinkList which is used in SymlinkOrCopy functions. 
 #          - Rename symlink sub-directories of another symlink directories.
 #          - Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
 #----------------------------------------------------------------------------------------
-  if [ -n "$installOption" ]; then
+  if [ "$installOption" != "false" ]; then
     # for the first time, submodule need to be 
     displayTitle "INITIALIZING SUBMODULES"
     cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
@@ -168,7 +210,7 @@ function stats {
   if [ "$showStats" == "true" ]; then
     stats
   fi
-# STEP 5 # Push changes to the nmdf repository, which is useful if nmdf renamed/created directories
+# STEP 4 # Push changes to the nmdf repository, which is useful if nmdf renamed/created directories
 #----------------------------------------------------------------------------------------------------
   if [ "$pushOption" == "true" ]; then
     updateRepo "push"
