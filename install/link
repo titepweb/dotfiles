@@ -1,0 +1,357 @@
+#!/usr/bin/env bash
+# PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
+
+#### FUNCTIONS FOR CROSS-FLATFORM COMPATIBILITY ##############################
+detectplatform () {
+  if [ -n "$platform_cache" ]; then
+    printf "$platform_cache"
+    return
+  fi
+
+  if [ "$(uname)" == "Darwin" ]; then
+    printf 'mac'
+  elif [ "$(uname -s)" == "Linux" ]; then
+    printf 'linux'
+  elif [ "$(uname -s)" == "FreeBSD" ]; then
+    printf 'freebsd'
+  elif [ "$(uname -o)" == "Cygwin" ]; then
+    printf "cygwin\nwindows"
+  elif [ "$(uname -o)" == "Msys" ]; then
+    printf 'msys'
+  else
+    printf 'unknown'
+  fi
+}
+# Cache value to avoid repeating command "uname"
+export platform_cache="$(detectplatform)"
+
+readsymlink () {
+  local file="$1"
+
+  if [ "$(detectplatform)" == 'freebsd' ]; then
+    printf "$(realpath "$file")"
+    return $?
+  fi
+
+  printf "$(readlink --canonicalize-existing "$file")"
+}
+
+detecthome () { # return 'home' (global variable)
+  local platform=$1
+
+  case "$platform" in
+    mac|linux|msys|cygwin|freebsd ) printf $HOME ;;
+    windows ) printf "%s" "$(cygpath --unix $USERPROFILE)" ;;
+    * ) FAIL "Cannot determine home directories for platform ${red}$platform${reset}" ;;
+  esac
+}
+
+platform_excluded () {
+  local topic=$1
+  local platform=$2
+  local exclude_file="$topic/.exclude-platforms"
+
+  if [ ! -f "$exclude_file" ]; then
+    return 1
+  fi
+
+  if [ -n "$(/usr/bin/grep "$platform" "$exclude_file")" ]; then
+    return 0
+  fi
+
+  return 1
+}
+
+#### THE CORE LIBRARIES ######################################################
+
+MkParentFolder() {
+  local inDir="$(dirname "$1")" 
+  
+  # Remove $inDir if it is a broken symbolic file 
+  if [[ -h "$inDir" ]]; then
+    [[ -z "$(readsymlink "$inDir" )" ]] && rm "$inDir"
+  # ask for remove $inDir if it is a regular file
+  elif [[ -f "$inDir" ]]; then
+    INFO "File already exists: ${cyan}$inDir${reset}"
+    USER "Delete it? [${green}${bold}y${reset}/${red}${bold}n${reset}"]
+    read -n 1 action < /dev/tty
+    # if not yes, then skip it
+    if [[ $action =~ ^[Yy]$ ]]; then
+      rm "$inDir"
+      OK "Removed${red} ${strike}$inDir${reset}" 
+    else
+      FAIL "Take a look at ${red}$inDir${reset}"
+    fi
+  fi
+
+  # Create $inDir if it does not exist
+  if [ ! -d "$inDir" ]; then
+    mkdir -p "$inDir"       # mkdir can make two parent & son directories just with mkdir /parent_folder/son_folder
+    OK "Created $inDir"
+  fi
+}
+
+SymlinkOrCopy () {
+  local src="$1"
+  local dst="$2"
+  local ext="${src##*.}"
+
+  local overwrite= ; local backup= ; local skip= 
+  local action=
+
+  # Choose the right word to ask --------------------------------------------
+  if ( [ "$src" == "$DOTFILES" ] ) || ( [ "$installOption" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || ( [ "$installOption" == "symlink" ] ); then
+      local askword1="linked to"
+      local askword2="Create symlink"
+  elif ( [ "$installOption" == "symlink+copy" ] && [ "$ext" == "copy" ] ) || ( [ "$installOption" == "copy" ] ); then
+      local askword1="overwrited by"
+      local askword2="Copy"
+  fi
+  
+  # Ask user if destination file exists -------------------------------------
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
+    if [ "$overwrite_all" != "true" ] && [ "$backup_all" != "true" ] && [ "$skip_all" != "true" ]; then
+      local current_src="$(readsymlink "$dst")"
+
+      if [ "$installOption" == "symlink+copy" ] && [ "$ext" == "copy" ] && [ "$recopy" != "true" ]; then
+        skip=true;
+      elif [ "$current_src" == "$src" ]; then
+        skip=true;
+      else
+       ASK "File already exists: ${green}$dst${reset} \n\t   (${cyan}$(file --brief "$dst")${reset})
+           Will be $askword1 ${green}$src${reset}
+           ${bold}${yellow}s${reset}kip, ${bold}${yellow}S${reset}kip all, ${bold}${yellow}o${reset}verwrite, ${bold}${yellow}O${reset}verwrite all, ${bold}${yellow}b${reset}ackup, ${bold}${yellow}B${reset}ackup all?"
+
+        while true; do
+          # Read from tty, needed because we read in outer loop.
+          read -n 1 action < /dev/tty
+
+          case "$action" in
+            o ) overwrite=true     ; break ;;
+            O ) overwrite_all=true ; break ;;
+            b ) backup=true        ; break ;;
+            B ) backup_all=true    ; break ;;
+            s ) skip=true          ; break ;;
+            S ) skip_all=true      ; break ;;
+            * ) ;;
+          esac
+        done
+      fi
+    fi
+
+    overwrite=${overwrite:-$overwrite_all}
+    backup=${backup:-$backup_all}
+    skip=${skip:-$skip_all}
+
+    if [ ! "$skip" == true ] && [ ! "$dst" == "$DOTFILES" ]; then
+      if [ "$overwrite" == "true" ]; then
+        rm -rf "$dst"
+        OK "Removed ${green}$dst${reset}"
+      fi
+
+      if [ "$backup" == "true" ]; then
+        # Back $dst up without loosing directory structure
+        local relativeFile=${dst#$home} #remove $home from $file
+        # Remove the leading slash if there is one
+        if [[ $relativeFile == /* ]]; then
+          relativeFile=${relativeFile:1}
+        fi
+        local bakfile="$backupDir/$relativeFile.BAK.$(date +"%Y-%m-%d_%H-%M")"
+        # Make sure that the destination directory exists before backing up.
+        MkParentFolder "$bakfile"
+        # Backup
+        mv "$dst" "$bakfile"
+        return
+        OK "${green}┌─${reset}Moved ${green}$dst${reset} \n \t   ${green}└─ ✔ ─»${reset} ${green}$bakfile${reset}"
+      fi
+    fi
+  fi
+
+  # Skip , Symlink , or Copy ------------------------------------------------
+  if [ "$skip" == "true" ]; then
+    OK "Skipped┌${green}$src${reset} \n \t   ${red}   ✗   ${reset}└${green}$dst${reset}"
+  else
+    # Make sure that the destination directory exists before creating symlinks or copying
+    MkParentFolder "$dst"
+    # Ask users before creating symlinks or copying
+    if [ "$askbeforeaction" == "true" -a "$overwrite" != "true" -a "$backup" != "true" ]; then
+      ASK "$askword2 $(dirname "$dst")/${yellow}$(basename "$dst")${reset}? [${green}${bold}y${reset}/${red}${bold}n${reset}/install ${green}${bold}a${reset}ll] "
+      read -n 1 action < /dev/tty
+      # if not yes, then skip it
+      if [[ $action =~ [Aa] ]]; then
+        askbeforeaction=false
+      elif [[ ! $action =~ [Yy] ]]; then
+        OK "Skipped┌${green}$src${reset} \n \t   ${red}   ✗   ${reset}└${green}$dst${reset}"
+        return
+      fi
+    fi
+
+    # Create symlink or copy
+    if ( [ "$src" == "$DOTFILES" ] ) || ( [ "$installOption" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || ( [ "$installOption" == "symlink" ] ); then
+
+      # Create native symlinks on Windows.
+      export CYGWIN=winsymlinks:nativestrict
+
+      # Symlink command
+      ln -s "$src" "$dst"
+      symlinkindex=$(($symlinkindex+1))
+      OK "${green}╔Linked═${reset}${green}$src${reset} \n \t   ${green}╚═ ✔ ═══${reset}${green}$dst${reset}"
+
+    elif ( [ "$installOption" == "symlink+copy" ] && [ "$ext" == "copy" ] ) || ( [ "$installOption" == "copy" ] ); then
+
+      # Copy command (-r stands for recursively copy )
+      cp -r "$src" "$dst" 
+      copyindex=$(($copyindex+1))
+      OK "${green}╔Copied═${reset}${green}$src${reset} \n \t   ${green}╚═ ✔ ══>${reset}${green}$dst${reset}"
+
+    fi
+  fi
+}
+
+function FixDOTFILES () {
+  for i in `seq 1 10`; #10 here is customizable
+    do
+      for file in $( \
+        find "$1" \
+          -mindepth $i -maxdepth $i \
+          -not -path "*/*.ignore/*" \
+          -not -path "*/80%/*" \
+          -not -path "$tempDir/*" \
+          -name '*.symlink' -or -name '*.copy' \
+        \
+         ); do
+        if [[ $file =~ .*\.(symlink|copy)/.*\.(symlink|copy)$ ]]; then
+          # remove the tailing .symlink or .copy
+          local renameto="${file%.*}"
+          local ext="${file##*.}"
+          mv "$file" "$renameto"
+          fixindex=$(($fixindex+1))
+          # highlight .symlink in the string $file by replacing matched '.symlink'
+          renameto=${renameto/.symlink/${red}.symlink${reset}}
+          renameto=${renameto/.copy/${red}.copy${reset}}
+          echo -e "  $renameto${strike}${red}.$ext${reset}"
+        fi
+        if [ -L "$file" ] && [[ "$file" =~ .*\.(symlink|copy)$ ]]; then
+          deletesymlink=$(($deletesymlink+1))
+          rm -rf "$file"
+          OK "Removed ${strike}${red}$file${reset}"
+        fi
+      done
+    done
+}
+
+#### LOOP THROUGH FILES ######################################################
+
+INSTALL_DOTFILES () {
+  displayTitle "INSTALLING DOTFILES"
+  INFO "Installing dotfiles from ${cyan}$DOTFILES${reset}\n"
+
+  local topicindex=0;
+  local scanindex=0;
+  local fixindex=0;
+  local deletesymlink=0;
+  local symlinkindex=0;
+  local copyindex=0;
+
+  local platforms="$(detectplatform)"
+  while IFS=$'\n' read -r platform; do
+    local home="$(detecthome "$platform")" 
+    
+    INFO "Installing dotfiles in ${cyan}$home${reset} for platform ${cyan}$platform${reset}"  
+    # First, add a symlink for this dotfiles directory.
+    # if [[ ! "$DOTFILES" == "$dotDir" ]]; then
+      SymlinkOrCopy "$DOTFILES" "$dotDir"
+    # fi
+
+    # Find direct child directories (topics), exclude those starting with dots.
+    local topics="$(/usr/bin/find "$DOTFILES" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
+    while IFS=$'\n' read -r topic; do
+      topicindex=$(($topicindex+1))
+      [[ -z "$topic" ]] && continue
+      SCAN "-Topic- $topic"
+
+      if platform_excluded "$topic" "$platform"; then
+        INFO "Skipped ${green}$topic${reset} as it is excluded for platform ${cyan}$platform${reset}"
+        continue
+      fi
+
+      # 1. Remove the taling .symlink in the names of all the sub-directories of another *.symlink directory
+      # 2. Symlinks with name *.copy and *.symlink are not allow in $DOTFILES 
+      FixDOTFILES "$topic"
+
+      # Recursively search any named *.symlink files/directories below each topic directory, exclude files in 80% directories.
+      # local symlinks="$(/usr/bin/find "$topic" -mindepth 1 -maxdepth 1 \( -type f -or -type d \) -name '*.symlink')"
+      local symlinks="$(/usr/bin/find "$topic" -mindepth 1 \
+        -not -path "*/*.ignore/*" \
+        -not -path "*/80%/*" \
+        -not -path "$tempDir/*" \
+        -and \
+        \( \
+          \(   -type f \
+               -name '*.symlink' -or -name '*.copy' \
+          \) -or \( \
+               -type d \
+               -name '*.symlink' -or -name '*.copy' \
+          \) \
+        \) \
+        )"
+
+      while IFS=$'\n' read -r src; do
+        scanindex=$(($scanindex+1))
+        [[ -z "$src" ]] && continue
+
+        # remove the leading $topic from the destination directory name 
+        local dst="$home/${src#$topic/}"
+        # remove the leading .symlink or .copy from the destination directory name 
+        dst=${dst%.symlink}
+        dst=${dst%.copy}
+
+        SymlinkOrCopy "$src" "$dst"
+
+      done <<< "$symlinks"
+    done <<< "$topics"
+  done <<< "$platforms"
+
+  echo
+  INFO "${cyan}${bold}$scanindex${reset} dotfile(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned."
+  INFO "${red}${bold}$fixindex${reset} dotfile(s)'s name(s) were fixed '${strike}${red}.symlink${reset} or ${strike}${red}.copy${reset}'!"
+  INFO "${red}${bold}$deletesymlink${reset} ${strike}${red}symlink(s)${reset} in ${cyan}$DOTFILES${reset} was deleted."
+  INFO "${cyan}${bold}$symlinkindex${reset} dotfile(s) were symlinked!"
+  INFO "${cyan}${bold}$copyindex${reset} dotfile(s) were copied!"
+  INFO "${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) were installed, totally!"
+}
+
+#### MAIN ####################################################################
+
+# STEP 1 # Check Platform and Create global variables
+# ---------------------------------------------------
+  platform="$(detectplatform)"
+  home="$(detecthome "$platform")"    # create the global variable home
+
+  backupDir=$home/dotfiles-backup     #--> This folder should not be in $dotDir because if we delete $dotDir, we also delete $backupDir
+  # dotDir will be used to create symlink from $dotDir to $dotDir 
+  dotDir=$home/.dotfiles              #--> Don't change this because bashrc and zsh setup contain: 'export DOTFILES=~/.dotfiles'
+
+  # Set special directories and files based on defined dotDir.
+  binDir=$dotDir/bin                  #--> include in .bashrc or .bash_profile: export PATH=$binDir:$PATH
+  tempDir=$dotDir/temp                #--> include in .gitignore
+
+  # currently, logfile is not used. Save these for the later version of nmdf
+  logfile=$dotDir/nmdf.log            #--> include in .gitignore
+    # Delete log file if its size is bigger than 50 KiB
+    if [ -f $logfile ]; then
+      size=$(stat -c%s $logfile)
+      [[ $size > 50000 ]] && rm $logfile
+    fi
+
+# STEP 2 # Default installation parameters
+# ----------------------------------------
+[[ -n $installOption ]] || installOption="symlink+copy" # valid value = "symlink" , "copy" , "symlink+copy"
+[[ -n $recopy ]] || recopy=false                        # valid value = "true" or anything else
+[[ -n $askbeforeaction ]] || askbeforeaction=true       # valid value = "true" or anything else
+[[ -n $overwrite_all ]] || overwrite_all=false          # valid value = "true" or anything else
+[[ -n $backup_all ]] || backup_all=true                 # valid value = "true" or anything else
+
+# STEP 3 # Take acttion
+# ---------------------
+INSTALL_DOTFILES

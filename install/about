@@ -1,0 +1,122 @@
+
+function help {
+cat << EOF
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                nmdf WORKFLOW                                │
+
+  (1) Update/Clone dotfiles : $(basename $0) -u [-r repository] [-d path to dir]
+
+    If run from remote location, nmdf automatically clone the REPO_URI
+    [$REPO_URI]
+    to the working directory or the specified directory that user give through
+    the option -d {path to dir}. -d would be useful to manage multiple dotfiles.
+
+  (2) Install dotfiles      : $(basename $0) command [options]
+      * command : 
+        -l  : Symlink both *.copy and *.symlink  files
+        -c  : Copy both *.copy and *.symlink files
+        -i  : Install : Copy *.copy files and symlink *.symlink files accordinly. 
+              Skip copying if destination file exists.
+        -if : Reinstall forcefully : Install dotfiles, do not skip copying.
+
+      * options :
+        -o  : Create symlinks without overwrite confirmation.
+        -b  : Create symlinks without backup confirmation.
+        -a  : Ask user for copying each file or creating each symlink.
+
+  (3) Show statistic data about dotfiles : $(basename $0) -s
+
+  (4) Push dotfiles to VSC  : $(basename $0) [-r repo] -p ["commitMessage"]
+
+      If the commitMessage is not specified or too short, an auto-message will 
+      be generated.
+
+  (*) Tips: $(basename $0) -uiba
+└─────────────────────────────────────────────────────────────────────────────┘
+EOF
+}
+
+function about {
+cat << EOF
+┌─────────────────────────────────────────────────────────────────────────────┐
+                      The CORE CHARACTERISTICS of nmdf
+
+  1. flexibility : cross-platform (not tested yet)
+
+  2. modularity : topic-central organization
+
+  3. centralization
+
+  4. support copy and symlink option. Why? First and foremost, certain dotfiles
+     could contains sensitive information, as in muttrc (email password), ssh
+     keys, ... , so it need to copied and manually configured; a prompt is nice.
+     Secondly, some softwares, like newsbeuter, does not accept configuration 
+     symlink files. Thirdly, we need one-way changes from our dotDir to local 
+     configuration files for some programs; therefore, we will not be out of 
+     controlled. Futhermore, we could nmdf -l to use linking instead of copying 
+     and nmdf -c à la the well-known Stow tool.
+
+  5. smart storing : Unlike the alternative scripts which store .dotfiles and 
+     their ~/.data in dorDir with .symlink, nmdf only stores what really matter.
+     When installing, nmdf deeply scan for *.symlink and *.copy files and
+     directories in every topic. Therefore, nmdf keep dotDir lightweight due to
+     linking and copying only essential files instead of the whole directories
+     which may contain overweight temp files, for instance, ~/.config/chromium.
+
+     For example, do not use ~/.config/sublime-text-3.symlink. We just need to 
+     symlink 2 files, then install PackageControl, and let it take over the rest.
+     + ~/.config/sublime-text-3/Packages/User/Package Control.sublime-settings  
+     + ~/.config/sublime-text-3/Packages/User/Package Control.sublime-settings
+
+     Another example: For vim, we just need to symlink ~/.vimrc, install vundle,
+     run :PlugInstall in vim or 'vim +PluginInstall +qall' from command line to
+     install/update vim plugins.
+
+     NOTE: 'git submodule' is briliant to manage pluggins of other programs!
+
+  6. including pull for updates from and push changes to the REPO_URI. 
+
+  7. automatically decide git clone/pull based on whether nmdf is run remotely.
+
+ -----------------------------------------------------------------------------
+        The ORAGNIZATION MODEL of DOTFILES UNDER the MANAGEMENT of nmdf 
+
+ dotfiles                 # topic-centric organization dotfiles
+ ├─ bin  (required)       # added to your \$PATH and be made available everywhere
+ │  ├─ nmdf               # nmdf should be here for easily often running.  
+ │  ├─ xxx                # xxx is used to test new learned bash codes.
+ │  └─ ...                # 
+ ├─ temp (optional)       # --> add this folder into .gitignore
+ ├─ nmdf.log              # --> add this folder into .gitignore
+ ├─ sample topic          # nmdf #1: scan for topics, except *.ignore ones  
+ │  ├─ .exclude-platforms # nmdf #2: specifies excluded platforms for this topic
+ │  ├─ *[.symlink].ignore # nmdf #3: ignore these files/directories
+ │  ├─ *[.copy].80%       # nmdf #3: ignore these files/directories (dev files)
+ │  ├─ any_name.symlink   # nmdf #3: symlinked to ~/.any_name
+ │  ├─ any_name.copy      # nmdf #3: copied to ~/.any_name
+ │  ├─ .install.sh        # nmdf #4: performs additional installation
+ │  ├─ ...                # --> use nice=# for zplug to load scripts orderly
+ │  ├─ zprofile.zsh       # zsh #1: run for login shells
+ │  ├─ path.zsh           # zsh #2: modifies \$PATH
+ │  ├─ the_others.zsh     # zsh #3: topic-specific aliases
+ │  ├─ postinit.zsh       # zsh #4: run after additional setup
+ │  ├─ completion.zsh     # zsh #5: zsh completion setup
+ │  ├─ ...
+ │  ├─ nmExplample.md     # a decent place to type your discovering process... 
+ │  └─ other files
+ └─ git
+    ├─ bin                # contains git scripts
+    │  └─ git-specific-script
+    ├─ gitconfig.symlink  # symlinked to ~/.gitconfig
+    ├─ aliases.zsh        # sets up git aliases
+    ├─ path.zsh           # adds dotfiles/git/bin to \$PATH
+    └─ ...
+ -----------------------------------------------------------------------------
+        ************************************************************
+        *                        WARNING:                          *
+        *   Make sure that your sensitive data (email password,    *
+        *  ssh keys, API keys, etc.are) not included in dotfiles.  *
+        ************************************************************
+└─────────────────────────────────────────────────────────────────────────────┘
+EOF
+}

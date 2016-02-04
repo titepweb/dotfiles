@@ -1,0 +1,53 @@
+# PURPOSE : to be sourced
+
+# Fail on errors for all scripts.
+set -e
+#set -x
+
+### COLOR DEFENITION ### reference: https://en.wikipedia.org/wiki/ANSI_escape_code
+# Note: \033 = \e   30+i to specify foreground color, 40+i to specify background color,
+reset='\e[0m'     ;   
+
+bold='\e[1m'      ;   faint='\e[2m'       ;   italic='\e[3m'       ;   underline='\e[4m'    ;
+blink='\e[5m'     ;   blinkfast='\e[6m'   ;   negative='\e[7m'     ;   conceal='\e[8m'      ;
+strike='\e[9m'    ;
+
+normal='\e[22m'   ;   roman='\e[23m'      ;   nounderline='\e[24m' ;   noblink='\e[25m'     ;
+positive='\e[27m' ;   reveal='\e[28m'     ;   nostrike='\e[29m'    ;
+
+black='\e[30m'    ;   red='\e[31m'        ;   green='\e[32m'       ;   yellow='\e[33m'      ;
+blue='\e[34m'     ;   magenta='\e[35m'    ;   cyan='\e[36m'        ;   white='\e[37m'       ;
+xterm='\e[38'     ;   default='\e[39m'    ;
+
+bgblack='\e[40m'  ;   bgred='\e[41m'      ;   bggreen='\e[42m'     ;   bgyellow='\e[43m'    ;
+bgblue='\e[44m'   ;   bgmagenta='\e[45m'  ;   bgcyan='\e[46m'      ;   bgwhite='\e[47m'     ;
+bgxterm='\e[48'   ;   bgdefault='\e[49m'  ;
+# USAGE : printf , echo -e "just a ${underline}${red}${bold}underline red${reset}, ${negative}NEGATIVE${reset}, and ${strike}bold${reset} text."
+
+#### LIBRARIES OFFERING COLORFUL INFORMATIVENESS #############################
+# NOTE: echo -e "..." = printf "...\n" 
+function displayTitle {
+  #NOTE: [01;04;33  = bold + underline + xterm
+  BoldUnderlinedRed='\n\e[01;04;38m%s\e[0m\n'
+  printf $BoldUnderlinedRed "$1"
+}
+function SCAN {
+  echo -e "\r  [${bold}${magenta} SCAN ${reset}] ${magenta}$1${reset}" 
+}
+function INFO {
+  echo -e "\r  [${bold}${cyan} INFO ${reset}] $1" 
+}
+function ASK {
+  echo -e "\r  [ ${bold}${yellow} ?? ${reset} ] $1"
+}
+function OK {
+  echo -e "\r  [${bold}${green}  OK  ${reset}] $1" 
+}
+function FAIL {
+  printf "\r  [${bold}${red} FAIL ${reset}] $1\n"
+  exit 1
+}
+function WARNING { # Storing message to display at the end of the script
+  message=$message"$1"
+}
+

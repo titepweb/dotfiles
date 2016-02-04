@@ -21,7 +21,7 @@ install tmux
 #=[ vim-plug ]=================================#
 # better than vunddle , pretzo, or oh-my-zsh
 if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
-	info "Downloading ${bold}${cyan}vim-plug${reset} plugins manager for neovim."
+	INFO "Downloading ${bold}${cyan}vim-plug${reset} plugins manager for neovim."
 	curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	OK "Downloaded ${bold}${green}vim-plug${reset} plugins manager for neovim."
@@ -52,7 +52,7 @@ else
 	OK "✔ ${bold}${green}Tmux Plugin Manager${reset} has been installed."
 fi
 
-warning " >> warning from $BASH_SOURCE :
+WARNING " >> warning from $BASH_SOURCE :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION                                                               │
 │ - Manually run :PlugInstall for neovim (and then :PlugClean if needed)      │
@@ -67,11 +67,11 @@ case $SHELL in
 	OK "✔ ${bold}${green}zsh${reset} has been default shell."
 	;;
 */bash)
-	info "Changing default shell to ${bold}${green}zsh${reset}..."
+	INFO "Changing default shell to ${bold}${green}zsh${reset}..."
 	chsh -s `which zsh`
 	;;
 *)
-	user "Default shell is $(basename $SHELL)"
+	USER "Default shell is $(basename $SHELL)"
 	read -p "Change default shell to ${bold}${green}zsh${reset} ? [y/n] " -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
