@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 # PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTFILES variable.
+if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
+  DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
+  DOTFILES="$(dirname $DOTFILES)"   # which means, this script must be in $DOTFILES/topic/
+fi
+source $DOTFILES/install/inform
 
 #### FUNCTIONS FOR CROSS-FLATFORM COMPATIBILITY ##############################
 detectplatform () {
@@ -161,7 +167,6 @@ SymlinkOrCopy () {
         MkParentFolder "$bakfile"
         # Backup
         mv "$dst" "$bakfile"
-        return
         OK "${green}┌─${reset}Moved ${green}$dst${reset} \n \t   ${green}└─ ✔ ─»${reset} ${green}$bakfile${reset}"
       fi
     fi
@@ -171,7 +176,8 @@ SymlinkOrCopy () {
   if [ "$skip" == "true" ]; then
     OK "Skipped┌${green}$src${reset} \n \t   ${red}   ✗   ${reset}└${green}$dst${reset}"
   else
-    # Make sure that the destination directory exists before creating symlinks or copying
+
+    # 1- Make sure that the destination directory exists before creating symlinks or copying
     MkParentFolder "$dst"
     # Ask users before creating symlinks or copying
     if [ "$askbeforeaction" == "true" -a "$overwrite" != "true" -a "$backup" != "true" ]; then
@@ -186,7 +192,7 @@ SymlinkOrCopy () {
       fi
     fi
 
-    # Create symlink or copy
+    # 2- Create symlink or copy
     if ( [ "$src" == "$DOTFILES" ] ) || ( [ "$installOption" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || ( [ "$installOption" == "symlink" ] ); then
 
       # Create native symlinks on Windows.
@@ -259,9 +265,9 @@ INSTALL_DOTFILES () {
     
     INFO "Installing dotfiles in ${cyan}$home${reset} for platform ${cyan}$platform${reset}"  
     # First, add a symlink for this dotfiles directory.
-    # if [[ ! "$DOTFILES" == "$dotDir" ]]; then
+    if [[ ! "$DOTFILES" == "$dotDir" ]]; then
       SymlinkOrCopy "$DOTFILES" "$dotDir"
-    # fi
+    fi
 
     # Find direct child directories (topics), exclude those starting with dots.
     local topics="$(/usr/bin/find "$DOTFILES" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
@@ -344,7 +350,13 @@ INSTALL_DOTFILES () {
       [[ $size > 50000 ]] && rm $logfile
     fi
 
-# STEP 2 # Default installation parameters
+# STEP 2 # Verify that the backup and special directories exist
+# -------------------------------------------------------------
+  [ ! -d "$backupDir" ] && mkdir -v -p "$backupDir"
+  [ ! -d "$binDir" ] && mkdir -v -p "$binDir"
+  [ ! -d "$tempDir" ] && mkdir -v -p "$tempDir"
+
+# STEP 3 # Default installation parameters
 # ----------------------------------------
 [[ -n $installOption ]] || installOption="symlink+copy" # valid value = "symlink" , "copy" , "symlink+copy"
 [[ -n $recopy ]] || recopy=false                        # valid value = "true" or anything else
@@ -352,6 +364,14 @@ INSTALL_DOTFILES () {
 [[ -n $overwrite_all ]] || overwrite_all=false          # valid value = "true" or anything else
 [[ -n $backup_all ]] || backup_all=true                 # valid value = "true" or anything else
 
-# STEP 3 # Take acttion
+# STEP 4 # Take acttion
 # ---------------------
+
+# Source functions above only and Prevent to be accidently run with a parameter
+if [[ $1 != "true" ]]; then
+  return || FAIL "Please run $(basename $0) with 'true' parameter"
+fi
+
 INSTALL_DOTFILES
+
+exit 0

@@ -1,24 +1,19 @@
 #!/usr/bin/env bash
 # Location : $DOTFILES/bin/
 # PURPOSE : 1. launch $DOTFILES/link with parameters 2. Manage dotfiles project: show status/pull/push
+
 REPO_URI=https://github.com/titepweb/nmdf
 REPO_BRANCH=master
 APP_URL=https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf
 
-app_path="$(test -L "$0" && readlink "$0" || echo "$0")"
-app_name="$(basename "$app_path")"
-indir="$(dirname "$app_path")"
-
-DOTFILES="$(dirname $0)"
-
-echo - BASH_SOURCE=$BASH_SOURCE
-echo ====
-echo \$0=$0
-echo - app_path=$app_path
-echo - app_name=$app_name
-echo - indir=$indir
-echo - DOTFILES=$DOTFILES
-exit
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTFILES variable.
+if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
+  DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
+  DOTFILES="$(dirname $DOTFILES)"   # which means, this script must be in $DOTFILES/topic/
+fi
+source $DOTFILES/install/inform
+source $DOTFILES/install/link
+source $DOTFILES/install/help
 
 #### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ###################
 
@@ -37,7 +32,7 @@ function updateRepo {
     displayTitle "DOWNLOADING MASTER REPOSITORY"
     [ -e "$dotDir"] && fail "${red}${bold}$dotDir is a regular file or a not empty directory. 'git clone' only work on empty directory.${reset}"
     git clone -b "$REPO_BRANCH" "$REPO_URI" "$dotDir"
-    success "${green}${bold}Cloning $app_name completed!${reset}"
+    OK "${green}${bold}Cloning $app_name completed!${reset}"
     return
   fi
 
@@ -48,7 +43,7 @@ function updateRepo {
   if [ "$1" == "pull" ]; then
     displayTitle "Pulling changes from the $app_name's repository, branch $REPO_BRANCH"
     (cd $dotDir && git pull origin "$REPO_BRANCH")
-    success "${green}${bold}\nPulling changes from the $app_name completed!${reset}"
+    OK "${green}${bold}\nPulling changes from the $app_name completed!${reset}"
   elif [ "$1" == "push" ]; then
     displayTitle "Pushing changes to the $app_name's repository, branch $REPO_BRANCH"
     cd $dotDir && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
@@ -92,32 +87,14 @@ function stats {
 
 #### MAIN ####################################################################
 
-  # If user didn't provide -d path/to/directory, ...
-  if [ -z "$dotDir" ]; then
-    # a modified version from : http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in/246128#246128
-    SOURCE="${BASH_SOURCE[0]}"
-    while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-      DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-      SOURCE="$(readsymlink "$SOURCE")"
-      [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-    done
-    dotDir="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"  #--> nmdf must be in $binDir, not in $dotDir
-  fi
-
-  # Trim the trailing slash from the dot directory if user mistyped.
-  [[ $dotDir == */ ]] && dotDir="${dotDir%?}"  # OR dotDir=${dotDir:1}
-
-
-source $dotDir/install/inform
-source $dotDir/install/help
-source $dotDir/install/link
-
-# STEP 2 # Parse option arguments or ask for them if not been specified 
+# STEP 1 # Parse option arguments or ask for them if not been specified 
 # ----------------------------------------------------------------------
-  # Default Options
+  # Overwrite default options set in $DOTFILES/install/link
   overwrite_all=false backup_all=false skip_all=false
+  installOption=false recopy=false
 
   [ "$1" ==  "--help" ] && help
+  [ "$1" ==  "--about" ] && about
   OPTIND=1 # Reset in case getopts has been used previously in the shell.
   #NOTE: Never use getopt (Traditional versions of getopt cannot handle empty argument strings, or arguments with embedded whitespace.)
   while getopts :uclifaobsd:r:p: OPTION; do
@@ -126,8 +103,8 @@ source $dotDir/install/link
       c)  installOption="copy" ;;
       l)  installOption="symlink" ;;
       i)  installOption="install" ;;
-      f)  forcefullyOption=true ;;
-      a)  askOption=true ;;
+      f)  recopy=true ;;
+      a)  askbeforeaction=true ;;
       o)  overwrite_all=true ;;
       b)  backup_all=true ;;
       s)  showStats=true ;;
@@ -154,8 +131,7 @@ source $dotDir/install/link
   done
   shift $((OPTIND-1))  #This tells getopts to move on to the next argument.
 
-
-# STEP 3 # - Create a working copy of the dofiles repository.
+# STEP 2 # - Create a working copy of the dofiles repository.
 #          - Pull changes if dotfiles repository exists.
 #          - Evaluate the default parameters or what user typed (-d directory).
 #------------------------------------------------------------------------------
@@ -176,14 +152,7 @@ source $dotDir/install/link
   # After pulling, dotDir must be created or filled with content. So, Quit if dotDir does not exist.
   [ ! -d "$dotDir" ] && fail "Dotfile directory ${red}'$dotDir'${reset} does not exist. nmdf is terminated."
 
-  # Verify that the backup directory exists
-  [ ! -d "$backupDir" ] && mkdir -v -p "$backupDir"
-
-  # Create special directory parameters:
-  [ ! -d "$binDir" ] && mkdir -v -p "$binDir"
-  [ ! -d "$tempDir" ] && mkdir -v -p "$tempDir"
-
-# STEP 4 # - Create ContextualSymlinkList which is used in SymlinkOrCopy functions. 
+# STEP 3 # - Create ContextualSymlinkList which is used in SymlinkOrCopy functions. 
 #          - Rename symlink sub-directories of another symlink directories.
 #          - Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
 #----------------------------------------------------------------------------------------
@@ -191,9 +160,9 @@ source $dotDir/install/link
     # for the first time, submodule need to be 
     displayTitle "INITIALIZING SUBMODULES"
     cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
-    info "Completed!"
+    INFO "Completed!"
     # ContextualSymlinkList
-    install_dotfiles
+    INSTALL_DOTFILES
   fi
 
   if [ "$showStats" == "true" ]; then
@@ -229,14 +198,30 @@ exit 0
     local results=( $(find "$src" -name "*.symlink") )
     if (( ${#results[@]} )) ; then
       if [[ -d "$dst" ]]; then
-        scan "Existed $dst" 
+        SCAN "Existed $dst" 
       else
         mkdir -p "$dst"
-        success "Created $dst"
+        OK "Created $dst"
       fi
     else
-      scan "Not found any *.symlink files in $src"
+      SCAN "Not found any *.symlink files in $src"
     fi
   fi 
 
 # ✱✗—•…›✔i
+
+
+# Recursively look for the target which $dotDir points to: 
+# a modified version from : http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in/246128#246128
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readsymlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+  dotDir="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"  #--> nmdf must be in $binDir, not in $dotDir
+if [ -z "$dotDir" ]; then
+fi
+
+# Trim the trailing slash from the dot directory if user mistyped.
+[[ $dotDir == */ ]] && dotDir="${dotDir%?}"  # OR dotDir=${dotDir:1}

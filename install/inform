@@ -50,4 +50,3 @@ function FAIL {
 function WARNING { # Storing message to display at the end of the script
   message=$message"$1"
 }
-

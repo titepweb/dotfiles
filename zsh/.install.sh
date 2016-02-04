@@ -1,6 +1,4 @@
 #!/bin/bash
-if [[ -z $INSTALLOPTION ]]; then return; fi
-if [[ $INSTALLOPTION != "true" ]]; then return ; fi
 
 ######### REQUIRED PACKAGES #########
 

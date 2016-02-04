@@ -3,9 +3,10 @@
 #           2. source $DOTFILES/link to create symlink or copy dotfiles to ~
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTFILES variable.
-DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
+if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
+  DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
+fi
 source $DOTFILES/install/inform
-
 #=[ functions ]================================#
 
 installed () {
@@ -60,10 +61,9 @@ install () {
 #=[ MAIN ]=====================================#
 
 displayTitle "INSTALL NECCESSARY PACKAGES"
-# Prevent running accidently with a parameter
-INSTALLOPTION=$1
-if [[ $INSTALLOPTION != "true" ]]; then
-  FAIL "Please run $(basename $0) with 'true' parameter"
+# Source functions above only and Prevent to be accidently run with a parameter
+if [[ $1 != "true" ]]; then
+  return || FAIL "Please run $(basename $0) with 'true' parameter"
 fi
 
 # Look for .install.sh files and source them
@@ -83,6 +83,7 @@ done <<< "$topics"
 
 # Source $DOTFILES/link
 source $DOTFILES/install/link
+  INSTALL_DOTFILES
 
 echo
 echo "$message"
