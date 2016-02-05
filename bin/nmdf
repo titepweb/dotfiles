@@ -44,7 +44,7 @@ function updateRepo {
   if [ "$action" == "pull" ]; then
     displayTitle "PULLING CHANGES FROM THE MASTER REPOSITORY"
     (cd $REPO_LOCAL && git pull origin "$REPO_BRANCH")
-    OK "${green}${bold}\nPulling changes from the MASTER REPOSITORY completed!${reset}"
+    OK "${green}${bold}Pulling changes from the MASTER REPOSITORY completed!${reset}"
   elif [ "$action" == "push" ]; then
     displayTitle "PUSHING CHANGES TO MASTER REPOSITORY"
     
@@ -59,7 +59,7 @@ function updateRepo {
     [[ ! $REPLY =~ ^[Yy]$ ]] && FAIL "Please take a look over your dotfiles..." 
 
     cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
-    OK "${green}${bold}\nPushing changes from the MASTER REPOSITORY completed!${reset}"
+    OK "${green}${bold}Pushing changes from the MASTER REPOSITORY completed!${reset}"
   fi
 }
 
