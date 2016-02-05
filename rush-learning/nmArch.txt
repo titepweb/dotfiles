@@ -220,6 +220,7 @@ ONE LINE:
 	# ntfs-3g /dev/sda4 /mnt/sda4
 
 ;================[ MAKE ARCH BEAUTIFUL ]================
+AUR - build from scratch because all are not packaged
 Yaourt-------------------------------- how about : pacaur, packer, aura?...
 Tham khao: https://archlinux.fr/yaourt-en
 	 64 sudo vim /etc/pacman.conf

@@ -7,7 +7,6 @@
 ```bash
 sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf`"
 ```
-**
 
 ## Reinvent the wheel
 

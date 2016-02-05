@@ -8,6 +8,8 @@ Plug 'vim-airline/vim-airline'			" status line for Git
 Plug 'scrooloose/nerdtree'			" file browser (remap to <leader>-k)
 Plug 'jeffkreeftmeijer/vim-numbertoggle'	" smart relative numbering (default: C-n)
 Plug 'ctrlpvim/ctrlp.vim'			" fuzzy search (of course, C-p)
+Plug 'MarcWeber/vim-addon-mw-utils'
+	Plug 'garbas/vim-snipmate'
 Plug 'tpope/vim-commentary'
 " language-specific plugins --------------------
 

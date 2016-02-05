@@ -1,12 +1,6 @@
 
 
-bash_prompt meanings:
-```
-+	Uncommitted changes in the index
-!	Unstaged changes
-?	Untracked files
-$	Stashed files
-```
+
 Reference
 =========
 Tutorials : [1] [2] [3] [4] [5]

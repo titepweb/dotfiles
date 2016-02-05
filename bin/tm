@@ -37,7 +37,7 @@ function create_tmuxconf() {
 
 	cat << EOF > "$1"
 #!/bin/sh
-PROJECT_NAME=$PROJECT_NAME # /!\ must be UNIQUE
+PROJECT_NAME=$PROJECT_NAME # /!\ tmux session name must be UNIQUE
 PROJECT_LOCATION="$PROJECT_LOCATION"
 
 tmux -2 new-session -d -s $PROJECT_NAME
@@ -64,6 +64,8 @@ tmux select-pane -t 1
 # Attach to session
 tmux -2 attach-session -t \$PROJECT_NAME
 EOF
+
+	chmod +x "$1"
 }
 
 # abort if we're already inside a TMUX session
@@ -105,18 +107,17 @@ if [ ! $# == 0 ]; then
 	    echo -e "Loading configuration file ${cyan}\`$tmux_conf\`${reset}"
     	# fix parameter for source command in working directories <-- source "./<file>.tmux" works. source <file>.tmux won't
 		  [[ $tmux_conf = $tmux_name.tmux ]] && tmux_conf=./$tmux_conf
-	    source "$tmux_conf"
+	    source "$tmux_conf" || sh -c "$tmux_conf"
 	else
-	    echo "Session found. Connecting ${cyan}$tmux_name${reset} ..."
+	    echo -e "Session found. Connecting ${cyan}$tmux_name${reset} ..."
 			tmux attach-session -t $tmux_name
 	fi
 else
 	# present menu for user to choose which workspace to open -------------
 	PS3="Choose session/command: "
 	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh" "kill all sessions")
-	echo "Available sessions"
-	echo "------------------"
-	echo " "
+	echo -e "${bold}Available sessions${reset}"
+	echo -e "------------------"
 	select opt in "${options[@]}"
 	do
 		case $opt in

@@ -6,3 +6,10 @@
 #####**3** [chevex](https://github.com/chevex/dotfiles/blob/master/.shell_prompt.sh)
 ![](http://i.imgur.com/5yAl9VV.gif)
 
+bash_prompt meanings:
+```
++	Uncommitted changes in the index
+!	Unstaged changes
+?	Untracked files
+$	Stashed files
+```
