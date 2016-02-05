@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 # PURPOSE : install packages for the combo : bspwm + lemonbar + dzen2 + rofi + termite 
 # status : nearly finished. last edit on 2016-02-05
-# dependancy : this script is designed to be sourced by $REPO_LOCAL/install.sh
+# dependancy : this script is designed to be sourced by $DOTREPO/install.sh
 
 ######### REQUIRED PACKAGES #########
 
@@ -47,7 +47,7 @@ install git
 # install macvim --override-system-vim
 # install reattach-to-user-namespace 		# for osx
 
-WARNING " >> warning from $BASH_SOURCE :
+WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ MANUALLY INSTALL packages from AUR which cannot be installed automatically: │
 │ - lemonbar-git (AUR) (patched with xft support) + xtitle-git (AUR)          │
@@ -71,7 +71,7 @@ touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 mkdir -p ~/.config/mpd/playlists
 OK "Created ${bold}${green}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
 
-WARNING " >> warning from $BASH_SOURCE :
+WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION :                                                             │
 │ - ~/.dotfiles/lemonbar/panel_config <-- BATTERY=/sys/class/power_supply/??? │
@@ -100,7 +100,7 @@ cat << EOF
 │ - redshift youtube-viewer                                                   │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
-WARNING " >> warning from $BASH_SOURCE :
+WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION                                                               │
 │ - systemctl --user enable redshift.service    														  │

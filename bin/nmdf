@@ -1,19 +1,21 @@
-#!/usr/bin/env bash
-# Location : $REPO_LOCAL/bin/nmdf
-# PURPOSE : 1. launch $REPO_LOCAL/link with parameters 2. Manage dotfiles project: show status/pull/push
+#!/bin/sh
+# Location : $DOTREPO/bin/nmdf
+# PURPOSE : 1. launch $DOTREPO/link with parameters 2. Manage dotfiles project: show status/pull/push
 # status: unfinished. Last edit on 2016-02-05 . @TODO: --> PROJECT management + help
 
 REPO_URI=https://github.com/titepweb/nmdf
 REPO_BRANCH=master
 APP_URL=https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf
 
-# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit REPO_LOCAL variable.
-if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
-  REPO_LOCAL="$( cd -P "$( dirname "$0" )" && pwd )"
-  REPO_LOCAL="$(dirname $REPO_LOCAL)"   # which means, this script must be in $REPO_LOCAL/topic/
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
+if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
+  DOTREPO="$( cd -P "$( dirname "$0" )" && pwd )"
+  DOTREPO="$(dirname $DOTREPO)"   # which means, this script must be in $DOTREPO/topic/
 fi
-source $REPO_LOCAL/install/inform
-source $REPO_LOCAL/install/link true
+source $DOTREPO/install/inform
+source $DOTREPO/install/cross-platform
+source $DOTREPO/install/installpkg true
+source $DOTREPO/install/link true
 
 #=[ functions ]================================#
 
@@ -128,9 +130,9 @@ function stats {
 
 # STEP 1 # Parse option arguments or ask for them if not been specified 
 # ----------------------------------------------------------------------
-  # Overwrite default options set in $REPO_LOCAL/install/link
+  # Overwrite default options set in $DOTREPO/install/link
   overwrite_all=false backup_all=false skip_all=false
-  installOption=false recopy=false
+  symlinkORcopy=false recopy=false installpkg=false
 
   if [ $# = 0 ]; then
     nmdf_help
@@ -140,16 +142,19 @@ function stats {
   [ "$1" ==  "--help" ] && nmdf_help
   OPTIND=1 # Reset in case getopts has been used previously in the shell.
   #NOTE: Never use getopt (Traditional versions of getopt cannot handle empty argument strings, or arguments with embedded whitespace.)
-  while getopts :uclifaobsd:r:p: OPTION; do
+  while getopts :uclIifaobsd:r:p: OPTION; do
     case $OPTION in
       u)  pullOption=true ;;
-      c)  installOption="copy" ;;
-      l)  installOption="symlink" ;;
-      i)  installOption="symlink+copy" ;;
+      I)  installpkg=true ; symlinkORcopy="true" ;;
+      # parameters for $DOTREPO/install/link {{{
+      c)  symlinkORcopy="copy" ;;
+      l)  symlinkORcopy="symlink" ;;
+      i)  symlinkORcopy="symlink+copy" ;;
       f)  recopy=true ;;
       a)  askbeforeaction=true ;;
       o)  overwrite_all=true ;;
       b)  backup_all=true ;;
+      # }}}
       s)  showStats=true ;;
       d)  dotDir=$OPTARG ;;
       r)  REPO_URI=$OPTARG ;;
@@ -178,9 +183,7 @@ function stats {
 #          - Pull changes if dotfiles repository exists.
 #          - Evaluate the default parameters or what user typed (-d directory).
 #------------------------------------------------------------------------------
-  if [ "$pullOption" == "true" ]; then
-    updateRepo "pull"
-  fi
+  [ "$pullOption" == "true" ] && updateRepo "pull"
 
   # @FIXME:
   # sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf`"
@@ -197,21 +200,19 @@ function stats {
 
 # STEP 3 # Update submodules. Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
 #---------------------------------------------------------------------------------------------------------
-  if [ "$installOption" != "false" ]; then
+  [ "$installpkg" == "true" ] && INSTALL_PACKAGES
+  [ "$symlinkORcopy" != "false" ] && INSTALL_DOTFILES
     # for the first time, submodule need to be 
-    displayTitle "INITIALIZING SUBMODULES"
-    cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
-    INSTALL_DOTFILES
-  fi
+    # displayTitle "INITIALIZING SUBMODULES"
+    # cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
+  [ "$showStats" == "true" ] && stats
 
-  if [ "$showStats" == "true" ]; then
-    stats
-  fi
 # STEP 4 # Push changes to the nmdf repository, which is useful if nmdf renamed/created directories
 #----------------------------------------------------------------------------------------------------
-  if [ "$pushOption" == "true" ]; then
-    updateRepo "push"
-  fi
+  [ "$pushOption" == "true" ] && updateRepo "push"
+
+# STEP 3 -- DISPLAY WARNING MESSAGE
+echo -e "\n$message"
 
 exit 0
 
@@ -219,7 +220,16 @@ exit 0
 
 #### FUNCTION BANK ###########################################################
 
-    # ContextualSymlinkList
+# ContextualSymlinkList
+
+  for file in $(find "$topic" -type f -name .install.sh \
+                -not -path "*/*\.ingore/*" \
+                -not -path "*/*\.80%/*" \
+              ); do
+    INFO "Source ${cyan}$file${reset}"
+    source "$file"
+  done
+
 
   # RemoveTailing function can be rewritten :
   for i in `seq 1 10`; #10 here is customizable
@@ -267,3 +277,5 @@ fi
 
 # Trim the trailing slash from the dot directory if user mistyped.
 [[ $dotDir == */ ]] && dotDir="${dotDir%?}"  # OR dotDir=${dotDir:1}
+
+

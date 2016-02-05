@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 # PURPOSE : install packages for the combo : zsh + tmux + vim + base-16 colorscheme
 # status : nearly finished. last edit on 2016-02-05
-# dependancy : this script is designed to be sourced by $REPO_LOCAL/install.sh
+# dependancy : this script is designed to be sourced by $DOTREPO/install.sh
 
 ######### REQUIRED PACKAGES #########
 
@@ -53,7 +53,7 @@ else
 	OK "✔ ${bold}${green}Tmux Plugin Manager${reset} has been installed."
 fi
 
-WARNING " >> warning from $BASH_SOURCE :
+WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION                                                               │
 │ - Manually run :PlugInstall for neovim (and then :PlugClean if needed)      │
@@ -79,3 +79,5 @@ case $SHELL in
 		chsh -s `which zsh`
 	fi
 esac
+
+return

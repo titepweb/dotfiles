@@ -1,0 +1,118 @@
+#!/bin/sh
+# PURPOSE : scan for $DOTREPO/topic/.install.sh and source them to install packages and configure them.
+# status: unfinished but usable. Last edit on 2016-02-05 . @TODO: --> continute coding to implement on Darwin, Cywin...
+# location : $DOTREPO/install/installpkg
+# this script designed to be sourced with some inherited parameters or run with default ones
+
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
+if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
+  DOTREPO="$( cd -P "$( dirname "$0" )" && pwd )"
+  DOTREPO="$(dirname $DOTREPO)"   # which means, this script must be in $DOTREPO/topic/
+fi
+source $DOTREPO/install/inform
+source $DOTREPO/install/cross-platform
+
+# Prevent to be accidently run/sourced with a parameter.
+[[ $1 != "true" ]] && FAIL "Please run $(basename $0) with 'true' parameter"
+
+#=[ functions ]================================#
+
+installed () {
+  if [ "$(uname)" == "Darwin" ]; then
+    echo "@FIXME"
+  elif [[ "$(uname)"=="Linux" ]]; then
+    x=`pacman -Q -q $1 >/dev/null`
+    if (pacman -Q $1 >/dev/null)
+      then return 0 #Installed
+      else return 1 #Not Installed
+    fi
+  fi
+}
+
+install () {
+  local distro ; local pgkmanager
+  # 1 -- detect distro and package manager
+  case `uname` in
+    Linux)
+      distro=$(cat /etc/issue | head -n +1 | awk '{print $1}')
+      case $distro in
+        Arch) [[ $(which pacman) ]] && pgkmanager="sudo pacman -S --noconfirm" || FAIL "pacman is not installed." ;;
+        *) FAIL "This script was tested on $distro."
+      esac
+    ;;
+    Darwin)
+      if test ! $(which brew); then
+        INFO "✱ Installing ${cyan}$Homebrew{reset}..."
+        echo -----------------------------------
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        echo -----------------------------------
+      fi
+      pgkmanager="brew install"
+    ;;
+    *) FAIL "This script unsupports `uname`."
+    ;;
+  esac
+
+  # 2 -- Install
+  for pkg in $* ; do
+    if installed $pkg
+      then OK "✔ ${green}$pkg${reset} has been installed."
+      else
+        INFO "✱ Installing ${cyan}$pkg${reset}"
+        echo -----------------------------------
+        $pgkmanager $pkg
+        echo -----------------------------------
+        let pkgindex++
+    fi
+  done
+}
+
+#=[ MAIN ]=====================================#
+
+# STEP 1 -- INSTALL PACKAGES
+INSTALL_PACKAGES () {
+  displayTitle "INSTALL NECCESSARY PACKAGES"
+
+  local topicindex=0;
+  local scanindex=0;
+  local pkgindex=0;
+  local insfileindex=0;
+
+  local platforms="$(detectplatform)"
+  while IFS=$'\n' read -r platform; do
+    local home="$(detecthome "$platform")" 
+
+    # Look for .install.sh files and source them
+    topics="$(/usr/bin/find "$DOTREPO" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
+    while IFS=$'\n' read -r topic; do
+      topicindex=$(($topicindex+1))
+      [[ -z "$topic" ]] && continue
+      SCAN "-Topic- $topic"
+
+      if platform_excluded "$topic" "$platform"; then
+        INFO "Skipped ${green}$topic${reset} as it is excluded for platform ${cyan}$platform${reset}"
+        continue
+      fi
+# ┌─────────────────────────────────────────────────────────────────────────────┐
+      insfiles="$(find "$topic" -type f -name .install.sh \
+                    -not -path "*/*\.ingore/*" \
+                    -not -path "*/*\.80%/*" \
+                  )"
+      while IFS=$'\n' read -r insfile; do
+        insfileindex=$(($insfileindex+1))
+        [[ -z "$insfile" ]] && continue
+
+        INFO "Source ${cyan}$insfile${reset}"
+        source "$insfile"
+# └─────────────────────────────────────────────────────────────────────────────┘
+      done <<< "$insfiles"
+    done <<< "$topics"
+  done <<< "$platforms"
+
+  WARNING "\n✱ ${underline}${bold}PACKAGES INSTALLATION REPORT${reset} ( from ${yellow}$BASH_SOURCE${reset} )
+  ${cyan}${bold}$insfileindex${reset} installation scripts(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned.
+  ${cyan}${bold}$pkgindex${reset} package(s) were installed!
+  "
+}
+
+[[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_PACKAGES && echo -e "\n$message" && exit 0

@@ -1,0 +1,73 @@
+#!/bin/sh
+# PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
+# status: finished on 2016-02-05. @TODO: test on platforms other than Arch Linux
+# location : $DOTREPO/install/cross-platform
+# this script designed to be sourced. It only export "platform_cache" parameter, which shouldn't be used in the main script.
+
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
+if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
+  DOTREPO="$( cd -P "$( dirname "$0" )" && pwd )"
+  DOTREPO="$(dirname $DOTREPO)"   # which means, this script must be in $DOTREPO/topic/
+fi
+source $DOTREPO/install/inform
+
+#### FUNCTIONS FOR CROSS-FLATFORM COMPATIBILITY ##############################
+detectplatform () {
+  if [ -n "$platform_cache" ]; then
+    printf "$platform_cache"
+    return
+  fi
+
+  if [ "$(uname)" == "Darwin" ]; then
+    printf 'mac'
+  elif [ "$(uname -s)" == "Linux" ]; then
+    printf 'linux'
+  elif [ "$(uname -s)" == "FreeBSD" ]; then
+    printf 'freebsd'
+  elif [ "$(uname -o)" == "Cygwin" ]; then
+    printf "cygwin\nwindows"
+  elif [ "$(uname -o)" == "Msys" ]; then
+    printf 'msys'
+  else
+    printf 'unknown'
+  fi
+}
+# Cache value to avoid repeating command "uname"
+export platform_cache="$(detectplatform)"
+
+readsymlink () {
+  local file="$1"
+
+  if [ "$(detectplatform)" == 'freebsd' ]; then
+    printf "$(realpath "$file")"
+    return $?
+  fi
+
+  printf "$(readlink --canonicalize-existing "$file")"
+}
+
+detecthome () { # return 'home' (global variable)
+  local platform=$1
+
+  case "$platform" in
+    mac|linux|msys|cygwin|freebsd ) printf $HOME ;;
+    windows ) printf "%s" "$(cygpath --unix $USERPROFILE)" ;;
+    * ) FAIL "Cannot determine home directories for platform ${red}$platform${reset}" ;;
+  esac
+}
+
+platform_excluded () {
+  local topic=$1
+  local platform=$2
+  local exclude_file="$topic/.exclude-platforms"
+
+  if [ ! -f "$exclude_file" ]; then
+    return 1
+  fi
+
+  if [ -n "$(/usr/bin/grep "$platform" "$exclude_file")" ]; then
+    return 0
+  fi
+
+  return 1
+}

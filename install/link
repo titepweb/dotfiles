@@ -1,79 +1,19 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
 # status: finished on 2016-02-05. @TODO: test on platforms other than Arch Linux
-# location : $REPO_LOCAL/install/link
+# location : $DOTREPO/install/link
 # this script designed to be sourced with some inherited parameters or run with default ones
 
-# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit REPO_LOCAL variable.
-if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
-  REPO_LOCAL="$( cd -P "$( dirname "$0" )" && pwd )"
-  REPO_LOCAL="$(dirname $REPO_LOCAL)"   # which means, this script must be in $REPO_LOCAL/topic/
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
+if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
+  DOTREPO="$( cd -P "$( dirname "$0" )" && pwd )"
+  DOTREPO="$(dirname $DOTREPO)"   # which means, this script must be in $DOTREPO/topic/
 fi
-source $REPO_LOCAL/install/inform
+source $DOTREPO/install/inform
+source $DOTREPO/install/cross-platform
 
 # Prevent to be accidently run/sourced with a parameter.
 [[ $1 != "true" ]] && FAIL "Please run $(basename $0) with 'true' parameter"
-
-#### FUNCTIONS FOR CROSS-FLATFORM COMPATIBILITY ##############################
-detectplatform () {
-  if [ -n "$platform_cache" ]; then
-    printf "$platform_cache"
-    return
-  fi
-
-  if [ "$(uname)" == "Darwin" ]; then
-    printf 'mac'
-  elif [ "$(uname -s)" == "Linux" ]; then
-    printf 'linux'
-  elif [ "$(uname -s)" == "FreeBSD" ]; then
-    printf 'freebsd'
-  elif [ "$(uname -o)" == "Cygwin" ]; then
-    printf "cygwin\nwindows"
-  elif [ "$(uname -o)" == "Msys" ]; then
-    printf 'msys'
-  else
-    printf 'unknown'
-  fi
-}
-# Cache value to avoid repeating command "uname"
-export platform_cache="$(detectplatform)"
-
-readsymlink () {
-  local file="$1"
-
-  if [ "$(detectplatform)" == 'freebsd' ]; then
-    printf "$(realpath "$file")"
-    return $?
-  fi
-
-  printf "$(readlink --canonicalize-existing "$file")"
-}
-
-detecthome () { # return 'home' (global variable)
-  local platform=$1
-
-  case "$platform" in
-    mac|linux|msys|cygwin|freebsd ) printf $HOME ;;
-    windows ) printf "%s" "$(cygpath --unix $USERPROFILE)" ;;
-    * ) FAIL "Cannot determine home directories for platform ${red}$platform${reset}" ;;
-  esac
-}
-
-platform_excluded () {
-  local topic=$1
-  local platform=$2
-  local exclude_file="$topic/.exclude-platforms"
-
-  if [ ! -f "$exclude_file" ]; then
-    return 1
-  fi
-
-  if [ -n "$(/usr/bin/grep "$platform" "$exclude_file")" ]; then
-    return 0
-  fi
-
-  return 1
-}
 
 #### THE CORE LIBRARIES ######################################################
 
@@ -113,11 +53,11 @@ SymlinkOrCopy () {
   local action=
 
   # Evaluate parameters and Choose the right word to ask --------------------
-  if [ "$src" == "$REPO_LOCAL" ] || ( [ "$installOption" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || [ "$installOption" == "symlink" ]; then
+  if [ "$src" == "$DOTREPO" ] || ( [ "$symlinkORcopy" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || [ "$symlinkORcopy" == "symlink" ]; then
       local willbe="linked"
       local askword1="linked to"
       local askword2="Create symlink"
-  elif ( [ "$installOption" == "symlink+copy" ] && [ "$ext" == "copy" ] ) || ( [ "$installOption" == "copy" ] ); then
+  elif ( [ "$symlinkORcopy" == "symlink+copy" ] && [ "$ext" == "copy" ] ) || ( [ "$symlinkORcopy" == "copy" ] ); then
       local willbe="copied"
       local askword1="overwrited by"
       local askword2="Copy"
@@ -160,7 +100,7 @@ SymlinkOrCopy () {
     skip=${skip:-$skip_all}
 
   # And then, remove destination file or move destination file to backupDir -
-    if [ ! "$skip" == true ] && [ ! "$dst" == "$REPO_LOCAL" ]; then
+    if [ ! "$skip" == true ] && [ ! "$dst" == "$DOTREPO" ]; then
       if [ "$overwrite" == "true" ]; then
         rm -rf "$dst"
         OK "Removed ${green}$dst${reset}"
@@ -261,7 +201,7 @@ function FixDOTFILES () {
 
 INSTALL_DOTFILES () {
   displayTitle "INSTALLING DOTFILES"
-  INFO "Installing dotfiles from ${cyan}$REPO_LOCAL${reset}\n"
+  INFO "Installing dotfiles from ${cyan}$DOTREPO${reset}\n"
 
   local topicindex=0;
   local scanindex=0;
@@ -276,12 +216,12 @@ INSTALL_DOTFILES () {
     
     INFO "Installing dotfiles in ${cyan}$home${reset} for platform ${cyan}$platform${reset}"  
     # First, add a symlink for this dotfiles directory.
-    if [[ ! "$REPO_LOCAL" == "$dotDir" ]]; then
-      SymlinkOrCopy "$REPO_LOCAL" "$dotDir"
+    if [[ ! "$DOTREPO" == "$dotDir" ]]; then
+      SymlinkOrCopy "$DOTREPO" "$dotDir"
     fi
 
     # Find direct child directories (topics), exclude those starting with dots.
-    local topics="$(/usr/bin/find "$REPO_LOCAL" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
+    local topics="$(/usr/bin/find "$DOTREPO" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
     while IFS=$'\n' read -r topic; do
       topicindex=$(($topicindex+1))
       [[ -z "$topic" ]] && continue
@@ -291,9 +231,9 @@ INSTALL_DOTFILES () {
         INFO "Skipped ${green}$topic${reset} as it is excluded for platform ${cyan}$platform${reset}"
         continue
       fi
-
+# ┌─────────────────────────────────────────────────────────────────────────────┐
       # 1. Remove the taling .symlink in the names of all the sub-directories of another *.symlink directory
-      # 2. Symlinks with name *.copy and *.symlink are not allow in $REPO_LOCAL 
+      # 2. Symlinks with name *.copy and *.symlink are not allow in $DOTREPO 
       FixDOTFILES "$topic"
 
       # Recursively search any named *.symlink files/directories below each topic directory, exclude files in 80% directories.
@@ -324,18 +264,19 @@ INSTALL_DOTFILES () {
         dst=${dst%.copy}
 
         SymlinkOrCopy "$src" "$dst"
-
+# └─────────────────────────────────────────────────────────────────────────────┘
       done <<< "$symlinks"
     done <<< "$topics"
   done <<< "$platforms"
 
-  echo
-  INFO "${cyan}${bold}$scanindex${reset} dotfile(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned."
-  INFO "${red}${bold}$fixindex${reset} dotfile(s)'s name(s) were fixed '${strike}${red}.symlink${reset} or ${strike}${red}.copy${reset}'!"
-  INFO "${red}${bold}$deletesymlink${reset} ${strike}${red}symlink(s)${reset} in ${cyan}$REPO_LOCAL${reset} was deleted."
-  INFO "${cyan}${bold}$symlinkindex${reset} dotfile(s) were symlinked!"
-  INFO "${cyan}${bold}$copyindex${reset} dotfile(s) were copied!"
-  INFO "${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) were installed, totally!"
+  WARNING "\n✱ ${underline}${bold}DOTFILES INSTALLATION REPORT${reset} ( from ${yellow}$BASH_SOURCE${reset} )
+  ${cyan}${bold}$scanindex${reset} dotfile(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned.
+  ${red}${bold}$fixindex${reset} dotfile(s)'s name(s) were fixed '${strike}${red}.symlink${reset} or ${strike}${red}.copy${reset}'!
+  ${red}${bold}$deletesymlink${reset} ${strike}${red}symlink(s)${reset} in ${cyan}$DOTREPO${reset} was deleted.
+  ${cyan}${bold}$symlinkindex${reset} dotfile(s) were symlinked!
+  ${cyan}${bold}$copyindex${reset} dotfile(s) were copied!
+  ${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) were installed, totally!
+  "
 }
 
 #### MAIN ####################################################################
@@ -347,7 +288,7 @@ INSTALL_DOTFILES () {
 
   backupDir=$home/dotfiles-backup     #--> This folder should not be in $dotDir because if we delete $dotDir, we also delete $backupDir
   # dotDir will be used to create symlink from $dotDir to $dotDir 
-  dotDir=$home/.dotfiles              #--> Don't change this because bashrc and zsh setup contain: 'export REPO_LOCAL=~/.dotfiles'
+  dotDir=$home/.dotfiles              #--> Don't change this because bashrc and zsh setup contain: 'export DOTREPO=~/.dotfiles'
 
   # Set special directories and files based on defined dotDir.
   binDir=$dotDir/bin                  #--> include in .bashrc or .bash_profile: export PATH=$binDir:$PATH
@@ -369,7 +310,7 @@ INSTALL_DOTFILES () {
 
 # STEP 3 # Default installation parameters
 # ----------------------------------------
-[[ -n $installOption ]] || installOption="symlink+copy" # valid value = "symlink" , "copy" , "symlink+copy"
+[[ -n $symlinkORcopy ]] || symlinkORcopy="symlink+copy" # valid value = "symlink" , "copy" , "symlink+copy"
 [[ -n $recopy ]] || recopy=false                        # valid value = "true" or anything else
 [[ -n $askbeforeaction ]] || askbeforeaction=true       # valid value = "true" or anything else
 [[ -n $overwrite_all ]] || overwrite_all=false          # valid value = "true" or anything else
@@ -377,4 +318,4 @@ INSTALL_DOTFILES () {
 
 # STEP 4 # Take acttion
 # ---------------------
-[[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_DOTFILES && exit 0
+[[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_DOTFILES && echo -e "\n$message" && exit 0
