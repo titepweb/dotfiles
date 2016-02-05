@@ -20,6 +20,13 @@ source $DOTREPO/install/cross-platform
 source $DOTREPO/install/installpkg true
 source $DOTREPO/install/link true
 
+# clean default variables of link
+symlinkORcopy=
+recopy=
+askbeforeaction=
+overwrite_all=
+backup_all=
+
 #=[ FUNCTIONS ]===============================================================#
 
 function nmdf_help {
@@ -137,7 +144,7 @@ function stats {
 
 # STEP 1 # Parse option arguments or ask for them if not been specified 
 # ----------------------------------------------------------------------
-
+  
   if [ $# = 0 ]; then
     nmdf_help
     FAIL "Parameters is needed to execute nmdf."
@@ -149,8 +156,9 @@ function stats {
   while getopts :uclIifaobsd:r:p: OPTION; do
     case $OPTION in
       u)  pullOption=true ;;
-      I)  installpkg=true ;;
+      I)  installpkg=true
       # parameters for $DOTREPO/install/link {{{
+          symlinkORcopy="symlink+copy" ;;
       c)  symlinkORcopy="copy" ;;
       l)  symlinkORcopy="symlink" ;;
       i)  symlinkORcopy="symlink+copy" ;;

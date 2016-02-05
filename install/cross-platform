@@ -4,6 +4,10 @@
 # location : $DOTREPO/install/cross-platform
 # this script designed to be sourced. It only export "platform_cache" parameter, which shouldn't be used in the main script.
 
+# USAGE : platforms="$(detectplatform)"
+#         home="$(detecthome "$platform")" 
+# -----------------------------------------
+
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
 if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
   DOTREPO="$( cd -P "$( dirname "$0" )" && pwd )"

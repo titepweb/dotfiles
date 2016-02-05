@@ -1,8 +1,8 @@
 #!/bin/sh
-# PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
-# status: finished on 2016-02-05. @TODO: test on platforms other than Arch Linux
-# location : $DOTREPO/install/link
-# this script designed to be sourced with some inherited parameters or run with default ones
+# purpose  : checked if sourced or run as sub-shell
+# status   : finished on 2016-02-05.
+# location : $DOTREPO/install/sourced
+# this script designed to be sourced
 
 sourced () {
 	([[ -n $ZSH_EVAL_CONTEXT && $ZSH_EVAL_CONTEXT =~ :file$ ]] || 

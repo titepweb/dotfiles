@@ -1,7 +1,7 @@
 #!/bin/sh
 ###############################################################################
 # script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
-# status  : unfinished. Last edit on 2016-02-05                               #
+# status  : stable. Last edit on 2016-02-05                                   #
 # feature : 1. scan for $DOTREPO/topic/.install.sh and source them to install # 
 #              packages and configure them.                                   #
 #           2. source $DOTREPO/link to create symlink or copy dotfiles to ~   #
