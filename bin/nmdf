@@ -50,9 +50,10 @@ function updateRepo {
 }
 
 function remoterunning {
-  echo "remoterunning"
-  # updateRepo "$DEFAULT_DOTREPO" pull
-  # sh -c "$DEFAULT_DOTREPO/bootstrap.sh true"
+  echo "nmdf is running from remote location."
+  echo "cloning a working dotfiles"
+  updateRepo "$DEFAULT_DOTREPO" pull
+  sh -c "$DEFAULT_DOTREPO/bootstrap.sh true"
   exit 0
 }
 
