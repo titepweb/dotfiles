@@ -10,6 +10,9 @@ if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
 fi
 source $REPO_LOCAL/install/inform
 
+# Prevent to be accidently run/sourced with a parameter.
+[[ $1 != "true" ]] && FAIL "Please run $(basename $0) with 'true' parameter"
+
 #=[ functions ]================================#
 
 installed () {
@@ -64,10 +67,6 @@ install () {
 #=[ MAIN ]=====================================#
 
 displayTitle "INSTALL NECCESSARY PACKAGES"
-# Source functions above only and Prevent to be accidently run with a parameter
-if [[ $1 != "true" ]]; then
-  return || FAIL "Please run $(basename $0) with 'true' parameter"
-fi
 
 # Look for .install.sh files and source them
 topics="$(/usr/bin/find "$REPO_LOCAL" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
@@ -88,9 +87,7 @@ done <<< "$topics"
 source $REPO_LOCAL/install/link
   INSTALL_DOTFILES
 
-if [ -n $message ]; then
   echo
   echo "$message"
-fi
 
 exit 0

@@ -10,6 +10,9 @@ if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
 fi
 source $REPO_LOCAL/install/inform
 
+# Prevent to be accidently run/sourced with a parameter.
+[[ $1 != "true" ]] && FAIL "Please run $(basename $0) with 'true' parameter"
+
 #### FUNCTIONS FOR CROSS-FLATFORM COMPATIBILITY ##############################
 detectplatform () {
   if [ -n "$platform_cache" ]; then
@@ -373,12 +376,4 @@ INSTALL_DOTFILES () {
 
 # STEP 4 # Take acttion
 # ---------------------
-
-# Source functions above only and Prevent to be accidently run with a parameter
-if [[ $1 != "true" ]]; then
-  return || FAIL "Please run $(basename $0) with 'true' parameter"
-fi
-
-INSTALL_DOTFILES
-
-exit 0
+[[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_DOTFILES && exit 0

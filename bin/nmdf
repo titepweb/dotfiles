@@ -13,7 +13,7 @@ if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
   REPO_LOCAL="$(dirname $REPO_LOCAL)"   # which means, this script must be in $REPO_LOCAL/topic/
 fi
 source $REPO_LOCAL/install/inform
-source $REPO_LOCAL/install/link
+source $REPO_LOCAL/install/link true
 
 #=[ functions ]================================#
 
