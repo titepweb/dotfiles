@@ -3,6 +3,7 @@
 # status: finished on 2016-02-05. @TODO: test on platforms other than Arch Linux
 # location : $DOTREPO/install/link
 # this script designed to be sourced with some inherited parameters or run with default ones
+
 sourced () {
 	([[ -n $ZSH_EVAL_CONTEXT && $ZSH_EVAL_CONTEXT =~ :file$ ]] || 
 	 [[ -n $KSH_VERSION && $(cd "$(dirname -- "$0")" &&

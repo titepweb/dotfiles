@@ -1,8 +1,12 @@
 #!/bin/sh
-# PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
-# status: finished on 2016-02-05. @TODO: test on platforms other than Arch Linux
-# location : $DOTREPO/install/link
-# this script designed to be sourced with some inherited parameters or run with default ones
+###############################################################################
+# script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
+# status  : usable. Last edit on 2016-02-05                                   #
+# feature   2. source $DOTREPO/link to create symlink or copy dotfiles to ~   #
+###############################################################################
+# this script designed to be sourced with some inherited parameters ($DOTREPO 
+# symlinkORcopy, recopy, askbeforeaction, overwrite_all, and backup_all )
+# or run with default ones.
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
 if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
@@ -61,23 +65,25 @@ SymlinkOrCopy () {
       local willbe="copied"
       local askword1="overwrited by"
       local askword2="Copy"
-  else FAIL "Invalid parameters -- by $funcname"
+  else FAIL "Invalid parameters -- by $FUNCNAME"
   fi
 
   # Case 1 - Link : Don't ask, backup/remove and then recreate symlinks -----
-  if [ $willbe = "linked" ] && [ -L "$dst" ] ; then
+  if [ $willbe = "linked" ] && [ -L "$dst" ]; then
     if [ "$(readsymlink "$dst")" == "$src" ]; then
       skip=true;
     fi
   # Case 2 - don't ask, backup/remove existing destination file of *.copy dotfiles if ... because they may have been configured.
-  elif [ $willbe = "copied" ] && [ ! "$recopy" = "true" ] && [ ! -L "$dst" ]; then
-    skip=true;
+  elif [ $willbe = "copied" ] && [ -e "$dst" ] && [ ! -L "$dst" ]; then
+    if [ ! "$recopy" = "true" ]; then
+      skip=true;
+    fi
   # Otherwise, ask user if destination file exists --------------------------
   elif [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
     if [ ! "$overwrite_all" == "true" ] && [ ! "$backup_all" == "true" ] && [ ! "$skip_all" == "true" ]; then
-      ASK "File already exists: ${green}$dst${reset} \n\t   (${cyan}$(file --brief "$dst")${reset})
-          Will be $askword1 ${green}$src${reset}
-          ${bold}${yellow}s${reset}kip, ${bold}${yellow}S${reset}kip all, ${bold}${yellow}o${reset}verwrite, ${bold}${yellow}O${reset}verwrite all, ${bold}${yellow}b${reset}ackup, ${bold}${yellow}B${reset}ackup all?"
+      ASK "File already exists : ${green}$dst${reset} \n\t   (${cyan}$(file --brief "$dst")${reset})
+           Will be $askword1 ${green}$src${reset}
+           ${bold}${yellow}s${reset}kip, ${bold}${yellow}S${reset}kip all, ${bold}${yellow}o${reset}verwrite, ${bold}${yellow}O${reset}verwrite all, ${bold}${yellow}b${reset}ackup, ${bold}${yellow}B${reset}ackup all?"
 
       while true; do
         # Read from tty, needed because we read in outer loop.
@@ -125,7 +131,7 @@ SymlinkOrCopy () {
 
   # Finally, Skip , Symlink , or Copy ---------------------------------------
   if [ "$skip" == "true" ]; then
-    OK "Skipped┌${green}$src${reset} \n \t   ${red}   ✗   ${reset}└${green}$dst${reset}"
+    OK "Skipped┌${green}$src${reset} \n \t   ${green}   ✔   ${reset}└${green}$dst${reset}"
   else
 
     # 1- Make sure that the destination directory exists before creating symlinks or copying
@@ -269,7 +275,7 @@ INSTALL_DOTFILES () {
     done <<< "$topics"
   done <<< "$platforms"
 
-  WARNING "\n✱ ${underline}${bold}DOTFILES INSTALLATION REPORT${reset} ( from ${yellow}$BASH_SOURCE${reset} )
+  WARNING "\n✱ ${underline}${bold}DOTFILES INSTALLATION REPORT${reset} ( by ${yellow}$FUNCNAME{reset} from ${yellow}$BASH_SOURCE${reset} )
   ${cyan}${bold}$scanindex${reset} dotfile(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned.
   ${red}${bold}$fixindex${reset} dotfile(s)'s name(s) were fixed '${strike}${red}.symlink${reset} or ${strike}${red}.copy${reset}'!
   ${red}${bold}$deletesymlink${reset} ${strike}${red}symlink(s)${reset} in ${cyan}$DOTREPO${reset} was deleted.
@@ -314,7 +320,7 @@ INSTALL_DOTFILES () {
 [[ -n $recopy ]] || recopy=false                        # valid value = "true" or anything else
 [[ -n $askbeforeaction ]] || askbeforeaction=true       # valid value = "true" or anything else
 [[ -n $overwrite_all ]] || overwrite_all=false          # valid value = "true" or anything else
-[[ -n $backup_all ]] || backup_all=true                 # valid value = "true" or anything else
+[[ -n $backup_all ]] || backup_all=false                 # valid value = "true" or anything else
 
 # STEP 4 # Take acttion
 # ---------------------

@@ -49,6 +49,9 @@ function FAIL {
   printf "\r  [${bold}${red} FAIL ${reset}] $1\n"
   exit 1
 }
-function WARNING { # Storing message to display at the end of the script
+
+# Storing message to display at the end of the script
+# USAGE : let `echo -e "$message"` at the end of the main script.
+function WARNING { 
   message=$message"$1"
 }

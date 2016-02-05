@@ -1,8 +1,11 @@
 #!/bin/sh
-# PURPOSE : 1. scan for $DOTREPO/topic/.install.sh and source them to install packages and configure them.
-#           2. source $DOTREPO/link to create symlink or copy dotfiles to ~
-# status: unfinished but usable. Last edit on 2016-02-05 . @TODO: --> continute coding to implement on Darwin, Cywin...
-# location : $DOTREPO/bootstrap.sh
+###############################################################################
+# script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
+# status  : unfinished. Last edit on 2016-02-05                               #
+# feature : 1. scan for $DOTREPO/topic/.install.sh and source them to install # 
+#              packages and configure them.                                   #
+#           2. source $DOTREPO/link to create symlink or copy dotfiles to ~   #
+###############################################################################
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
 if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then

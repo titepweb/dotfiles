@@ -1,8 +1,12 @@
 #!/bin/sh
-# PURPOSE : scan for $DOTREPO/topic/.install.sh and source them to install packages and configure them.
-# status: unfinished but usable. Last edit on 2016-02-05 . @TODO: --> continute coding to implement on Darwin, Cywin...
-# location : $DOTREPO/install/installpkg
-# this script designed to be sourced with some inherited parameters or run with default ones
+###############################################################################
+# script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
+# status  : unfinished. Last edit on 2016-02-05                               #
+# feature : 1. scan for $DOTREPO/topic/.install.sh and source them to install # 
+#              packages and configure them.                                   #
+###############################################################################
+# this script designed to be sourced with some inherited parameters ($DOTREPO)
+# or run ( and DOTREPO will be created).
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
 if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
@@ -109,7 +113,7 @@ INSTALL_PACKAGES () {
     done <<< "$topics"
   done <<< "$platforms"
 
-  WARNING "\n✱ ${underline}${bold}PACKAGES INSTALLATION REPORT${reset} ( from ${yellow}$BASH_SOURCE${reset} )
+  WARNING "\n✱ ${underline}${bold}PACKAGES INSTALLATION REPORT${reset} ( by ${yellow}$FUNCNAME{reset} from ${yellow}$BASH_SOURCE${reset} )
   ${cyan}${bold}$insfileindex${reset} installation scripts(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned.
   ${cyan}${bold}$pkgindex${reset} package(s) were installed!
   "

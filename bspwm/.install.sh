@@ -57,7 +57,7 @@ WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 # nmcli_menu
 if [[ ! -f "$DOTFILES/bspwm/bin/nmcli_dmenu" ]]; then
 	INFO "Downloading ${bold}${cyan}nmcli_dmenu${reset} for easily managing network."
-	curl -fLo ~/.dotfiles/bspwm/bin/nmcli_dmenu --create-dirs \
+	curl -fLo "$DOTREPO/bspwm/bin/nmcli_dmenu" --create-dirs \
 	    https://raw.githubusercontent.com/firecat53/nmcli-dmenu/master/nmcli_dmenu
 	OK "Downloaded ${bold}${green}nmcli_dmenu${reset} for easily managing network."
 else

@@ -1,7 +1,10 @@
 #!/bin/sh
-# Location : $DOTREPO/bin/nmdf
-# PURPOSE : 1. launch $DOTREPO/link with parameters 2. Manage dotfiles project: show status/pull/push
-# status: unfinished. Last edit on 2016-02-05 . @TODO: --> PROJECT management + help
+###############################################################################
+# script  : $DOTREPO/bin/nmdf   maintained by titepweb at gmail.com           #
+# status  : unfinished. Last edit on 2016-02-05                               #
+# feature : 1. launch $DOTREPO/link with parameters                           #
+#           2. Manage dotfiles project: show status, easily git pull/push     #
+###############################################################################
 
 REPO_URI=https://github.com/titepweb/nmdf
 REPO_BRANCH=master
@@ -17,46 +20,50 @@ source $DOTREPO/install/cross-platform
 source $DOTREPO/install/installpkg true
 source $DOTREPO/install/link true
 
-#=[ functions ]================================#
+#=[ FUNCTIONS ]===============================================================#
 
 function nmdf_help {
 cat << EOF
+      REPO_URI=$REPO_URI    REPO_BRANCH=$REPO_BRANCH
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ WORKFLOW                                  │
-
-  (1) Update/Clone dotfiles : $(basename $0) -u [-r repository] [-d path to dir]
-
-    If run from remote location, nmdf automatically clone the REPO_URI
-    [$REPO_URI]
-    to the working directory or the specified directory that user give through
-    the option -d {path to dir}. -d would be useful to manage multiple dotfiles.
-
-  (2) Install dotfiles      : $(basename $0) command [options]
-      * command : 
-        -l  : Symlink both *.copy and *.symlink  files
-        -c  : Copy both *.copy and *.symlink files
-        -i  : Install : Copy *.copy files and symlink *.symlink files accordinly. 
-              Skip copying if destination file exists.
-        -if : Reinstall forcefully : Install dotfiles, do not skip copying.
-
-      * options :
-        -o  : Create symlinks without overwrite confirmation.
-        -b  : Create symlinks without backup confirmation.
-        -a  : Ask user for copying each file or creating each symlink.
-
-  (3) Show statistic data about dotfiles : $(basename $0) -s
-
-  (4) Push dotfiles to VSC  : $(basename $0) [-r repo] -p ["commitMessage"]
-
-      If the commitMessage is not specified or too short, an auto-message will 
-      be generated.
-
-  (*) Tips: $(basename $0) -uiba
+│ nmdf enables us to perform it frequently and easily maintain dotfiles.      │
+│ (1) $ > git clone >REPO_URI<                                                │
+│ (2) bootstrap = INSTALL_PACKAGES + INSTALL_DOTFILES (default parameters)    │
+│  │  $ > ./>DOTREPO</bootstrap.sh true                                       │
+│ (3) edit dotfiles, add or remove some dotfiles ...                          │
+│ (4) Show statistic data about dotfiles                                      │
+│  │  $ > nmdf -s                                                             │
+│ (5) push changes to the remote repository                                   │
+│  │  $ > nmdf -p "<commit message>"                                          │
+│  │               If the commitMessage is not specified or too short,        │
+│  │               an auto-message will be generated.                         │
+│ (x) pull changes from the >REPO_URI<                                        │
+│  │  $ > nmdf -u                                                             │
+│ (x) INSTALL_PACKAGES + INSTALL_DOTFILES                                     │
+│  │  $ > nmdf -I [options]                                                   │
+│ (x) INSTALL_DOTFILES only                                                   │
+│  │  $ > nmdf command [options]                                              │  
+│  │           -i  : Copy dotfiles base on their extensions.                  │
+│  │           -l  : Symlink both *.copy and *.symlink files                  │
+│  │           -c  : Copy both *.copy and *.symlink files                     │
+│  │                                                                          │ 
+│  │                   -o  : Create symlinks without overwrite confirmation.  │ 
+│  │                   -b  : Create symlinks without backup confirmation.     │
+│  │                   -a  : Ask user for copying file or creating symlink.   │
+│  │                                                                          │
+│  │  nmdf skip copying the *.copy if the destination files exist by default  │
+│  │  because they could have been configured and therefore different to the  │
+│  │  corresponding dotfiles. To skip protecting to overwrite those, use -f.  │
+│  │                                                                          │
+│  │                   -f  : force to install *.copy dotfiles event if the    │
+│  │                         corresponding destination files exist            │
+│  │                                                                          │
+│ \\│/                                                                         │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
 }
 
-#### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ###################
+#### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ####################
 
 function updateRepo {
   # Check if git is installed before doing git operations
@@ -126,13 +133,10 @@ function stats {
   exit 0
 }
 
-#### MAIN ####################################################################
+#=[ MAIN ]====================================================================#
 
 # STEP 1 # Parse option arguments or ask for them if not been specified 
 # ----------------------------------------------------------------------
-  # Overwrite default options set in $DOTREPO/install/link
-  overwrite_all=false backup_all=false skip_all=false
-  symlinkORcopy=false recopy=false installpkg=false
 
   if [ $# = 0 ]; then
     nmdf_help
@@ -145,7 +149,7 @@ function stats {
   while getopts :uclIifaobsd:r:p: OPTION; do
     case $OPTION in
       u)  pullOption=true ;;
-      I)  installpkg=true ; symlinkORcopy="true" ;;
+      I)  installpkg=true ;;
       # parameters for $DOTREPO/install/link {{{
       c)  symlinkORcopy="copy" ;;
       l)  symlinkORcopy="symlink" ;;
@@ -156,7 +160,10 @@ function stats {
       b)  backup_all=true ;;
       # }}}
       s)  showStats=true ;;
-      d)  dotDir=$OPTARG ;;
+      d)  dotDir=$OPTARG 
+          # Trim the trailing slash from the dot directory if user mistyped.
+          [[ $dotDir == */ ]] && dotDir="${dotDir%?}"  # OR dotDir=${dotDir:1}
+      ;;
       r)  REPO_URI=$OPTARG ;;
       p)  pushOption=true ;
           commitMessage=$OPTARG
@@ -201,7 +208,9 @@ function stats {
 # STEP 3 # Update submodules. Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
 #---------------------------------------------------------------------------------------------------------
   [ "$installpkg" == "true" ] && INSTALL_PACKAGES
-  [ "$symlinkORcopy" != "false" ] && INSTALL_DOTFILES
+  if [ -n "$symlinkORcopy" ] || [ $installpkg == "true"  ]; then
+    INSTALL_DOTFILES
+  fi
     # for the first time, submodule need to be 
     # displayTitle "INITIALIZING SUBMODULES"
     # cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
@@ -220,7 +229,9 @@ exit 0
 
 #### FUNCTION BANK ###########################################################
 
-# ContextualSymlinkList
+# 1 ContextualSymlinkList
+
+# 2
 
   for file in $(find "$topic" -type f -name .install.sh \
                 -not -path "*/*\.ingore/*" \
@@ -230,8 +241,8 @@ exit 0
     source "$file"
   done
 
+# 3 # RemoveTailing function can be rewritten :
 
-  # RemoveTailing function can be rewritten :
   for i in `seq 1 10`; #10 here is customizable
     do
       find "$1" -mindepth $i -maxdepth $i -name '*.symlink' -exec sh -c ' {
@@ -242,27 +253,21 @@ exit 0
         fi
       }' {} \;
     done
-          -not -path "$tempDir/*" \
 
-  # Before I find out mkdir can make multi-level directories, I use this to test if a directory contains .symlink file(s) or not.
-  # If a directory has a *.symlink file inside, I use the following codes to make sure that the destination directory exists before creating the corresponding symlinks.
-  if [ -d "$src" ]; then
-    local results=( $(find "$src" -name "*.symlink") )
-    if (( ${#results[@]} )) ; then
-      if [[ -d "$dst" ]]; then
-        SCAN "Existed $dst" 
-      else
-        mkdir -p "$dst"
-        OK "Created $dst"
-      fi
+# 4 # check ff a directory has a *.symlink file inside...
+  local results=( $(find "$src" -name "*.symlink") )
+  if (( ${#results[@]} )) ; then
+    if [[ -d "$dst" ]]; then
+      SCAN "Existed $dst" 
     else
-      SCAN "Not found any *.symlink files in $src"
+      mkdir -p "$dst"
+      OK "Created $dst"
     fi
-  fi 
+  else
+    SCAN "Not found any *.symlink files in $src"
+  fi
 
-# ✱✗—•…›✔i
-
-
+# 5 # 
 # Recursively look for the target which $dotDir points to: 
 # a modified version from : http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in/246128#246128
 SOURCE="${BASH_SOURCE[0]}"
@@ -274,8 +279,4 @@ done
   dotDir="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"  #--> nmdf must be in $binDir, not in $dotDir
 if [ -z "$dotDir" ]; then
 fi
-
-# Trim the trailing slash from the dot directory if user mistyped.
-[[ $dotDir == */ ]] && dotDir="${dotDir%?}"  # OR dotDir=${dotDir:1}
-
 
