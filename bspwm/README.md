@@ -1,19 +1,29 @@
-FONTS
-=====
+## FONTS & THEME
+First Necessary fonts : ```$ yaourt -Sb ttf-ms-fonts --export ~/Downloads```
+
 **ICON FONTS**
 [Nerd Font's collection](https://github.com/ryanoasis/nerd-fonts)
 **GTK FONTS**
 [System San Francisco TextFace](https://github.com/supermarin/YosemiteSanFranciscoFont)
 **TERMINAL FONTS**
 [Liberation Mono for Powerline](https://github.com/powerline/fonts)
+**LEMONBAR FONTS**
+[Source Sans Pro Semibold](https://google.com)
+[FontAwesome](http://fontawesome.io/) for most icons. [its cheatsheet](https://fortawesome.github.io/Font-Awesome/cheatsheet/)
+[Foundation Icon Fonts 3](http://zurb.com/playground/foundation-icon-fonts-3) for media icons.
+**GTK THEME**
+[nale12's GTK theme on deviantart](nale12.deviantart.com/gallery/?catpath=/)
+**GTK ICONS**
+```
+$ yaourt -Sb numix-circle-icon-theme-git --export ~/Downloads/
+```
+more...
+[FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862)
 
 REQUIRED SOFTWARES
 ==================
 Clipboard manager : [xclip] , xsel , diodon, klipper, glipper, parcellite or xfce4-clipman
 [nmcli_menu](https://github.com/firecat53/nmcli-dmenu)
-
-[nale12's GTK theme on deviantart](nale12.deviantart.com/gallery/?catpath=/)
-[FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862)
 
 [ninetyfourbit's scripts + wallpaper](https://github.com/ninetyfourbit)
 [NickBrisebois](https://github.com/NickBrisebois/dotfiles)
