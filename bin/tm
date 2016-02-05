@@ -40,6 +40,10 @@ function create_tmuxconf() {
 PROJECT_NAME=$PROJECT_NAME # /!\ tmux session name must be UNIQUE
 PROJECT_LOCATION="$PROJECT_LOCATION"
 
+# check if tmux session named \$PROJECT_NAME exist
+tmux has-session -t \$PROJECT_NAME 2>/dev/null
+[ "\$?" != 1 ] && tmux attach-session -t \$PROJECT_NAME && exit
+
 tmux -2 new-session -d -s $PROJECT_NAME
 
 # Setup a window for developing
