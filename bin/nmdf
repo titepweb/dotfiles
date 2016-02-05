@@ -18,7 +18,7 @@ DEFAULT_DOTREPO="$HOME/PROJECT/dotfiles"
 function updateRepo {
   local REPO_LOCAL="$1"
   local action="$2"
-  # Check if git is installed before doing git operations
+  # 1 - Check if git is installed before doing git operations
   type git >/dev/null 2>&1 || { 
     echo "************************************"
     echo >&2 "Git is required to clone/pull/push dot files from/to a remote repository. "\
@@ -27,27 +27,39 @@ function updateRepo {
     return;
   }
 
-  # if @1="pull" but there is no repo here create one, otherwise update it afterwards.
+  # 2 - CLONE - if @1="pull" but there is no repo here create one, otherwise update it afterwards.
   if [ "$action" == "pull" -a ! -d "$REPO_LOCAL/.git" ]; then
-    displayTitle "DOWNLOADING MASTER REPOSITORY"
-    [ -e "$REPO_LOCAL" ] && FAIL "${red}${bold}$REPO_LOCAL is a regular file or a not empty directory.\n'git clone' only work on empty directory.${reset}.\nPlease rename/remove it"
+    BoldUnderlinedRed='\n\e[01;04;38m%s\e[0m\n'
+    printf $BoldUnderlinedRed "DOWNLOADING MASTER REPOSITORY"
+    [ -e "$REPO_LOCAL" ] && echo -e "\e[1;31m$REPO_LOCAL is a regular file or a not empty directory.\n'git clone' only work on empty directory.\nPlease rename/remove it\e[0m" && exit
     git clone -b "$REPO_BRANCH" "$REPO_URI" "$REPO_LOCAL"
-    OK "${green}${bold}Cloning the MASTER REPOSITORY completed!${reset}"
+    echo -n "\e[1;32mCloning the MASTER REPOSITORY completed!\e[0m"
     return
   fi
 
-  # If REPO_LOCAL does not exist, return.
+  # 3 - If REPO_LOCAL does not exist, return.
   [ ! -d "$REPO_LOCAL" ] && FAIL "${red}${bold}The REPO_LOCAL $REPO_LOCAL does not exist. \nUpdating Repository fails!${reset}"
 
-  # Git Pull or Push
+  # 4 - PULL or PUSH - 
   if [ "$action" == "pull" ]; then
     displayTitle "PULLING CHANGES FROM THE MASTER REPOSITORY"
     (cd $REPO_LOCAL && git pull origin "$REPO_BRANCH")
     OK "${green}${bold}\nPulling changes from the MASTER REPOSITORY completed!${reset}"
   elif [ "$action" == "push" ]; then
     displayTitle "PUSHING CHANGES TO MASTER REPOSITORY"
+    
+    echo -e "\n✱ ${underline}${bold}PRIVACY WARNING${reset} ( by ${yellow}$FUNCNAME${reset} from ${yellow}$BASH_SOURCE${reset} )
+      ┌─────────────────────────────────────────────────────────────────────┐
+      │  Make sure that your sensitive data are not included in dotfiles.   │
+      │            (email password, ssh keys, API keys, etc.)               │
+      └─────────────────────────────────────────────────────────────────────┘
+    "
+
+    read -p "Are you sure [y/n] ?" -n 1 -r && echo
+    [[ ! $REPLY =~ ^[Yy]$ ]] && FAIL "Please take a look over your dotfiles..." 
+
     cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
-    echo -e "${green}${bold}\nPushing changes from the MASTER REPOSITORY completed!${reset}"
+    OK "${green}${bold}\nPushing changes from the MASTER REPOSITORY completed!${reset}"
   fi
 }
 

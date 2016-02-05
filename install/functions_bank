@@ -77,12 +77,7 @@ cat << EOF
     ├─ aliases.zsh        # sets up git aliases
     ├─ path.zsh           # adds dotfiles/git/bin to \$PATH
     └─ ...
- -----------------------------------------------------------------------------
-        ************************************************************
-        *                        WARNING:                          *
-        *   Make sure that your sensitive data (email password,    *
-        *  ssh keys, API keys, etc.are) not included in dotfiles.  *
-        ************************************************************
+
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
 }

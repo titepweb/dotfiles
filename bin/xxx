@@ -1,6 +1,5 @@
 #!/bin/bash
 #xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
-
 # TEST and TRIM
   if [[ ! "$1" = "${1%[[:space:]]*}" || "$1" == *.* ]]; then
     echo HEHE
