@@ -7,46 +7,46 @@
 ###############################################################################
 
 AUTHOR=titepweb
-REPO_URI=https://github.com/titepweb/nmdf
+REPO_URI=https://github.com/titepweb/dotfiles
 REPO_BRANCH=master
-APP_URL=https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf
+APP_URL=https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf
 
 #### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ####################
 DEFAULT_DOTREPO="$HOME/PROJECT/dotfiles"
 
 function updateRepo {
-  local local_repo="$1"
+  local REPO_LOCAL="$1"
   local action="$2"
   # Check if git is installed before doing git operations
   type git >/dev/null 2>&1 || { 
     echo "************************************"
     echo >&2 "Git is required to clone/pull/push dot files from/to a remote repository. "\
-    "Symlinks can still be auto created to files in $local_repo but a remote repository will not be used.";
+    "Symlinks can still be auto created to files in $REPO_LOCAL but a remote repository will not be used.";
     echo "************************************"
     return;
   }
 
   # if @1="pull" but there is no repo here create one, otherwise update it afterwards.
-  if [ "$action" == "pull" -a ! -d "$local_repo/.git" ]; then
+  if [ "$action" == "pull" -a ! -d "$REPO_LOCAL/.git" ]; then
     displayTitle "DOWNLOADING MASTER REPOSITORY"
-    [ -e "$local_repo" ] && FAIL "${red}${bold}$local_repo is a regular file or a not empty directory. 'git clone' only work on empty directory.${reset}"
-    git clone -b "$REPO_BRANCH" "$REPO_URI" "$local_repo"
-    OK "${green}${bold}Cloning $AUTHOR's dotfiles completed!${reset}"
+    [ -e "$REPO_LOCAL" ] && FAIL "${red}${bold}$REPO_LOCAL is a regular file or a not empty directory.\n'git clone' only work on empty directory.${reset}.\nPlease rename/remove it"
+    git clone -b "$REPO_BRANCH" "$REPO_URI" "$REPO_LOCAL"
+    OK "${green}${bold}Cloning the MASTER REPOSITORY completed!${reset}"
     return
   fi
 
-  # If local_repo does not exist, return.
-  [ ! -d "$local_repo" ] && FAIL "${red}${bold}The local_repo $local_repo does not exist. \nUpdating Repository fails!${reset}"
+  # If REPO_LOCAL does not exist, return.
+  [ ! -d "$REPO_LOCAL" ] && FAIL "${red}${bold}The REPO_LOCAL $REPO_LOCAL does not exist. \nUpdating Repository fails!${reset}"
 
   # Git Pull or Push
   if [ "$action" == "pull" ]; then
-    displayTitle "Pulling changes from the $AUTHOR's dotfiles's repository, branch $REPO_BRANCH"
-    (cd $local_repo && git pull origin "$REPO_BRANCH")
-    OK "${green}${bold}\nPulling changes from the $AUTHOR's dotfiles completed!${reset}"
+    displayTitle "Pulling changes from ${cyan}$REPO_URI${reset} repository, branch ${cyan}$REPO_BRANCH${reset}"
+    (cd $REPO_LOCAL && git pull origin "$REPO_BRANCH")
+    OK "${green}${bold}\nPulling changes from the MASTER REPOSITORY completed!${reset}"
   elif [ "$action" == "push" ]; then
-    displayTitle "Pushing changes to the $AUTHOR's dotfiles's repository, branch $REPO_BRANCH"
-    cd $local_repo && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
-    echo -e "${green}${bold}\nPushing changes from the $AUTHOR's dotfiles repository completed!${reset}"
+    displayTitle "Pushing changes to ${cyan}$REPO_URI${reset} repository, branch $REPO_BRANCH"
+    cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
+    echo -e "${green}${bold}\nPushing changes from the MASTER REPOSITORY completed!${reset}"
   fi
 }
 
@@ -133,32 +133,32 @@ EOF
 #### LIBRARIES USED TO MAINTAIN DOTFILES ######################################
 
 function stats {
-  local local_repo="$1"
+  local REPO_LOCAL="$1"
   local dotDir="$2"
 
-  cd "$local_repo"  # cd to dotdir before du -sh and git add .
+  cd "$REPO_LOCAL"  # cd to dotdir before du -sh and git add .
   displayTitle "STATISTIC DATA"
 
-  echo -e "-dotfiles in     :${blue}${bold} $local_repo${reset}"
+  echo -e "-dotfiles in     :${blue}${bold} $REPO_LOCAL${reset}"
   if [ -e "$dotDir" ]; then
     local insState="$(readsymlink "$dotDir")"
-    if [ "$insState" == "$local_repo" ]; then
+    if [ "$insState" == "$REPO_LOCAL" ]; then
       echo -e "-installed in    :${blue}${bold} $dotDir${reset}"
     fi
   fi
   if [ ! -e "$dotDir" ] || [ -z "$insState" ]; then
-    echo -e "-local_repo symlink  :${red}${bold} not installed${reset}"
+    echo -e "-REPO_LOCAL symlink  :${red}${bold} not installed${reset}"
   fi
-  echo -e "-total files     :${yellow}${bold} $(find $local_repo -type f | wc -l)${reset} \t files"
-  echo -e "-total directory :${yellow}${bold} $(find $local_repo -type d | wc -l)${reset} \t directories"
+  echo -e "-total files     :${yellow}${bold} $(find $REPO_LOCAL -type f | wc -l)${reset} \t files"
+  echo -e "-total directory :${yellow}${bold} $(find $REPO_LOCAL -type d | wc -l)${reset} \t directories"
   echo -e "-usage           :${red}${bold} $(du -sh)${reset}"
-  echo -e "-dotfiles        :${cyan}${bold} $(find $local_repo -type f \
+  echo -e "-dotfiles        :${cyan}${bold} $(find $REPO_LOCAL -type f \
     -not -path "*/.git/*" \
     -not -path "*/.hg/*" \
     -not -path "$tempDir/*" \
     -not -path "$backupDir/*" \
     | wc -l)${reset} \t files"
-  echo -e "-dotdirectories  :${cyan}${bold} $(find $local_repo -type d \
+  echo -e "-dotdirectories  :${cyan}${bold} $(find $REPO_LOCAL -type d \
     -not -path "*/.git/*" \
     -not -path "*/.hg/*" \
     -not -path "$tempDir/*" \
