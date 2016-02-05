@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-# script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
+# script  : $DOTREPO/install/installpkg   maintained by titepweb at gmail.com #
 # status  : stable. Last edit on 2016-02-05                                   #
 # feature : 1. scan for $DOTREPO/topic/.install.sh and source them to install # 
 #              packages and configure them.                                   #
@@ -19,7 +19,7 @@ source $DOTREPO/install/cross-platform
 # Prevent to be accidently run/sourced with a parameter.
 [[ $1 != "true" ]] && FAIL "Please run $(basename $0) with 'true' parameter"
 
-#=[ functions ]================================#
+#=[ LIBRARIES ALLOWING MULTI-PLATFORM COMPATIBILITY ]=========================#
 
 installed () {
   if [ "$(uname)" == "Darwin" ]; then
@@ -71,7 +71,7 @@ install () {
   done
 }
 
-#=[ LOOP THROUGH FILES ]=======================#
+#=[LOOP THROUGH FILES ]=======================================================#
 
 INSTALL_PACKAGES () {
   displayTitle "INSTALL NECCESSARY PACKAGES"
@@ -118,7 +118,7 @@ INSTALL_PACKAGES () {
   "
 }
 
-#=[ MAIN ]=====================================#
+#=[ MAIN ]====================================================================#
 
 # [[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_PACKAGES && echo -e "\n$message" && exit 0
 

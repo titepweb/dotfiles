@@ -2,9 +2,11 @@
 ###############################################################################
 # script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
 # status  : stable. Last edit on 2016-02-05                                   #
-# feature : 1. scan for $DOTREPO/topic/.install.sh and source them to install # 
+# feature : 1. source/run $DOTREPO/install/installpkg with default parameters #
+#           -->scan for $DOTREPO/topic/.install.sh and source them to install # 
 #              packages and configure them.                                   #
-#           2. source $DOTREPO/link to create symlink or copy dotfiles to ~   #
+#           2. source/run $DOTREPO/install/linkdf with default parameters     #
+#           -->source $DOTREPO/link to create symlink or copy dotfiles to ~   #
 ###############################################################################
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
@@ -14,14 +16,14 @@ fi
 source $DOTREPO/install/inform
 source $DOTREPO/install/cross-platform
 source $DOTREPO/install/installpkg
-source $DOTREPO/install/link
+source $DOTREPO/install/linkdf
 
 # Prevent to be accidently run/sourced with a parameter.
 [[ $1 != "true" ]] && FAIL "Please run $(basename $0) with 'true' parameter"
 
-#=[ functions ]================================#
+#=[ functions ]===============================================================#
 
-#=[ MAIN ]=====================================#
+#=[ MAIN ]====================================================================#
 
 # STEP 1 -- INSTALL PACKAGES
 INSTALL_PACKAGES

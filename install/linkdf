@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-# script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
+# script  : $DOTREPO/install/linkdf   maintained by titepweb at gmail.com     #
 # status  : unfinished. Last edit on 2016-02-05                               #
 # feature   2. source $DOTREPO/link to create symlink or copy dotfiles to ~   #
 ###############################################################################

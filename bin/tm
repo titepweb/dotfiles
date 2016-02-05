@@ -6,12 +6,14 @@
 #           2. easily manage tmux sessions by list all of them                #
 #           3. provide an option to clear all tmux sessions.    						  #
 ###############################################################################
-# USAGE   : 1. tm --> open tmux session list 
-#           2. tm <path/to/file> or tm <path/to/file.tmux> 
+# USAGE   : 1. $ tm --> open tmux session list 
+#           2. $ tm <path/to/file> or tm <path/to/file.tmux> 
 #              --> check for <file> session to attach. if <file session> does 
-#                  not exist, create sample file.tmux and load it this script 
-#                  designed run independently.
+#                  not exist, create sample file.tmux and load it.
+# 					3. generated scripts can be independently run from anywhere. Thus,
+#              place them in any directories. Run them to create tmux sessions.
 ###############################################################################
+# the 'tm' script designed run independently.
 
 ### COLOR DEFENITION ### reference: https://en.wikipedia.org/wiki/ANSI_escape_code
 # Note: \033 = \e   30+i to specify foreground color, 40+i to specify background color,
@@ -34,7 +36,7 @@ function create_tmuxconf() {
 	mkdir -p "$PROJECT_LOCATION"
 	# retrieve absolute path of $PROJECT_LOCATION
   PROJECT_LOCATION="$( cd -P "$PROJECT_LOCATION" && pwd )"
-
+# ┌─────────────────────────────────────────────────────────────────────────────┐
 	cat << EOF > "$1"
 #!/bin/sh
 PROJECT_NAME=$PROJECT_NAME # /!\ tmux session name must be UNIQUE
@@ -48,7 +50,7 @@ tmux -2 new-session -d -s $PROJECT_NAME
 
 # Setup a window for developing
 tmux new-window -t \$PROJECT_NAME:1 -n "vim"
-tmux send-keys "$([[ -n $EDITOR ]] && echo $EDITOR || echo "cat" ) "\$PROJECT_LOCATION"/\$PROJECT_NAME.tmux" C-m
+tmux send-keys "$([[ -n $EDITOR ]] && echo $EDITOR || echo "cat" ) "\$0"" C-m
 tmux split-window -v -p 10
 tmux send-keys "net" C-m
 tmux split-window -h -p 50
@@ -68,7 +70,7 @@ tmux select-pane -t 1
 # Attach to session
 tmux -2 attach-session -t \$PROJECT_NAME
 EOF
-
+# └─────────────────────────────────────────────────────────────────────────────┘
 	chmod +x "$1"
 }
 
@@ -76,6 +78,7 @@ EOF
 [ "$TMUX" == "" ] || exit 1
 
 if [ ! $# == 0 ]; then
+#=[ CREATE A SAMPLE TMUX SCRIPT -or- ATTACHING THE SPECIFIC SESSION ]=========#
 	# evaluate parameters -------------------------------------------------
 	[[ ! $# == 1 ]] && echo -e "${red}Too many parameters${reset}. Only ${cyan}\`$1\`${reset} is used."
 	tmux_conf=$1
@@ -111,12 +114,13 @@ if [ ! $# == 0 ]; then
 	    echo -e "Loading configuration file ${cyan}\`$tmux_conf\`${reset}"
     	# fix parameter for source command in working directories <-- source "./<file>.tmux" works. source <file>.tmux won't
 		  [[ $tmux_conf = $tmux_name.tmux ]] && tmux_conf=./$tmux_conf
-	    source "$tmux_conf" || sh -c "$tmux_conf"
+	    sh -c "$tmux_conf"
 	else
 	    echo -e "Session found. Connecting ${cyan}$tmux_name${reset} ..."
 			tmux attach-session -t $tmux_name
 	fi
 else
+#=[ SHOW TMUX SESSION LIST ]==================================================#
 	# present menu for user to choose which workspace to open -------------
 	PS3="Choose session/command: "
 	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh" "kill all sessions")

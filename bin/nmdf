@@ -3,7 +3,7 @@
 # script  : $DOTREPO/bin/nmdf   maintained by titepweb at gmail.com           #
 # status  : stable. Last edit on 2016-02-05                                   #
 # feature : 1. can be run in RAM, from remote location.                       #
-#           2. launch $DOTREPO/link with parameters                           #
+#           2. launch $DOTREPO/linkdf with parameters                         #
 #           3. Manage dotfiles project: show status, easily git pull/push     #
 ###############################################################################
 
@@ -12,7 +12,7 @@ REPO_URI=https://github.com/titepweb/dotfiles
 REPO_BRANCH=master
 APP_URL=https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf
 
-#### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ####################
+#=[ LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ]===================#
 DEFAULT_DOTREPO="$HOME/PROJECT/dotfiles"
 
 function updateRepo {
@@ -83,7 +83,7 @@ function sourceif () {
   fi
 }
 
-#### SOURCE or CLONE a git-working DOTREPO (a local dotfile directory) ########
+#=[ SOURCE or CLONE a git-working DOTREPO (a local dotfile directory) ]=======#
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
 if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
@@ -93,7 +93,7 @@ fi
 sourceif $DOTREPO/install/inform
 sourceif $DOTREPO/install/cross-platform
 sourceif $DOTREPO/install/installpkg true
-sourceif $DOTREPO/install/link true
+sourceif $DOTREPO/install/linkdf true
   # provide $dotDir, which is used in updateRepo and stats functions
   # clean default variables of link
   symlinkORcopy=
@@ -146,7 +146,7 @@ cat << EOF
 EOF
 }
 
-#### LIBRARIES USED TO MAINTAIN DOTFILES ######################################
+#=[ LIBRARIES USED TO MAINTAIN DOTFILES ]=====================================#
 
 function stats {
   local REPO_LOCAL="$1"
@@ -155,11 +155,11 @@ function stats {
   cd "$REPO_LOCAL"  # cd to dotdir before du -sh and git add .
   displayTitle "STATISTIC DATA"
 
-  echo -e "-dotfiles in     :${blue}${bold} $REPO_LOCAL${reset}"
+  echo -e "-dotfiles in     :${green}${bold} $REPO_LOCAL${reset}"
   if [ -e "$dotDir" ]; then
     local insState="$(readsymlink "$dotDir")"
     if [ "$insState" == "$REPO_LOCAL" ]; then
-      echo -e "-installed in    :${blue}${bold} $dotDir${reset}"
+      echo -e "-installed in    :${magenta}${bold} $dotDir${reset}"
     fi
   fi
   if [ ! -e "$dotDir" ] || [ -z "$insState" ]; then
