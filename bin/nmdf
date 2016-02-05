@@ -1,9 +1,10 @@
 #!/bin/sh
 ###############################################################################
 # script  : $DOTREPO/bin/nmdf   maintained by titepweb at gmail.com           #
-# status  : unfinished. Last edit on 2016-02-05                               #
-# feature : 1. launch $DOTREPO/link with parameters                           #
-#           2. Manage dotfiles project: show status, easily git pull/push     #
+# status  : stable. Last edit on 2016-02-05                                   #
+# feature : 1. can be run in RAM, from remote location.                       #
+#           2. launch $DOTREPO/link with parameters                           #
+#           3. Manage dotfiles project: show status, easily git pull/push     #
 ###############################################################################
 
 AUTHOR=titepweb
@@ -252,62 +253,3 @@ function stats {
 echo -e "\n$message"
 
 exit 0
-
-
-
-
-
-
-#### FUNCTION BANK ###########################################################
-
-# 1 ContextualSymlinkList
-
-# 2
-
-  for file in $(find "$topic" -type f -name .install.sh \
-                -not -path "*/*\.ingore/*" \
-                -not -path "*/*\.80%/*" \
-              ); do
-    INFO "Source ${cyan}$file${reset}"
-    source "$file"
-  done
-
-# 3 # RemoveTailing function can be rewritten :
-
-  for i in `seq 1 10`; #10 here is customizable
-    do
-      find "$1" -mindepth $i -maxdepth $i -name '*.symlink' -exec sh -c ' {
-        if [[ $0 =~ .*\.symlink/.*\.symlink$ ]]; then
-          mv "$0" "${0%.symlink}"
-          count_rename=$(($count_rename+1))
-          echo -e "  [\e[31mrename\e[0m] ${0%.symlink}\e[9;31m.symlink\e[0m"
-        fi
-      }' {} \;
-    done
-
-# 4 # check ff a directory has a *.symlink file inside...
-  local results=( $(find "$src" -name "*.symlink") )
-  if (( ${#results[@]} )) ; then
-    if [[ -d "$dst" ]]; then
-      SCAN "Existed $dst" 
-    else
-      mkdir -p "$dst"
-      OK "Created $dst"
-    fi
-  else
-    SCAN "Not found any *.symlink files in $src"
-  fi
-
-# 5 # 
-# Recursively look for the target which $dotDir points to: 
-# a modified version from : http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in/246128#246128
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-  SOURCE="$(readsymlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-  dotDir="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"  #--> nmdf must be in $binDir, not in $dotDir
-if [ -z "$dotDir" ]; then
-fi
-
