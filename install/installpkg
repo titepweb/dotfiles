@@ -71,9 +71,8 @@ install () {
   done
 }
 
-#=[ MAIN ]=====================================#
+#=[ LOOP THROUGH FILES ]=======================#
 
-# STEP 1 -- INSTALL PACKAGES
 INSTALL_PACKAGES () {
   displayTitle "INSTALL NECCESSARY PACKAGES"
 
@@ -119,4 +118,21 @@ INSTALL_PACKAGES () {
   "
 }
 
-[[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_PACKAGES && echo -e "\n$message" && exit 0
+#=[ MAIN ]=====================================#
+
+# [[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_PACKAGES && echo -e "\n$message" && exit 0
+
+sourced () { # cross-shell (bash, ksh, zsh)
+  ([[ -n $ZSH_EVAL_CONTEXT && $ZSH_EVAL_CONTEXT =~ :file$ ]] || 
+   [[ -n $KSH_VERSION && $(cd "$(dirname -- "$0")" &&
+      printf '%s' "${PWD%/}/")$(basename -- "$0") != "${.sh.file}" ]] || 
+   [[ -n $BASH_VERSION && $0 != "$BASH_SOURCE" ]]) && return 0 || return 1
+}
+
+if sourced ; then
+  return
+else
+  INSTALL_PACKAGES
+  echo -e "\n$message"
+  exit 0
+fi

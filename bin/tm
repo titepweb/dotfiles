@@ -1,11 +1,16 @@
 #!/bin/sh
-# featire : conveniently create sample tmux script
-# status  : finished on 2016-02-05 .
+###############################################################################
+# script  : $DOTREPO/bin/tm   maintained by titepweb at gmail.com             #
+# status  : finihsed. Last edit on 2016-02-05                                 #
+# feature : 1. conveniently create sample tmux script, named with '.tmux'     #
+#           2. easily manage tmux sessions by list all of them                #
+#           3. provide an option to clear all tmux sessions.    						  #
 ###############################################################################
 # USAGE   : 1. tm --> open tmux session list 
 #           2. tm <path/to/file> or tm <path/to/file.tmux> 
-#              --> check for <file> session to attach. if <file session> does not exist, create sample file.tmux and load it
-# this script designed run independently.
+#              --> check for <file> session to attach. if <file session> does 
+#                  not exist, create sample file.tmux and load it this script 
+#                  designed run independently.
 ###############################################################################
 
 ### COLOR DEFENITION ### reference: https://en.wikipedia.org/wiki/ANSI_escape_code
