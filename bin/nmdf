@@ -6,6 +6,7 @@
 #           2. Manage dotfiles project: show status, easily git pull/push     #
 ###############################################################################
 
+AUTHOR=titepweb
 REPO_URI=https://github.com/titepweb/nmdf
 REPO_BRANCH=master
 APP_URL=https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf
@@ -30,7 +31,7 @@ function updateRepo {
     displayTitle "DOWNLOADING MASTER REPOSITORY"
     [ -e "$local_repo" ] && FAIL "${red}${bold}$local_repo is a regular file or a not empty directory. 'git clone' only work on empty directory.${reset}"
     git clone -b "$REPO_BRANCH" "$REPO_URI" "$local_repo"
-    OK "${green}${bold}Cloning $app_name completed!${reset}"
+    OK "${green}${bold}Cloning $AUTHOR's dotfiles completed!${reset}"
     return
   fi
 
@@ -39,19 +40,19 @@ function updateRepo {
 
   # Git Pull or Push
   if [ "$action" == "pull" ]; then
-    displayTitle "Pulling changes from the $app_name's repository, branch $REPO_BRANCH"
+    displayTitle "Pulling changes from the $AUTHOR's dotfiles's repository, branch $REPO_BRANCH"
     (cd $local_repo && git pull origin "$REPO_BRANCH")
-    OK "${green}${bold}\nPulling changes from the $app_name completed!${reset}"
+    OK "${green}${bold}\nPulling changes from the $AUTHOR's dotfiles completed!${reset}"
   elif [ "$action" == "push" ]; then
-    displayTitle "Pushing changes to the $app_name's repository, branch $REPO_BRANCH"
+    displayTitle "Pushing changes to the $AUTHOR's dotfiles's repository, branch $REPO_BRANCH"
     cd $local_repo && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
-    echo -e "${green}${bold}\nPushing changes from the $app_name repository completed!${reset}"
+    echo -e "${green}${bold}\nPushing changes from the $AUTHOR's dotfiles repository completed!${reset}"
   fi
 }
 
 function remoterunning {
   echo "nmdf is running from remote location."
-  echo "cloning a working dotfiles"
+  echo "Cloning a working dotfiles..."
   updateRepo "$DEFAULT_DOTREPO" pull
   sh -c "$DEFAULT_DOTREPO/bootstrap.sh true"
   exit 0
@@ -223,9 +224,9 @@ function stats {
   [ "$pullOption" == "true" ] && updateRepo "$dotDir" "pull" 
 
   # @FIXME:
-  # sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf`"
-  # sh -c "$(wget https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf -O -)"
-  # bash <(wget -nv -O -https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf)
+  # sh -c "`curl -fsSL https://raw.githubusercontent.com/$AUTHOR/nmdf/master/bin/nmdf`"
+  # sh -c "$(wget https://raw.githubusercontent.com/$AUTHOR/nmdf/master/bin/nmdf -O -)"
+  # bash <(wget -nv -O -https://raw.githubusercontent.com/$AUTHOR/nmdf/master/bin/nmdf)
   # if this script is running from a remote location and the dotfiles directory was empty, download and save nmdf to the bin directory, however, 
   if [ ! -f "$binDir/nmdf" ] && [ ! hash nmdf >/dev/null 2>&1 ]; then
     curl -fsSL -o "$binDir/nmdf" $APP_URL
