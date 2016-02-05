@@ -1,4 +1,6 @@
 #!/bin/bash
+# PURPOSE : install packages for the combo : zsh + tmux + vim + base-16 colorscheme
+# status : nearly finished. last edit on 2016-02-04 
 
 ######### REQUIRED PACKAGES #########
 

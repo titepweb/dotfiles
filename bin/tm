@@ -1,18 +1,30 @@
 #!/bin/sh
+# PURPOSE : conveniently create sample tmux script
+# status: finished on 2016-02-05 .
+# USAGE : 1. tm --> open tmux session list 
+#         2. tm <path/to/file> or tm <path/to/file.tmux> 
+#            --> check for <file> session to attach. if <file session> does not exist, create sample file.tmux and load it
 
 ### A SAMPLE OF PRE-CONFIGURED TMUX ENVIRONMENT ###
 
 function create_tmuxconf() {
-	PROJECT_NAME=$(basename "${1%.*}")
-	cat << EOF > "$PROJECT_NAME.tmux"
+	PROJECT_NAME=$(basename "${1%.tmux}")
+	PROJECT_LOCATION="$(dirname "$1")"
+	# make sure that $PROJECT_LOCATION exists
+	mkdir -p "$PROJECT_LOCATION"
+	# retrieve absolute path of $PROJECT_LOCATION
+  PROJECT_LOCATION="$( cd -P "$PROJECT_LOCATION" && pwd )"
+
+	cat << EOF > "$1"
 #!/bin/sh
 PROJECT_NAME=$PROJECT_NAME # /!\ must be UNIQUE
+PROJECT_LOCATION="$PROJECT_LOCATION"
 
 tmux -2 new-session -d -s $PROJECT_NAME
 
 # Setup a window for developing
 tmux new-window -t \$PROJECT_NAME:1 -n "vim"
-tmux send-keys "$EDITOR "\$PROJECT_NAME.tmux"" C-m
+tmux send-keys "$([[ -n $EDITOR ]] && echo $EDITOR || echo "cat" ) "\$PROJECT_LOCATION"/\$PROJECT_NAME.tmux" C-m
 tmux split-window -v -p 10
 tmux send-keys "net" C-m
 tmux split-window -h -p 50
@@ -40,35 +52,41 @@ EOF
 if [ ! $# == 0 ]; then
 	# evaluate parameters -------------------------------------------------
 	[[ ! $# == 1 ]] && echo "Too many parameters. Only \`$1\` is used."
-	if [[ "$1" = "${1%[[:space:]]*}" ]]; then
-		echo "Checking for \`$1\` ..."
-		tmux_conf=$1
-	else
-		echo "Session name must not contain spaces."
-		tmux_conf="$(echo -e "$1" | tr -d '[[:space:]]')"
-  	read -p "Use \`$tmux_conf\` instead [y/n] ?" -n 1 -r && echo
+	tmux_conf=$1
+	tmux_name=$(basename "${1%.tmux}")
+
+	# remove all occurances of space and period
+  if [[ ! "$tmux_name" = "${tmux_name%[[:space:]]*}" || "$tmux_name" == *.* ]]; then
+		echo "Bad session name. It must have no spaces, no periods, ..."
+    tmux_name="$(echo -e "$tmux_name" | tr -d '[[:space:]]' | tr -d '.' )"
+  	read -p "Use \`$tmux_name\` instead [y/n] ?" -n 1 -r && echo
   	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
+  	tmux_conf="$(dirname "$1")/$tmux_name.tmux"
 	fi
+
+	# always use *.tmux for tm script.
+	tmux_conf="${tmux_conf%.tmux}".tmux
+
 	# startup a "default" session if non currently exists -----------------
-	tmux has-session -t $tmux_conf 2>/dev/null
+	echo "Checking for \`$tmux_name\` ..."
+	tmux has-session -t $tmux_name 2>/dev/null
 	if [ "$?" -eq 1 ] ; then
 	    echo "--> No Session found."
-	    if ! [[ -f $tmux_conf || -f $tmux_conf.tmux ]]; then
-	    	echo "--> The file \`$tmux_conf\` not exists. "
-	    	read -p "Create one in the current working directory [y/n] ?" -n 1 -r && echo
+	    if ! [[ -f "$tmux_conf" ]]; then
+	    	echo "--> The file \`$tmux_conf\` does not exists. "
+	    	read -p "Create $(basename $tmux_conf) in $(dirname $tmux_conf) [y/n] ?" -n 1 -r && echo
 	    	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
 	    	create_tmuxconf "$tmux_conf"
-	    	tmux_conf="$tmux_conf.tmux"
 	    fi
-	    [ -f $tmux_conf.tmux ] && tmux_conf="$tmux_conf.tmux"
-	    echo "Loading configuration file \`$PWD/$tmux_conf\`"
-	    # Use pushd and popd for faster CLI navigation
-	    # pushd $PROJECT_DIR
-	    source "$PWD/$tmux_conf"
-	    # popd
+	    if ! [[ -f "$tmux_conf" ]]; then
+		  	echo "Errors happen when creating $tmux_conf"
+		  fi
+
+	    echo "Loading configuration file \`$tmux_conf\`"
+	    source "$tmux_conf"
 	else
-	    echo "Session found. Connecting $tmux_conf ..."
-			tmux attach-session -t $tmux_conf
+	    echo "Session found. Connecting $tmux_name ..."
+			tmux attach-session -t $tmux_name
 	fi
 else
 	# present menu for user to choose which workspace to open -------------

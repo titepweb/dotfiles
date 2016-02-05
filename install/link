@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
-# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTFILES variable.
-if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
-  DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
-  DOTFILES="$(dirname $DOTFILES)"   # which means, this script must be in $DOTFILES/topic/
+# status: finished on 2016-02-05. @TODO: test on platforms other than Arch Linux
+# location : $REPO_LOCAL/install/link
+
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit REPO_LOCAL variable.
+if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
+  REPO_LOCAL="$( cd -P "$( dirname "$0" )" && pwd )"
+  REPO_LOCAL="$(dirname $REPO_LOCAL)"   # which means, this script must be in $REPO_LOCAL/topic/
 fi
-source $DOTFILES/install/inform
+source $REPO_LOCAL/install/inform
 
 #### FUNCTIONS FOR CROSS-FLATFORM COMPATIBILITY ##############################
 detectplatform () {
@@ -105,51 +108,55 @@ SymlinkOrCopy () {
   local overwrite= ; local backup= ; local skip= 
   local action=
 
-  # Choose the right word to ask --------------------------------------------
-  if ( [ "$src" == "$DOTFILES" ] ) || ( [ "$installOption" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || ( [ "$installOption" == "symlink" ] ); then
+  # Evaluate parameters and Choose the right word to ask --------------------
+  if [ "$src" == "$REPO_LOCAL" ] || ( [ "$installOption" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || [ "$installOption" == "symlink" ]; then
+      local willbe="linked"
       local askword1="linked to"
       local askword2="Create symlink"
   elif ( [ "$installOption" == "symlink+copy" ] && [ "$ext" == "copy" ] ) || ( [ "$installOption" == "copy" ] ); then
+      local willbe="copied"
       local askword1="overwrited by"
       local askword2="Copy"
+  else FAIL "Invalid parameters -- by $funcname"
   fi
-  
-  # Ask user if destination file exists -------------------------------------
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
-    if [ "$overwrite_all" != "true" ] && [ "$backup_all" != "true" ] && [ "$skip_all" != "true" ]; then
-      local current_src="$(readsymlink "$dst")"
 
-      if [ "$installOption" == "symlink+copy" ] && [ "$ext" == "copy" ] && [ "$recopy" != "true" ]; then
-        skip=true;
-      elif [ "$current_src" == "$src" ]; then
-        skip=true;
-      else
-       ASK "File already exists: ${green}$dst${reset} \n\t   (${cyan}$(file --brief "$dst")${reset})
-           Will be $askword1 ${green}$src${reset}
-           ${bold}${yellow}s${reset}kip, ${bold}${yellow}S${reset}kip all, ${bold}${yellow}o${reset}verwrite, ${bold}${yellow}O${reset}verwrite all, ${bold}${yellow}b${reset}ackup, ${bold}${yellow}B${reset}ackup all?"
+  # Case 1 - Link : Don't ask, backup/remove and then recreate symlinks -----
+  if [ $willbe = "linked" ] && [ -L "$dst" ] ; then
+    if [ "$(readsymlink "$dst")" == "$src" ]; then
+      skip=true;
+    fi
+  # Case 2 - don't ask, backup/remove existing destination file of *.copy dotfiles if ... because they may have been configured.
+  elif [ $willbe = "copied" ] && [ ! "$recopy" = "true" ] && [ ! -L "$dst" ]; then
+    skip=true;
+  # Otherwise, ask user if destination file exists --------------------------
+  elif [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
+    if [ ! "$overwrite_all" == "true" ] && [ ! "$backup_all" == "true" ] && [ ! "$skip_all" == "true" ]; then
+      ASK "File already exists: ${green}$dst${reset} \n\t   (${cyan}$(file --brief "$dst")${reset})
+          Will be $askword1 ${green}$src${reset}
+          ${bold}${yellow}s${reset}kip, ${bold}${yellow}S${reset}kip all, ${bold}${yellow}o${reset}verwrite, ${bold}${yellow}O${reset}verwrite all, ${bold}${yellow}b${reset}ackup, ${bold}${yellow}B${reset}ackup all?"
 
-        while true; do
-          # Read from tty, needed because we read in outer loop.
-          read -n 1 action < /dev/tty
+      while true; do
+        # Read from tty, needed because we read in outer loop.
+        read -n 1 action < /dev/tty
 
-          case "$action" in
-            o ) overwrite=true     ; break ;;
-            O ) overwrite_all=true ; break ;;
-            b ) backup=true        ; break ;;
-            B ) backup_all=true    ; break ;;
-            s ) skip=true          ; break ;;
-            S ) skip_all=true      ; break ;;
-            * ) ;;
-          esac
-        done
-      fi
+        case "$action" in
+          o ) overwrite=true     ; break ;;
+          O ) overwrite_all=true ; break ;;
+          b ) backup=true        ; break ;;
+          B ) backup_all=true    ; break ;;
+          s ) skip=true          ; break ;;
+          S ) skip_all=true      ; break ;;
+          * ) ;;
+        esac
+      done
     fi
 
     overwrite=${overwrite:-$overwrite_all}
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
-    if [ ! "$skip" == true ] && [ ! "$dst" == "$DOTFILES" ]; then
+  # And then, remove destination file or move destination file to backupDir -
+    if [ ! "$skip" == true ] && [ ! "$dst" == "$REPO_LOCAL" ]; then
       if [ "$overwrite" == "true" ]; then
         rm -rf "$dst"
         OK "Removed ${green}$dst${reset}"
@@ -172,14 +179,14 @@ SymlinkOrCopy () {
     fi
   fi
 
-  # Skip , Symlink , or Copy ------------------------------------------------
+  # Finally, Skip , Symlink , or Copy ---------------------------------------
   if [ "$skip" == "true" ]; then
     OK "Skipped┌${green}$src${reset} \n \t   ${red}   ✗   ${reset}└${green}$dst${reset}"
   else
 
     # 1- Make sure that the destination directory exists before creating symlinks or copying
     MkParentFolder "$dst"
-    # Ask users before creating symlinks or copying
+    # Ask users before creating symlinks or copying. if destination files has been moved or overwritten, take action. 
     if [ "$askbeforeaction" == "true" -a "$overwrite" != "true" -a "$backup" != "true" ]; then
       ASK "$askword2 $(dirname "$dst")/${yellow}$(basename "$dst")${reset}? [${green}${bold}y${reset}/${red}${bold}n${reset}/install ${green}${bold}a${reset}ll] "
       read -n 1 action < /dev/tty
@@ -193,7 +200,7 @@ SymlinkOrCopy () {
     fi
 
     # 2- Create symlink or copy
-    if ( [ "$src" == "$DOTFILES" ] ) || ( [ "$installOption" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || ( [ "$installOption" == "symlink" ] ); then
+    if [ $willbe = "linked" ] ; then
 
       # Create native symlinks on Windows.
       export CYGWIN=winsymlinks:nativestrict
@@ -203,7 +210,7 @@ SymlinkOrCopy () {
       symlinkindex=$(($symlinkindex+1))
       OK "${green}╔Linked═${reset}${green}$src${reset} \n \t   ${green}╚═ ✔ ═══${reset}${green}$dst${reset}"
 
-    elif ( [ "$installOption" == "symlink+copy" ] && [ "$ext" == "copy" ] ) || ( [ "$installOption" == "copy" ] ); then
+    elif [ $willbe = "copied" ] ; then
 
       # Copy command (-r stands for recursively copy )
       cp -r "$src" "$dst" 
@@ -250,7 +257,7 @@ function FixDOTFILES () {
 
 INSTALL_DOTFILES () {
   displayTitle "INSTALLING DOTFILES"
-  INFO "Installing dotfiles from ${cyan}$DOTFILES${reset}\n"
+  INFO "Installing dotfiles from ${cyan}$REPO_LOCAL${reset}\n"
 
   local topicindex=0;
   local scanindex=0;
@@ -265,12 +272,12 @@ INSTALL_DOTFILES () {
     
     INFO "Installing dotfiles in ${cyan}$home${reset} for platform ${cyan}$platform${reset}"  
     # First, add a symlink for this dotfiles directory.
-    if [[ ! "$DOTFILES" == "$dotDir" ]]; then
-      SymlinkOrCopy "$DOTFILES" "$dotDir"
+    if [[ ! "$REPO_LOCAL" == "$dotDir" ]]; then
+      SymlinkOrCopy "$REPO_LOCAL" "$dotDir"
     fi
 
     # Find direct child directories (topics), exclude those starting with dots.
-    local topics="$(/usr/bin/find "$DOTFILES" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
+    local topics="$(/usr/bin/find "$REPO_LOCAL" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
     while IFS=$'\n' read -r topic; do
       topicindex=$(($topicindex+1))
       [[ -z "$topic" ]] && continue
@@ -282,7 +289,7 @@ INSTALL_DOTFILES () {
       fi
 
       # 1. Remove the taling .symlink in the names of all the sub-directories of another *.symlink directory
-      # 2. Symlinks with name *.copy and *.symlink are not allow in $DOTFILES 
+      # 2. Symlinks with name *.copy and *.symlink are not allow in $REPO_LOCAL 
       FixDOTFILES "$topic"
 
       # Recursively search any named *.symlink files/directories below each topic directory, exclude files in 80% directories.
@@ -321,7 +328,7 @@ INSTALL_DOTFILES () {
   echo
   INFO "${cyan}${bold}$scanindex${reset} dotfile(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned."
   INFO "${red}${bold}$fixindex${reset} dotfile(s)'s name(s) were fixed '${strike}${red}.symlink${reset} or ${strike}${red}.copy${reset}'!"
-  INFO "${red}${bold}$deletesymlink${reset} ${strike}${red}symlink(s)${reset} in ${cyan}$DOTFILES${reset} was deleted."
+  INFO "${red}${bold}$deletesymlink${reset} ${strike}${red}symlink(s)${reset} in ${cyan}$REPO_LOCAL${reset} was deleted."
   INFO "${cyan}${bold}$symlinkindex${reset} dotfile(s) were symlinked!"
   INFO "${cyan}${bold}$copyindex${reset} dotfile(s) were copied!"
   INFO "${cyan}${bold}$(($symlinkindex + $copyindex))${reset} dotfile(s) were installed, totally!"
@@ -336,7 +343,7 @@ INSTALL_DOTFILES () {
 
   backupDir=$home/dotfiles-backup     #--> This folder should not be in $dotDir because if we delete $dotDir, we also delete $backupDir
   # dotDir will be used to create symlink from $dotDir to $dotDir 
-  dotDir=$home/.dotfiles              #--> Don't change this because bashrc and zsh setup contain: 'export DOTFILES=~/.dotfiles'
+  dotDir=$home/.dotfiles              #--> Don't change this because bashrc and zsh setup contain: 'export REPO_LOCAL=~/.dotfiles'
 
   # Set special directories and files based on defined dotDir.
   binDir=$dotDir/bin                  #--> include in .bashrc or .bash_profile: export PATH=$binDir:$PATH

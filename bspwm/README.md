@@ -1,3 +1,6 @@
+ICON FONTS
+==========
+[Nerd Font's collection](https://github.com/ryanoasis/nerd-fonts)
 
 REQUIRED SOFTWARES
 ==================

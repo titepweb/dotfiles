@@ -1,3 +1,5 @@
+#!/bin/bash
+# status: unfinished. Last edit on 2016-02-04
 
 function about {
 cat << EOF
@@ -48,16 +50,17 @@ cat << EOF
  ├─ bin  (required)       # added to your \$PATH and be made available everywhere
  │  ├─ nmdf               # nmdf should be here for easily often running.  
  │  ├─ xxx                # xxx is used to test new learned bash codes.
+ │  ├─ tm                 # tm script for tmux script
  │  └─ ...                # 
  ├─ temp (optional)       # --> add this folder into .gitignore
  ├─ nmdf.log              # --> add this folder into .gitignore
  ├─ sample topic          # nmdf #1: scan for topics, except *.ignore ones  
+ │  ├─ .install.sh        # nmdf #1: performs additional installation
  │  ├─ .exclude-platforms # nmdf #2: specifies excluded platforms for this topic
  │  ├─ *[.symlink].ignore # nmdf #3: ignore these files/directories
  │  ├─ *[.copy].80%       # nmdf #3: ignore these files/directories (dev files)
  │  ├─ any_name.symlink   # nmdf #3: symlinked to ~/.any_name
  │  ├─ any_name.copy      # nmdf #3: copied to ~/.any_name
- │  ├─ .install.sh        # nmdf #4: performs additional installation
  │  ├─ ...                # --> use nice=# for zplug to load scripts orderly
  │  ├─ zprofile.zsh       # zsh #1: run for login shells
  │  ├─ path.zsh           # zsh #2: modifies \$PATH

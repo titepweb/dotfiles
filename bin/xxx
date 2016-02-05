@@ -1,5 +1,14 @@
 #!/bin/bash
 #xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
+  if [[ ! "$1" = "${1%[[:space:]]*}" || "$1" == *.* ]]; then
+    echo HEHE
+  fi
+    tmux_conf="$(echo -e "$1" | tr -d '[[:space:]]')"
+    # remove all - . _
+    tmux_conf="${tmux_conf//[-._]/}"
+    echo $tmux_conf--- 
+    exit
+exit
 
 #=====================
 # SED

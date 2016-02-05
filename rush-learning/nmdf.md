@@ -38,8 +38,13 @@ NOTE: git --version --> 2.7.0 -->
 
 NOTE: Configure ~/gitconfig --> https://git-scm.com/docs/git-config
 
-## Manage plugins as git submodule
-
+## git subtree
+```
+Add zsh-git-prompt subtree:
+git subtree add --prefix .zplugins.symlink/zsh-git-prompt https://github.com/olivierverdier/zsh-git-prompt.git master --squash
+Get update from the original repo:
+git subtree pull --prefix .zplugins.symlink/zsh-git-prompt https://github.com/olivierverdier/zsh-git-prompt.git master --squash
+```
 
 ## UNDERSTANDING DOTFILES = CONFIGURATION FILES
 

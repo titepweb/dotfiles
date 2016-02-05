@@ -1,12 +1,14 @@
 #!/bin/bash
-# PURPOSE : 1. scan for $DOTFILES/topic/.install.sh and source them to install packages and configure them.
-#           2. source $DOTFILES/link to create symlink or copy dotfiles to ~
+# PURPOSE : 1. scan for $REPO_LOCAL/topic/.install.sh and source them to install packages and configure them.
+#           2. source $REPO_LOCAL/link to create symlink or copy dotfiles to ~
+# status: unfinished but usable. Last edit on 2016-02-04 . @TODO: --> continute coding to implement on Darwin, Cywin...
+# location : $REPO_LOCAL/install.sh
 
-# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTFILES variable.
-if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
-  DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit REPO_LOCAL variable.
+if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
+  REPO_LOCAL="$( cd -P "$( dirname "$0" )" && pwd )"
 fi
-source $DOTFILES/install/inform
+source $REPO_LOCAL/install/inform
 
 #=[ functions ]================================#
 
@@ -68,7 +70,7 @@ if [[ $1 != "true" ]]; then
 fi
 
 # Look for .install.sh files and source them
-topics="$(/usr/bin/find "$DOTFILES" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
+topics="$(/usr/bin/find "$REPO_LOCAL" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
 while IFS=$'\n' read -r topic; do
   [[ -z "$topic" ]] && continue
   SCAN "-Topic- $topic"
@@ -82,11 +84,13 @@ while IFS=$'\n' read -r topic; do
   done
 done <<< "$topics"
 
-# Source $DOTFILES/link
-source $DOTFILES/install/link
+# Source $REPO_LOCAL/link
+source $REPO_LOCAL/install/link
   INSTALL_DOTFILES
 
-echo
-echo "$message"
+if [ -n $message ]; then
+  echo
+  echo "$message"
+fi
 
 exit 0

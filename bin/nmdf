@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
-# Location : $DOTFILES/bin/
-# PURPOSE : 1. launch $DOTFILES/link with parameters 2. Manage dotfiles project: show status/pull/push
+# Location : $REPO_LOCAL/bin/nmdf
+# PURPOSE : 1. launch $REPO_LOCAL/link with parameters 2. Manage dotfiles project: show status/pull/push
+# status: unfinished. Last edit on 2016-02-04 . @TODO: --> PROJECT management + help
 
 REPO_URI=https://github.com/titepweb/nmdf
 REPO_BRANCH=master
 APP_URL=https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf
 
-# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTFILES variable.
-if [ -L $DOTFILES ] || [ -z $DOTFILES ]; then
-  DOTFILES="$( cd -P "$( dirname "$0" )" && pwd )"
-  DOTFILES="$(dirname $DOTFILES)"   # which means, this script must be in $DOTFILES/topic/
+# Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit REPO_LOCAL variable.
+if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
+  REPO_LOCAL="$( cd -P "$( dirname "$0" )" && pwd )"
+  REPO_LOCAL="$(dirname $REPO_LOCAL)"   # which means, this script must be in $REPO_LOCAL/topic/
 fi
-source $DOTFILES/install/inform
-source $DOTFILES/install/link
+source $REPO_LOCAL/install/inform
+source $REPO_LOCAL/install/link
 
 #=[ functions ]================================#
 
@@ -127,7 +128,7 @@ function stats {
 
 # STEP 1 # Parse option arguments or ask for them if not been specified 
 # ----------------------------------------------------------------------
-  # Overwrite default options set in $DOTFILES/install/link
+  # Overwrite default options set in $REPO_LOCAL/install/link
   overwrite_all=false backup_all=false skip_all=false
   installOption=false recopy=false
 
@@ -194,16 +195,12 @@ function stats {
   # After pulling, dotDir must be created or filled with content. So, Quit if dotDir does not exist.
   [ ! -d "$dotDir" ] && FAIL "Dotfile directory ${red}'$dotDir'${reset} does not exist. nmdf is terminated."
 
-# STEP 3 # - Create ContextualSymlinkList which is used in SymlinkOrCopy functions. 
-#          - Rename symlink sub-directories of another symlink directories.
-#          - Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
-#----------------------------------------------------------------------------------------
+# STEP 3 # Update submodules. Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
+#---------------------------------------------------------------------------------------------------------
   if [ "$installOption" != "false" ]; then
     # for the first time, submodule need to be 
     displayTitle "INITIALIZING SUBMODULES"
     cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
-    INFO "Completed!"
-    # ContextualSymlinkList
     INSTALL_DOTFILES
   fi
 
@@ -216,10 +213,21 @@ function stats {
     updateRepo "push"
   fi
 
+      echo - installOption=$installOption
+      echo - recopy=$recopy
+      echo - askbeforeaction=$askbeforeaction
+      echo - overwrite_all=$overwrite_all
+      echo - backup_all=$backup_all
+      echo - showStats=$showStats
+      echo - dotDir=$dotDir
+
 exit 0
 
 
+
 #### FUNCTION BANK ###########################################################
+
+    # ContextualSymlinkList
 
   # RemoveTailing function can be rewritten :
   for i in `seq 1 10`; #10 here is customizable

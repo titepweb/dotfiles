@@ -1,4 +1,6 @@
 #!/bin/bash
+# PURPOSE : install packages for the combo : bspwm + lemonbar + dzen2 + rofi + termite 
+# status : unfinished. last edit on 2016-02-04
 
 ######### REQUIRED PACKAGES #########
 
@@ -87,7 +89,7 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING OPTIONAL PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
 │ CLI/TUI                                                                     │
-│ - Video player: smplayer/[mpv]                                                │
+│ - Video player: smplayer/[mpv]                                              │
 │ - File Manager: tree                                                        │
 │ - READER  : zathura zathura-pdf-poppler zathura-djvu                        │
 │ - HEX EDITOR  : bviplus                                                     │
@@ -98,7 +100,7 @@ cat << EOF
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
 WARNING " >> warning from $BASH_SOURCE :
-┌─────────────────────────────────────────────────────────────────────────────┐                                                          
+┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION                                                               │
 │ - systemctl --user enable redshift.service    														  │
 │ - systemctl --user start redshift.service                                   │
