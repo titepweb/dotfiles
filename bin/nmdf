@@ -10,24 +10,81 @@ REPO_URI=https://github.com/titepweb/nmdf
 REPO_BRANCH=master
 APP_URL=https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf
 
+#### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ####################
+DEFAULT_DOTREPO="$HOME/PROJECT/dotfiles"
+
+function updateRepo {
+  local local_repo="$1"
+  local action="$2"
+  # Check if git is installed before doing git operations
+  type git >/dev/null 2>&1 || { 
+    echo "************************************"
+    echo >&2 "Git is required to clone/pull/push dot files from/to a remote repository. "\
+    "Symlinks can still be auto created to files in $local_repo but a remote repository will not be used.";
+    echo "************************************"
+    return;
+  }
+
+  # if @1="pull" but there is no repo here create one, otherwise update it afterwards.
+  if [ "$action" == "pull" -a ! -d "$local_repo/.git" ]; then
+    displayTitle "DOWNLOADING MASTER REPOSITORY"
+    [ -e "$local_repo" ] && FAIL "${red}${bold}$local_repo is a regular file or a not empty directory. 'git clone' only work on empty directory.${reset}"
+    git clone -b "$REPO_BRANCH" "$REPO_URI" "$local_repo"
+    OK "${green}${bold}Cloning $app_name completed!${reset}"
+    return
+  fi
+
+  # If local_repo does not exist, return.
+  [ ! -d "$local_repo" ] && FAIL "${red}${bold}The local_repo $local_repo does not exist. \nUpdating Repository fails!${reset}"
+
+  # Git Pull or Push
+  if [ "$action" == "pull" ]; then
+    displayTitle "Pulling changes from the $app_name's repository, branch $REPO_BRANCH"
+    (cd $local_repo && git pull origin "$REPO_BRANCH")
+    OK "${green}${bold}\nPulling changes from the $app_name completed!${reset}"
+  elif [ "$action" == "push" ]; then
+    displayTitle "Pushing changes to the $app_name's repository, branch $REPO_BRANCH"
+    cd $local_repo && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
+    echo -e "${green}${bold}\nPushing changes from the $app_name repository completed!${reset}"
+  fi
+}
+
+function remoterunning {
+  echo "remoterunning"
+  # updateRepo "$DEFAULT_DOTREPO" pull
+  # sh -c "$DEFAULT_DOTREPO/bootstrap.sh true"
+  exit 0
+}
+
+function sourceif () {
+  local src="$1"
+  if [ -f "$src" ]; then
+    source "$@"
+  else
+    remoterunning
+  fi
+}
+
+#### SOURCE or CLONE a git-working DOTREPO (a local dotfile directory) ########
+
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit DOTREPO variable.
 if [ -L $DOTREPO ] || [ -z $DOTREPO ]; then
   DOTREPO="$( cd -P "$( dirname "$0" )" && pwd )"
   DOTREPO="$(dirname $DOTREPO)"   # which means, this script must be in $DOTREPO/topic/
 fi
-source $DOTREPO/install/inform
-source $DOTREPO/install/cross-platform
-source $DOTREPO/install/installpkg true
-source $DOTREPO/install/link true
+sourceif $DOTREPO/install/inform
+sourceif $DOTREPO/install/cross-platform
+sourceif $DOTREPO/install/installpkg true
+sourceif $DOTREPO/install/link true
+  # provide $dotDir, which is used in updateRepo and stats functions
+  # clean default variables of link
+  symlinkORcopy=
+  recopy=
+  askbeforeaction=
+  overwrite_all=
+  backup_all=
 
-# clean default variables of link
-symlinkORcopy=
-recopy=
-askbeforeaction=
-overwrite_all=
-backup_all=
-
-#=[ FUNCTIONS ]===============================================================#
+#=[ HELP FUNCTION AS WELL AS A MANUAL ]=======================================#
 
 function nmdf_help {
 cat << EOF
@@ -64,72 +121,42 @@ cat << EOF
 │  │                                                                          │
 │  │                   -f  : force to install *.copy dotfiles event if the    │
 │  │                         corresponding destination files exist            │
-│  │                                                                          │
+│  │  Parameters can be combined as following :                               │
+│  │  $ > nmdf -uIab                                                          │
 │ \\│/                                                                         │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
 }
 
-#### LIBRARIES ALLOWING nmdf TO RUN FROM A REMOTE LOCATION ####################
-
-function updateRepo {
-  # Check if git is installed before doing git operations
-  type git >/dev/null 2>&1 || { 
-    echo "************************************"
-    echo >&2 "Git is required to clone/pull/push dot files from/to a remote repository. "\
-    "Symlinks can still be auto created to files in $dotDir but a remote repository will not be used.";
-    echo "************************************"
-    return;
-  }
-
-  # if @1="pull" but there is no repo here create one, otherwise update it afterwards.
-  if [ "$1" == "pull" -a ! -d "$dotDir/.git" ]; then
-    displayTitle "DOWNLOADING MASTER REPOSITORY"
-    [ -e "$dotDir"] && FAIL "${red}${bold}$dotDir is a regular file or a not empty directory. 'git clone' only work on empty directory.${reset}"
-    git clone -b "$REPO_BRANCH" "$REPO_URI" "$dotDir"
-    OK "${green}${bold}Cloning $app_name completed!${reset}"
-    return
-  fi
-
-  # If dotDir does not exist, return.
-  [ ! -d "$dotDir" ] && FAIL "${red}${bold}The dotDir $dotDir does not exist. \nUpdating Repository fails!${reset}"
-
-  # Git Pull or Push
-  if [ "$1" == "pull" ]; then
-    displayTitle "Pulling changes from the $app_name's repository, branch $REPO_BRANCH"
-    (cd $dotDir && git pull origin "$REPO_BRANCH")
-    OK "${green}${bold}\nPulling changes from the $app_name completed!${reset}"
-  elif [ "$1" == "push" ]; then
-    displayTitle "Pushing changes to the $app_name's repository, branch $REPO_BRANCH"
-    cd $dotDir && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
-    echo -e "${green}${bold}\nPushing changes from the $app_name repository completed!${reset}"
-  fi
-}
+#### LIBRARIES USED TO MAINTAIN DOTFILES ######################################
 
 function stats {
-  cd $dotDir  # cd to dotdir before du -sh and git add .
+  local local_repo="$1"
+  local dotDir="$2"
+
+  cd "$local_repo"  # cd to dotdir before du -sh and git add .
   displayTitle "STATISTIC DATA"
 
-  echo -e "-dotfiles in     :${blue}${bold} $dotDir${reset}"
-  if [ -e "$dotDirIns" ]; then
-    local insState="$(readsymlink "$dotDirIns")"
-    if [ "$insState" == "$dotDir" ]; then
-      echo -e "-installed in    :${blue}${bold} $dotDirIns${reset}"
+  echo -e "-dotfiles in     :${blue}${bold} $local_repo${reset}"
+  if [ -e "$dotDir" ]; then
+    local insState="$(readsymlink "$dotDir")"
+    if [ "$insState" == "$local_repo" ]; then
+      echo -e "-installed in    :${blue}${bold} $dotDir${reset}"
     fi
   fi
-  if [ ! -e "$dotDirIns" ] || [ -z "$insState" ]; then
-    echo -e "-dotDir symlink  :${red}${bold} not installed${reset}"
+  if [ ! -e "$dotDir" ] || [ -z "$insState" ]; then
+    echo -e "-local_repo symlink  :${red}${bold} not installed${reset}"
   fi
-  echo -e "-total files     :${yellow}${bold} $(find $dotDir -type f | wc -l)${reset} \t files"
-  echo -e "-total directory :${yellow}${bold} $(find $dotDir -type d | wc -l)${reset} \t directories"
+  echo -e "-total files     :${yellow}${bold} $(find $local_repo -type f | wc -l)${reset} \t files"
+  echo -e "-total directory :${yellow}${bold} $(find $local_repo -type d | wc -l)${reset} \t directories"
   echo -e "-usage           :${red}${bold} $(du -sh)${reset}"
-  echo -e "-dotfiles        :${cyan}${bold} $(find $dotDir -type f \
+  echo -e "-dotfiles        :${cyan}${bold} $(find $local_repo -type f \
     -not -path "*/.git/*" \
     -not -path "*/.hg/*" \
     -not -path "$tempDir/*" \
     -not -path "$backupDir/*" \
     | wc -l)${reset} \t files"
-  echo -e "-dotdirectories  :${cyan}${bold} $(find $dotDir -type d \
+  echo -e "-dotdirectories  :${cyan}${bold} $(find $local_repo -type d \
     -not -path "*/.git/*" \
     -not -path "*/.hg/*" \
     -not -path "$tempDir/*" \
@@ -137,14 +164,12 @@ function stats {
     | wc -l)${reset} \t directories"
   echo "-----------------------------------------"
   git add . && git status
-  exit 0
 }
 
 #=[ MAIN ]====================================================================#
 
-# STEP 1 # Parse option arguments or ask for them if not been specified 
+# Parse option arguments or ask for them if not been specified 
 # ----------------------------------------------------------------------
-  
   if [ $# = 0 ]; then
     nmdf_help
     FAIL "Parameters is needed to execute nmdf."
@@ -156,7 +181,7 @@ function stats {
   while getopts :uclIifaobsd:r:p: OPTION; do
     case $OPTION in
       u)  pullOption=true ;;
-      I)  installpkg=true
+      I)  installpkg=true ;
       # parameters for $DOTREPO/install/link {{{
           symlinkORcopy="symlink+copy" ;;
       c)  symlinkORcopy="copy" ;;
@@ -188,17 +213,13 @@ function stats {
       ;;
       h|\?) # if unrecognized option - show help
           nmdf_help
-          exit 1
+          exit 0
       ;;
     esac
   done
   shift $((OPTIND-1))  #This tells getopts to move on to the next argument.
-
-# STEP 2 # - Create a working copy of the dofiles repository.
-#          - Pull changes if dotfiles repository exists.
-#          - Evaluate the default parameters or what user typed (-d directory).
 #------------------------------------------------------------------------------
-  [ "$pullOption" == "true" ] && updateRepo "pull"
+  [ "$pullOption" == "true" ] && updateRepo "$dotDir" "pull" 
 
   # @FIXME:
   # sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/nmdf/master/bin/nmdf`"
@@ -212,26 +233,23 @@ function stats {
 
   # After pulling, dotDir must be created or filled with content. So, Quit if dotDir does not exist.
   [ ! -d "$dotDir" ] && FAIL "Dotfile directory ${red}'$dotDir'${reset} does not exist. nmdf is terminated."
-
-# STEP 3 # Update submodules. Install dotfiles by creating symlinks. Backup existed dotfiles if necessary.
 #---------------------------------------------------------------------------------------------------------
   [ "$installpkg" == "true" ] && INSTALL_PACKAGES
-  if [ -n "$symlinkORcopy" ] || [ $installpkg == "true"  ]; then
-    INSTALL_DOTFILES
-  fi
+  [ -n "$symlinkORcopy" ] && INSTALL_DOTFILES
+
     # for the first time, submodule need to be 
     # displayTitle "INITIALIZING SUBMODULES"
     # cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
-  [ "$showStats" == "true" ] && stats
 
-# STEP 4 # Push changes to the nmdf repository, which is useful if nmdf renamed/created directories
-#----------------------------------------------------------------------------------------------------
-  [ "$pushOption" == "true" ] && updateRepo "push"
-
-# STEP 3 -- DISPLAY WARNING MESSAGE
+  [ "$showStats" == "true" ] && stats "$DOTREPO" "$dotDir"
+  [ "$pushOption" == "true" ] && updateRepo "$dotDir" "push" 
+#---------------------------------------------------------------------------------------------------------
 echo -e "\n$message"
 
 exit 0
+
+
+
 
 
 

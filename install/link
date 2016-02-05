@@ -275,7 +275,7 @@ INSTALL_DOTFILES () {
     done <<< "$topics"
   done <<< "$platforms"
 
-  WARNING "\n✱ ${underline}${bold}DOTFILES INSTALLATION REPORT${reset} ( by ${yellow}$FUNCNAME{reset} from ${yellow}$BASH_SOURCE${reset} )
+  WARNING "\n✱ ${underline}${bold}DOTFILES INSTALLATION REPORT${reset} ( by ${yellow}$FUNCNAME${reset} from ${yellow}$BASH_SOURCE${reset} )
   ${cyan}${bold}$scanindex${reset} dotfile(s) and ${cyan}${bold}$topicindex${reset} topic(s) were scanned.
   ${red}${bold}$fixindex${reset} dotfile(s)'s name(s) were fixed '${strike}${red}.symlink${reset} or ${strike}${red}.copy${reset}'!
   ${red}${bold}$deletesymlink${reset} ${strike}${red}symlink(s)${reset} in ${cyan}$DOTREPO${reset} was deleted.
