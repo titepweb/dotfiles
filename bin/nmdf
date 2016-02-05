@@ -213,14 +213,6 @@ function stats {
     updateRepo "push"
   fi
 
-      echo - installOption=$installOption
-      echo - recopy=$recopy
-      echo - askbeforeaction=$askbeforeaction
-      echo - overwrite_all=$overwrite_all
-      echo - backup_all=$backup_all
-      echo - showStats=$showStats
-      echo - dotDir=$dotDir
-
 exit 0
 
 
