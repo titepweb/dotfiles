@@ -40,11 +40,11 @@ function updateRepo {
 
   # Git Pull or Push
   if [ "$action" == "pull" ]; then
-    displayTitle "Pulling changes from ${cyan}$REPO_URI${reset} repository, branch ${cyan}$REPO_BRANCH${reset}"
+    displayTitle "Pulling changes from the MASTER REPOSITORY"
     (cd $REPO_LOCAL && git pull origin "$REPO_BRANCH")
     OK "${green}${bold}\nPulling changes from the MASTER REPOSITORY completed!${reset}"
   elif [ "$action" == "push" ]; then
-    displayTitle "Pushing changes to ${cyan}$REPO_URI${reset} repository, branch $REPO_BRANCH"
+    displayTitle "Pushing changes to the MASTER REPOSITORY"
     cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
     echo -e "${green}${bold}\nPushing changes from the MASTER REPOSITORY completed!${reset}"
   fi
