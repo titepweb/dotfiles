@@ -1,6 +1,5 @@
 
 
-
 Reference
 =========
 Tutorials : [1] [2] [3] [4] [5]
@@ -14,7 +13,6 @@ G!: vsch mr dotfiles --->> [easy guide][6] [7] [8]
 
 ### Customize individual files
 ####[bash-sh-zsh]:
-![left-to-right priority](http://blog.flowblok.id.au/static/images/shell-startup-actual.png)
 1-mutt, Irssi
 2-awesome
 3-vim
@@ -58,9 +56,4 @@ nmdf =~ vsch + single-repo git (support clone/pull , commit, push for master bra
 
 [homesick]: https://github.com/technicalpickles/homesick
 [bash-sh-zsh]:http://blog.flowblok.id.au/2013-02/shell-startup-scripts.html
-
-
-
-***********************************************************************************
-##@TODO:
 

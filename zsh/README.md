@@ -1,6 +1,8 @@
 You can easily find useful articles on the internet, but what you have read and were interested in are most important. I keep mine here:
 
-There are many
+### UNDERSTAND .*rc files
+![ looking-for-configuration-file order : left-to-right ](http://blog.flowblok.id.au/static/images/shell-startup-actual.png)
+
 
 Inpirated by
 ============
@@ -19,7 +21,7 @@ COLORSCHEME + FONTS +
 =========================
 Tools : 
 + For Vim/Zsh: [base16-shell](https://github.com/morhetz/gruvbox) , [gruvbox](https://github.com/morhetz/gruvbox) , 
-+ For 
++ For Vim: [Vim colorscheme](https://github.com/flazz/vim-colorschemes/tree/master/colors)
 + [or create your own](http://ciembor.github.io/4bit) with assistance of:
 	+ [convert hex-rgb](http://www.zonums.com/online/color_converter]
 	+ [convert colorschemes](http://stayradiated.github.io/termcolors-web)

@@ -9,6 +9,15 @@ sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bi
 ```
 
 ## Reinvent the wheel
+**nmdf** based on
+1. [brettbatie's dotm](https://github.com/brettbatie/dotfiles/blob/master/bin/dotm)
+2. [agross's bootstrap](https://github.com/agross/dotfiles/blob/master/bootstrap) supports cross-platform bootstrapping.
+  * Based on [Holman's bootstrap](https://github.com/holman/dotfiles/blob/master/script/bootstrap)
+  * He also use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins.
+  * His brilliant way to manage aliases.sh
+
+
+
 
 ## using git to pull/push dotfiles
 create an ssh key : https://github.com/settings/ssh

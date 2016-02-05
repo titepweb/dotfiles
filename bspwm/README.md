@@ -1,17 +1,22 @@
-ICON FONTS
-==========
+FONTS
+=====
+**ICON FONTS**
 [Nerd Font's collection](https://github.com/ryanoasis/nerd-fonts)
+**GTK FONTS**
+[System San Francisco TextFace](https://github.com/supermarin/YosemiteSanFranciscoFont)
+**TERMINAL FONTS**
+[Liberation Mono for Powerline](https://github.com/powerline/fonts)
 
 REQUIRED SOFTWARES
 ==================
 Clipboard manager : [xclip] , xsel , diodon, klipper, glipper, parcellite or xfce4-clipman
 [nmcli_menu](https://github.com/firecat53/nmcli-dmenu)
+
 [nale12's GTK theme on deviantart](nale12.deviantart.com/gallery/?catpath=/)
 [FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862)
 
 [ninetyfourbit's scripts + wallpaper](https://github.com/ninetyfourbit)
 [NickBrisebois](https://github.com/NickBrisebois/dotfiles)
-[Vim colorscheme](https://github.com/flazz/vim-colorschemes/tree/master/colors)
 
 
 Reference:
@@ -42,19 +47,10 @@ REFERENCE FOR CONFIGURING BSPWM
 
 Ideas from [windelicato](https://github.com/windelicato/dotfiles) [hamsterslayer](https://github.com/hamsterslayer/dotfiles) [ninetyfourbit](https://github.com/ninetyfourbit/dotfiles) [cozmoss](https://www.reddit.com/r/unixporn/comments/2ye35o/bspwm_sadboys/) [carlaco](https://github.com/calarco/dotfiles) [gamecheet's dzen scripts](https://github.com/gamecheet)
 
-nmdf
-====
-1. [brettbatie's dotm](https://github.com/brettbatie/dotfiles/blob/master/bin/dotm)
-2. [agross's bootstrap](https://github.com/agross/dotfiles/blob/master/bootstrap) supports cross-platform bootstrapping.
-  * Based on [Holman's bootstrap](https://github.com/holman/dotfiles/blob/master/script/bootstrap)
-  * He also use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins.
-  * His brilliant way to manage aliases.sh
-
-
-
 
 
 ==================================================================
+
 ## installed software
 Not all of this is required for the configuration, it's just the list of software that I personally use and recommend.
 
