@@ -1,6 +1,4 @@
-```bash
-sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf`"
-```
+
 
 bash_prompt meanings:
 ```
@@ -15,11 +13,7 @@ Tutorials : [1] [2] [3] [4] [5]
 #### using GNU Stow + plugins are installed as submodules [git] or subrepositories [Mercurial]
 advantages : (1) avoid external dependencies in favor of a simpler, self-contained setup  
 or ...  [dfm], [dotbot], [dots] , [deedot] , [dotfiles manager]...
-```bash
-git submodule add {http://github.com...} {plugin name}
-git submodule update --init --recursive
-git submodule update --init --remote
-```
+
 #### Using [vcsh] for fake local git repo + [mr] for a fake multi-repo git 
 related : [multigit] , [homesick] ,  ... 
 G!: vsch mr dotfiles --->> [easy guide][6] [7] [8]
@@ -60,8 +54,6 @@ nmdf =~ vsch + single-repo git (support clone/pull , commit, push for master bra
 [8]: http://www.martin-burger.net/blog/unix-shell/manage-dotfiles-quickly-and-effortlessly/
 
 [dfm]: https://github.com/justone/dfm/blob/master/dfm
-[git]:
-[Mercurial]: 
 [Dotbot]: http://www.anishathalye.com/2014/08/03/managing-your-dotfiles/
 [dots]: https://github.com/EvanPurkhiser/dots
 [deedot]: https://github.com/DeeNewcum/deedot

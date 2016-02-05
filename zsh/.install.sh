@@ -8,9 +8,10 @@
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES for the combo ZSH + NEOVIM + TMUX + base16     │
-│ - zsh + base16-shell colorscheme + my modified color palettes               │
-│ - neovim + xclip + vim-plug + base16-vim colorscheme + my custom theme      │
-│ - tmux + Tmux Plugin Manager                                                │
+│ base16-shell ┌──zsh     + zplug                                             │
+│ colorscheme  └──neovim  + vim-plug + xclip                                │
+│ + a custom     ---------------------------                                  │
+│ colorscheme     tmux    + Tmux Plugin Manager                               │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
 

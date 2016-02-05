@@ -9,9 +9,9 @@
 #   03. Theme/Colors ............ Colors, prompts, fonts, etc.               #
 ##############################################################################
 
-dotDirIns=$HOME/.dotfiles
-binDir=$dotDirIns/bin
-sourceDir=$dotDirIns/bash/source
+DOTFILES=$HOME/.dotfiles
+binDir=$DOTFILES/bin
+sourceDir=$DOTFILES/bash/source
 
 ##############################################################################
 # 01. General                                                                #
@@ -26,7 +26,7 @@ export PATH=$path:$PATH
 export PS1="\n\[\e[0;36m\]┌─[\[\e[0m\]\[\e[1;33m\]\u\[\e[0m\]\[\e[1;36m\] @ \[\e[0m\]\[\e[1;33m\]\h\[\e[0m\]\[\e[0;36m\]]─[\[\e[0m\]\[\e[1;34m\]\w\[\e[0m\]\[\e[0;36m\]]\[\e[0;36m\]─[\[\e[0m\]\[\e[0;31m\]\t\[\e[0m\]\[\e[0;36m\]]\[\e[0m\]\n\[\e[0;36m\]└─[\[\e[0m\]\[\e[1;37m\]\$\[\e[0m\]\[\e[0;36m\]]› \[\e[0m\]"
 
 # source all files in dotfiles or only the given file.
-# $dotDirIns/bashrc.ignore/.shell_prompt.sh --> alternative prompt
+# $DOTFILES/bashrc.ignore/.shell_prompt.sh --> alternative prompt
 function src() {
   # to process a for loop on file name with [spaces] in them:
   # --> Set $IFS variable (space by default) to determine what the field separators are.
@@ -36,10 +36,10 @@ function src() {
 
   local file
   if [[ "$1" ]]; then
-    source "$dotDirIns/bash/source/$1.sh"
+    source "$DOTFILES/bash/source/$1.sh"
   else
     # for name in $(cat $INPUTFILE)
-    for file in $(find "$dotDirIns"/bash/source -type f); do
+    for file in $(find "$DOTFILES"/bash/source -type f); do
          source "$file"
          echo "..source $file "
     done
