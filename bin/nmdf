@@ -51,8 +51,11 @@ function updateRepo {
 }
 
 function remoterunning {
+  #NOTE: [01;04;33  = bold + underline + xterm
+  BoldUnderlinedRed='\n\e[01;04;38m%s\e[0m\n'
+
   echo "nmdf is running from remote location."
-  echo "Cloning a working dotfiles..."
+  printf $BoldUnderlinedRed "CLONING A WORKING DOTFILES LOCAL REPOSITORY..."
   updateRepo "$DEFAULT_DOTREPO" pull
   sh -c "$DEFAULT_DOTREPO/bootstrap.sh true"
   exit 0
