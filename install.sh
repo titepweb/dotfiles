@@ -1,7 +1,7 @@
 #!/bin/bash
 # PURPOSE : 1. scan for $REPO_LOCAL/topic/.install.sh and source them to install packages and configure them.
 #           2. source $REPO_LOCAL/link to create symlink or copy dotfiles to ~
-# status: unfinished but usable. Last edit on 2016-02-04 . @TODO: --> continute coding to implement on Darwin, Cywin...
+# status: unfinished but usable. Last edit on 2016-02-05 . @TODO: --> continute coding to implement on Darwin, Cywin...
 # location : $REPO_LOCAL/install.sh
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit REPO_LOCAL variable.

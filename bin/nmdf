@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Location : $REPO_LOCAL/bin/nmdf
 # PURPOSE : 1. launch $REPO_LOCAL/link with parameters 2. Manage dotfiles project: show status/pull/push
-# status: unfinished. Last edit on 2016-02-04 . @TODO: --> PROJECT management + help
+# status: unfinished. Last edit on 2016-02-05 . @TODO: --> PROJECT management + help
 
 REPO_URI=https://github.com/titepweb/nmdf
 REPO_BRANCH=master

@@ -1,6 +1,6 @@
 #!/bin/bash
 # PURPOSE : install packages for the combo : bspwm + lemonbar + dzen2 + rofi + termite 
-# status : unfinished. last edit on 2016-02-04
+# status : nearly finished. last edit on 2016-02-05
 # dependancy : this script is designed to be sourced by $REPO_LOCAL/install.sh
 
 ######### REQUIRED PACKAGES #########

@@ -4,6 +4,19 @@
 # USAGE : 1. tm --> open tmux session list 
 #         2. tm <path/to/file> or tm <path/to/file.tmux> 
 #            --> check for <file> session to attach. if <file session> does not exist, create sample file.tmux and load it
+# this script designed run independently.
+
+### COLOR DEFENITION ### reference: https://en.wikipedia.org/wiki/ANSI_escape_code
+# Note: \033 = \e   30+i to specify foreground color, 40+i to specify background color,
+reset='\e[0m'     ;   
+
+bold='\e[1m'      ;   faint='\e[2m'       ;   italic='\e[3m'       ;   underline='\e[4m'    ;
+blink='\e[5m'     ;   blinkfast='\e[6m'   ;   negative='\e[7m'     ;   conceal='\e[8m'      ;
+strike='\e[9m'    ;
+
+black='\e[30m'    ;   red='\e[31m'        ;   green='\e[32m'       ;   yellow='\e[33m'      ;
+blue='\e[34m'     ;   magenta='\e[35m'    ;   cyan='\e[36m'        ;   white='\e[37m'       ;
+xterm='\e[38'     ;   default='\e[39m'    ;
 
 ### A SAMPLE OF PRE-CONFIGURED TMUX ENVIRONMENT ###
 
@@ -51,13 +64,13 @@ EOF
 
 if [ ! $# == 0 ]; then
 	# evaluate parameters -------------------------------------------------
-	[[ ! $# == 1 ]] && echo "Too many parameters. Only \`$1\` is used."
+	[[ ! $# == 1 ]] && echo -e "${red}Too many parameters${reset}. Only ${cyan}\`$1\`${reset} is used."
 	tmux_conf=$1
 	tmux_name=$(basename "${1%.tmux}")
 
 	# remove all occurances of space and period
   if [[ ! "$tmux_name" = "${tmux_name%[[:space:]]*}" || "$tmux_name" == *.* ]]; then
-		echo "Bad session name. It must have no spaces, no periods, ..."
+		echo -e "${red}Bad session name${reset}. It must have no spaces, no periods, ..."
     tmux_name="$(echo -e "$tmux_name" | tr -d '[[:space:]]' | tr -d '.' )"
   	read -p "Use \`$tmux_name\` instead [y/n] ?" -n 1 -r && echo
   	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
@@ -68,24 +81,26 @@ if [ ! $# == 0 ]; then
 	tmux_conf="${tmux_conf%.tmux}".tmux
 
 	# startup a "default" session if non currently exists -----------------
-	echo "Checking for \`$tmux_name\` ..."
+	echo -e "Checking for ${cyan}\`$tmux_name\`${reset} ..."
 	tmux has-session -t $tmux_name 2>/dev/null
 	if [ "$?" -eq 1 ] ; then
-	    echo "--> No Session found."
+	    echo -e "--> Session named ${cyan}\`$tmux_name\`${reset} ${yellow}not found${reset}."
 	    if ! [[ -f "$tmux_conf" ]]; then
-	    	echo "--> The file \`$tmux_conf\` does not exists. "
-	    	read -p "Create $(basename $tmux_conf) in $(dirname $tmux_conf) [y/n] ?" -n 1 -r && echo
+	    	echo -e "--> The file ${cyan}\`$tmux_conf\`${reset} ${yellow}does not exists${reset}. "
+	    	read -p "Create $(basename $tmux_conf) in \`$(dirname $tmux_conf)\` [y/n] ?" -n 1 -r && echo
 	    	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
 	    	create_tmuxconf "$tmux_conf"
 	    fi
 	    if ! [[ -f "$tmux_conf" ]]; then
-		  	echo "Errors happen when creating $tmux_conf"
+		  	echo -e "${red}Errors${reset} happen when creating ${cyan}$tmux_conf${reset}"
 		  fi
 
-	    echo "Loading configuration file \`$tmux_conf\`"
+	    echo -e "Loading configuration file ${cyan}\`$tmux_conf\`${reset}"
+    	# fix parameter for source command in working directories <-- source "./<file>.tmux" works. source <file>.tmux won't
+		  [[ $tmux_conf = $tmux_name.tmux ]] && tmux_conf=./$tmux_conf
 	    source "$tmux_conf"
 	else
-	    echo "Session found. Connecting $tmux_name ..."
+	    echo "Session found. Connecting ${cyan}$tmux_name${reset} ..."
 			tmux attach-session -t $tmux_name
 	fi
 else

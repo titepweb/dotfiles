@@ -2,6 +2,7 @@
 # PURPOSE : Symlink or Copy the dotfiles (*.symlink & *.copy) to ~/
 # status: finished on 2016-02-05. @TODO: test on platforms other than Arch Linux
 # location : $REPO_LOCAL/install/link
+# this script designed to be sourced with some inherited parameters or run with default ones
 
 # Identify ABSOLUTE path of directory storing the script. Scripts sourced by this script will inherit REPO_LOCAL variable.
 if [ -L $REPO_LOCAL ] || [ -z $REPO_LOCAL ]; then
