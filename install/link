@@ -78,8 +78,10 @@ SymlinkOrCopy () {
     if [ ! "$recopy" = "true" ]; then
       skip=true;
     fi
-  # Otherwise, ask user if destination file exists --------------------------
-  elif [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
+  fi
+
+  # Ask user if destination file exists -------------------------------------
+  if [ ! "$skip" == true ] && [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
     if [ ! "$overwrite_all" == "true" ] && [ ! "$backup_all" == "true" ] && [ ! "$skip_all" == "true" ]; then
       ASK "File already exists : ${green}$dst${reset} \n\t   (${cyan}$(file --brief "$dst")${reset})
            Will be $askword1 ${green}$src${reset}
@@ -297,11 +299,11 @@ INSTALL_DOTFILES () {
   dotDir=$home/.dotfiles              #--> Don't change this because bashrc and zsh setup contain: 'export DOTREPO=~/.dotfiles'
 
   # Set special directories and files based on defined dotDir.
-  binDir=$dotDir/bin                  #--> include in .bashrc or .bash_profile: export PATH=$binDir:$PATH
-  tempDir=$dotDir/temp                #--> include in .gitignore
+  binDir=$DOTREPO/bin                  #--> include in .bashrc or .bash_profile: export PATH=$binDir:$PATH
+  tempDir=$DOTREPO/temp                #--> include in .gitignore
 
   # currently, logfile is not used. Save these for the later version of nmdf
-  logfile=$dotDir/nmdf.log            #--> include in .gitignore
+  logfile=$DOTREPO/nmdf.log            #--> include in .gitignore
     # Delete log file if its size is bigger than 50 KiB
     if [ -f $logfile ]; then
       size=$(stat -c%s $logfile)
