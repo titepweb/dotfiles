@@ -1,15 +1,15 @@
-# nm's dotfiles - managed with nmdf - installed with my own script
+## nm's dotfiles - managed with nmdf - installed with my own script
 > KISS design principle: "Keep it simple, stupid" --> avoid unnecessary complexity
 > "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away"
 >	paraphrase : "Perfection is when whatever you add or remove, you worsen the result. This was discovered during renaissance.""
-
-#### Reinvent the wheel
 
 **INSTALLATION**
 ```bash
 sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf`"
 ```
 **
+
+## Reinvent the wheel
 
 ## using git to pull/push dotfiles
 create an ssh key : https://github.com/settings/ssh
