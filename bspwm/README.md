@@ -1,19 +1,19 @@
 ## FONTS & THEME
 First Necessary fonts : ```$ yaourt -Sb ttf-ms-fonts --export ~/Downloads```
 
-**ICON FONTS**
+- **ICON FONTS**
 [Nerd Font's collection](https://github.com/ryanoasis/nerd-fonts)
-**GTK FONTS**
+- **GTK FONTS**
 [System San Francisco TextFace](https://github.com/supermarin/YosemiteSanFranciscoFont)
-**TERMINAL FONTS**
+- **TERMINAL FONTS**
 [Liberation Mono for Powerline](https://github.com/powerline/fonts)
-**LEMONBAR FONTS**
+- **LEMONBAR FONTS**
 [Source Sans Pro Semibold](https://google.com)
 [FontAwesome](http://fontawesome.io/) for most icons. [its cheatsheet](https://fortawesome.github.io/Font-Awesome/cheatsheet/)
 [Foundation Icon Fonts 3](http://zurb.com/playground/foundation-icon-fonts-3) for media icons.
-**GTK THEME**
+- **GTK THEME**
 [nale12's GTK theme on deviantart](nale12.deviantart.com/gallery/?catpath=/)
-**GTK ICONS**
+- **GTK ICONS**
 ```
 $ yaourt -Sb numix-circle-icon-theme-git --export ~/Downloads/
 ```
