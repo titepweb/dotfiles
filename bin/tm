@@ -115,7 +115,7 @@ tmux resize-pane -D 20
 tmux select-window -t \$PROJECT_NAME:1
 tmux select-pane -t 1
 tmux rename-window "vimrc"  # [-1-]
-tmux send-keys "\$EDITOR -c ':e \\\$MYVIMRC'" C-m
+tmux send-keys "\\\$EDITOR -c ':e \\\$MYVIMRC'" C-m
 
 # Attach to session
 tmux -2 attach-session -t \$PROJECT_NAME
