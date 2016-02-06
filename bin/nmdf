@@ -49,8 +49,8 @@ function updateRepo {
     displayTitle "PUSHING CHANGES TO MASTER REPOSITORY"
     cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" 
     OK "${cyan}$DOTREPO${reset} have been committed"
-    INFO "Commit message : ${yellow}commitMessage${reset}"
-    
+    INFO "Commit message : ${yellow}$commitMessage${reset}"
+
     echo -e "\n✱ ${underline}${bold}PRIVACY WARNING${reset} ( by ${yellow}$FUNCNAME${reset} from ${yellow}$BASH_SOURCE${reset} )
       ┌─────────────────────────────────────────────────────────────────────┐
       │  Make sure that your sensitive data are not included in dotfiles.   │
