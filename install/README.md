@@ -1,13 +1,12 @@
 ## nm's dotfiles - managed with nmdf - installed with my own script
 > KISS design principle: "Keep it simple, stupid" --> avoid unnecessary complexity
-> "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away"
->	paraphrase : "Perfection is when whatever you add or remove, you worsen the result. This was discovered during renaissance.""
 
 **INSTALLATION**
 `sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf`"`
 
 ## Reinvent the wheel
-**nmdf** based on
+> "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away"
+**nmdf** bases on : 
 
 1. [brettbatie's dotm](https://github.com/brettbatie/dotfiles/blob/master/bin/dotm)
 	+ He create a minimalist list `-name <item1> -or -name <item2> ` for `find` command 
@@ -20,15 +19,36 @@
 	    minimalSymlinkFiles=""
 		fi
 		```
+	+ His dotm can detect whether it is run from remote location, create a working repository of dotfiles and continue to boopstrap.
+	+ His dotm can run with several parameters to pull, change default $dotDir/$REPO_URI.  
 2. [agross's bootstrap](https://github.com/agross/dotfiles/blob/master/bootstrap) supports cross-platform bootstrapping.
   * Based on [Holman's bootstrap](https://github.com/holman/dotfiles/blob/master/script/bootstrap)
   * He use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins as well as to autoload all <any_name>.zsh, ). That brilliant way offers convenience to manage *aliases* .zsh .
   * He has also written fpath.zsh (which autoloads all files in $DOTFILES/topic/functions/ in memory everytime .zshrc is loaded)
   * He has set up .zshev to autoload any files in $DOTFILES/zsh/startup/ to check and perform some tasks and then unfunction them when done.
   * cross-platform support is his ideas abeit all shell scripts he wrote hasn't been tested on many platforms.  
-3. 
+3. [nicknisi's scripts to set a new macos in only 20 minutes](https://github.com/nicknisi/dotfiles/tree/master/install)
+	* his tm
+	* his configuration file : .tmux.conf , .vimrc , 
+
+## my bootstrap scripts 
+>	paraphrase : "Perfection is when whatever you add or remove, you worsen the result. This was discovered during renaissance.""
+
+Shameless stealing from many people's ideas and scripts, iodiotically writing my ones, I do love my way because I understand why and how the following scripts run:
+
+- My dotfiles are organized in topics, which can be a combo of apps or individual stuffs. Combo is designed to work sanely together, for example, zsh and vim simultaneously change their theme with a single command `nextheme`, some icons on lemonbar can trigger a corresponding dzen2 script to show calendar, network, or system information. Some special directories (temp, 80%, <any_name>.ignore) have never been scan by the following scripts can contains script in development.
+- **installpkg** , as its name , will look for any *.install.sh* files in topics and then source them to install required and optional pakages.  
+
+**linkdf**
+**inform**
+
+**cross-flatform**
 
 
+
+**install.sh**
+
+**nmdf**
 
 ## using git to pull/push dotfiles
 create an ssh key : https://github.com/settings/ssh
@@ -77,8 +97,6 @@ git submodule add {http://github.com...} {plugin name}
 git submodule update --init --recursive
 git submodule update --init --remote
 ```
-## UNDERSTANDING DOTFILES = CONFIGURATION FILES
-
 ### What are performed when I....
 CPU > kernel > Shell (bash zsh csh tcsh) > User(s)
 Bash's startup procedure under various conditions:
@@ -155,14 +173,3 @@ zsh is better than bash:
 	08-programmable file rename:		zmv '(*).txt' 'new_prefix_$1.html'
 	09-cycle through command history		ps {press down n times}
 	10-syntax highlighting (green = valid, red = invalid)
-
-.zshenv, .zprofile, .zshrc, .zlogin
--------------------------------------
-
-
-
-Other stuffs -------------------------------------
-GTK theme settings: (lxappearance)
-Gtk2 Theme 	:	~/.gtkrc-2.0	http://samuelhewitt.com/paper/theme
-Gtk3 Theme	:	~/.config/gtk-3.0/setting.ini
-Vertex Dark

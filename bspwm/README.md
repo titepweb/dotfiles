@@ -13,11 +13,11 @@ First Necessary fonts : `$ yaourt -Sb ttf-ms-fonts --export ~/Downloads`
   + [FontAwesome](http://fontawesome.io/) for most icons. [its cheatsheet](https://fortawesome.github.io/Font-Awesome/cheatsheet/)
   + [Foundation Icon Fonts 3](http://zurb.com/playground/foundation-icon-fonts-3) for media icons.
 - **GTK THEME** : 
-[nale12's GTK theme on deviantart](nale12.deviantart.com/gallery/?catpath=/)
+[Lime Night can be found on nale12's deviantart](nale12.deviantart.com/gallery/?catpath=/)
 - **GTK ICONS** : ` $ yaourt -Sb numix-circle-icon-theme-git --export ~/Downloads/ `
 
 or alternatives ...
-[FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862) ,
+[FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862) , ...
 
 
 REQUIRED SOFTWARES

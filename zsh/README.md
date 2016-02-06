@@ -3,6 +3,9 @@ You can easily find useful articles on the internet, but what you have read and 
 ### UNDERSTANDING .*rc files
 ![ looking-for-configuration-file order : left-to-right ](http://blog.flowblok.id.au/static/images/shell-startup-actual.png)
 
+Gtk2 Theme 	:	~/.gtkrc-2.0	http://samuelhewitt.com/paper/theme
+Gtk3 Theme	:	~/.config/gtk-3.0/setting.ini
+
 
 Inpirated by
 ============
