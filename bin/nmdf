@@ -47,6 +47,9 @@ function updateRepo {
     OK "${green}${bold}Pulling changes from the MASTER REPOSITORY completed!${reset}"
   elif [ "$action" == "push" ]; then
     displayTitle "PUSHING CHANGES TO MASTER REPOSITORY"
+    cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" 
+    OK "${cyan}$DOTREPO${reset} have been committed"
+    INFO "Commit message : ${yellow}commitMessage${reset}"
     
     echo -e "\n✱ ${underline}${bold}PRIVACY WARNING${reset} ( by ${yellow}$FUNCNAME${reset} from ${yellow}$BASH_SOURCE${reset} )
       ┌─────────────────────────────────────────────────────────────────────┐
@@ -54,11 +57,10 @@ function updateRepo {
       │            (email password, ssh keys, API keys, etc.)               │
       └─────────────────────────────────────────────────────────────────────┘
     "
-
     read -p "Are you sure [y/n] ? " -n 1 -r && echo
     [[ ! $REPLY =~ ^[Yy]$ ]] && FAIL "Please take a look over your dotfiles..." 
 
-    cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" && git push origin "$REPO_BRANCH"
+    git push origin "$REPO_BRANCH"
     OK "${green}${bold}Pushing changes from the MASTER REPOSITORY completed!${reset}"
   fi
 }
