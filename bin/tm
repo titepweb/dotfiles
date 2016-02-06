@@ -119,6 +119,8 @@ tmux select-pane -t 1       # [x| ] Whenever set up a new tmux split window, let
 tmux select-window -t \$PROJECT_NAME:1
 tmux select-pane -t 1
 
+# create a new tmux window with 'tmux new-windows -a ...' always keep 'zsh' window...
+# we can rename the 'zsh' window and have some fun with it.
 # @FIXME: the `if command` doesn't work properly when I double click the script.
 # so let it be a unexpected feature: =))
 # 1. run this script from terminal to open the project and dotifles project
