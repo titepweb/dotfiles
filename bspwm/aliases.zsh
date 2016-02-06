@@ -1,7 +1,11 @@
 
-# nmcli <-- networkmanager
-alias netm='nmcli dev wifi connect M454 password ti845887'
-alias netq='nmcli dev wifi connect "Sophop pho hue" password 0583620035'
+# nmcli <-- networkmanager use to CREATE NEW A WIRELESS PROFILE
+# alias netm='nmcli dev wifi connect M454 password ti845887'
+# alias netq='nmcli dev wifi connect "Sophop pho hue" password 0583620035'
+
+# nmcli <-- networkmanager use to SWITCH TO SAVED WIRELESS PROFILES
+alias netm='nmcli connection up M454'
+alias netq='nmcli connection up "Sophop pho hue"'
 
 # netctl-auto
 # alias net='netctl-auto list'

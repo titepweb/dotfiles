@@ -8,6 +8,8 @@ else # OS X `ls`
 fi
 
 # Quick check for current networking
+# nmcli connection show
+echo -------------------
 (nmcli -p c && echo && nmcli dev wifi) || netctl-auto list
 echo 
 echo "Current enabled services:"
