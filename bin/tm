@@ -107,7 +107,7 @@ tmux new-window -a -t \$PROJECT_NAME:2 -n 'pasta'
 tmux split-window -h        # [ | ]
 tmux send-keys "net" C-m    # net is just a alias
 tmux select-pane -t 1       # [x| ]
-tmux send-keys "cd \$(dirname "\$0" ) && ls" C-m
+tmux send-keys "cd \$(dirname "\$0") && ls" C-m
 tmux split-window -v        # [---]
 tmux resize-pane -D 20
 
@@ -115,7 +115,7 @@ tmux resize-pane -D 20
 tmux select-window -t \$PROJECT_NAME:1
 tmux select-pane -t 1
 tmux rename-window "vimrc"  # [-1-]
-tmux send-keys "cd \$(dirname "\$0" ) && \$EDITOR "\$HOME/.config/nvim/init.vim" " C-m
+tmux send-keys "\$EDITOR -c ':e \\\$MYVIMRC'" C-m
 
 # Attach to session
 tmux -2 attach-session -t \$PROJECT_NAME
