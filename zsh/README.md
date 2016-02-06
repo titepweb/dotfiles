@@ -32,7 +32,7 @@ Tools :
 
 TMUX
 ====
-1. [tmux cheatsheet](http://tmuxcheatsheet.com)
+1. [tmux cheatsheet](http://hyperpolyglot.org/multiplexers)
 
 VIM
 ===

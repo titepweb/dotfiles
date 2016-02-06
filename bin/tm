@@ -6,11 +6,11 @@
 #           2. easily manage tmux sessions by list all of them                #
 #           3. provide an option to clear all tmux sessions.    						  #
 ###############################################################################
-# USAGE   : 1. $ tm --> open tmux session list 
-#           2. $ tm <path/to/file> or tm <path/to/file.tmux> 
-#              --> check for <file> session to attach. if <file session> does 
-#                  not exist, create sample file.tmux and load it.
-#           3. generated scripts can be independently run from anywhere. Thus,
+# USAGE   : 1. $ tm --> open tmux session list                                #
+#           2. $ tm <path/to/file> or tm <path/to/file.tmux>                  #
+#              --> check for <file> session to attach. if <file session> does #
+#                  not exist, create sample file.tmux and load it.            #
+#           3. generated scripts can be independently run from anywhere. Thus,#
 #              place them in any directories. Run them to create tmux sessions.
 ###############################################################################
 # the 'tm' script designed run independently.
@@ -103,6 +103,7 @@ tmux new-window -a -t \$PROJECT_NAME:1 -n "vim"   # -a to avoid error msg : `Tmu
 tmux send-keys "$([[ -n $EDITOR ]] && echo \\\$EDITOR || echo "cat" ) "\$0"" C-m
 tmux split-window -v -p 10  # [---]
 tmux split-window -h -p 50  # [ | ]
+tmux select-pane -t 1       # [x| ] Whenever set up a new tmux split window, let it at the end.
 
 # Setup a window for ...
 tmux new-window -a -t \$PROJECT_NAME:2 -n 'pasta'
@@ -112,12 +113,16 @@ tmux select-pane -t 1       # [x| ]
 tmux send-keys "cd \$(dirname "\$0") && ls && cal" C-m
 tmux split-window -v        # [---]
 tmux resize-pane -D 20
+tmux select-pane -t 1       # [x| ] Whenever set up a new tmux split window, let it at the end.
 
-# Set default window
+# Return to the window 1, pane 1
 tmux select-window -t \$PROJECT_NAME:1
 tmux select-pane -t 1
 
 # @FIXME: the `if command` doesn't work properly when I double click the script.
+# so let it be a unexpected feature: =))
+# 1. run this script from terminal to open the project and dotifles project
+# 2. run this script by double click to it to open the project only.
 if [[ \$EDITOR =~ ^(vim|nvim|macvim|gvim)$ ]]; then
 	tmux rename-window "dotfiles"  # [-1-]
 	if [ -n \$DOTFILES ]; then
@@ -129,6 +134,10 @@ if [[ \$EDITOR =~ ^(vim|nvim|macvim|gvim)$ ]]; then
 else
 	tmux kill-window #-t 3
 fi
+
+# Return to the window 1, pane 1
+tmux select-window -t \$PROJECT_NAME:1
+tmux select-pane -t 1
 # Attach to session
 tmux -2 attach-session -t \$PROJECT_NAME
 EOF
