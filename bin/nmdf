@@ -48,7 +48,7 @@ function updateRepo {
   elif [ "$action" == "push" ]; then
     displayTitle "PUSHING CHANGES TO MASTER REPOSITORY"
     cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" 
-    OK "${cyan}$DOTREPO${reset} have been committed"
+    OK "\`git commit -m \"$commitMessage\"\` ${green}${bold}done${reset}!"
     INFO "Commit message : ${yellow}$commitMessage${reset}"
 
     echo -e "\n✱ ${underline}${bold}PRIVACY WARNING${reset} ( by ${yellow}$FUNCNAME${reset} from ${yellow}$BASH_SOURCE${reset} )
@@ -59,7 +59,6 @@ function updateRepo {
     "
     read -p "Are you sure [y/n] ? " -n 1 -r && echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      OK "\`git commit -m \"$commitMessage\"\` ${green}${bold}done${reset}!"
       FAIL "Please take a look over your dotfiles..." 
     fi
     git push origin "$REPO_BRANCH"
