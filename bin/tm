@@ -27,45 +27,95 @@ black='\e[30m'    ;   red='\e[31m'        ;   green='\e[32m'       ;   yellow='\
 blue='\e[34m'     ;   magenta='\e[35m'    ;   cyan='\e[36m'        ;   white='\e[37m'       ;
 xterm='\e[38'     ;   default='\e[39m'    ;
 
+#### LIBRARIES OFFERING COLORFUL INFORMATIVENESS #############################
+# NOTE: echo -e "..." = printf "...\n" 
+function displayTitle {
+  echo -e "\r${bold}$1${reset}" 
+}
+function BAD {
+  echo -e "\r  [${bold}${magenta}BADBOY${reset}] $1" 
+}
+function INFO {
+  echo -e "\r  [${bold}${cyan} INFO ${reset}] $1" 
+}
+function ASK {
+  printf "\r  [ ${bold}${yellow} ?? ${reset} ] $1"
+}
+function OK {
+  echo -e "\r  [${bold}${green}  OK  ${reset}] $1" 
+}
+function FAIL {
+  printf "\r  [${bold}${red} FAIL ${reset}] $1\n"
+  exit 1
+}
+
 ### A SAMPLE OF PRE-CONFIGURED TMUX ENVIRONMENT ###
+
+MkParentFolder() {
+  local inDir="$(dirname "$1")" 
+
+  # ask for remove $inDir if it is a regular file
+	if [ ! -d $inDir ] && [ -e "$inDir" ]; then
+    BAD "File \`${yellow}$inDir${reset}\` ${red}exists${reset}"
+    ASK "Delete it [${green}${bold}y${reset}/${red}${bold}n${reset}] "
+  	read -p "?" -n 1 -r && echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then 
+		  FAIL "Please take a look at \`${red}$inDir${reset}\`"
+		else
+	    rm "$inDir" 
+	    OK "${green}Removed ${reset} ${strike}${red} $inDir ${reset}" 
+		fi
+	fi
+
+	# Create $inDir if it does not exist
+	if [ ! -d "$inDir" ]; then
+	  mkdir -p "$inDir"       # mkdir can make two parent & son directories just with mkdir /parent_folder/son_folder
+	  OK "Created \`${green}$inDir"${reset}\` directory!
+	fi
+}
 
 function create_tmuxconf() {
 	PROJECT_NAME=$(basename "${1%.tmux}")
 	PROJECT_LOCATION="$(dirname "$1")"
+	INFO "Creating ${cyan}$PROJECT_NAME.tmux${reset} in directory ${yellow}$PROJECT_LOCATION${reset}..."
 	# make sure that $PROJECT_LOCATION exists
-	mkdir -p "$PROJECT_LOCATION"
+	MkParentFolder "$1"
 	# retrieve absolute path of $PROJECT_LOCATION
   PROJECT_LOCATION="$( cd -P "$PROJECT_LOCATION" && pwd )"
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 	cat << EOF > "$1"
 #!/bin/sh
-PROJECT_NAME=$PROJECT_NAME # /!\ tmux session name must be UNIQUE
-PROJECT_LOCATION="$PROJECT_LOCATION"
+#_#SAGE : [Run in terminal] to open tmux with vim, and all split windows will work the directory which the script is in.
+PROJECT_NAME=\$(basename "\${0%.tmux}")    # /!\ tmux session name must be UNIQUE
+PROJECT_NAME="\${PROJECT_NAME//[,. ]/}"   # remove all occurances of space and period
+PROJECT_LOCATION="$PROJECT_LOCATION"      # you can move this script to wherever you like
 
 # check if tmux session named \$PROJECT_NAME exist
 tmux has-session -t \$PROJECT_NAME 2>/dev/null
 [ "\$?" != 1 ] && tmux attach-session -t \$PROJECT_NAME && exit
 
-tmux -2 new-session -d -s $PROJECT_NAME
+tmux -2 new-session -d -s \$PROJECT_NAME
 
 # Setup a window for developing
-tmux new-window -t \$PROJECT_NAME:1 -n "vim"
+tmux new-window -a -t \$PROJECT_NAME:1 -n "vim"
 tmux send-keys "$([[ -n $EDITOR ]] && echo $EDITOR || echo "cat" ) "\$0"" C-m
-tmux split-window -v -p 10
-tmux send-keys "net" C-m
-tmux split-window -h -p 50
+tmux split-window -v -p 10  # [---]
+tmux split-window -h -p 50  # [ | ]
 
 # Setup a window for ...
-tmux new-window -t \$PROJECT_NAME:2 -n 'pasta'
-tmux split-window -h
-tmux select-pane -t 1
-tmux send-keys "ls" C-m
-tmux split-window -v
+tmux new-window -a -t \$PROJECT_NAME:2 -n 'pasta'
+tmux split-window -h        # [ | ]
+tmux send-keys "net" C-m    # net is just a alias
+tmux select-pane -t 1       # [x| ]
+tmux send-keys "cd \$(dirname "\$0" ) && ls" C-m
+tmux split-window -v        # [---]
 tmux resize-pane -D 20
 
 # Set default window
 tmux select-window -t \$PROJECT_NAME:1
 tmux select-pane -t 1
+tmux rename-window "vimrc"  # [-1-]
+tmux send-keys "cd \$(dirname "\$0" ) && \$EDITOR "\$HOME/.config/nvim/init.vim" " C-m
 
 # Attach to session
 tmux -2 attach-session -t \$PROJECT_NAME
@@ -75,20 +125,22 @@ EOF
 }
 
 # abort if we're already inside a TMUX session
-[ "$TMUX" == "" ] || exit 1
+[ "$TMUX" == "" ] || FAIL "Abort! \`tm\` cannot be executed inside a tmux session."
 
 if [ ! $# == 0 ]; then
 #=[ CREATE A SAMPLE TMUX SCRIPT -or- ATTACHING THE SPECIFIC SESSION ]=========#
+	displayTitle "✱ ${underline}TMUX SESSIONS MANAGER${reset}"
 	# evaluate parameters -------------------------------------------------
-	[[ ! $# == 1 ]] && echo -e "${red}Too many parameters${reset}. Only ${cyan}\`$1\`${reset} is used."
+	[[ ! $# == 1 ]] && BADBOY "${red}Too many parameters${reset}. Only \`${magenta}$1${reset}\` is used."
 	tmux_conf=$1
 	tmux_name=$(basename "${1%.tmux}")
 
-	# remove all occurances of space and period
+	# remove all occurances of space, period, comma
   if [[ ! "$tmux_name" = "${tmux_name%[[:space:]]*}" || "$tmux_name" == *.* ]]; then
-		echo -e "${red}Bad session name${reset}. It must have no spaces, no periods, ..."
-    tmux_name="$(echo -e "$tmux_name" | tr -d '[[:space:]]' | tr -d '.' )"
-  	read -p "Use \`$tmux_name\` instead [y/n] ?" -n 1 -r && echo
+		BAD "${red}Bad session name${reset}. It must have no spaces, no periods, ..."
+    tmux_name="$(echo "$tmux_name" | tr -d '[[:space:]]' | tr -d '.,' )"
+    ASK "Use \`${yellow}$tmux_name${reset}\` instead [${green}${bold}y${reset}/${red}${bold}n${reset}] "
+  	read -p "?" -n 1 -r && echo
   	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
   	tmux_conf="$(dirname "$1")/$tmux_name.tmux"
 	fi
@@ -97,47 +149,47 @@ if [ ! $# == 0 ]; then
 	tmux_conf="${tmux_conf%.tmux}".tmux
 
 	# startup a "default" session if non currently exists -----------------
-	echo -e "Checking for ${cyan}\`$tmux_name\`${reset} ..."
+	INFO "Checking for \`${cyan}$tmux_name${reset}\` ..."
 	tmux has-session -t $tmux_name 2>/dev/null
 	if [ "$?" -eq 1 ] ; then
-	    echo -e "--> Session named ${cyan}\`$tmux_name\`${reset} ${yellow}not found${reset}."
+	    BAD "Session named \`${magenta}$tmux_name${reset}\` ${yellow}not found${reset}."
 	    if ! [[ -f "$tmux_conf" ]]; then
-	    	echo -e "--> The file ${cyan}\`$tmux_conf\`${reset} ${yellow}does not exists${reset}. "
-	    	read -p "Create $(basename $tmux_conf) in \`$(dirname $tmux_conf)\` [y/n] ?" -n 1 -r && echo
+	    	BAD "The file \`${magenta}$tmux_conf${reset}\` ${yellow}does not exists${reset}. "
+    	  ASK "Create \`${yellow}$(basename $tmux_conf)${reset}\` in \`${cyan}$(dirname $tmux_conf)${reset}\` [${green}${bold}y${reset}/${red}${bold}n${reset}] "
+    		read -p "?" -n 1 -r && echo
 	    	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
 	    	create_tmuxconf "$tmux_conf"
 	    fi
 	    if ! [[ -f "$tmux_conf" ]]; then
-		  	echo -e "${red}Errors${reset} happen when creating ${cyan}$tmux_conf${reset}"
+		  	FAIL "${red}Errors${reset} happen when creating ${cyan}$tmux_conf${reset}"
 		  fi
 
-	    echo -e "Loading configuration file ${cyan}\`$tmux_conf\`${reset}"
+	    INFO "Loading configuration file \`${cyan}$tmux_conf${reset}\`"
     	# fix parameter for source command in working directories <-- source "./<file>.tmux" works. source <file>.tmux won't
 		  [[ $tmux_conf = $tmux_name.tmux ]] && tmux_conf=./$tmux_conf
 	    sh -c "$tmux_conf"
 	else
-	    echo -e "Session found. Connecting ${cyan}$tmux_name${reset} ..."
+	    OK "Session found. Connecting ${cyan}$tmux_name${reset} ..."
 			tmux attach-session -t $tmux_name
 	fi
 else
 #=[ SHOW TMUX SESSION LIST ]==================================================#
 	# present menu for user to choose which workspace to open -------------
 	PS3="Choose session/command: "
-	options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh" "kill all sessions")
-	echo -e "${bold}Available sessions${reset}"
-	echo -e "------------------"
+	options=($(tmux list-sessions -F "#S" 2>/dev/null) "[New Session]" "[zsh]" "[kill all sessions]")
+	displayTitle "✱ ${underline}ALL AVAILABLE TMUX SESSIONS${reset}"
 	select opt in "${options[@]}"
 	do
 		case $opt in
-			"New Session")
+			"[New Session]")
 				read -p "Enter new session name: " SESSION_NAME
 				tmux new -s "$SESSION_NAME"
 				break
 				;;
-			"zsh")
+			"[zsh]")
 				zsh --login
 				break;;
-			"kill all sessions")
+			"[kill all sessions]")
 				for sess in $(tmux ls | awk '{FS=":" ; print $1}' | sed 's/://g') ; do tmux kill-session -t $sess ; done
 				break;;
 			*)
@@ -147,3 +199,5 @@ else
 		esac
 	done
 fi
+
+exit 0

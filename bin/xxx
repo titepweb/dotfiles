@@ -1,14 +1,22 @@
 #!/bin/bash
 #xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
-# TEST and TRIM
-  if [[ ! "$1" = "${1%[[:space:]]*}" || "$1" == *.* ]]; then
-    echo HEHE
-  fi
-    tmux_conf="$(echo -e "$1" | tr -d '[[:space:]]')"
-    # remove all - . _
-    tmux_conf="${tmux_conf//[-._]/}"
-    echo $tmux_conf--- 
-    exit
+
+
+
+# TEST to/and TRIM
+# trim
+tmux_conf=" h.e .l..l  o.o.ooo,o"
+tmux_conf="${tmux_conf//[,. ]/}"
+echo =1=$tmux_conf==
+# test
+if [[ ! "$1" = "${1%[[:space:]]*}" || "$1" == *.* ]]; then
+  echo it has some spaces and periods. Remove those...
+fi
+# remove all spaces
+tmux_conf="$(echo -e "$1" | tr -d '[[:space:]]')"
+# remove all - . _ and spaces
+tmux_conf="${tmux_conf//[-._ ]/}"
+echo =2=$tmux_conf==
 exit
 
 #=====================

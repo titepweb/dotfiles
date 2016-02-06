@@ -131,7 +131,7 @@ bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-
 ### Color & Style Settings ###
 ##############################
 
-source ~/.dotfiles/zsh/tmux_theme.sh
+source ~/.dotfiles/zsh/prompt/tmux_theme.sh
 
 ###########################
 ### Tmux Plugin Manager ###

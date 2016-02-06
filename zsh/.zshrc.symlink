@@ -28,7 +28,7 @@ function() {
   nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh'
 
   # Set theme.
-  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, of:'inverted'
+  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, of:'zsh_inverted'
 
   # zsh #4 : Load postinit last.
   nice=9;   zplug "$DOTFILES", from:local, nice:$nice, of:'**/postinit.zsh'

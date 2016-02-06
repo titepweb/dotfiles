@@ -37,14 +37,14 @@ MkParentFolder() {
       rm "$inDir"
       OK "Removed${red} ${strike}$inDir${reset}" 
     else
-      FAIL "Take a look at ${red}$inDir${reset}"
+      FAIL "Please take a look at ${red}$inDir${reset}"
     fi
   fi
 
   # Create $inDir if it does not exist
   if [ ! -d "$inDir" ]; then
     mkdir -p "$inDir"       # mkdir can make two parent & son directories just with mkdir /parent_folder/son_folder
-    OK "Created $inDir"
+    OK "Created ${green}\`$inDir"\`${reset} directory!
   fi
 }
 
