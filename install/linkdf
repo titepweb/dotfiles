@@ -1,7 +1,7 @@
 #!/bin/sh
 ###############################################################################
 # script  : $DOTREPO/install/linkdf   maintained by titepweb at gmail.com     #
-# status  : unfinished. Last edit on 2016-02-05                               #
+# status  : stable. Last edit on 2016-02-05                                   #
 # feature   2. source $DOTREPO/link to create symlink or copy dotfiles to ~   #
 ###############################################################################
 # this script designed to be sourced with some inherited parameters ($DOTREPO 
@@ -56,7 +56,7 @@ SymlinkOrCopy () {
   local overwrite= ; local backup= ; local skip= 
   local action=
 
-  # Evaluate parameters and Choose the right word to ask --------------------
+  # STEP 1 - Evaluate parameters and Choose the right word to ask -----------
   if [ "$src" == "$DOTREPO" ] || ( [ "$symlinkORcopy" == "symlink+copy" ] && [ "$ext" = "symlink" ] ) || [ "$symlinkORcopy" == "symlink" ]; then
       local willbe="linked"
       local askword1="linked to"
@@ -68,19 +68,20 @@ SymlinkOrCopy () {
   else FAIL "Invalid parameters -- by $FUNCNAME"
   fi
 
-  # Case 1 - Link : Don't ask, backup/remove and then recreate symlinks -----
+  # STEP 2 - SKIP THE REST STEPS IF -----------------------------------------
+  # Case 1 - Don't ask, backup/remove and then recreate symlinks if ---------
   if [ $willbe = "linked" ] && [ -L "$dst" ]; then
     if [ "$(readsymlink "$dst")" == "$src" ]; then
       skip=true;
     fi
-  # Case 2 - don't ask, backup/remove existing destination file of *.copy dotfiles if ... because they may have been configured.
+  # Case 2 - Don't ask, backup/remove existing destination file of *.copy dotfiles if ... because they may have been configured.
   elif [ $willbe = "copied" ] && [ -e "$dst" ] && [ ! -L "$dst" ]; then
     if [ ! "$recopy" = "true" ]; then
       skip=true;
     fi
   fi
 
-  # Ask user if destination file exists -------------------------------------
+  # STEP 3 - ASK USER FOR MAKING DECISION IF DESTINATION FILES EXIST --------
   if [ ! "$skip" == true ] && [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
     if [ ! "$overwrite_all" == "true" ] && [ ! "$backup_all" == "true" ] && [ ! "$skip_all" == "true" ]; then
       ASK "File already exists : ${green}$dst${reset} \n\t   (${cyan}$(file --brief "$dst")${reset})
@@ -107,7 +108,7 @@ SymlinkOrCopy () {
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
-  # And then, remove destination file or move destination file to backupDir -
+  # STEP 4 - REMOVE DESTINATION FILES -or- MOVE THEM TO backupDir -----------
     if [ ! "$skip" == true ] && [ ! "$dst" == "$DOTREPO" ]; then
       if [ "$overwrite" == "true" ]; then
         rm -rf "$dst"
@@ -131,7 +132,7 @@ SymlinkOrCopy () {
     fi
   fi
 
-  # Finally, Skip , Symlink , or Copy ---------------------------------------
+  # STEP 5 - SKIP, SYMLINK, -or COPY ----------------------------------------
   if [ "$skip" == "true" ]; then
     OK "Skipped┌${green}$src${reset} \n \t   ${green}   ✔   ${reset}└${green}$dst${reset}"
   else
@@ -322,7 +323,7 @@ INSTALL_DOTFILES () {
 [[ -n $recopy ]] || recopy=false                        # valid value = "true" or anything else
 [[ -n $askbeforeaction ]] || askbeforeaction=true       # valid value = "true" or anything else
 [[ -n $overwrite_all ]] || overwrite_all=false          # valid value = "true" or anything else
-[[ -n $backup_all ]] || backup_all=false                 # valid value = "true" or anything else
+[[ -n $backup_all ]] || backup_all=false                # valid value = "true" or anything else
 
 # STEP 4 # Take acttion
 # ---------------------

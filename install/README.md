@@ -4,18 +4,29 @@
 >	paraphrase : "Perfection is when whatever you add or remove, you worsen the result. This was discovered during renaissance.""
 
 **INSTALLATION**
-```bash
-sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf`"
-```
+`sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf`"`
 
 ## Reinvent the wheel
 **nmdf** based on
+
 1. [brettbatie's dotm](https://github.com/brettbatie/dotfiles/blob/master/bin/dotm)
+	+ He create a minimalist list `-name <item1> -or -name <item2> ` for `find` command 
+		```sh
+		# comma delimited list for only creating a minimal set of symlinks
+		minimalSymlinkFiles=".vimrc,.gitconfig"	
+		if [ minimalOption="true" ]; then
+	    minimalSymlinkFiles="-name ${minimalSymlinkFiles/,/ -o -name }"
+		else
+	    minimalSymlinkFiles=""
+		fi
+		```
 2. [agross's bootstrap](https://github.com/agross/dotfiles/blob/master/bootstrap) supports cross-platform bootstrapping.
   * Based on [Holman's bootstrap](https://github.com/holman/dotfiles/blob/master/script/bootstrap)
-  * He also use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins.
-  * His brilliant way to manage aliases.sh
-
+  * He use [zplug](https://github.com/b4b4r07/zplug) to manage zsh pluggins as well as to autoload all <any_name>.zsh, ). That brilliant way offers convenience to manage *aliases* .zsh .
+  * He has also written fpath.zsh (which autoloads all files in $DOTFILES/topic/functions/ in memory everytime .zshrc is loaded)
+  * He has set up .zshev to autoload any files in $DOTFILES/zsh/startup/ to check and perform some tasks and then unfunction them when done.
+  * cross-platform support is his ideas abeit all shell scripts he wrote hasn't been tested on many platforms.  
+3. 
 
 
 

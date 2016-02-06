@@ -1,4 +1,12 @@
 
+# nmcli <-- networkmanager
+alias netm='nmcli dev wifi connect M454 password ti845887'
+alias netq='nmcli dev wifi connect "wlp16s0-Sophop pho hue" password 0583620035'
+
+# netctl-auto
+# alias net='netctl-auto list'
+# alias netq='netctl-auto enable "wlp16s0-Sophop pho hue"'
+# alias netm='netctl-auto enable "wlp16s0-M454"'
 
 #-------------------
 # Injected's aliases

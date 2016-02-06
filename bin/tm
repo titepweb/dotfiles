@@ -10,7 +10,7 @@
 #           2. $ tm <path/to/file> or tm <path/to/file.tmux> 
 #              --> check for <file> session to attach. if <file session> does 
 #                  not exist, create sample file.tmux and load it.
-# 					3. generated scripts can be independently run from anywhere. Thus,
+#           3. generated scripts can be independently run from anywhere. Thus,
 #              place them in any directories. Run them to create tmux sessions.
 ###############################################################################
 # the 'tm' script designed run independently.

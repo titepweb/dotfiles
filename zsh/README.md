@@ -1,6 +1,6 @@
-You can easily find useful articles on the internet, but what you have read and were interested in are most important. I keep mine here:
+You can easily find useful articles on the internet, but what you have read and were interested in are most important. I keep mine here.
 
-### UNDERSTAND .*rc files
+### UNDERSTANDING .*rc files
 ![ looking-for-configuration-file order : left-to-right ](http://blog.flowblok.id.au/static/images/shell-startup-actual.png)
 
 

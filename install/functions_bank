@@ -89,16 +89,6 @@ EOF
 
 # 1 ContextualSymlinkList for find command
 
-# 2
-
-  for file in $(find "$topic" -type f -name .install.sh \
-                -not -path "*/*\.ingore/*" \
-                -not -path "*/*\.80%/*" \
-              ); do
-    INFO "Source ${cyan}$file${reset}"
-    source "$file"
-  done
-
 # 3 # RemoveTailing function can be rewritten :
 
   for i in `seq 1 10`; #10 here is customizable

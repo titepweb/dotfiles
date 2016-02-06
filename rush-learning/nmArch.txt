@@ -745,11 +745,6 @@ INTERNET CONNECTION PROBLEMS
 systemctl list-unit-files | grep enabled
 systemctl --now | grep netctl
 
-netctl-auto list
-netctl-auto enable 'wlp16s0-Sophop pho hue'
-netctl-auto enable 'wlp16s0-M454'
-
-nmcli dev wifi connect M454 password ti845887
 
 
 1.default apps
