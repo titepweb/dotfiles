@@ -1,9 +1,10 @@
 #!/bin/sh
 
-# make the default x cursor not an x :) 
+# make the default x cursor is Normal cursor, not X
 # Require: # pacman -S xorg-xsetroot
 xsetroot -cursor_name left_ptr &
-
+# Auto mounts USB to /media/
+udiskie &
 #-------------------------------
 
 userresources=$HOME/.Xresources

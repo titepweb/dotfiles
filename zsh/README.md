@@ -32,20 +32,19 @@ Tools :
 
 TMUX
 ====
-1. [tmux cheatsheet](http://hyperpolyglot.org/multiplexers)
-
+- [tmux cheatsheet](http://hyperpolyglot.org/multiplexers)
+- [] 
 VIM
 ===
-+ [How I boosted my Vim](http://nvie.com/posts/how-i-boosted-my-vim/)
+- [How I boosted my Vim](http://nvie.com/posts/how-i-boosted-my-vim/)
 
 
 
 
-BUNDLES
-=======
+### EXTENSIONS = PLUGINS = BUNDLES = VUNDLES
 + Toggle Comment : commentary
-+ File Brower
-+ Fuzzy Search 	: [CtrlP] Commander-T
++ FuzzyFinder    : [CtrlP] Commander-T
++ File Brower    : [NERDTree]
 + [airline] , powerline
 + gundo
 
@@ -55,6 +54,7 @@ MY DISCOVERY
 	- map  --> nvo
 	- map! --> ic
 	- *noremap = non-recursive
++ Keybinding Confliction ? Termite --> Tmux --> zsh/neovim ? 
 
 ##### Have you ever heard of...
 [spf13-vim](https://github.com/spf13/spf13-vim), 

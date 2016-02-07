@@ -1,7 +1,8 @@
+## Reference
+[Code Screenshort](https://github.com/A/code-screenshots) , 
 
 
-Reference
-=========
+
 Tutorials : [1] [2] [3] [4] [5]
 #### using GNU Stow + plugins are installed as submodules [git] or subrepositories [Mercurial]
 advantages : (1) avoid external dependencies in favor of a simpler, self-contained setup  

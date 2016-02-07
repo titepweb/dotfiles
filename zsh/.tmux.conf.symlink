@@ -1,151 +1,199 @@
-# For Darwin : connect tmux to the OS X clipboard service : brew install reattach-to-user-namespace --> then... 
-# set -g default-command "reattach-to-user-namespace -l zsh"
+# !IMPORTANT: Fix Tmux's bug : vim's key binding <C-h> can not work 
+bind-key -T root C-h send-keys Escape "[104;5u"
 
-# tmux display things in 256 colors
+# !IMPORTANT: for display prompt, vim's status line
 set -g default-terminal "screen-256color"
-set -g status-utf8 on
+# use UTF8
 
-set -g history-limit 20000
-
-# tile all windows
-unbind =
-bind = select-layout tiled
-
-# automatically renumber tmux windows
-set -g renumber-windows on
-
-# Rather than constraining window size to the maximum size of any client
-# connected to the *session*, constrain window size to the maximum size of any
-# client connected to *that window*. Much more reasonable.
-setw -g aggressive-resize on
-
-# make delay shorter
-set -sg escape-time 0
-
-# make window/pane index start with 1
+# !IMPORTANT : required for properly performming my tmux-preconfigured scripts
+# set window and pane index to 1 (0 by default)
 set -g base-index 1
 setw -g pane-base-index 1
 
+# automatically renumber tmux windows when a window is closed in a session
+# some prefer it on because of the limitation of the keyboard (1-9)
+# I prefer it off (default) to switch to opened windows without burning my short-term momory
+set -g renumber-windows off
+
+# Attempt to set the client terminal title using the tsl and fsl terminfo(5)
 set-option -g set-titles on
-set-option -g set-titles-string "#T - #W"
-# set-window-option -g automatic-rename on
+set-option -g set-titles-string "#T - #W"   # #T for pane_title ; #W for window_name
+
+# -From-nicknisi-{{
+	# Rather than constraining window size to the maximum size of any client
+	# connected to the *session*, constrain window size to the maximum size of any
+	# client connected to *that window*. Much more reasonable.
+	setw -g aggressive-resize on
+# }}
 
 # enable mouse support for switching panes/windows
-setw -g mouse on
-# set-option -g -q mouse on
+set-option -g -q mouse on
+
+set -sg escape-time 0
 
 # Activity Monitoring : tmux notify you in the status area when a window has activity
 setw -g monitor-activity off
 set -g visual-activity off
 
-######################
-#### Key Bindings ####
-######################
+# set scrollback history to xxxx
+set-option -g history-limit 4096 #30000
 
-#=[ Sessions ]================================#
+# utf-8
+set-option -g status-utf8 on
 
-# reload config file
-bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
+set-option -sg escape-time 0                # shorten command delay
+set-option -g repeat-time 1000
 
-#=[ Windows ]=================================#
-
+#=[ CHANGE DEFAULT KEY BINDINGS ]========================================#
+# NOTE: bind -r (for repeat), bind -n or -T root (for triggering without prefix)
 # unbind default prefix and set it to screen-like prefix Ctrl+A.
-unbind C-b
+
+# Tip : map Capslock to prefix to quickly trigger the prefix combination key
+# How ? http://c2.com/cgi/wiki?RemapCapsLock
+# For Darwin, install KeyRemap4MacBook and ... G! it
+# For Linux, install xorg-xmodmap xkeycaps --> configure ~/.Xmodnap.conf
+unbind-key C-b #no more C^b
 set -g prefix C-a
-bind C-a send-prefix
+bind C-a send-prefix    # use send-prefix to pass C-a through to application
+# bind a send-prefix      # for nested tmux sessions
 
-# for nested tmux sessions
-bind-key a send-prefix
+# reload ~/.tmux.conf
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
 
-# quickly open a new window
-bind N new-window
+# tile all windows
+unbind =                # default keybindings (Choose which buffer to paste interactively from a list.)
+bind -r = select-layout -n # -n -or- -p -or- even-horizontal, even-vertical, main-horizontal, main-vertical, or tiled. (M-1-->M-5)
 
-# quickly switch between the current and last-found windows
-bind-key C-a last-window
+# unbind C-z (suspend tmux client - useless) <--mistype-- z (Toggle zoom-state - useful)
+unbind C-z
+bind -n C-z resize-pane -Z #\; display-message "Zoom zoom zoom ..."
 
-# cycle through panes
-# unbind C-a
-# unbind o # this is the default key for cycling panes
-# bind ^A select-pane -t:.+
+#-- NAVIGATION and RESIZING --{{{-----------------------------------------
+# bind-key C-a last-window           # switch between current and last-found window
+bind -rn C-PageUp select-window -t :-        # previous window (default: p)
+bind -rn C-PageDown select-window -t :+      # next window     (default: n)
+bind Tab choose-window   # 
 
-bind -r C-h select-window -t :-
-bind -r C-l select-window -t :+
+# quickly cycle through panels
+bind C-a select-pane -t:.+
+# pane movement shortcuts
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+# Resize pane shortcuts
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+# }}}
 
-# maximizing and restoring windows
-unbind Up
-bind Up new-window -d -n fullscreen \; swap-pane -s fullscreen.1 \; select-window -t fullscreen
-unbind Down
-bind Down last-window \; swap-pane -s fullscreen.1 \; kill-window -t fullscreen
+#-- SWAP windows and panes --{{{------------------------------------------
+bind S swap-window -t 1            # Make the current window the first window
+bind s swap-pane -U \; display-panes # swapped current/marked panel with the previous pane
+     # prefix-q to display-panes ...
+# }}}
 
-#=[ Panes ]===================================#
+#-- CREATE/CLOSE --{{{----------------------------------------------------
+bind N new-window                    # open a new window
+bind W kill-window                   # close a window
+bind w kill-pane                     # close a pane
 
-# unbind % # Remove default binding since we’re replacing
-# split window and fix path for tmux 1.9
+# split window and inherit working directory
 bind | split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
 
 # synchronize all panes in a window
 bind y setw synchronize-panes
 
-# pane movement shortcuts
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+# link-window
 
-# Resize pane shortcuts
-bind -r H resize-pane -L 10
-bind -r J resize-pane -D 10
-bind -r K resize-pane -U 10
-bind -r L resize-pane -R 10
+# Join-panen
+   # join-pane [-bdhv] [-l size | -p percentage] [-s src-pane] [-t dst-pane]
+# Like split-window, but instead of splitting dst-pane and creating a new pane, split it and move src-pane into the space.  This can be used to reverse break-pane.  
+# The -b option causes src-pane to be joined to [left of or above] dst-pane.
+# If -s is omitted and a marked pane is present (see select-pane -m), the marked pane is used rather than the current pane.
 
-#=[ Copy ]Mode ================================#
+bind j   join-pane -b -h -t !
+bind J   join-pane -t !
+# }}}
 
-bind-key -T root PPage if-shell -F "#{alternate_on}" "send-keys PPage" "copy-mode -e; send-keys PPage"
-bind-key -t vi-copy PPage page-up
-bind-key -t vi-copy NPage page-down
+#=[ COPY-MODE ]==========================================================#
+# By defaut : prefix-[ Enter copy mode to copy text or view the history.
+#             prefix-]  Paste the most recently copied buffer of text.
 
+#-- Use KEYBOARD only ----{{{---------------------------------------------
+# 1 # prefix-Escape to enter copy-mode 
+unbind [
+bind Escape copy-mode
+# set vi mode for copy mode
+set-window-option -g mode-keys vi
+set-option -g status-keys vi
+# 2 # --> v --> select
+bind -t vi-copy 'v' begin-selection
+# }}}
+#-- or use mouse to select (don't release your finger) -----{{{-----------
 bind -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
 bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; send-keys -M"
 bind-key -t vi-copy WheelUpPane halfpage-up
 bind-key -t vi-copy WheelDownPane halfpage-down
-
-# set vi mode for copy mode
-setw -g mode-keys vi
-# more settings to make copy-mode more vim-like
-unbind [
-bind Escape copy-mode
+# }}}
+# 3 # --> y to yank
+bind -t vi-copy 'y' copy-selection
+# 3 # --> prefix-y to copy from tmux-buffer
+bind y   run "tmux show-buffer | if [ -x /usr/bin/pbcopy ]; then pbcopy; else xclip -sel clip -i; fi"
+# 4 # --> prefix-p to paste in tmux
+unbind ]
 unbind p
 bind p paste-buffer
-bind -t vi-copy 'v' begin-selection
-bind -t vi-copy 'y' copy-selection
+# 5 # --> or paste in the GUI apps, if you like...
 
-# Buffers to/from Mac clipboard, yay tmux book from pragprog
-bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
-bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-buffer"
+#-- For Dawwin (MacOSX) --{{{---------------------------------------------
+# require: brew install reattach-to-user-namespace --> then, ... 
 
-#=[ Misc ]=====================================#
+# dumb osx : connect tmux to the OS X clipboard service :
+set -g default-command "which reattach-to-user-namespace 2>/dev/null && reattach-to-user-namespace -l $SHELL || $SHELL"
 
+# # Buffers to/from Mac clipboard, yay tmux book from pragprog
+# bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+# bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-buffer"
+# }}}
 
-##############################
-### Color & Style Settings ###
-##############################
+#=[ SYSTEM-SPECIFIC SECTION ]============================================#
 
-source ~/.dotfiles/zsh/prompt/tmux_theme.sh
+# only if this is the first level of inception do that fancy status bar
+if-shell '[ -z "$SSH_CONNECTION" ] && [ -f "~/.tmux-local.conf" ]' 'source "~/.tmux-local.conf"' 'run-shell "(( TMUX_INCEPTION++ ))"'
 
-###########################
-### Tmux Plugin Manager ###
-###########################
+# theme = status line
+if-shell 'test "$(uname -s)" = "Darwin"' 'source $DOTFILES/zsh/prompt/tmux_human.sh' 'source $DOTFILES/zsh/prompt/tmux_theme.sh'
 
-# List of plugins
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
+#=[ MISC ]===============================================================#
 
-# Other examples:
-# set -g @plugin 'github_username/plugin_name'
-# set -g @plugin 'git@github.com/user/plugin'
-# set -g @plugin 'git@bitbucket.com/user/plugin'
+# maximizing and restoring windows
+# now become useless because I have C-z binding to resize-pane -Z :)
+unbind Up
+bind Up new-window -d -n fullscreen \; swap-pane -s fullscreen.1 \; select-window -t fullscreen
+unbind Down
+bind Down last-window \; swap-pane -s fullscreen.1 \; kill-window -t fullscreen
 
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
+set-option -g bell-on-alert on
+
+if-shell 'case "$(tmux -V)" in "tmux 1."[7-9]) true ;; *) false ;; esac' 'set-window-option -g wrap-search off'
+
+# Remove unused keybindings
+unbind C-o
+
+#=[ Tmux Plugin Manager ]================================================#
+
+# # List of plugins
+# set -g @plugin 'tmux-plugins/tpm'
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# # Other examples:
+# # set -g @plugin 'github_username/plugin_name'
+# # set -g @plugin 'git@github.com/user/plugin'
+# # set -g @plugin 'git@bitbucket.com/user/plugin'
+
+# # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+# run '~/.tmux/plugins/tpm/tpm'

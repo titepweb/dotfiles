@@ -25,9 +25,11 @@ text-width 80
 goto-next-feed no
 
 # browser "open -g -a 'firefox' %u"
-# browser "firefox %u"
 # browser w3m
-browser 'lynx'
+# browser 'lynx'
+# browser "google-chrome-stable %u &"
+browser "firefox %u &"
+
 bind-key j down feedlist
 bind-key k up feedlist
 bind-key j next articlelist

@@ -101,7 +101,7 @@ tmux -2 new-session -d -s \$PROJECT_NAME
 # Setup a window for developing
 tmux new-window -a -t \$PROJECT_NAME:1 -n "vim"   # -a to avoid error msg : `Tmux create window failed: index in use: 0`
 tmux send-keys "$([[ -n $EDITOR ]] && echo \\\$EDITOR || echo "cat" ) "\$0"" C-m
-tmux split-window -v -p 10  # [---]
+tmux split-window -v -p 30  # [---]
 tmux split-window -h -p 50  # [ | ]
 tmux select-pane -t 1       # [x| ] Whenever set up a new tmux split window, let it at the end.
 

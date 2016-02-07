@@ -1,0 +1,14 @@
+! the keycode can be seen by `xev` program
+!pointer = 1 2 3 4 5 7 6 8 9 10 11 12
+
+!map capslock key {{{
+!and use another program to google capslock state: xdotool key Caps_Lock
+	clear Lock
+
+	!to escape key (using much in Vim)
+	keycode 0x42 = Escape
+
+	!to the left control key (using much in tmux)
+	!keycode 0x42 = Control_L
+	!add Control = Control_L
+!}}}

@@ -1,0 +1,25 @@
+" PURPOSE : connect tmux to the system clipboard service 
+
+#-- For Dawwin (MacOSX) --{{{---------------------------------------------
+" 1. brew install reattach-to-user-namespace
+" 2. tmux.conf : set -g default-command "reattach-to-user-namespace -l zsh"
+" 3. .vimrc    : 
+
+" set clipboard=unnamed
+
+" 4. Tmux
+" connect tmux to the OS X clipboard service : 
+" set -g default-command "reattach-to-user-namespace -l zsh"
+
+" Buffers to/from Mac clipboard, yay tmux book from pragprog
+" bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+" bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-buffer"
+" }}}
+
+"-- For Dawwin (MacOSX) --{{{---------------------------------------------
+" FOR LINUX : 
+" 1. install xclip xsel
+" 2. .vimrc
+
+set clipboard+=unnamedplus " copy/paste between gui/cli --> require xclip/xsel
+" }}}

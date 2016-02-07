@@ -48,7 +48,7 @@ function updateRepo {
   elif [ "$action" == "push" ]; then
     displayTitle "PUSHING CHANGES TO MASTER REPOSITORY"
     cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" 
-    OK "\`git commit -m \"$commitMessage\"\` ${green}${bold}done${reset}!"
+    OK "\`git commit -m <commitMessage> ${green}${bold}done${reset}!"
     INFO "Commit message : ${yellow}$commitMessage${reset}"
 
     echo -e "\n✱ ${underline}${bold}PRIVACY WARNING${reset} ( by ${yellow}$FUNCNAME${reset} from ${yellow}$BASH_SOURCE${reset} )
