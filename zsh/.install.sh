@@ -9,7 +9,7 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES for the combo ZSH + NEOVIM + TMUX + base16     │
 │ base16-shell ┌──zsh     + zplug                                             │
-│ colorscheme  └──neovim  + vim-plug + xclip                                │
+│ colorscheme  └──neovim  + vim-plug + xclip + xmodmap (Capslock --> Escape)  │
 │ + a custom     ---------------------------                                  │
 │ colorscheme     tmux    + Tmux Plugin Manager                               │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -19,7 +19,8 @@ install zsh
 install xclip
 install neovim
 install tmux 
-
+install xorg-xmodmap
+# install xkeycaps       # for keycode
 #=[ vim-plug ]=================================#
 # better than vunddle , pretzo, or oh-my-zsh
 if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
