@@ -84,7 +84,7 @@ WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 "
 
 ######### OPTIONAL PACKAGES #########
-return # Uncomment to install optional packages
+# return # Uncomment to install optional packages
 
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -100,13 +100,7 @@ cat << EOF
 │ - redshift youtube-viewer                                                   │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
-WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ CONFIGURATION                                                               │
-│ - systemctl --user enable redshift.service    														  │
-│ - systemctl --user start redshift.service                                   │
-└─────────────────────────────────────────────────────────────────────────────┘
-"
+
 
 # optional packages
 install ack
@@ -116,6 +110,16 @@ install htop
 install youtube-viewer
 
 install mousepad
-install redshift
 install mpv
 install gpicview
+install mlocate
+
+# install redshift
+# WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
+# ┌─────────────────────────────────────────────────────────────────────────────┐
+# │ CONFIGURATION                                                               │
+# │ - systemctl --user enable redshift.service    														  │
+# │ - systemctl --user start redshift.service                                   │
+# └─────────────────────────────────────────────────────────────────────────────┘
+# "
+# return

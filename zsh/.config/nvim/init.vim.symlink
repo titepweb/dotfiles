@@ -157,7 +157,7 @@ let g:airline_symbols.linenr = ''
 "}}} ------------------------------------------------------
 
 " NERDTree {{{
-let g:NERDTreeQuitOnOpen=0          " close NERDTree after a file is opened
+let g:NERDTreeQuitOnOpen=1          " close NERDTree after a file is opened
 let NERDTreeShowHidden=1            " show hidden files in NERDTree
 let NERDTreeIgnore = ['\.js.map$']  " remove some files by extension
 noremap <silent> <leader>k :NERDTreeToggle<cr> 

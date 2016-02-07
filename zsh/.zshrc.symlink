@@ -157,3 +157,8 @@ function nextwall() {
 
   echo -e "#!/bin/sh\nfeh --bg-tile '$choose'" > "$HOME/.fehbg" | sh
 }
+
+#cd to dir of defined file | Usage: cdf <file>
+cdf () { 
+  cd "$(dirname "$(locate -i "$*" | head -n 1)")" ; 
+}

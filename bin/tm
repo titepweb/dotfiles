@@ -115,6 +115,9 @@ tmux split-window -v        # [---]
 tmux resize-pane -D 20
 tmux select-pane -t 1       # [x| ] Whenever set up a new tmux split window, let it at the end.
 
+# Setup a window for SSH
+# tmux new-window -n 'SSH' 'ssh abcabc@192.168.1.33 -p 2236'
+
 # Return to the window 1, pane 1
 tmux select-window -t \$PROJECT_NAME:1
 tmux select-pane -t 1
