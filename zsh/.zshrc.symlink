@@ -24,8 +24,8 @@ function() {
   # zsh #2 : Load paths first.
   nice=-20; zplug "$DOTFILES", from:local, nice:$nice, of:'**/path.zsh'
 
-  # zsh #3 : Load everything but the zprofile, path, completion and postinit files second.
-  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh'
+  # zsh #3 : Load everything but the zprofile, path, completion and postinit files second. Neither do files in *80% *.ignore dir.
+  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*80%|*.ignore)/*"
 
   # Set theme.
   nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, of:'zsh_inverted'
@@ -70,7 +70,7 @@ function() {
 # }}} $DOTFILES/zsh/startup -----------------------------------------------------------------------------
 }
 
-echo ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+echo ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 clear
 
 # COLORSCHEME (base16-shell) for vim and zsh

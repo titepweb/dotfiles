@@ -118,3 +118,4 @@ install youtube-viewer
 install mousepad
 install redshift
 install mpv
+install gpicview

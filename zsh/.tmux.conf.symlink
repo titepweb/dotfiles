@@ -95,9 +95,12 @@ bind s swap-pane -U \; display-panes # swapped current/marked panel with the pre
 # }}}
 
 #-- CREATE/CLOSE --{{{----------------------------------------------------
-bind N new-window                    # open a new window
-bind W kill-window                   # close a window
-bind w kill-pane                     # close a pane
+bind n new-window                    # open a new window
+bind w kill-window                   # close a window
+bind W kill-window -a                # close a window except the current window
+unbind x
+bind x kill-pane                     # close a pane
+bind X kill-pane -a                  # kill all pane except the current one
 
 # split window and inherit working directory
 bind | split-window -h -c "#{pane_current_path}"

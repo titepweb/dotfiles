@@ -4,7 +4,7 @@
 alias vim='nvim'
 
 # Also done by Ctrl + L.
-alias cls='echo -ne "\033c"'
+alias cls='echo -ne "\033c"'        # Win-like command
 
 alias fig='figlet -f roman.flf -d ~/.fonts/figlet_fonts'
 alias clock='watch -n1 "date '+%D%n%T'|figlet -f roman.flf -d ~/.fonts/figlet_fonts -k"'
@@ -33,18 +33,23 @@ alias ...='cd ../..'
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-#-------------------
-# BRIEF
-#-------------------
-alias -g L=' | less'
-alias -g M=' | less'
-alias -g H=' | head'
-alias -g T=' | tail'
-alias -g G=' | grep'
 
+#-------------------
+# DEFAULT PARAMETERS
+#-------------------
+alias mkdir='mkdir -pv'         # Make parent directories as needed and output result 
+alias md='mkdir --parents'      # Win-like command
+alias cp='cp -ar'               # including hidden files
+alias ping='ping -c 5'          # Don't let ping go on forever
+alias lsblk='lsblk -fm'         # more information
+alias df='df -h'                # human readable
+alias du='du -ch'               # human readable
 
-alias mkdir='mkdir -p'
-alias md='mkdir --parents'
+# alias -g L=' | less'
+# alias -g M=' | less'
+# alias -g H=' | head'
+# alias -g T=' | tail'
+# alias -g G=' | grep'
 
 #-----------------------------------------------------
 # aliases to always use color output for `ls` & `grep`
@@ -59,7 +64,8 @@ fi
 # List files colorized in long format, add / for directories, group directories first
 alias ls="ls ${colorflag}=auto -lF --human-readable --group-directories"
 
-# List almost all files colorized in long format, including dot files
+# List almost all files colorized in long format, including dot files, but not ./. and ./.. ##
+
 alias la="ls --A"
 
 # List only directories
@@ -67,3 +73,7 @@ alias lsd="ls -F | grep '^d'"
 
 # Colorize grep output
 alias grep='grep ${colorflag}=auto --ignore-case --binary-files=without-match --line-number --initial-tab'
+# alias egrep='egrep ${colorflag}=auto'
+# alias fgrep='fgrep ${colorflag}=auto'
+
+

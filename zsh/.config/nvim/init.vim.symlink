@@ -1,19 +1,22 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " colorscheme ----------------------------------
-Plug 'chriskempson/base16-vim'            	" preview : http://chriskempson.github.io/base16/
+Plug 'chriskempson/base16-vim'              " preview : http://chriskempson.github.io/base16/
 " utilities ------------------------------------
-Plug 'vim-airline/vim-airline'			" status line for Git
-Plug 'scrooloose/nerdtree'			" file browser (remap to <leader>-k)
-Plug 'jeffkreeftmeijer/vim-numbertoggle'	" smart relative numbering (default: C-n)
-Plug 'ctrlpvim/ctrlp.vim'			" fuzzy search (of course, C-p)
-Plug 'MarcWeber/vim-addon-mw-utils'
-	Plug 'garbas/vim-snipmate'
+Plug 'vim-airline/vim-airline'          " status line for Git
+Plug 'scrooloose/nerdtree'          " file browser (remap to <leader>-k)
+Plug 'jeffkreeftmeijer/vim-numbertoggle'    " smart relative numbering (default: C-n)
+Plug 'ctrlpvim/ctrlp.vim'           " fuzzy search (of course, C-p)
+Plug 'benmills/vimux'                           " interact with tmux to run commands
 Plug 'tpope/vim-commentary'
 " language-specific plugins --------------------
 
 
 call plug#end()
+
+"if filereadable(glob("~/.vimrc.local")) 
+"    source ~/.vimrc.local
+"endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -28,7 +31,7 @@ let g:mapleader = ' '
 
 " LINE NUMBER -----------
 set number
-"set relativenumber 	" disable to use vim-numbertoggle for automation
+"set relativenumber     " disable to use vim-numbertoggle for automation
 "set numberwidth=3
 
 " TABSTOP ---------------
@@ -47,8 +50,8 @@ noremap <silent> <C-h> :call WinMove('h')<cr>
 noremap <silent> <C-j> :call WinMove('j')<cr>
 noremap <silent> <C-k> :call WinMove('k')<cr>
 noremap <silent> <C-l> :call WinMove('l')<cr>
-"set splitbelow			"horizontally open new panes to bottom
-"set splitright			"vertically open new panes to right
+"set splitbelow         "horizontally open new panes to bottom
+"set splitright         "vertically open new panes to right
 
 " TAB -------------------
 
@@ -95,10 +98,10 @@ nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 autocmd BufLeave $MYVIMRC :source $MYVIMRC
 
 " Force myself to learn hjkl
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
@@ -154,18 +157,18 @@ let g:airline_symbols.linenr = ''
 "}}} ------------------------------------------------------
 
 " NERDTree {{{
-let g:NERDTreeQuitOnOpen=0 		" close NERDTree after a file is opened
-let NERDTreeShowHidden=1		" show hidden files in NERDTree
-let NERDTreeIgnore = ['\.js.map$']	" remove some files by extension
-nmap <silent> <leader>k :NERDTreeToggle<cr> 
+let g:NERDTreeQuitOnOpen=0          " close NERDTree after a file is opened
+let NERDTreeShowHidden=1            " show hidden files in NERDTree
+let NERDTreeIgnore = ['\.js.map$']  " remove some files by extension
+noremap <silent> <leader>k :NERDTreeToggle<cr> 
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
+"}}} ------------------------------------------------------
 
 " CtrlP {{{
 let g:ctrlp_dotfiles = 1                " enable search for dotfiles
 "}}} ------------------------------------------------------
 
-"}}} ------------------------------------------------------
 "}}} ------------------------------------------------------
 
 
