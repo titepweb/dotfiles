@@ -181,7 +181,7 @@ function FixDOTFILES () {
         find "$1" \
           -mindepth $i -maxdepth $i \
           -not -path "*/*.ignore/*" \
-          -not -path "*/80%/*" \
+          -not -path "*/*80%/*" \
           -not -path "$tempDir/*" \
           -name '*.symlink' -or -name '*.copy' \
         \
@@ -249,7 +249,7 @@ INSTALL_DOTFILES () {
       # local symlinks="$(/usr/bin/find "$topic" -mindepth 1 -maxdepth 1 \( -type f -or -type d \) -name '*.symlink')"
       local symlinks="$(/usr/bin/find "$topic" -mindepth 1 \
         -not -path "*/*.ignore/*" \
-        -not -path "*/80%/*" \
+        -not -path "*/*80%/*" \
         -not -path "$tempDir/*" \
         -and \
         \( \

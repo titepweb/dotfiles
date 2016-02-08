@@ -1,5 +1,4 @@
 ## nm's dotfiles - managed with nmdf - installed with my own script
-> KISS design principle: "Keep it simple, stupid" --> avoid unnecessary complexity
 
 **INSTALLATION**
 `sh -c "`curl -fsSL https://raw.githubusercontent.com/titepweb/dotfiles/master/bin/nmdf`"`
