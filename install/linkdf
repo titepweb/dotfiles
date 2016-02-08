@@ -180,7 +180,7 @@ function FixDOTFILES () {
       for file in $( \
         find "$1" \
           -mindepth $i -maxdepth $i \
-          -not -path "*/*.ignore/*" \
+          -not -path "*/*\.ingore/*" \
           -not -path "*/*\.80%/*" \
           -not -path "$tempDir/*" \
           -name '*.symlink' -or -name '*.copy' \
@@ -230,7 +230,7 @@ INSTALL_DOTFILES () {
     fi
 
     # Find direct child directories (topics), exclude those starting with dots.
-    local topics="$(/usr/bin/find "$DOTREPO" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' )"
+    local topics="$(/usr/bin/find "$DOTREPO" -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' -not -name '*.80%')"
     while IFS=$'\n' read -r topic; do
       topicindex=$(($topicindex+1))
       [[ -z "$topic" ]] && continue
@@ -248,7 +248,7 @@ INSTALL_DOTFILES () {
       # Recursively search any named *.symlink files/directories below each topic directory, exclude files in 80% directories.
       # local symlinks="$(/usr/bin/find "$topic" -mindepth 1 -maxdepth 1 \( -type f -or -type d \) -name '*.symlink')"
       local symlinks="$(/usr/bin/find "$topic" -mindepth 1 \
-        -not -path "*/*.ignore/*" \
+        -not -path "*/*\.ingore/*" \
         -not -path "*/*\.80%/*" \
         -not -path "$tempDir/*" \
         -and \
