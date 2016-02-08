@@ -17,6 +17,7 @@ When satistied with a vimscript, you may want to source it in your vimrc. Just m
 ``` :messages ```
 
 **Manage ideas and related bookmarks with markdown format and github.com**
+
 I love markdown format. It's much more easy to write, add hyperlinks, images, source codes, tables, etc., thus I can focus on content insteading of formatting as in WYSIWYG editors and their complicated formats. Google and Microsoft have done their best to bring .docx files to cloud, but let avoid unnecessary complexity.
 
 > KISS design principle: "Keep it simple, stupid" 
@@ -34,3 +35,4 @@ Thanks to `bash completion`, zsh's built-in completion feature, and especially `
 Files to execute or to be sourced encounter no difficuties thanks to deeply scanning and sourcing agorithms. `zplug` offers deep scanning, and my `linkdf` script offers symlinking and copying. Both accepts exclude rules, so files in develop can be keep in special directories (marked by named: `<any_name>80%` or `<any_name>.ignore`). 
 
 Using a same script named path.zsh everywhere I want to include in `$PATH`, I can run programs easily from any command line interfaces (CLI). Combinating with excluded directories, I can turn on and off executables files that belongs to the directory, which is designed to manage idea in `topics`, by simple change the directory name to `<origin_name>80%`. Because zplug just scan for `*.zsh` files, I can exclude a single `.zsh` file from find command by change its name to `<origin_name>.zsh_". How flexible! 
+

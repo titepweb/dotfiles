@@ -3,8 +3,8 @@ call plug#begin('~/.config/nvim/plugged')
 " colorscheme ----------------------------------
 Plug 'chriskempson/base16-vim'              " preview : http://chriskempson.github.io/base16/
 " utilities ------------------------------------
-Plug 'vim-airline/vim-airline'          " status line for Git
-Plug 'scrooloose/nerdtree'          " file browser (remap to <leader>-k)
+Plug 'vim-airline/vim-airline'              " status line for Git
+Plug 'scrooloose/nerdtree'                  " file browser (remap to <leader>-k)
 Plug 'jeffkreeftmeijer/vim-numbertoggle'    " smart relative numbering (default: C-n)
 Plug 'ctrlpvim/ctrlp.vim'           " fuzzy search (of course, C-p)
 Plug 'benmills/vimux'                           " interact with tmux to run commands
@@ -14,9 +14,6 @@ Plug 'tpope/vim-commentary'
 
 call plug#end()
 
-"if filereadable(glob("~/.vimrc.local")) 
-"    source ~/.vimrc.local
-"endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -46,7 +43,7 @@ set wrap "turn on line wrapping
 "set smartindent
 
 " SPLIT -----------------
-source ~/.config/nvim/source/splitview
+source ~/.config/nvim/source/splitview.vim
 "noremap <silent> <C-h> :call WinMove('h')<cr>
 "noremap <silent> <C-j> :call WinMove('j')<cr>
 "noremap <silent> <C-k> :call WinMove('k')<cr>
@@ -89,7 +86,7 @@ set directory=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " quickly tap jj to quit insert mode
-inoremap jj <Esc>
+inoremap jk <Esc>
 " save a lot of unneeded shifting
 noremap ; :
 noremap : ;
@@ -107,7 +104,11 @@ inoremap <right> <nop>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+function Source()
+	if filereadable(glob("$1")) 
+		source "$1"
+	endif
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
