@@ -1,3 +1,5 @@
+" from : nicknisi
+
 " KEY BINDING "
 noremap <silent> <C-h> :call WinMove('h')<cr>
 noremap <silent> <C-j> :call WinMove('j')<cr>

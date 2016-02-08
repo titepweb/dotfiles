@@ -70,7 +70,6 @@ function() {
 # }}} $DOTFILES/zsh/startup -----------------------------------------------------------------------------
 }
 
-echo ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 clear
 
 # COLORSCHEME (base16-shell) for vim and zsh
@@ -162,3 +161,4 @@ function nextwall() {
 cdf () { 
   cd "$(dirname "$(locate -i "$*" | head -n 1)")" ; 
 }
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

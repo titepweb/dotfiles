@@ -84,7 +84,7 @@ WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 "
 
 ######### OPTIONAL PACKAGES #########
-# return # Uncomment to install optional packages
+# return # Uncomment to ovoid install optional packages
 
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -102,17 +102,22 @@ cat << EOF
 EOF
 
 
-# optional packages
+# CLI -----------
+
 install ack
 install tree
 install wget
 install htop
-install youtube-viewer
+install mlocate # is slowly replacing slocate (old)
+	sudo updatedb               # run it immediately
+	# sudo ionice -c3 updatedb	# schedule to run for idle
 
+# GUI -----------
 install mousepad
 install mpv
 install gpicview
-install mlocate
+install youtube-viewer
+
 
 # install redshift
 # WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :

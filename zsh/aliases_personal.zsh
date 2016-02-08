@@ -75,5 +75,3 @@ alias lsd="ls -F | grep '^d'"
 alias grep='grep ${colorflag}=auto --ignore-case --binary-files=without-match --line-number --initial-tab'
 # alias egrep='egrep ${colorflag}=auto'
 # alias fgrep='fgrep ${colorflag}=auto'
-
-

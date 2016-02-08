@@ -43,7 +43,8 @@ VIM
 
 ### EXTENSIONS = PLUGINS = BUNDLES = VUNDLES
 + Toggle Comment : commentary
-+ FuzzyFinder    : [CtrlP] Commander-T
++ FuzzyFinder    : [CtrlP] Commander-T 
+[fzf](https://github.com/junegunn/fzf) including 1. executable script, 2. fzf-tmux, 3. shell extension for bash, zsh, fish, 4. vim plugin
 + File Brower    : [NERDTree]
 + [airline] , powerline
 + gundo
@@ -58,3 +59,6 @@ MY DISCOVERY
 
 ##### Have you ever heard of...
 [spf13-vim](https://github.com/spf13/spf13-vim), 
+
+
+[fzf]: https://github.com/junegunn/fzf

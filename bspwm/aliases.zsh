@@ -12,6 +12,7 @@ alias netq='nmcli connection up "Sophop pho hue"'
 # alias netq='netctl-auto enable "wlp16s0-Sophop pho hue"'
 # alias netm='netctl-auto enable "wlp16s0-M454"'
 
+
 #-------------------
 # Injected's aliases
 #-------------------

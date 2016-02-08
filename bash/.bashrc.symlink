@@ -116,3 +116,5 @@ export CLICOLOR=1
 # Set "ls" colors
 export LSCOLORS=Gxfxcxdxbxegedabagacad
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

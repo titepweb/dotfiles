@@ -1,5 +1,6 @@
 #!/bin/bash
 # status: unfinished. Last edit on 2016-02-04
+echo ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 function about {
 cat << EOF
