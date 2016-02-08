@@ -1,6 +1,6 @@
 ## HOW TO MANAGE IDEAS AND THEIR SOURCE CODES
 
-I use files to manage dotfiles, and even script/vim... plugins. "Files and Directory Hierachy" idea is really awsome! Thanks to `bash completion`, zsh's built-in completion feature, and especially `fuzzy finders` like fzf, the complexity of the management method is no longer a problem. Take a look at : [fzf](https://github.com/junegunn/fzf) with its 1. executable script, 2. fzf-tmux, 3. shell extension for bash, zsh, fish, 4. vim plugin .
+I use files to manage dotfiles, and even script/vim... plugins. "Files and Directory Hierachy" idea is really awesome! Thanks to `bash completion`, zsh's built-in completion feature, and especially `fuzzy finders` like fzf, the complexity of the management method is no longer a problem. Take a look at : [**fzf**](https://github.com/junegunn/fzf) with its 1. executable script, 2. fzf-tmux, 3. shell extension for bash, zsh, fish, 4. vim plugin .
 
 **Manage vimscript by sourcing *.vim files**
 
