@@ -166,4 +166,4 @@ cdf () {
 # unset ZPLUG_CACHE_CHECK_FOR CHANGES
 # make sure to run zplug clear --force anytime .zshrc chances
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
