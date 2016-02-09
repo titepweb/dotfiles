@@ -4,22 +4,18 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'chriskempson/base16-vim'              " preview : http://chriskempson.github.io/base16/
 " utilities ------------------------------------
 Plug 'vim-airline/vim-airline'              " status line for Git
+Plug 'ctrlpvim/ctrlp.vim'                    " fuzzy search (of course, C-p)
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'scrooloose/nerdtree'                  " file browser (remap to <leader>-k)
 Plug 'jeffkreeftmeijer/vim-numbertoggle'    " smart relative numbering (default: C-n)
-Plug 'ctrlpvim/ctrlp.vim'           " fuzzy search (of course, C-p)
 Plug 'benmills/vimux'                           " interact with tmux to run commands
 Plug 'tpope/vim-commentary'
 " language-specific plugins --------------------
 
-
 call plug#end()
 
 function! Source(vimfile)
-	"let $VIMHOME=expand('<sfile>:p:h:h')    "set global variable outside a function
-	let $VIMHOME=expand('%:p:h')    "set global variable outside a function
 	let src=a:vimfile
-"	echom $VIMHOME
-	echom "Loading " . src
 	if filereadable(glob(src))
 		exe 'source' src
 	endif
@@ -29,10 +25,8 @@ endfunction
 for fpath in split(globpath('~/.config/nvim/autosource/', '*.vim'), '\n')
 	:call Source(fpath)
 endfor
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           GENERAL SETTINGS
+" ====================================================================
 set nocompatible " forget about vi
 
 set clipboard+=unnamedplus " copy/paste between gui/cli --> require xclip/xsel
@@ -46,6 +40,14 @@ set number
 "set relativenumber     " disable to use vim-numbertoggle for automation
 "set numberwidth=3
 
+" SPLIT -----------------
+noremap <silent> <C-h> :call WinMove('h')<cr>
+noremap <silent> <C-j> :call WinMove('j')<cr>
+noremap <silent> <C-k> :call WinMove('k')<cr>
+noremap <silent> <C-l> :call WinMove('l')<cr>
+"set splitbelow         "horizontally open new panes to bottom
+"set splitright         "vertically open new panes to right
+
 " TABSTOP ---------------
 
 " WRAP and INDENT -------
@@ -57,16 +59,7 @@ set wrap "turn on line wrapping
 "set autoindent " automatically set indent of new line
 "set smartindent
 
-" SPLIT -----------------
-"noremap <silent> <C-h> :call WinMove('h')<cr>
-"noremap <silent> <C-j> :call WinMove('j')<cr>
-"noremap <silent> <C-k> :call WinMove('k')<cr>
-"noremap <silent> <C-l> :call WinMove('l')<cr>
-"set splitbelow         "horizontally open new panes to bottom
-"set splitright         "vertically open new panes to right
-
 " TAB -------------------
-
 
 
 " toggle invisible characters
@@ -82,14 +75,16 @@ vmap <leader>] >gv
 nmap <leader>[ <<
 nmap <leader>] >>
 
+    " Shortcuts
+    " Change Working Directory to that of the current file
+    cmap cwd lcd %:p:h
+    cmap cd. lcd %:p:h
+    
+"                      FILE TYPE SPECIFIC SETTINGS
+" ====================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => FILE TYPE SPECIFIC SETTINGS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => User Interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                          USER INTERFACE
+" ====================================================================
 set encoding=utf8
 let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
@@ -98,23 +93,20 @@ execute "set background=".$BACKGROUND
 execute "colorscheme ".$THEME
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups, and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                          BACKUPS and UNDO
+" ====================================================================
 "set nobackup
 "set nowritebackup
 "set noswapfile
 set backupdir=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => StatusLine
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             STATUS LINE
+" ====================================================================
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              MAPPINGS
+" ====================================================================
 " quickly tap jj to quit insert mode
 inoremap jk <Esc>
 " save a lot of unneeded shifting
@@ -130,11 +122,8 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+"                             FUNCTIONS
+" ====================================================================
 
 " recursively search up from dirname, sourcing all .vimrc.local files along the way
 function! ApplyLocalSettings(dirname)
@@ -157,9 +146,8 @@ endfunction
 
 
 "call ApplyLocalSettings(expand('.'))
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            PLUGIN SETTINGS
+" ====================================================================
 " airline {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_section=''
@@ -208,9 +196,9 @@ let g:ctrlp_dotfiles = 1                " enable search for dotfiles
 "}}} ------------------------------------------------------
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => MISC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ====================================================================
+"                                  MISC
+" ====================================================================
 " Abbreviations --> autocorrect
 abbr funciton function
 abbr teh the

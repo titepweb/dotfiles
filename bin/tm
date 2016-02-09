@@ -101,6 +101,7 @@ PROJECT_TMUX="\$PROJECT_LOCATION/\$(basename "\$0")"
 cd "\$PROJECT_LOCATION"
 # cd to git root directory if available 
 [[ -n \$(git rev-parse --show-toplevel) ]] && PROJECT_LOCATION=\$(git rev-parse --show-toplevel) && cd "\$PROJECT_LOCATION"
+[[ -n \$(hg root)]] && PROJECT_LOCATION=\$(hg root) && cd "\$PROJECT_LOCATION"
 
 # Once inside a tmux session, \`tmux send-keys\` must be used instead of direct shell commands.
 
