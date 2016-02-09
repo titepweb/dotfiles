@@ -161,4 +161,9 @@ function nextwall() {
 cdf () { 
   cd "$(dirname "$(locate -i "$*" | head -n 1)")" ; 
 }
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# By default, zpug checks .zshrc for changes. For faster startup times, ...
+# unset ZPLUG_CACHE_CHECK_FOR CHANGES
+# make sure to run zplug clear --force anytime .zshrc chances
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
