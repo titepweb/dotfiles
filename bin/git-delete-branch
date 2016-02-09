@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BRANCH=$1
+
+[[ -z $BRANCH ]] && echo "Can't delete current branch you derp" && exit 1
+
+echo "Deleting local branch $BRANCH"
+git branch -D $BRANCH >/dev/null 2>&1
+
+read -p "Do you want to delete the remote? (y/n) " -n 1 -r
+
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  git push origin :$BRANCH 
+fi

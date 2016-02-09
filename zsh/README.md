@@ -54,6 +54,7 @@ MY DISCOVERY
 + mapping: `help map-modes` will show you (n)ormal only , (v)isual and select , (o)perator-pending , x: visual only , (s)elect only , (i)nsert , (c)ommand-line , l: insert, command-line, regexp-search ...
 	- map  --> nvo
 	- map! --> ic
+	- nmap --> normal only, vmap, ...
 	- *noremap = non-recursive
 + Keybinding Confliction ? Termite --> Tmux --> zsh/neovim ? 
 
