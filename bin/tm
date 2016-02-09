@@ -1,7 +1,7 @@
 #!/bin/sh
 ###############################################################################
 # script  : $DOTREPO/bin/tm   maintained by titepweb at gmail.com             #
-# status  : finished. Last edit on 2016-02-06                                 #
+# status  : finished. Last edit on 2016-02-09                                 #
 # feature : 1. conveniently create sample tmux script, named with '.tmux'     #
 #           2. easily manage tmux sessions by list all of them                #
 #           3. provide an option to clear all tmux sessions.    						  #
@@ -76,19 +76,21 @@ MkParentFolder() {
 
 function create_tmuxconf() {
 	PROJECT_NAME=$(basename "${1%.tmux}")
-	PROJECT_LOCATION="$(dirname "$1")"
 	INFO "Creating ${cyan}$PROJECT_NAME.tmux${reset} in directory ${yellow}$PROJECT_LOCATION${reset}..."
 	# make sure that $PROJECT_LOCATION exists
 	MkParentFolder "$1"
-	# retrieve absolute path of $PROJECT_LOCATION
-  PROJECT_LOCATION="$( cd -P "$PROJECT_LOCATION" && pwd )"
+	# retrieve absolute path of generated .tmux file
+  PROJECT_LOCATION="$( cd -P "$(dirname "$1")" && pwd )"
+  PROJECT_TMUX="$PROJECT_LOCATION/$PROJECT_NAME.tmux"
+
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 	cat << EOF > "$1"
 #!/bin/sh
-# LOCATION = "$PROJECT_LOCATION" # However, this script will be run wherever you put it in
-#_#SAGE : [Run in terminal], even from file navigators, to open tmux with vim.
-#         Some split windows will works in specific directories as pre-scripted.
-#         The rest will inherit the working directories from which it is called.
+#$PROJECT_TMUX # However, this script will be properly run wherever you put it in.
+#created at $(date)
+#USAGE : [Run in terminal], even from file browser, to open tmux with vim inside.
+#        Some split windows will works in specific directories as pre-scripted.
+#        The rest will inherit the working directories from which it is called.
 PROJECT_NAME=\$(basename "\${0%.tmux}")    # /!\ tmux session name must be UNIQUE
 PROJECT_NAME="\${PROJECT_NAME//[,. ]/}"   # remove all occurances of space and period
 
@@ -99,6 +101,8 @@ PROJECT_TMUX="\$PROJECT_LOCATION/\$(basename "\$0")"
 cd "\$PROJECT_LOCATION"
 # cd to git root directory if available 
 [[ -n \$(git rev-parse --show-toplevel) ]] && PROJECT_LOCATION=\$(git rev-parse --show-toplevel) && cd "\$PROJECT_LOCATION"
+
+# Once inside a tmux session, \`tmux send-keys\` must be used instead of direct shell commands.
 
 # check if tmux session named \$PROJECT_NAME exist
 tmux has-session -t \$PROJECT_NAME 2>/dev/null
@@ -146,11 +150,9 @@ if [[ \$EDITOR =~ ^(vim|nvim|macvim|gvim)$ ]]; then
 	fi
 else
 	tmux kill-window #-t 3
+	tmux last-window      # Return to the last tmux window
 fi
 
-# Return to the window 1, pane 1
-tmux select-window -t \$PROJECT_NAME:1
-tmux select-pane -t 1
 # Attach to session
 tmux -2 attach-session -t \$PROJECT_NAME
 EOF
