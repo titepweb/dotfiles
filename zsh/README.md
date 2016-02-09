@@ -47,6 +47,7 @@ VIM
 + File Brower    : [NERDTree]
 + [airline] , powerline
 + gundo
++ status line    : lightline
 
 MY DISCOVERY
 ============

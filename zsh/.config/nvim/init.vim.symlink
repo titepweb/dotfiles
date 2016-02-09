@@ -3,8 +3,9 @@ call plug#begin('~/.config/nvim/plugged')
 " colorscheme ----------------------------------
 Plug 'chriskempson/base16-vim'              " preview : http://chriskempson.github.io/base16/
 " utilities ------------------------------------
-Plug 'vim-airline/vim-airline'              " status line for Git
-Plug 'ctrlpvim/ctrlp.vim'                    " fuzzy search (of course, C-p)
+Plug 'itchyny/lightline.vim'                " statusline
+"Plug 'vim-airline/vim-airline'              " status line for Git
+Plug 'ctrlpvim/ctrlp.vim'                   " fuzzy search (of course, C-p)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'scrooloose/nerdtree'                  " file browser (remap to <leader>-k)
 Plug 'jeffkreeftmeijer/vim-numbertoggle'    " smart relative numbering (default: C-n)
@@ -13,7 +14,7 @@ Plug 'tpope/vim-commentary'
 " language-specific plugins --------------------
 
 call plug#end()
-
+" ====================================================================
 function! Source(vimfile)
 	let src=a:vimfile
 	if filereadable(glob(src))
@@ -40,7 +41,7 @@ set number
 "set relativenumber     " disable to use vim-numbertoggle for automation
 "set numberwidth=3
 
-" SPLIT -----------------
+" SPLIT -----------------> splitview.vim
 noremap <silent> <C-h> :call WinMove('h')<cr>
 noremap <silent> <C-j> :call WinMove('j')<cr>
 noremap <silent> <C-k> :call WinMove('k')<cr>

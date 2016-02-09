@@ -100,8 +100,15 @@ PROJECT_TMUX="\$PROJECT_LOCATION/\$(basename "\$0")"
 # move to project directory, which needed for NERDTree, CtrlP, etc. to perform sanely 
 cd "\$PROJECT_LOCATION"
 # cd to git root directory if available 
-[[ -n \$(git rev-parse --show-toplevel) ]] && PROJECT_LOCATION=\$(git rev-parse --show-toplevel) && cd "\$PROJECT_LOCATION"
-[[ -n \$(hg root)]] && PROJECT_LOCATION=\$(hg root) && cd "\$PROJECT_LOCATION"
+type git >/dev/null 2>&1 && [[ -n \$(git rev-parse --show-toplevel) ]] && {
+	PROJECT_LOCATION=\$(git rev-parse --show-toplevel)
+	cd "\$PROJECT_LOCATION"
+}
+type hg >/dev/null 2>&1
+if [[ "\$?" == 0 ]] && [[ -n \$(hg root) ]]; then
+	PROJECT_LOCATION=\$(hg root)
+	cd "\$PROJECT_LOCATION"
+fi
 
 # Once inside a tmux session, \`tmux send-keys\` must be used instead of direct shell commands.
 
@@ -145,7 +152,7 @@ if [[ \$EDITOR =~ ^(vim|nvim|macvim|gvim)$ ]]; then
 	tmux rename-window "dotfiles"  # [-1-]
 	if [ -n \$DOTFILES ]; then
 		tmux send-keys "cd \$DOTFILES && ls" C-m
-		tmux send-keys "\\\$EDITOR -c ':e \\\$DOTFILES/zsh/.config/nvim/init.vim.symlink' -c ':set syntax=vim'" C-m
+		tmux send-keys '\$EDITOR -c ":e \$DOTFILES/zsh/.config/nvim/init.vim.symlink" -c ":set syntax=vim"' C-m
 	else
 		tmux send-keys "\\\$EDITOR -c ':e \\\$MYVIMRC' -c ':set syntax=vim'" C-m
 	fi
@@ -169,21 +176,23 @@ if [ ! $# == 0 ]; then
 	displayTitle "✱ ${underline}TMUX SESSIONS MANAGER${reset}"
 	# evaluate parameters -------------------------------------------------
 	[[ ! $# == 1 ]] && BADBOY "${red}Too many parameters${reset}. Only \`${magenta}$1${reset}\` is used."
-	tmux_conf=$1
-	tmux_name=$(basename "${1%.tmux}")
+	# 1 - try to figure out the meaningful projectname, which frequently happens when tab-tab is typed quickly, 
+	# by fixing mistyped paramaters for tm command: .<projectname> <projetname>. <projectname>.tmux
+	tmux_name=$(basename "${1%.tmux}") # remove the taling .tmux if any
+  tmux_name=${tmux_name%.} # remove the taling dot if running `tm <dotfile>` (<-- tab tab)
+  tmux_name=${tmux_name#.} # remove the leading dot if running `tm <dotfile>` (<-- tab tab)
+  tmux_name=${tmux_name/.*} # remove all extensions if any
 
-	# remove all occurances of space, period, comma
+	# 2 - try to fix bad tmux session names by removing all occurances of space, period, comma ...
   if [[ ! "$tmux_name" = "${tmux_name%[[:space:]]*}" || "$tmux_name" == *.* ]]; then
 		BAD "${red}Bad session name${reset}. It must have no spaces, no periods, ..."
-    tmux_name="$(echo "$tmux_name" | tr -d '[[:space:]]' | tr -d '.,' )"
+    tmux_name="$(echo "$tmux_name" | tr -d '[[:space:]]' | tr -d ',.' )"
     ASK "Use \`${yellow}$tmux_name${reset}\` instead [${green}${bold}y${reset}/${red}${bold}n${reset}] "
   	read -p "?" -n 1 -r && echo
   	[[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
-  	tmux_conf="$(dirname "$1")/$tmux_name.tmux"
 	fi
 
-	# always use *.tmux for tm script.
-	tmux_conf="${tmux_conf%.tmux}".tmux
+	tmux_conf="$(dirname "$1")/$tmux_name.tmux" # --> always use *.tmux for tm script.
 
 	# startup a "default" session if non currently exists -----------------
 	INFO "Checking for \`${cyan}$tmux_name${reset}\` ..."
