@@ -2,7 +2,6 @@
 #xxx executable file/command is used to test command and learn new one, it should be in bin to be included in $PATH.
 
 
-
 # TEST to/and TRIM
 # trim
 tmux_conf=" h.e .l..l  o.o.ooo,o"

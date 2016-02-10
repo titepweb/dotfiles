@@ -47,6 +47,10 @@ endfunction
 " }}}
 
 function! SetProjectRoot()
+	" if help file, don't do any thing
+	if &buftype=='help'
+		return
+	endif
 	" 1 - set working directory to git project root 
 	lcd %:p:h " default to the current file's directory
 

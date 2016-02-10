@@ -25,10 +25,10 @@ function() {
   nice=-20; zplug "$DOTFILES", from:local, nice:$nice, of:'**/path.zsh'
 
   # zsh #3 : Load everything but the zprofile, path, completion and postinit files second. Neither do files in *80% *.ignore dir.
-  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*80%|*.ignore)/*"
+  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*80%|*.ignore)/*", ignore:".git/*"
 
   # Set theme.
-  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, of:'zsh_inverted'
+  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, of:'zsh-nicknisi.sh'
 
   # zsh #4 : Load postinit last.
   nice=9;   zplug "$DOTFILES", from:local, nice:$nice, of:'**/postinit.zsh'
@@ -157,6 +157,7 @@ function nextwall() {
   echo -e "#!/bin/sh\nfeh --bg-tile '$choose'" > "$HOME/.fehbg" | sh
 }
 
+#==============================================================================#
 #cd to dir of defined file | Usage: cdf <file>
 cdf () { 
   cd "$(dirname "$(locate -i "$*" | head -n 1)")" ; 

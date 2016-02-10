@@ -48,6 +48,7 @@ VIM
 + [airline] , powerline
 + gundo
 + status line    : lightline
++ sidebar        : Tag list, Voom, Tagbar, 
 
 MY DISCOVERY
 ============
@@ -63,3 +64,12 @@ MY DISCOVERY
 
 
 [fzf]: https://github.com/junegunn/fzf
+
+**Prompt**
++ auto-collapses $HOME to ~
++ incorporates git information : untracked files (denoted by .), modified files (denoted by #), or staged files (denoted by +) + a marker for how far ahead and/or behind we are from the remote branch
++ detects if it’s being viewed through SSH
+
+
+
+**Vim statusline**

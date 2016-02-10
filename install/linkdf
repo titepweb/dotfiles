@@ -230,7 +230,7 @@ INSTALL_DOTFILES () {
     fi
 
     # Find direct child directories (topics), exclude those starting with dots.
-    local topics="$(/usr/bin/find "$DOTREPO" -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' -not -name '*.80%')"
+    local topics="$(/usr/bin/find "$DOTREPO" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' -not -name '*.80%')"
     while IFS=$'\n' read -r topic; do
       topicindex=$(($topicindex+1))
       [[ -z "$topic" ]] && continue

@@ -1,3 +1,51 @@
+# cheatsheet: also just pre ?
+
+# prefix == pre == Ctrl-a <- Ctrl-b (default)
+# M = Alt key --> M-d = Alt-d
+# C = Ctrl key --> C-z = Ctrl-z
+# A..Z = Capital a-z = Shift-a..z
+
+# pre r                   -- reload config
+# pre d                   -- detach
+# pre :                   -- command mode (useless)
+
+# +--------------------------------------------------+
+# | keybinding | session |  window  |      pane      |
+# |------------|---------|----------|----------------|
+# |     new    |   M-N   |    M-n   |      pre |-    |
+# |            |         |   pre-n  |                |
+# |--------------------------------------------------|
+# |     kill   |  sd tm  |  pre-w/W |      pre-x/X   |
+# |--------------------------------------------------|
+# |   rename   |   M-R   |    M-r   |                |
+# |  default : |  pre-$  |   pre-,  |                |
+# |--------------------------------------------------|
+# |    switch  |  <--->  |   <--->  |      <-+->     |
+# |            |   M-AD  | C-Page+- |  C-a  pre-hjkl |
+# |--------------------------------------------------|
+# |     swap   |         |   <--->  |      <-+->     |
+# |            |         |   M-ad   |    M-s / C-=   |
+# |--------------------------------------------------|
+# |    resize  |         |          |      <-+->     |
+# |            |         |          |     pre-HJKL   |
+# |            |         |          |      (*)C-z    |
+# |            |         |          | pre-(Up->Down) |
+# +--------------------------------------------------+
+
+# C-z     -- maximize pane
+
+# move window from one session to another:
+#   move-window -s srcsess:windowname -t destsess
+# if already in windowname
+#   move-window -t destsess
+# if already in destsess
+#   movew -d srcsess:windowname
+
+# to link a window between multiple sessions
+#   link-window -d -s srcsess:windowname -t destsess:windowname
+
+# =======================================================================#
+
 # !IMPORTANT: Fix Tmux's bug : vim's key binding <C-h> can not work 
 bind-key -T root C-h send-keys Escape "[104;5u"
 
@@ -6,9 +54,8 @@ set -g default-terminal "screen-256color"
 # use UTF8
 
 # !IMPORTANT : required for properly performming my tmux-preconfigured scripts
-# set window and pane index to 1 (0 by default)
-set -g base-index 1
-setw -g pane-base-index 1
+set -g base-index 1       # set the window start index to 1 (0 by default)
+setw -g pane-base-index 1 # set the pane start index to 1 (0 by default)
 
 # automatically renumber tmux windows when a window is closed in a session
 # some prefer it on because of the limitation of the keyboard (1-9)
@@ -19,7 +66,7 @@ set -g renumber-windows off
 set-option -g set-titles on
 set-option -g set-titles-string "#T - #W"   # #T for pane_title ; #W for window_name
 
-# -From-nicknisi-{{
+# -???-{{
 	# Rather than constraining window size to the maximum size of any client
 	# connected to the *session*, constrain window size to the maximum size of any
 	# client connected to *that window*. Much more reasonable.
@@ -39,7 +86,8 @@ set -g visual-activity off
 set-option -g history-limit 4096 #30000
 
 # utf-8
-set-option -g status-utf8 on
+setw -g utf8 on
+set-option -g status-utf8 on                # for prompts
 
 set-option -sg escape-time 0                # shorten command delay
 set-option -g repeat-time 1000
@@ -60,14 +108,6 @@ bind C-a send-prefix    # use send-prefix to pass C-a through to application
 # reload ~/.tmux.conf
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 
-# tile all windows
-unbind =                # default keybindings (Choose which buffer to paste interactively from a list.)
-bind -r = select-layout -n # -n -or- -p -or- even-horizontal, even-vertical, main-horizontal, main-vertical, or tiled. (M-1-->M-5)
-
-# unbind C-z (suspend tmux client - useless) <--mistype-- z (Toggle zoom-state - useful)
-unbind C-z
-bind -n C-z resize-pane -Z #\; display-message "Zoom zoom zoom ..."
-
 #-- NAVIGATION and RESIZING --{{{-----------------------------------------
 # bind-key C-a last-window           # switch between current and last-found window
 bind -rn C-PageUp select-window -t :-        # previous window (default: p)
@@ -86,12 +126,21 @@ bind -r H resize-pane -L 5
 bind -r J resize-pane -D 5
 bind -r K resize-pane -U 5
 bind -r L resize-pane -R 5
+
+#*# unbind C-z (suspend tmux client - useless) <--mistype-- z (Toggle zoom-state - useful)
+unbind C-z
+bind -n C-z resize-pane -Z #\; display-message "Zoom zoom zoom ..."
 # }}}
 
 #-- SWAP windows and panes --{{{------------------------------------------
-bind S swap-window -t 1            # Make the current window the first window
-bind s swap-pane -U \; display-panes # swapped current/marked panel with the previous pane
-     # prefix-q to display-panes ...
+# windows : move windows left/right
+bind -n M-a swap-window -t -1
+bind -n M-d swap-window -t +1
+# panels  : swapped current/marked panel with the previous pane
+bind -n M-s swap-pane -U \; display-panes # prefix-q to display-panes ...
+
+unbind =                # default keybindings (Choose which buffer to paste interactively from a list.)
+bind -r = select-layout -n # -n -or- -p -or- even-horizontal, even-vertical, main-horizontal, main-vertical, or tiled. (M-1-->M-5)
 # }}}
 
 #-- CREATE/CLOSE --{{{----------------------------------------------------
@@ -105,11 +154,21 @@ bind X kill-pane -a                  # kill all pane except the current one
 # split window and inherit working directory
 bind | split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
+# }}}
+
+#-- SESSIONS with meta (Alt) key --{{{------------------------------------
+bind -n M-N command-prompt -p "Name of new session:" 'new-session -c "#{pane_current_path}" -s "%%"'
+bind -n M-R command-prompt 'rename-session %%'
+
+bind -n M-n command-prompt -p "Name of new window:" 'new-window -c "#{pane_current_path}" -n "%%"'
+bind -n M-r command-prompt 'rename-window %%'
+# switch between sessions
+bind -n M-A switch-client -p
+bind -n M-D switch-client -n
+# }}}
 
 # synchronize all panes in a window
 bind y setw synchronize-panes
-
-# link-window
 
 # Join-panen
    # join-pane [-bdhv] [-l size | -p percentage] [-s src-pane] [-t dst-pane]
@@ -119,20 +178,19 @@ bind y setw synchronize-panes
 
 # bind j   join-pane -b -h -t !
 bind J   join-pane -t !
-# }}}
 
 #=[ COPY-MODE ]==========================================================#
 # By defaut : prefix-[ Enter copy mode to copy text or view the history.
 #             prefix-]  Paste the most recently copied buffer of text.
 
 #-- Use KEYBOARD only ----{{{---------------------------------------------
-# 1 # prefix-Escape to enter copy-mode 
+# step 1 # prefix-Escape to enter copy-mode 
 unbind [
 bind Escape copy-mode
 # set vi mode for copy mode
 set-window-option -g mode-keys vi
 set-option -g status-keys vi
-# 2 # --> v --> select
+# step 2 # --> v --> select
 bind -t vi-copy 'v' begin-selection
 # }}}
 #-- or use mouse to select (don't release your finger) -----{{{-----------
@@ -141,15 +199,17 @@ bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "select-pane -t =;
 bind-key -t vi-copy WheelUpPane halfpage-up
 bind-key -t vi-copy WheelDownPane halfpage-down
 # }}}
-# 3 # --> y to yank
+# step 3 # --> y to yank
 bind -t vi-copy 'y' copy-selection
-# 3 # --> prefix-y to copy from tmux-buffer
+# step 3 # --> prefix-y to copy from tmux-buffer
 bind y   run "tmux show-buffer | if [ -x /usr/bin/pbcopy ]; then pbcopy; else xclip -sel clip -i; fi"
-# 4 # --> prefix-p to paste in tmux
+# bind y run "tmux save-buffer - | xsel -i -b"
+# bind p run "tmux set-buffer \"$(xsel -o -b)\"; tmux paste-buffer"
+# step 4 # --> prefix-p to paste in tmux
 unbind ]
 unbind p
 bind p paste-buffer
-# 5 # --> or paste in the GUI apps, if you like...
+# step 5 # --> or paste in the GUI apps, if you like...
 
 #-- For Dawwin (MacOSX) --{{{---------------------------------------------
 # require: brew install reattach-to-user-namespace --> then, ... 
