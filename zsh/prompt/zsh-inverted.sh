@@ -1,14 +1,3 @@
-function parse_git_dirty {
-    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
-}
-function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
-}
-function parse_current_dir {
-    ruby -e "puts ('../'+Dir.getwd.split('/').last(2).join('/')).gsub('//', '/')"
-}
-
-
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
@@ -165,15 +154,26 @@ build_prompt() {
 
 PROMPT='%{%f%b%k%}$(build_prompt)
 %F{red}❯%f '
-hg_in_repo() {
-    hg branch 2> /dev/null | awk '{print "on "}'
-}
-
-hg_branch() {
-    hg branch 2> /dev/null | awk '{print $1}'
-}
 
 RPROMPT='» $(date +"%_H:%M")'
+
 # -----------------------------------------------
 #  END
 # -----------------------------------------------
+
+function parse_git_dirty {
+    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
+function parse_current_dir {
+    ruby -e "puts ('../'+Dir.getwd.split('/').last(2).join('/')).gsub('//', '/')"
+}
+
+function hg_in_repo() {
+    hg branch 2> /dev/null | awk '{print "on "}'
+}
+function hg_branch() {
+    hg branch 2> /dev/null | awk '{print $1}'
+}
