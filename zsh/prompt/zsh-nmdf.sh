@@ -1,4 +1,3 @@
-#!/bin/sh
 #=[ SEGMENT DRAWING ]====================================================#
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
@@ -59,13 +58,14 @@ function prompt_virtualenv {
 
   local envs
   [[ -n $SSH_CLIENT ]]  && envs+="R"
-  (( $#cabal ))         && envs+="H"
+  # (( $#cabal ))         && envs+="H"
   [[ -n $VIRTUAL_ENV ]] && envs+="P"
 
-  [[ -n $envs ]] && echo " %F{green}[%f$envs%F{green}]%f"
+  [[ -n $envs ]] && prompt_segment yellow black " %F{green}[%f$envs%F{green}]%f"
 }
 
 # Context: user@hostname (who am I and where am I)
+export DEFAULT_USER=march
 function prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment 246 235 "%(!.%{%F{yellow}%}.)$USER@%m"
@@ -74,10 +74,10 @@ function prompt_context() {
 
 # Dir: current working directory ( auto-collapses $HOME to ~ )
 function prompt_dir() {
-  prompt_segment 239 248 '%~'
-  # # colorful slash
-  # local slash="%F{yellow}/%f"
-  # prompt_segment 239 248  "${${PWD/#$HOME/~}//\//$slash}"
+  # prompt_segment 239 248 '%~'
+  # colorful slash
+  local slash="%F{248} ❯ %f"
+  prompt_segment 235 yellow "${${PWD/#$HOME/⚑}//\//$slash}"
 }
 
 function p_arrow {
@@ -117,21 +117,21 @@ RPROMPT='$(prompt_vcs) $(git_time_since_commit)'
 # More symbols to choose from:
 # ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
 # ✡ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ ➟ ➼ ✂ ✎ ✐ ⨀ ⨁ ⨂ ⨍ ⨎ ⨏ ⨷ ⩚ ⩛ ⩡ ⩱ ⩲ ⩵  ⩶ ⨠ 
-# ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬟  ⬤ 〒 ǀ ǁ ǂ ĭ Ť Ŧ ☂ ✭ ☀ ✚ ✖ ♒  → 𝝙 ♒
+# ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬟  ⬤ 〒 ǀ ǁ ǂ ĭ Ť Ŧ ☂ ✭ ☀ ✚ ✖ ♒ → 𝝙
 
-#=[ VCSINFO ]============================================================#
+#=[ GIT ONLY ]===========================================================#
 # vcsinfo: thanks to github.com/sunaku/home/
 setopt promptsubst
 autoload -Uz vcs_info
 
-VCS_PROMPT=" %F{cyan}➜ %F{green}%b%F{magenta}%u%f%c%m"
-AVCS_PROMPT="$VCS_PROMPT %F{cyan}∷%f %F{magenta}%a%f"
+VCS_PROMPT=" %F{cyan}⎇ %F{green}%b %F{magenta}%u%f%c%m"
+AVCS_PROMPT="$VCS_PROMPT %F{cyan}➜%f %F{magenta}%a%f"
 
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green}✔%f"
-zstyle ':vcs_info:*' unstagedstr "%F{red}✗%f"
+zstyle ':vcs_info:*' stagedstr "%F{green}✦%f"   # staged files
+zstyle ':vcs_info:*' unstagedstr "%F{yellow}♻%f"   # modified files
 zstyle ':vcs_info:*' formats $VCS_PROMPT
 zstyle ':vcs_info:*' actionformats $AVCS_PROMPT
 zstyle ':vcs_info:git*+set-message:*' hooks git-aheadbehind git-untracked git-message git-stash
@@ -158,11 +158,17 @@ function +vi-git-aheadbehind() {
 ### git: Show marker if there are untracked files in repository
 # Make sure you have added staged to your 'formats':  %c
 function +vi-git-untracked(){
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-    git status --porcelain | grep '??' &> /dev/null ; then
-    # This will show the marker if there are any untracked files in repo.
-    hook_com[branch]="%F{magenta}.%F{green}${hook_com[branch]}%f"
+	local dirty
+  # check if we're in a git repo
+  command git rev-parse --is-inside-work-tree &>/dev/null || return
+  # check if it's dirty
+  command git diff --quiet --ignore-submodules HEAD &>/dev/null;
+  if [[ $? -eq 1 ]]; then
+      dirty="%F{red}✗%f"
+  else
+      dirty="%F{green}✔%f"
   fi
+  hook_com[branch]="%F{green}${hook_com[branch]}$dirty%f"
 }
 
 # proper spacing
@@ -190,8 +196,7 @@ function +vi-git-stash() {
     fi
 }
 
-#=[ VCSINFO ]============================================================#
-
+#=[ GIT ONLY ]===========================================================#
 # Determine the time since last commit. If branch is clean,
 # use a neutral color, otherwise colors will vary according to time.
 function git_time_since_commit() {
@@ -225,9 +230,9 @@ function git_time_since_commit() {
       else                               COLOR="$G_COMMIT_NEUTRAL"
       fi
 
-      if [ "$HOURS" -gt 24 ]; then     echo "$COLOR${DAYS}d${SUB_HOURS}h${SUB_MINUTES}m%{$reset_color%} ago"
-      elif [ "$MINUTES" -gt 60 ]; then echo "$COLOR${HOURS}h${SUB_MINUTES}m%{$reset_color%} ago"
-      else                             echo "$COLOR${MINUTES}m%{$reset_color%} ago"
+      if [ "$HOURS" -gt 24 ]; then     echo "[⬆ $COLOR${DAYS}d${SUB_HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
+      elif [ "$MINUTES" -gt 60 ]; then echo "[⬆ $COLOR${HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
+      else                             echo "[⬆ $COLOR${MINUTES}m%{$reset_color%} ago]"
       fi
     else
       COLOR="$G_COMMIT_NEUTRAL" ;      echo "$COLOR~"
