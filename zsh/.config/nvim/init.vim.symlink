@@ -11,10 +11,12 @@ Plug 'scrooloose/nerdtree'                  " file browser (remap to <leader>-k)
 Plug 'jeffkreeftmeijer/vim-numbertoggle'    " smart relative numbering (default: C-n)
 Plug 'benmills/vimux'                           " interact with tmux to run commands
 Plug 'tpope/vim-commentary'
+
+Plug 'tpope/vim-fugitive'
 " language-specific plugins --------------------
 
 call plug#end()
-" ====================================================================
+" ====================== SOURCE PERSONAL CONFIG ======================
 function! Source(vimfile)
 	let src=a:vimfile
 	if filereadable(glob(src))
@@ -26,11 +28,28 @@ endfunction
 for fpath in split(globpath('~/.config/nvim/autosource/', '*.vim'), '\n')
 	:call Source(fpath)
 endfor
-"                           GENERAL SETTINGS
-" ====================================================================
+" ========================= GENERAL SETTINGS =========================
 set nocompatible " forget about vi
 
-set clipboard+=unnamedplus " copy/paste between gui/cli --> require xclip/xsel
+" OS Specific -----------
+" Windows: {{{2
+if has('win32')
+	set gfn=Consolas:h10
+	set clipboard=unnamed
+" }}}
+else
+" UNIX: {{{2
+	let s:kernel = system('echo -n "$(uname -s)"')
+	if s:kernel == 'Darwin'
+		set gfn=Menlo:h12
+		" this doesn't work in mountain lion's default vim (does on macvim)
+		set clipboard=unnamed
+	elseif s:kernel == 'Linux'
+		set guifont=Monospace:h12
+		set clipboard=unnamedplus " copy/paste between gui/cli --> require xclip/xsel
+	endif
+endif
+" }}}
 
 " set a map leader for more key combos
 let mapleader = ' '
@@ -79,11 +98,9 @@ nmap <leader>] >>
 " Shortcuts -------------
     cmap cwd lcd %:p:h " Change Working Directory to that of the current file
 
-"                      FILE TYPE SPECIFIC SETTINGS
-" ====================================================================
+" ==================== FILE TYPE-SPECIFIC SETTINGS ===================
 
-"                          USER INTERFACE
-" ====================================================================
+" ========================== USER INTERFACE ==========================
 set encoding=utf8
 let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
@@ -91,47 +108,53 @@ set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 execute "set background=".$BACKGROUND
 execute "colorscheme ".$THEME
 
-"                          BACKUPS and UNDO
-" ====================================================================
+" OS Specific -----------
+
+" ========================= BACKUPS and UNDO =========================
+" turn off swap files
+set noswapfile
+set nobackup
+set nowb
+
+" Keep undo history across sessions, by storing in file.
+if has('persistent_undo') && !isdirectory(expand('~').'/.nvim-tmp/backups')
+  silent !mkdir ~/.nvim-tmp/backups > /dev/null 2>&1
+  set undodir=~/.nvim-tmp/backups
+  set undofile
+endif
+
 "set nobackup
 "set nowritebackup
 "set noswapfile
-set backupdir=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+"set backupdir=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+"set directory=~/.nvim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-"                             STATUS LINE
-" ====================================================================
+" =========================== STATUS LINE ============================
 
-" Statusline {{{
-function! GetCWD()
-    return expand(":pwd")
-endfunction
+" ========================= LINES & CURSORS ==========================
+set showmode
+set gcr=a:block
 
-function! IsHelp()
-    return &buftype=='help'?' (help) ':''
-endfunction
+" mode aware cursors
+set gcr+=o:hor50-Cursor
+set gcr+=n:Cursor
+set gcr+=i-ci-sm:InsertCursor
+set gcr+=r-cr:ReplaceCursor-hor20
+set gcr+=c:CommandCursor
+set gcr+=v-ve:VisualCursor
 
-function! GetName()
-    return expand("%:t")==''?'<none>':expand("%:t")
-endfunction
+set gcr+=a:blinkon0
 
-set statusline=%3*[%1*%{GetName()}%3*]%3*
-set statusline+=%7*%{&modified?'\ (modified)':'\ '}%3*
-set statusline+=%5*%{IsHelp()}%3*
-set statusline+=%6*%{&readonly?'\ (read-only)\ ':'\ '}%3*
-set statusline+=%3*fenc:%4*%{strlen(&fenc)?&fenc:'none'}%3*\ \ 
-set statusline+=%3*ff:%4*%{&ff}%3*\ \ 
-set statusline+=%3*ft:%4*%{strlen(&ft)?&ft:'<none>'}\ \ 
-set statusline+=%3*tab:%4*%{&ts}
-set statusline+=%3*,%4*%{&sts}
-set statusline+=%3*,%4*%{&sw}
-set statusline+=%3*,%4*%{&et?'et':'noet'}\ \ 
-set statusline+=%<%3*pwd:%4*%{getcwd()}\ \ 
-set statusline+=%9*%=
-set statusline+=%3*col:%4*%c\ \ 
-set statusline+=%3*line:%4*%l\ \ 
-set statusline+=%3*total:%4*%L\ 
-" }}}
+hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
+hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
+hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
+hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
+
+augroup cursorline
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
 
 "                              MAPPINGS
 " ====================================================================
@@ -224,7 +247,6 @@ let g:ctrlp_dotfiles = 1                " enable search for dotfiles
 "}}} ------------------------------------------------------
 
 
-" ====================================================================
 "                                  MISC
 " ====================================================================
 " Abbreviations --> autocorrect

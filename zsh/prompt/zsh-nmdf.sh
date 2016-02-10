@@ -104,16 +104,15 @@ PROMPT='%{%f%b%k%}$(build_prompt)
 $(p_arrow)'
 
 #=[ THE RIGHT-HAND PROMPT ]==============================================#
-# DIRTY -or- UNTRACKED -or- CLEAN 
-# ADDED -or- MODIFIED -or- DELETED -or- RENAMED
-# UNMERGED -or- AHEAD
-
 function prompt_vcs {
   vcs_info
   echo $vcs_info_msg_0_
 }
 
 RPROMPT='$(prompt_vcs) $(git_time_since_commit)'
+# ⎇ master            ✗✔                 ♻        ✦           {+1}
+# git branch   dirty-untracked/clean    modified   added  1 commit need pushing
+
 # More symbols to choose from:
 # ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
 # ✡ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ ➟ ➼ ✂ ✎ ✐ ⨀ ⨁ ⨂ ⨍ ⨎ ⨏ ⨷ ⩚ ⩛ ⩡ ⩱ ⩲ ⩵  ⩶ ⨠ 
@@ -130,7 +129,7 @@ AVCS_PROMPT="$VCS_PROMPT %F{cyan}➜%f %F{magenta}%a%f"
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green}✦%f"   # staged files
+zstyle ':vcs_info:*' stagedstr "%F{green}✦%f"      # staged files
 zstyle ':vcs_info:*' unstagedstr "%F{yellow}♻%f"   # modified files
 zstyle ':vcs_info:*' formats $VCS_PROMPT
 zstyle ':vcs_info:*' actionformats $AVCS_PROMPT
@@ -238,6 +237,6 @@ function git_time_since_commit() {
       COLOR="$G_COMMIT_NEUTRAL" ;      echo "$COLOR~"
     fi
   else
-		echo $(date +"%_H:%M")
+		echo "%F{yellow}$(date +"%_H:%M")%f"
   fi
 }
