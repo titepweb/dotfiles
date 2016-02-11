@@ -25,7 +25,7 @@ function() {
   nice=-20; zplug "$DOTFILES", from:local, nice:$nice, of:'**/path.zsh'
 
   # zsh #3 : Load everything but the zprofile, path, completion and postinit files second. Neither do files in *80% *.ignore dir.
-  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*80%|*.ignore)/*", ignore:".git/*"
+  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*.80%|*.ignore|.git)/*"
 
   # Set theme.
   nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, of:'zsh-nmdf.sh'

@@ -53,6 +53,9 @@ function! SetProjectRoot()
 	endif
 	" 1 - set working directory to git project root 
 	lcd %:p:h " default to the current file's directory
+	" 2 - source file-specific vimrc
+	let localvimrc=expand('%:p:r').".vimrc"
+	:call Source(localvimrc)
 
 	let git_dir = GetRepoRoot()
 
@@ -60,22 +63,19 @@ function! SetProjectRoot()
 		" 1 - or directory of current file if not git project
 		lcd `=git_dir`
 
-		" 2 - Loading project-specific-vimrc
+		" 2 - Source project-specific-vimrc
 		let basename=fnamemodify(git_dir, ':t')
 		let localvimrc=git_dir . "/" . basename . ".vimrc"
 
-		if strlen(localvimrc)
-			if filereadable(glob(localvimrc))
-				exe 'source' localvimrc
-			endif
-		endif
+		:call Source(localvimrc)
 	endif
 endfunction
 
 "nnoremap <silent> <leader>g :call SetProjectRoot()<cr>
 
 " follow symlink and set working directory
-autocmd BufRead * silent!
+"autocmd BufRead * silent!
+autocmd BufRead *
 	\ call FollowSymlink() |
 	\ call SetProjectRoot()
 

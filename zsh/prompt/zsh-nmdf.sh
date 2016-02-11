@@ -100,7 +100,8 @@ build_prompt() {
   prompt_end
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt)
+PROMPT='
+%{%f%b%k%}$(build_prompt)
 $(p_arrow)'
 
 #=[ THE RIGHT-HAND PROMPT ]==============================================#
@@ -110,8 +111,8 @@ function prompt_vcs {
 }
 
 RPROMPT='$(prompt_vcs) $(git_time_since_commit)'
-# ⎇ master            ✗✔                 ♻        ✦           {+1}
-# git branch   dirty-untracked/clean    modified   added  1 commit need pushing
+# ⎇ master            ✗✔                 ♻ --git add --> ✦ --git commit-->  {+1}
+# git branch   dirty-untracked/clean    modified       added/staged    1 commit need pushing
 
 # More symbols to choose from:
 # ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
@@ -229,9 +230,9 @@ function git_time_since_commit() {
       else                               COLOR="$G_COMMIT_NEUTRAL"
       fi
 
-      if [ "$HOURS" -gt 24 ]; then     echo "[⬆ $COLOR${DAYS}d${SUB_HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
-      elif [ "$MINUTES" -gt 60 ]; then echo "[⬆ $COLOR${HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
-      else                             echo "[⬆ $COLOR${MINUTES}m%{$reset_color%} ago]"
+      if [ "$HOURS" -gt 24 ]; then     echo "[commited $COLOR${DAYS}d${SUB_HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
+      elif [ "$MINUTES" -gt 60 ]; then echo "[commited $COLOR${HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
+      else                             echo "[commited $COLOR${MINUTES}m%{$reset_color%} ago]"
       fi
     else
       COLOR="$G_COMMIT_NEUTRAL" ;      echo "$COLOR~"
