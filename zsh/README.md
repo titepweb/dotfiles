@@ -49,6 +49,7 @@ VIM
 + gundo
 + status line    : lightline
 + sidebar        : Tag list, Voom, Tagbar, 
++ ahw/vim-hooks
 
 MY DISCOVERY
 ============
@@ -58,6 +59,7 @@ MY DISCOVERY
 	- nmap --> normal only, vmap, ...
 	- *noremap = non-recursive
 + Keybinding Confliction ? Termite --> Tmux --> zsh/neovim ? 
+
 
 ##### Have you ever heard of...
 [spf13-vim](https://github.com/spf13/spf13-vim), 

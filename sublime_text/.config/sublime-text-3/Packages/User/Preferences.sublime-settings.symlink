@@ -37,6 +37,7 @@
 	"ignored_packages":
 	[
 		"AutoHotkey",
+		"Monokai Extended",
 		"REG",
 		"Sublimerge Pro"
 	],

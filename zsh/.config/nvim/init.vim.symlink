@@ -1,26 +1,30 @@
-" vim: set fdm=marker: " Treat comments as folds
+" vim: set fdm=marker: " Treat comments as folds (This must be first line)
 
+set nocompatible " no backward-compatible for vi (This must be first)
 " ============================= VIM-PLUG ============================="{{{
 call plug#begin('~/.config/nvim/plugged')
 
 " colorscheme & appearance ----------------------
 Plug 'chriskempson/base16-vim'              " preview : http://chriskempson.github.io/base16/
 Plug 'itchyny/lightline.vim'                " statusline
-Plug 'jeffkreeftmeijer/vim-numbertoggle'    " smart relative numbering (default: C-n)
 Plug 'jszakmeister/vim-togglecursor'
+Plug 'itchyny/landscape.vim'
 
 " utilities ------------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'benmills/vimux'                       " interact with tmux to run commands (project-specific settings at <project>.vimrc)
 
+
+Plug 'ctrlpvim/ctrlp.vim'                   " fuzzy search (of course, C-p)
+
 " utilities ------------------------------------
 "
 call plug#end()
 " }}}
-" ====================== SOURCE PERSONAL CONFIG ======================"{{{
+" ======================= SOURCE MY OWN STUFFG ======================="{{{
 function! Source(vimfile)
 	let src=a:vimfile
-	if filereadable(glob(src)) && strlen(src)
+	if strlen(src) && filereadable(glob(src)) 
 		exec ':source' . src
 	endif
 endfunction
@@ -30,8 +34,9 @@ for fpath in split(globpath('~/.config/nvim/autosource/', '*.vim'), '\n')
 	:call Source(fpath)
 endfor
 "}}}
+
 " =========================== INITIALIZATION ========================="{{{
-set nocompatible " no backward-compatible for vi
+
 set encoding=utf-8
 set fenc=utf-8
 set termencoding=utf-8
@@ -49,35 +54,27 @@ inoremap jk <Esc>
 
 " LINE NUMBER -----------
 set number
-"set relativenumber     " disable to use vim-numbertoggle for automation
+set relativenumber     " take a look at AUTOCMD section
 "set numberwidth=3
 
-" SPLIT -----------------> splitview.vim
-noremap <silent> <C-h> :call WinMove('h')<cr>
-noremap <silent> <C-j> :call WinMove('j')<cr>
-noremap <silent> <C-k> :call WinMove('k')<cr>
-noremap <silent> <C-l> :call WinMove('l')<cr>
-" Column scroll-binding on <leader>sb
-noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
-
-" TABSTOP ---------------
+" TABSTOP ---------------{{{
+" Set the tab width
+let s:tabwidth=4
+exec 'set tabstop='     . s:tabwidth 
+exec 'set shiftwidth='  . s:tabwidth
+exec 'set softtabstop=' . s:tabwidth
+" }}}
 
 " WRAP and INDENT -------
 
-" INVISIBLE CHARACTERS --
-set invlist
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
-set showbreak=↪
-noremap <leader>l :set list!<cr>
+" code folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "fold level-1 when openning a file
 
-"folding settings
-"set foldmethod=indent   "fold based on indent
-"set foldnestmax=10      "deepest fold is 10 levels
-"set nofoldenable        "dont fold by default
-"set foldlevel=1         "this is just what i use
 " }}}
-
+" ========================== USER INTERFACE ==========================={{{
 
 " COLORS and THEMES: {{{
 set t_Co=256
@@ -90,35 +87,130 @@ execute "colorscheme ".$THEME
 " }}}
 
 
-
-" ============================ MAPPINGS ==============================" {{{
-
 " }}}
 
-" AutoCMDs: {{{
-augroup filespecific
-  autocmd!
-  au BufRead,BufNewFile *.json set ft=javascript
-  au FileType go set noet nolist
-  au FileType python setl ts=4
-  au FileType rust setl sw=0 sts=0
-augroup END
+" =========== MAPPINGS : general shorcut for functionality ============" {{{
+" shortcut to save
+noremap <leader><leader> :w<cr>
 
-augroup cursorline
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END
+" invisible characters
+set invlist
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
+set showbreak=↪
+noremap <leader>l :set list!<cr>
+
+" SPLIT -----------------> splitview.vim
+noremap <silent> <C-h> :call WinMove('h')<cr>
+noremap <silent> <C-j> :call WinMove('j')<cr>
+noremap <silent> <C-k> :call WinMove('k')<cr>
+noremap <silent> <C-l> :call WinMove('l')<cr>
+" Column scroll-binding on <leader>sb
+noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
+
+" Open current fold, closing every other fold to get more focus
+nnoremap zz zozMzvzz
+
 " }}}
+" ===== AUTOCOMD : CURSOR HIGHLIGHT & FILE TYPE-SPECIFIC SETTINGS ====="{{{
+if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
 
+	" filetype-specific autocommands
+	" ----------------------------------------------------------------"{{{
+	augroup filespecific
+	  autocmd!
+	  au BufRead,BufNewFile *.json set ft=javascript
+	  au FileType go set noet nolist
+	  au FileType python setl ts=4
+	  au FileType rust setl sw=0 sts=0
+	augroup END
+	
+	" When editing a file, always jump to the last known cursor position.
+	" Don't do it when the position is invalid or when inside an event handler
+	" (happens when dropping a file on gvim).
+	autocmd BufReadPost *
+		\ if line("'\"") > 0 && line("'\"") <= line("$") |
+		\   exe "normal g`\"" |
+		\ endif
+	"}}}
+	" Reload .vimrc and .gvimrc files as soon as they have a change
+	" ----------------------------------------------------------------
+	augroup VimReload
+		autocmd!
+		autocmd BufWritePost $MYVIMRC source $MYVIMRC
+		autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+	augroup END
 
-" ==================== FILE TYPE-SPECIFIC SETTINGS ==================="{{{
+	" Mode-aware settings (color (relative) line number, colorize line/column ...)
+	" ---------------------------------------------------------------------------"{{{
+	" forks of http://stackoverflow.com/questions/15561132/run-command-when-vim-enters-visual-mode
+	set noshowmode
+	augroup HiLightCursor
+		autocmd!
+		autocmd InsertEnter * call SetCursorColorInsert(v:insertmode)
+		autocmd InsertLeave * call ResetCursorColor()
+		autocmd CursorHold,CursorHoldI * call WaitingCursorColor()
+		autocmd CursorMoved * call ResetCursorColor()
+	augroup END
 
+	vnoremap <silent> <expr> <SID>SetCursorColorVisual SetCursorColorVisual()
+	nnoremap <silent> <script> v v<SID>SetCursorColorVisual
+	nnoremap <silent> <script> V V<SID>SetCursorColorVisual
+	nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorColorVisual
+
+	function! SetCursorColorInsert(mode)
+	" INSERT MODE
+		if a:mode == "i"
+			echo "Enter Insert Mode"
+			setlocal norelativenumber cursorline cursorcolumn
+			highlight CursorLineNr ctermfg=3 guifg=#268bd2
+			hi CursorLine ctermfg=NONE ctermbg=232 cterm=bold guifg=Cyan guibg=#3E3D32 gui=bold
+			hi CursorColumn ctermfg=NONE ctermbg=234 cterm=NONE guifg=white guibg=#323D3E gui=bold
+			hi Cursor ctermfg=red ctermbg=blue cterm=bold guifg=white guibg=#00AAFF gui=bold
+	" REPLACE MODE
+		elseif a:mode == "r"
+			echo "Enter Replace Mode"
+			highlight CursorLineNr ctermfg=12 guifg=#dc322f
+		endif
+	endfunction
+
+	function! SetCursorColorVisual()
+	" VISUAL MODE
+		echo "Enter Visual Mode"
+		highlight CursorLineNr cterm=none ctermfg=cyan guifg=#cb4b16
+		return '' " keep the cursor from jumping the beginning of the current line when entering visual mode.
+	endfunction
+
+	function! WaitingCursorColor()
+	" automatically leave insert mode after 'updatetime' milliseconds of inaction
+		stopinsert " --> leaving InsertMode --> ResetCursorColor --> updatetime = 8000 --> wait for another 8s
+	" Idle mode
+		echo "Waiting for User..."
+		setlocal relativenumber cursorline cursorcolumn
+		highlight CursorLineNr cterm=none ctermfg=17 guifg=#073642
+		hi Cursor cterm=inverse ctermfg=red ctermbg=red guifg=white guibg=#A6E22E gui=bold
+		hi CursorLine cterm=underline ctermfg=NONE ctermbg=019 guifg=Cyan guibg=#3E3D32 gui=bold
+		hi CursorColumn ctermfg=NONE ctermbg=019 cterm=bold guifg=white guibg=yellow gui=bold
+	endfunction
+
+	function! ResetCursorColor()
+		set updatetime=8000 " milliseconds
+	" NORMAL MODE
+		echo "Back to Normal Mode"
+		setlocal relativenumber cursorline cursorcolumn
+		highlight CursorLineNr cterm=none ctermfg=red guifg=#073642
+		hi CursorLine cterm=bold ctermbg=235
+		hi CursorColumn ctermfg=NONE ctermbg=235 cterm=NONE guifg=white guibg=#323D3E gui=bold
+	endfunction
+	"}}}
+endif
 "}}}
 
 " ========================= OS-SPECIFIC SETTINGS ====================="{{{
+" 1. Use the system's clipboard
+" 2. 
 " Windows: {{{
-if has('win32')
+if has('win32') || has('win64')
   set gfn=Consolas:h10
   set clipboard=unnamed
 " }}}
@@ -141,35 +233,69 @@ endif
 
 " ========================== PLUGIN SETTINGS ========================={{{
 " toggle cursor {{{
-let g:togglecursor_defaul="block"
+
 " }}}
+
+" CtrlP {{{
+let g:ctrlp_dotfiles = 1                " enable search for dotfiles
+"}}} ------------------------------------------------------
 " }}}
 
 
+" ============================= FUNCTIONS ============================={{{
+" Hight light interesting words ---------------{{{
+function! HiInterestingWord(n)
+    " Save our location.
+    normal! mz
+    " Yank the current word into the z register.
+    normal! "zyiw
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
+    " Construct a literal pattern that has to match at boundaries.
+    let pat = '\V\<' . escape(@z, '\') . '\>'
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, pat, 1, mid)
+    " Move back to our original location.
+    normal! `z
+endfunction
 
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 
-" =========================== STATUS LINE ============================{{{
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+" }}}
 
 " }}}
 
 " ============================ LIGHTLINE ============================={{{
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'filename' ] ]
-      \ },
-      \ 'component': {
-      \   'fugitive': '%{exists("*fugitive#head") ? "⎇ ".fugitive#head() : ""}'
-      \ },
-      \ 'component_function': {
-      \   'readonly': 'LightLineReadonly',
-      \   'modified': 'LightLineModified',
-      \   'filename': 'LightLineFilename'
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
+	\ 'colorscheme' : 'Tomorrow_Night_Eighties',
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'fugitive', 'filename' ] ]
+	\ },
+	\ 'component': {
+	\   'fugitive': '%{exists("*fugitive#head") ? " ".fugitive#head() : ""}'
+	\ },
+	\ 'component_function': {
+	\   'readonly': 'LightLineReadonly',
+	\   'modified': 'LightLineModified',
+	\   'filename': 'LightLineFilename'
+	\ },
+	\ 'separator': { 'left': '', 'right': '' },
+	\ 'subseparator': { 'left': '', 'right': '' }
+	\ }
 
 function! LightLineModified()
   if &filetype == "help"
