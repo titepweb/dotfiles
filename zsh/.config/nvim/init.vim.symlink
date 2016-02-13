@@ -2,21 +2,23 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " colorscheme & appearance ----------------------
-Plug 'chriskempson/base16-vim'              " preview : http://chriskempson.github.io/base16/
-Plug 'itchyny/lightline.vim'                " statusline
+Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
+"Plug 'sjl/badwolf'
+Plug 'itchyny/lightline.vim'            " statusline
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'itchyny/landscape.vim'
 
 " utilities ------------------------------------
 Plug 'tpope/vim-fugitive'
-Plug 'benmills/vimux'                       " interact with tmux to run commands (project-specific settings at <project>.vimrc)
-
-Plug 'ctrlpvim/ctrlp.vim'                   " fuzzy search (of course, C-p)
-Plug 'sjl/gundo.vim'                        " require to install python2-neovim
+Plug 'airblade/vim-gitgutter'
+Plug 'benmills/vimux'               " interact with tmux to run commands (project-specific settings at <project>.vimrc)
+Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>)
+Plug 'ctrlpvim/ctrlp.vim'           " fuzzy search (of course, C-p)
+Plug 'sjl/gundo.vim'                " require to install python2-neovim
 "Plug 'easymotion/vim-easymotion'
 
-" utilities ------------------------------------
-"
+" language-specific plugins --------------------
+
 call plug#end()
 " }}}
 " Source my own custom functions and settings "{{{ ==================
@@ -53,6 +55,24 @@ inoremap jk <Esc>
 set foldlevel=0         "fold level-0 when openning a file
 set modelines=1         "check just the final line of the file for a modeline
 " }}}
+" Indentation  {{{ ==================================================
+" Lines too long to fit on one screen will be truncated.
+set nowrap
+let &showbreak='↪ '
+" Force a 79 column policy with an auto-break on words in comments to assure 
+" maximum readability. Visually add a column to see where the cut will be.
+set linebreak
+set colorcolumn=81
+set textwidth=80
+" Create two format modes, for code and for text
+" c : Comments are wrapped based on textwidth
+" r : New line in comment is a comment when pressing <Enter>
+" o : New line in comment is a comment when pressing o or O
+" n : Handles list while formatting
+" q : Comments can be re-wrapped using gq
+" 1 : Do not end lines with one-char words
+set formatoptions=cronq1
+" }}}
 " Spaces & Tabs {{{ =================================================
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " when hitting <BS>, pretend like a tab is removed, even if spaces
@@ -61,35 +81,49 @@ set expandtab       " insert tabs rather than spaces for <Tab>
 set shiftwidth=4    " number of spaces to use for autoindenting
 set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
 " }}}
-" User Inferace Config {{{ ==========================================
+" Aesthetics & User Inferace Config {{{ =============================
 set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace"
 
 execute "set background=".$BACKGROUND
 "execute "colorscheme ".$THEME
-colorscheme badwolf
-
+colorscheme badwolf     " config badwolf (https://github.com/sjl/badwolf)
 set number
-set relativenumber     " take a look at AUTOCMD section
+set relativenumber      "take a look at AUTOCMD section
 "set numberwidth=3
 
-syntax enable           " enable syntax processing
-"set showmatch           " highlight matching [{()}]
+" switch syntax highlighting on, when the terminal has colors
+if &t_Co > 2 || has("gui_running") | syntax enable | endif
 
+set noshowmode          "hide INSERT-VISUAL...text, we already have statusbar 
+"set showcmd             "Show more info about current command
 " }}}
-" Searching {{{ =====================================================
-set ignorecase " case insensitive searching
-set smartcase " case-sensitive if expresson contains a capital letter
-set hlsearch
-set incsearch " set incremental search, like modern browsers
-set nolazyredraw " don't redraw while executing macros
+" Search & Replace {{{ ==============================================
+"automatically inserting a \v for searching using regex
+nnoremap / /\v
+vnoremap / /\v
 
-set magic " Set magic on, for regex
-
-set showmatch " show matching braces
-set mat=2 " how many tenths of a second to blink
+set gdefault    " applies substitutions globally on lines instead of the first occurrance
+set hlsearch    " highlight the search result
+set incsearch   " set incremental search, like modern browsers
+set showmatch   " show matching braces
+set ignorecase  " case insensitive searching
+set smartcase   " case-sensitive if expresson contains a capital letter
 " }}}
 " Backups and Undo {{{ ==============================================
+" Keep undo history across sessions, by storing in file.
+if has('persistent_undo') && !isdirectory(expand('~').'/.vim/undo')
+    silent !mkdir ~/.vim/undo > /dev/null 2>&1
+    set undodir=~/.vim/undo
+    set undofile
+endif
+
+set nobackup                " do not keep backup files, it's 70's style cluttering
+set noswapfile              " do not write annoying intermediate swap files,
+                            "    who did ever restore from swap files anyway?
+
+" store swap files in one of these directories (in case swapfile is ever turned on)
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " }}}
 " General shortcuts for functionality {{{ ===========================
 " shortcut to save
@@ -104,7 +138,8 @@ highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
 noremap <leader>l :set list!<cr>
 
-" SPLIT -----------------> splitview.vim
+" SPLIT ---------------------------------------> splitview.vim
+set splitright
 noremap <silent> <C-h> :call WinMove('h')<cr>
 noremap <silent> <C-j> :call WinMove('j')<cr>
 noremap <silent> <C-k> :call WinMove('k')<cr>
@@ -123,22 +158,17 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
+nnoremap V :vnoremap j j<cr>V
+nnoremap v :vnoremap j gj<cr>v
+" OR : xnoremap <expr> j mode() ==# 'V' ? 'j' : 'gj'
 
 " set paste toggle
 set pastetoggle=<F6>
-
 " toggle paste mode
 map <leader>v :set paste!<cr>
 
 " insert a new line after/before the current line
 noremap <CR> o<Esc>
-
-" enable . command in visual mode
-vnoremap . :normal .<cr>
-" switch between current and last buffer
-nmap <leader>. <c-^>
-" wipout buffer
-nmap <silent> <leader>b :bw<cr>
 
 " clear highlighted searches
 noremap <silent> ,/ :nohlsearch<CR>
@@ -148,17 +178,90 @@ nnoremap <leader>/ "fyiw :/<c-r>f<cr>
 " for when you forgot to sudo before editing a file that requires root privileges
 cmap w!! w !sudo tee % >/dev/null
 
+"visually select recently entered text
+nnoremap gV `[v`]
+
+"toggle between bracket pairs
+nnoremap <tab> %
+
+" enable . command in visual mode
+vnoremap . :normal .<cr>
+" switch between current and last buffer
+nmap <leader>. <c-^>
+" wipout buffer
+nmap <silent> <leader>b :bw<cr>
+
+" TABS (Cross-platform) -----------------------{{{
+	if has("gui_macvim") " OS X
+		"set guifont=Monaco:h14
+		set guifont=Monaco:h12
+		"set noantialias
+		"set transparency=15
+
+		" Swipe to move between bufers :D
+		map <silent> <SwipeLeft> :bprev<CR>
+		map <silent> <SwipeRight> :bnext<CR>
+
+		" Cmd+Shift+N = new buffer
+		map <silent> <D-N> :enew<CR>
+
+		" Cmd+t = new tab
+		nnoremap <silent> <D-t> :tabnew<CR>
+
+		" Cmd+w = close tab (this should happen by default)
+		nnoremap <silent> <D-w> :tabclose<CR>
+
+		" Cmd+1...9 = go to that tab
+		map <silent> <D-1> 1gt
+		map <silent> <D-2> 2gt
+		map <silent> <D-3> 3gt
+		map <silent> <D-4> 4gt
+		map <silent> <D-5> 5gt
+		map <silent> <D-6> 6gt
+		map <silent> <D-7> 7gt
+		map <silent> <D-8> 8gt
+		map <silent> <D-9> 9gt
+
+		" OS X probably has ctags in a weird place
+		let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+
+	elseif has("gui_gtk2") " Linux
+		set guifont=menlo\ 9
+
+		" Alt+n = new buffer
+		map <silent> <A-n> :enew<CR>
+
+		" Alt+t = new tab
+		nnoremap <silent> <A-t> :tabnew<CR>
+
+		" Alt+w = close tab
+		nnoremap <silent> <A-w> :tabclose<CR>
+
+		" Alt+1...9 = go to that tab
+		map <silent> <A-1> 1gt
+		map <silent> <A-2> 2gt
+		map <silent> <A-3> 3gt
+		map <silent> <A-4> 4gt
+		map <silent> <A-5> 5gt
+		map <silent> <A-6> 6gt
+		map <silent> <A-7> 7gt
+		map <silent> <A-8> 8gt
+		map <silent> <A-9> 9gt
+
+	elseif has("gui_win32") " Windows
+		" kek
+	endif
+" }}}
+
 " }}}
 " AUTOCOMD : CURSOR HIGHLIGHT & FILE TYPE-SPECIFIC SETTINGS {{{ =====
 if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
 	" filetype-specific autocommands ---------------------------------"{{{
-	augroup filespecific
+    augroup filespecific
       "directive clears all the autocmd's for the current group.
-	  autocmd!
-	  au BufRead,BufNewFile *.json set ft=javascript
-	  au FileType go set noet nolist
-	  au FileType python setl ts=4
-	  au FileType rust setl sw=0 sts=0
+        autocmd!
+        au BufRead,BufNewFile *.json set ft=javascript
+        autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
 	augroup END
 
 	" When editing a file, always jump to the last known cursor position.
@@ -178,7 +281,6 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
 	" }}}
 	" Mode-aware settings (color (relative) line number, colorize line/column ...)"{{{
 	" forks of http://stackoverflow.com/questions/15561132/run-command-when-vim-enters-visual-mode
-	set noshowmode
 	augroup HiLightCursor
 		autocmd!
 		autocmd InsertEnter * call SetCursorColorInsert(v:insertmode)
@@ -237,9 +339,12 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
 		hi CursorColumn ctermfg=NONE ctermbg=235 cterm=NONE guifg=white guibg=#323D3E gui=bold
 	endfunction
 	" }}}
+    " save all files on focus lost, ignoring warnings about untitled buffers {{{
+    autocmd FocusLost * silent! wa
+    " }}}
 endif
 " }}}
-" OS-SPECIFIC SETTINGS & CROSS-PLATFORM {{{ =========================
+" OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS {{{ ================
 if has('win32') || has('win64')
 	set gfn=Consolas:h10
 	set clipboard=unnamed
@@ -255,67 +360,62 @@ else
 endif
 " }}}
 " PLUGIN SETTINGS ===================================================
-" toggle gundo {{{
-nnoremap <leader>u :GundoToggle<CR>
+    " toggle CtrlP {{{
+    let g:ctrlp_dotfiles = 1                " enable search for dotfiles
+    let g:ctrlp_match_window = 'bottom,order:ttb'
+    let g:ctrlp_switch_buffer = 0           " always open files in new buffers
+    let g:ctrlp_working_path_mode = 0
+    " use ag (an external command) to improve finding maching files
+    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+    "}}} ------------------------------------------------------
+    " toggle gundo {{{
+    nnoremap <leader>u :GundoToggle<CR>
+    "}}} ------------------------------------------------------
+    " lightline {{{
+    let g:lightline = {
+        \ 'colorscheme' : 'Tomorrow_Night_Eighties',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component': {
+        \   'fugitive': '%{exists("*fugitive#head") ? " ".fugitive#head() : ""}'
+        \ },
+        \ 'component_function': {
+        \   'readonly': 'LightLineReadonly',
+        \   'modified': 'LightLineModified',
+        \   'filename': 'LightLineFilename'
+        \ },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
 
-" toggle cursor {{{
+    function! LightLineModified()
+    if &filetype == "help"
+        return ""
+    elseif &modified
+        return "+"
+    elseif &modifiable
+        return ""
+    else
+        return ""
+    endif
+    endfunction
 
-" }}}
+    function! LightLineReadonly()
+    if &filetype == "help"
+        return ""
+    elseif &readonly
+        return ""
+    else
+        return ""
+    endif
+    endfunction
 
-" CtrlP {{{
-let g:ctrlp_dotfiles = 1                " enable search for dotfiles
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0           " always open files in new buffers
-let g:ctrlp_working_path_mode = 0
-" use ag (an external command) to improve finding maching files
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-"}}} ------------------------------------------------------
-" }}}
-" lightline {{{
-let g:lightline = {
-	\ 'colorscheme' : 'Tomorrow_Night_Eighties',
-	\ 'active': {
-	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'fugitive', 'filename' ] ]
-	\ },
-	\ 'component': {
-	\   'fugitive': '%{exists("*fugitive#head") ? " ".fugitive#head() : ""}'
-	\ },
-	\ 'component_function': {
-	\   'readonly': 'LightLineReadonly',
-	\   'modified': 'LightLineModified',
-	\   'filename': 'LightLineFilename'
-	\ },
-	\ 'separator': { 'left': '', 'right': '' },
-	\ 'subseparator': { 'left': '', 'right': '' }
-	\ }
-
-function! LightLineModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-"}}}
+    function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+    endfunction
+    "}}}
 " vim:foldmethod=marker:foldlevel=0:syntax=vim

@@ -30,6 +30,7 @@
 	* his tm
 	* his configuration file : .tmux.conf , .vimrc , 
 
+
 ## my bootstrap scripts 
 >	paraphrase : "Perfection is when whatever you add or remove, you worsen the result. This was discovered during renaissance.""
 
@@ -47,7 +48,12 @@ Shameless stealing from many people's ideas and scripts, iodiotically writing my
 
 **install.sh**
 
+
 **nmdf**
+
+
+
+
 
 ## using git to pull/push dotfiles
 create an ssh key : https://github.com/settings/ssh

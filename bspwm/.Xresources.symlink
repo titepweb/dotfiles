@@ -1,3 +1,7 @@
+/* We can break .Xresources file into several files stored in xres directory
+ *	#include "xres/urxvt"
+ *	#include "xres/rofi"
+*/
 
 /*********************************************************************
  *                               rofi                                *

@@ -45,10 +45,10 @@ function! GetRepoRoot() " {{{
 	return b:repoRoot
 endfunction
 " }}}
-
-function! SetProjectRoot()
-	" if help file, don't do any thing
-	if &buftype=='help'
+"
+function! SetProjectRoot() " {{{
+	" don't do any thing if helpfile, readonly files, fugitive message files ...
+	if !&modifiable || &buftype=='help'
 		return
 	endif
 	" 1 - set working directory to git project root 
@@ -78,6 +78,7 @@ function! SetProjectRoot()
 		:call Source(lvimrc)
 	endif
 endfunction
+" }}}
 
 "nnoremap <silent> <leader>g :call SetProjectRoot()<cr>
 

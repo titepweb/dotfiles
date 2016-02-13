@@ -123,7 +123,7 @@ install youtube-viewer
 # WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 # │ CONFIGURATION                                                               │
-# │ - systemctl --user enable redshift.service    														  │
+# │ - systemctl --user enable redshift.service                                  │
 # │ - systemctl --user start redshift.service                                   │
 # └─────────────────────────────────────────────────────────────────────────────┘
 # "
