@@ -48,7 +48,7 @@ endfunction
 "
 function! SetProjectRoot() " {{{
 	" don't do any thing if helpfile, readonly files, fugitive message files ...
-	if !&modifiable || &buftype=='help' || expand('%')=~#'^fugitive:\/\/\/.*' || expand('%')=~#'^\/tmp\/.*' 
+	if !&modifiable || &buftype=='help' || expand('%')=~#'^fugitive:\/\/\/.*$' || expand('%')=~#'^\/tmp\/.*$'
 		return
 	endif
 	" 1 - set working directory to git project root 
