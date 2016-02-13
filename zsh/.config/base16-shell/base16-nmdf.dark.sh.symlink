@@ -30,7 +30,7 @@ color19="58/6e/75" # Base 02
 color20="83/94/96" # Base 04
 color21="ee/e8/d5" # Base 06
 color_foreground="f5/f2/df" # Base 02
-color_background="00/08/10" # Base 07
+color_background="14/14/13" # = Base 07
 color_cursor="93/a1/a1" # Base 02
 
 if [ -n "$TMUX" ]; then
