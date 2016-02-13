@@ -230,9 +230,9 @@ function git_time_since_commit() {
       else                               COLOR="$G_COMMIT_NEUTRAL"
       fi
 
-      if [ "$HOURS" -gt 24 ]; then     echo "[commited $COLOR${DAYS}d${SUB_HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
-      elif [ "$MINUTES" -gt 60 ]; then echo "[commited $COLOR${HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
-      else                             echo "[commited $COLOR${MINUTES}m%{$reset_color%} ago]"
+      if [ "$HOURS" -gt 24 ]; then     echo "[committed $COLOR${DAYS}d${SUB_HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
+      elif [ "$MINUTES" -gt 60 ]; then echo "[committed $COLOR${HOURS}h${SUB_MINUTES}m%{$reset_color%} ago]"
+      else                             echo "[committed $COLOR${MINUTES}m%{$reset_color%} ago]"
       fi
     else
       COLOR="$G_COMMIT_NEUTRAL" ;      echo "$COLOR~"
