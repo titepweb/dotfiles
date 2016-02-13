@@ -12,6 +12,9 @@ The directory named experimental-vimrc includes many ideas and vimscript codes. 
 
 ``` vim -u <path/to/vimrc> ```
 
+To start vim without loading any .vimrc or plugins, use:
+``` vim -u NONE ```
+
 When satistied with a vimscript, you may want to source it in your vimrc. Just move that file to source.symlink directory. Errors could happen because of merging keybindings and some sensitive settings. To show errors in current .vimrc, run 
 
 ``` :messages ```

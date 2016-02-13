@@ -3,7 +3,6 @@
 	"in_process_packages":
 	[
 		"AutoHotkey",
-		"Monokai Extended",
 		"REG"
 	],
 	"installed_packages":

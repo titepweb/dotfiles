@@ -56,18 +56,26 @@ function! SetProjectRoot()
 	" 2 - source file-specific vimrc
 	let localvimrc=expand('%:p:r').".vimrc"
 	:call Source(localvimrc)
+	" 3 - source the directory-specific vimrc
+	" Search from the directory the file is located upwards to the root for
+	" a local configuration file called .localvimrc and sources it.
+	let dirname = expand('%:p:h')
+	while "/" != dirname
+		let basename = fnamemodify(dirname, ':t')
+		let lvimrc   = dirname . "/" . basename . ".vimrc"
+		:call Source(lvimrc)
+		let dirname = fnamemodify(dirname, ":p:h:h")
+	endwhile
 
 	let git_dir = GetRepoRoot()
-
 	if !empty(git_dir)
 		" 1 - or directory of current file if not git project
 		lcd `=git_dir`
 
-		" 2 - Source project-specific-vimrc
+		" 2 - Source project-specific vimrc (located at the root of projects)
 		let basename=fnamemodify(git_dir, ':t')
-		let localvimrc=git_dir . "/" . basename . ".vimrc"
-
-		:call Source(localvimrc)
+		let lvimrc  =git_dir . "/" . basename . ".vimrc"
+		:call Source(lvimrc)
 	endif
 endfunction
 
@@ -75,7 +83,7 @@ endfunction
 
 " follow symlink and set working directory
 "autocmd BufRead * silent!
-autocmd BufRead *
+autocmd BufRead,BufNewFile *
 	\ call FollowSymlink() |
 	\ call SetProjectRoot()
 

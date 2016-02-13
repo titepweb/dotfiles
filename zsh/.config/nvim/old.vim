@@ -29,32 +29,6 @@ endfunction
 for fpath in split(globpath('~/.config/nvim/autosource/', '*.vim'), '\n')
 	:call Source(fpath)
 endfor
-" ========================= GENERAL SETTINGS =========================
-set nocompatible " no backward-compatibl
-
-" OS Specific -----------
-" Windows: {{{2
-if has('win32')
-	set gfn=Consolas:h10
-	set clipboard=unnamed
-" }}}
-else
-" UNIX: {{{2
-	let s:kernel = system('echo -n "$(uname -s)"')
-	if s:kernel == 'Darwin'
-		set gfn=Menlo:h12
-		" this doesn't work in mountain lion's default vim (does on macvim)
-		set clipboard=unnamed
-	elseif s:kernel == 'Linux'
-		set guifont=Monospace:h12
-		set clipboard=unnamedplus " copy/paste between gui/cli --> require xclip/xsel
-	endif
-endif
-" }}}
-
-" set a map leader for more key combos
-let mapleader = ' '
-let g:mapleader = ' '
 
 " LINE NUMBER -----------
 set number

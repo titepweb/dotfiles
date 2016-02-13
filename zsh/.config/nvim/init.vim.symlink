@@ -1,6 +1,6 @@
 " vim: set fdm=marker: " Treat comments as folds (This must be first line)
 
-set nocompatible " no backward-compatible for vi (This must be first)
+set nocompatible " Forget compatibility with vi (This must be first)
 " ============================= VIM-PLUG ============================="{{{
 call plug#begin('~/.config/nvim/plugged')
 
@@ -14,8 +14,9 @@ Plug 'itchyny/landscape.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'benmills/vimux'                       " interact with tmux to run commands (project-specific settings at <project>.vimrc)
 
-
 Plug 'ctrlpvim/ctrlp.vim'                   " fuzzy search (of course, C-p)
+Plug 'sjl/gundo.vim'                        " require to install python2-neovim
+"Plug 'easymotion/vim-easymotion'
 
 " utilities ------------------------------------
 "
@@ -24,7 +25,7 @@ call plug#end()
 " ======================= SOURCE MY OWN STUFFG ======================="{{{
 function! Source(vimfile)
 	let src=a:vimfile
-	if strlen(src) && filereadable(glob(src)) 
+	if strlen(src) && filereadable(src) 
 		exec ':source' . src
 	endif
 endfunction
@@ -41,7 +42,7 @@ set encoding=utf-8
 set fenc=utf-8
 set termencoding=utf-8
 " }}}
-" ========================= GENERAL SETTINGS ========================={{{
+" ========================= GENERAL SETTINGS ========================="{{{
 " set a map leader for more key combos
 let mapleader = ' '
 let g:mapleader = ' '
@@ -57,13 +58,13 @@ set number
 set relativenumber     " take a look at AUTOCMD section
 "set numberwidth=3
 
-" TABSTOP ---------------{{{
-" Set the tab width
-let s:tabwidth=4
-exec 'set tabstop='     . s:tabwidth 
-exec 'set shiftwidth='  . s:tabwidth
-exec 'set softtabstop=' . s:tabwidth
-" }}}
+" TABSTOP ---------------
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " when hitting <BS>, pretend like a tab is removed, even if spaces
+set expandtab       " tabs are spaces
+
+set shiftwidth=4    " number of spaces to use for autoindenting
+set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
 
 " WRAP and INDENT -------
 
@@ -73,25 +74,28 @@ set foldnestmax=3       "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "fold level-1 when openning a file
 
-" }}}
-" ========================== USER INTERFACE ==========================={{{
 
-" COLORS and THEMES: {{{
+" }}}
+" ======================= USER INTERFACE CONFIG ======================={{{
+
+" COLORS and THEMES -----
 set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace"
 
 execute "set background=".$BACKGROUND
-execute "colorscheme ".$THEME
+"execute "colorscheme ".$THEME
+colorscheme badwolf
 
+syntax enable           " enable syntax processing
+"set showmatch           " highlight matching [{()}]
 
 " }}}
 
-
-" }}}
-
-" =========== MAPPINGS : general shorcut for functionality ============" {{{
+" =========== MAPPINGS : general shorcut for functionality ============"{{{
 " shortcut to save
 noremap <leader><leader> :w<cr>
+noremap <C-s> :w<cr>
+noremap! <C-s> <esc>:w<cr>
 
 " invisible characters
 set invlist
@@ -105,18 +109,34 @@ noremap <silent> <C-h> :call WinMove('h')<cr>
 noremap <silent> <C-j> :call WinMove('j')<cr>
 noremap <silent> <C-k> :call WinMove('k')<cr>
 noremap <silent> <C-l> :call WinMove('l')<cr>
+
 " Column scroll-binding on <leader>sb
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
 " Open current fold, closing every other fold to get more focus
 nnoremap zz zozMzvzz
 
+" move vertically by visual line instead of "real" long line
+nnoremap j gj
+nnoremap k gk
+
+" highlight last inserted text
+nnoremap gV `[v`]
+
+
+" insert a new line after/before the current line
+noremap <CR> o<Esc>
+
+" clear highlighted searches
+noremap <silent> ,/ :nohlsearch<CR>
+
+" for when you forgot to sudo before editing a file that requires root privileges
+cmap w!! w !sudo tee % >/dev/null
+
 " }}}
 " ===== AUTOCOMD : CURSOR HIGHLIGHT & FILE TYPE-SPECIFIC SETTINGS ====="{{{
 if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
-
-	" filetype-specific autocommands
-	" ----------------------------------------------------------------"{{{
+	" filetype-specific autocommands ---------------------------------"{{{
 	augroup filespecific
 	  autocmd!
 	  au BufRead,BufNewFile *.json set ft=javascript
@@ -132,17 +152,15 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
 		\ if line("'\"") > 0 && line("'\"") <= line("$") |
 		\   exe "normal g`\"" |
 		\ endif
-	"}}}
-	" Reload .vimrc and .gvimrc files as soon as they have a change
-	" ----------------------------------------------------------------
+	" }}}
+	" Reload .vimrc and .gvimrc files as soon as they have a change --"{{{
 	augroup VimReload
 		autocmd!
 		autocmd BufWritePost $MYVIMRC source $MYVIMRC
 		autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
 	augroup END
-
-	" Mode-aware settings (color (relative) line number, colorize line/column ...)
-	" ---------------------------------------------------------------------------"{{{
+	" }}}
+	" Mode-aware settings (color (relative) line number, colorize line/column ...)"{{{
 	" forks of http://stackoverflow.com/questions/15561132/run-command-when-vim-enters-visual-mode
 	set noshowmode
 	augroup HiLightCursor
@@ -164,7 +182,7 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
 			echo "Enter Insert Mode"
 			setlocal norelativenumber cursorline cursorcolumn
 			highlight CursorLineNr ctermfg=3 guifg=#268bd2
-			hi CursorLine ctermfg=NONE ctermbg=232 cterm=bold guifg=Cyan guibg=#3E3D32 gui=bold
+			hi CursorLine ctermfg=NONE ctermbg=234 cterm=bold guifg=Cyan guibg=#3E3D32 gui=bold
 			hi CursorColumn ctermfg=NONE ctermbg=234 cterm=NONE guifg=white guibg=#323D3E gui=bold
 			hi Cursor ctermfg=red ctermbg=blue cterm=bold guifg=white guibg=#00AAFF gui=bold
 	" REPLACE MODE
@@ -194,87 +212,62 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
 	endfunction
 
 	function! ResetCursorColor()
-		set updatetime=8000 " milliseconds
+		set updatetime=15000 " milliseconds
 	" NORMAL MODE
 		echo "Back to Normal Mode"
 		setlocal relativenumber cursorline cursorcolumn
 		highlight CursorLineNr cterm=none ctermfg=red guifg=#073642
-		hi CursorLine cterm=bold ctermbg=235
+		hi CursorLine cterm=bold ctermbg=23
 		hi CursorColumn ctermfg=NONE ctermbg=235 cterm=NONE guifg=white guibg=#323D3E gui=bold
 	endfunction
-	"}}}
+	" }}}
 endif
-"}}}
+" }}}
 
 " ========================= OS-SPECIFIC SETTINGS ====================="{{{
 " 1. Use the system's clipboard
 " 2. 
 " Windows: {{{
 if has('win32') || has('win64')
-  set gfn=Consolas:h10
-  set clipboard=unnamed
+	set gfn=Consolas:h10
+	set clipboard=unnamed
 " }}}
 else
-  let s:kernel = system('echo -n "$(uname -s)"')
+	let s:kernel = system('echo -n "$(uname -s)"')
 " Mac: {{{
-  if s:kernel == 'Darwin'
-    set gfn=Menlo:h12
-    " this doesn't work in mountain lion's default vim (does on macvim)
-    set clipboard=unnamed    " brew install reattach-to-user-namespace
+	if s:kernel == 'Darwin'
+		set gfn=Menlo:h12
+		" this doesn't work in mountain lion's default vim (does on macvim)
+		set clipboard=unnamed    " brew install reattach-to-user-namespace
 " }}}
 " Linux: {{{
-  elseif s:kernel == 'Linux'
-"    set guifont=DejaVu\ Sans\ Mono\ 10
-    set clipboard=unnamedplus " copy/paste between gui/cli --> require xclip/xsel
-  endif
+	elseif s:kernel == 'Linux'
+		set clipboard=unnamed,unnamedplus " copy/paste between gui/cli --> require xclip/xsel
+	endif
 endif
 " }}}
 " }}}
 
 " ========================== PLUGIN SETTINGS ========================={{{
+
+" toggle gundo
+nnoremap <leader>u :GundoToggle<CR>
+
 " toggle cursor {{{
 
 " }}}
 
 " CtrlP {{{
 let g:ctrlp_dotfiles = 1                " enable search for dotfiles
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0           " always open files in new buffers
+let g:ctrlp_working_path_mode = 0
+" use ag (an external command) to improve finding maching files
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 "}}} ------------------------------------------------------
 " }}}
 
-
 " ============================= FUNCTIONS ============================={{{
-" Hight light interesting words ---------------{{{
-function! HiInterestingWord(n)
-    " Save our location.
-    normal! mz
-    " Yank the current word into the z register.
-    normal! "zyiw
-    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-    let mid = 86750 + a:n
-    " Clear existing matches, but don't worry if they don't exist.
-    silent! call matchdelete(mid)
-    " Construct a literal pattern that has to match at boundaries.
-    let pat = '\V\<' . escape(@z, '\') . '\>'
-    " Actually match the words.
-    call matchadd("InterestingWord" . a:n, pat, 1, mid)
-    " Move back to our original location.
-    normal! `z
-endfunction
-
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-" }}}
 
 " }}}
 

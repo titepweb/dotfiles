@@ -18,6 +18,9 @@ EOF
 install zsh
 install xclip
 install neovim
+install python2-neovim   # required for gundo
+install the_silver_searcher     # ag - code-searching tool similar to ack, but faster
+
 install tmux 
 install xorg-xmodmap
 # install xkeycaps       # for keycode
