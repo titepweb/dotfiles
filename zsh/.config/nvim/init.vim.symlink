@@ -151,7 +151,16 @@ Plug 'sjl/gundo.vim'                " require to install python2-neovim (remap t
     nnoremap <leader>u :GundoToggle<CR>
     " }}}
 Plug 'majutsushi/tagbar'            " require to install ctags
-"Plug 'scrooloose/nerdtree'         " file browser (remap to <leader>-k)
+Plug 'scrooloose/nerdtree'         " file browser (remap to <leader>-k)
+    " settings for NERDTree {{{
+    let g:NERDTreeQuitOnOpen=1          " close NERDTree after a file is opened
+    let NERDTreeShowHidden=1            " show hidden files in NERDTree
+    let NERDTreeIgnore = ['\.js.map$']  " remove some files by extension
+    noremap <silent> <leader>k :NERDTreeToggle<cr> 
+    " expand to the path of the file in the current buffer
+    noremap <silent> <leader><S-k> :NERDTreeFind<cr>
+    " }}}
+
 "Plug 'easymotion/vim-easymotion'
 
 "Plug 'ctrlpvim/ctrlp.vim'          " fuzzy search (of course, C-p)
@@ -162,7 +171,7 @@ Plug 'majutsushi/tagbar'            " require to install ctags
     let g:ctrlp_working_path_mode = 0
     " use ag (an external command) to improve finding maching files
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-    "}}} ------------------------------------------------------
+    " }}}
 
 " language-specific plugins --------------------
 
@@ -242,7 +251,6 @@ set noshowmode          "hide INSERT-VISUAL...text, we already have statusbar
 " Search & Replace {{{ ==============================================
 "automatically inserting a \v for searching using regex
 nnoremap / /\v
-vnoremap / /\v
 
 set gdefault    " applies substitutions globally on lines instead of the first occurrance
 set hlsearch    " highlight the search result
@@ -331,8 +339,8 @@ nmap <silent> <leader>b :bw<cr>
     if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
 	" Filetype-specific autocommands --------------------------------"{{{
     augroup filespecific
-      "directive clears all the autocmd's for the current group.
-        autocmd!
+        "directive clears all the autocmd's for the current group.
+        autocmd! 
         au BufRead,BufNewFile *.json set ft=javascript
         autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
         autocmd FileType help nested call ILikeHelpToTheRight()
