@@ -14,14 +14,14 @@ noremap : ;
 " bad habit become useful to quit insert mode
 inoremap jk <Esc>
 " }}}
-" Vim-Plug & Plugins with their settings "{{{ =======================
-" Autoinstall vim-plug {{{
+" Autoinstall vim-plug {{{ ==========================================
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
 " }}}
+" Plugins with their settings "{{{ ==================================
 call plug#begin('~/.config/nvim/plugged')
 " colorscheme & appearance ----------------------
 "Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
@@ -88,9 +88,7 @@ Plug 'itchyny/landscape.vim'
 
 " utilities ------------------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" use ack and ag as a replacement for vim's built in grep and vimgrep
-Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> ? --> o/v ...
-    " settings for fzf + Ack/Ag {{{
+    " settings for fzf {{{
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
     let g:fzf_height='35%'
     let g:fzf_action = {
@@ -117,18 +115,11 @@ Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> 
     else
     " CtrlP fallback
     end
-
-
-
-    let g:fzf_nvim_statusline = 1 " disable statusline overwriting
-"    noremap <C-p> :FZF -m --no-hscroll<CR> 
-
-    nnoremap <silent> <leader>gl :Commits<CR>
-    nnoremap <silent> <leader>ga :BCommits<CR>
-
-    imap <C-x><C-f> <plug>(fzf-complete-file-ag)
-    imap <C-x><C-l> <plug>(fzf-complete-line)
-
+    " }}}
+" use ack and ag as a replacement for vim's built in grep and vimgrep
+Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> ? --> o/v ...
+    " settings for Ack/Ag {{{
+    nnoremap <silent> <leader>/ :execute 'Ack ' . input('Ack/')<CR>
     if executable('ag')
         let g:ackprg = 'ag --nogroup --nocolor --column'
     endif
@@ -140,7 +131,7 @@ Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> 
         execute 'Ack' expand('<cword>')
     endfunction
 
-    function! SearchVisualSelectionWithAg()
+    function! SearchVisualSelectionWithAg() range
         let old_reg = getreg('"')
         let old_regtype = getregtype('"')
         let old_clipboard = &clipboard
@@ -151,7 +142,6 @@ Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> 
         let &clipboard = old_clipboard
         execute 'Ack' selection
     endfunction
-
     " }}}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -159,7 +149,7 @@ Plug 'benmills/vimux'               " interact with tmux to run commands (projec
 Plug 'sjl/gundo.vim'                " require to install python2-neovim (remap to <leader>-u)
     " settings for toggle gundo {{{
     nnoremap <leader>u :GundoToggle<CR>
-    "}}} ------------------------------------------------------
+    " }}}
 Plug 'majutsushi/tagbar'            " require to install ctags
 "Plug 'scrooloose/nerdtree'         " file browser (remap to <leader>-k)
 "Plug 'easymotion/vim-easymotion'
@@ -263,12 +253,12 @@ set smartcase   " case-sensitive if expresson contains a capital letter
 " }}}
 " Backups and Undo {{{ ==============================================
 " Keep undo history across sessions, by storing in file.
-    set undofile
 if has('persistent_undo') && !isdirectory(expand('~').'/.vim/undo')
     silent !mkdir ~/.vim/undo > /dev/null 2>&1
-    set undodir=~/.vim/undo
-    set undofile
 endif
+
+set undofile
+set undodir=~/.vim/undo
 
 set nobackup                " do not keep backup files, it's 70's style cluttering
 set noswapfile              " do not write annoying intermediate swap files,
@@ -318,7 +308,7 @@ noremap <CR> o<Esc>
 " clear highlighted searches
 noremap <silent> ,/ :nohlsearch<CR>
 " search for word under the cursor
-nnoremap <leader>/ "fyiw :/<c-r>f<cr>
+"nnoremap <leader>/ "fyiw :/<c-r>f<cr>
 
 " for when you forgot to sudo before editing a file that requires root privileges
 cmap w!! w !sudo tee % >/dev/null
@@ -336,71 +326,9 @@ nmap <leader>. <c-^>
 " wipout buffer
 nmap <silent> <leader>b :bw<cr>
 
-" TABS (Cross-platform) -----------------------{{{
-	if has("gui_macvim") " OS X
-		"set guifont=Monaco:h14
-		set guifont=Monaco:h12
-		"set noantialias
-		"set transparency=15
-
-		" Swipe to move between bufers :D
-		map <silent> <SwipeLeft> :bprev<CR>
-		map <silent> <SwipeRight> :bnext<CR>
-
-		" Cmd+Shift+N = new buffer
-		map <silent> <D-N> :enew<CR>
-
-		" Cmd+t = new tab
-		nnoremap <silent> <D-t> :tabnew<CR>
-
-		" Cmd+w = close tab (this should happen by default)
-		nnoremap <silent> <D-w> :tabclose<CR>
-
-		" Cmd+1...9 = go to that tab
-		map <silent> <D-1> 1gt
-		map <silent> <D-2> 2gt
-		map <silent> <D-3> 3gt
-		map <silent> <D-4> 4gt
-		map <silent> <D-5> 5gt
-		map <silent> <D-6> 6gt
-		map <silent> <D-7> 7gt
-		map <silent> <D-8> 8gt
-		map <silent> <D-9> 9gt
-
-		" OS X probably has ctags in a weird place
-		let g:tagbar_ctags_bin='/usr/local/bin/ctags'
-
-	elseif has("gui_gtk2") " Linux
-		set guifont=menlo\ 9
-
-		" Alt+n = new buffer
-		map <silent> <A-n> :enew<CR>
-
-		" Alt+t = new tab
-		nnoremap <silent> <A-t> :tabnew<CR>
-
-		" Alt+w = close tab
-		nnoremap <silent> <A-w> :tabclose<CR>
-
-		" Alt+1...9 = go to that tab
-		map <silent> <A-1> 1gt
-		map <silent> <A-2> 2gt
-		map <silent> <A-3> 3gt
-		map <silent> <A-4> 4gt
-		map <silent> <A-5> 5gt
-		map <silent> <A-6> 6gt
-		map <silent> <A-7> 7gt
-		map <silent> <A-8> 8gt
-		map <silent> <A-9> 9gt
-
-	elseif has("gui_win32") " Windows
-		" kek
-	endif
-" }}}
-
 " }}}
 " AUTOCOMD : cursor highlight, file type-specific settings, etc. ====
-if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
+    if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
 	" Filetype-specific autocommands --------------------------------"{{{
     augroup filespecific
       "directive clears all the autocmd's for the current group.
@@ -496,20 +424,82 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
     " Save all files on focus lost, ignoring warnings about untitled buffers {{{
     autocmd FocusLost * silent! wa
     " }}}
-endif
-" OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS {{{ ================
-if has('win32') || has('win64')
-	set gfn=Consolas:h10
-	set clipboard=unnamed
-else
-	let s:kernel = system('echo -n "$(uname -s)"')
-	if s:kernel == 'Darwin'
-		set gfn=Menlo:h12
-		" this doesn't work in mountain lion's default vim (does on macvim)
-		set clipboard=unnamed    " brew install reattach-to-user-namespace
-	elseif s:kernel == 'Linux'
-		set clipboard=unnamed,unnamedplus " copy/paste between gui/cli --> require xclip/xsel
+    endif
+" OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS ====================
+    " System clipboard {{{ ------------------------------------------
+    if has('win32') || has('win64')
+        set gfn=Consolas:h10
+        set clipboard=unnamed
+    else
+        let s:kernel = system('echo -n "$(uname -s)"')
+        if s:kernel == 'Darwin'
+            set guifont=Menlo:h12
+            " this doesn't work in mountain lion's default vim (does on macvim)
+            set clipboard=unnamed    " brew install reattach-to-user-namespace
+        elseif s:kernel == 'Linux'
+            set clipboard=unnamed,unnamedplus " copy/paste between gui/cli --> require xclip/xsel
+        endif
+    endif
+    " }}}
+    " Tab keybindings {{{ -------------------------------------------
+	if has("gui_macvim") " OS X
+		"set guifont=Monaco:h14
+		set guifont=Monaco:h12
+		"set noantialias
+		"set transparency=15
+
+		" Swipe to move between bufers :D
+		map <silent> <SwipeLeft> :bprev<CR>
+		map <silent> <SwipeRight> :bnext<CR>
+
+		" Cmd+Shift+N = new buffer
+		map <silent> <D-N> :enew<CR>
+
+		" Cmd+t = new tab
+		nnoremap <silent> <D-t> :tabnew<CR>
+
+		" Cmd+w = close tab (this should happen by default)
+		nnoremap <silent> <D-w> :tabclose<CR>
+
+		" Cmd+1...9 = go to that tab
+		map <silent> <D-1> 1gt
+		map <silent> <D-2> 2gt
+		map <silent> <D-3> 3gt
+		map <silent> <D-4> 4gt
+		map <silent> <D-5> 5gt
+		map <silent> <D-6> 6gt
+		map <silent> <D-7> 7gt
+		map <silent> <D-8> 8gt
+		map <silent> <D-9> 9gt
+
+		" OS X probably has ctags in a weird place
+		let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+
+	elseif has("gui_gtk2") " Linux
+		set guifont=menlo\ 9
+
+		" Alt+n = new buffer
+		map <silent> <A-n> :enew<CR>
+
+		" Alt+t = new tab
+		nnoremap <silent> <A-t> :tabnew<CR>
+
+		" Alt+w = close tab
+		nnoremap <silent> <A-w> :tabclose<CR>
+
+		" Alt+1...9 = go to that tab
+		map <silent> <A-1> 1gt
+		map <silent> <A-2> 2gt
+		map <silent> <A-3> 3gt
+		map <silent> <A-4> 4gt
+		map <silent> <A-5> 5gt
+		map <silent> <A-6> 6gt
+		map <silent> <A-7> 7gt
+		map <silent> <A-8> 8gt
+		map <silent> <A-9> 9gt
+
+	elseif has("gui_win32") " Windows
+		" :D
 	endif
-endif
 " }}}
 " vim:foldmethod=marker:foldlevel=0:syntax=vim
