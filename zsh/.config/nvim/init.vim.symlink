@@ -1,21 +1,178 @@
-" Vim-Plug "{{{ =====================================================
-call plug#begin('~/.config/nvim/plugged')
+" First and Foremost {{{ ============================================
+set nocompatible " Forget compatibility with vi (This must be first)
 
+set encoding=utf-8
+set fenc=utf-8
+set termencoding=utf-8
+
+" set a map leader for more key combos
+let mapleader = ' '
+let g:mapleader = ' '
+" save a lot of unneeded shifting
+noremap ; :
+noremap : ;
+" bad habit become useful to quit insert mode
+inoremap jk <Esc>
+" }}}
+" Vim-Plug & Plugins with their settings "{{{ =======================
+" Autoinstall vim-plug {{{
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+" }}}
+call plug#begin('~/.config/nvim/plugged')
 " colorscheme & appearance ----------------------
-Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
+"Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
 "Plug 'sjl/badwolf'
-Plug 'itchyny/lightline.vim'            " statusline
+Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
+    " settings for lightline {{{
+    let g:lightline = {
+        \ 'colorscheme' : 'Tomorrow_Night_Eighties',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component': {
+        \   'fugitive': '%{exists("*fugitive#head") ? " ".fugitive#head() : ""}'
+        \ },
+        \ 'component_function': {
+        \   'readonly': 'LightLineReadonly',
+        \   'modified': 'LightLineModified',
+        \   'filename': 'LightLineFilename'
+        \ },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
+
+    function! LightLineModified()
+    if &filetype == "help"
+        return ""
+    elseif &modified
+        return "+"
+    elseif &modifiable
+        return ""
+    else
+        return ""
+    endif
+    endfunction
+
+    function! LightLineReadonly()
+    if &filetype == "help"
+        return ""
+    elseif &readonly
+        return ""
+    else
+        return ""
+    endif
+    endfunction
+
+    function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+    endfunction
+    "}}}
 Plug 'jszakmeister/vim-togglecursor'
+Plug 'junegunn/rainbow_parentheses.vim' " visualize nested parentheses
+    " settings for rainbow_parentheses {{{
+    let g:rainbow#max_level = 8
+    let g:rainbow#pairs = [['(', ')'], ['[', ']']]
+    " Activate rainbow_parentheses
+    if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
+        autocmd VimEnter * RainbowParentheses
+    endif
+    "}}}
 Plug 'itchyny/landscape.vim'
 
 " utilities ------------------------------------
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" use ack and ag as a replacement for vim's built in grep and vimgrep
+Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> ? --> o/v ...
+    " settings for fzf + Ack/Ag {{{
+    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+    let g:fzf_height='35%'
+    let g:fzf_action = {
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-s': 'split',
+        \ 'ctrl-v': 'vsplit'
+        \ }
+
+    if executable('fzf')
+        " <C-p> or <C-t> to search files (-m means multi-select with (shift)tab)
+        noremap <silent> <C-p> :FZF -m --no-hscroll<cr>
+        
+        " Open files in vertical horizontal split
+        nnoremap <silent> <Leader>v :call fzf#run({
+        \   'right': winwidth('.') / 2,
+        \   'sink':  'vertical botright split' })<CR>
+
+        " <M-p> for open buffers
+        nnoremap <silent> <M-p> :Buffers<cr>
+
+        " <M-S-p> for MRU
+        nnoremap <silent> <M-S-p> :History<cr>
+
+    else
+    " CtrlP fallback
+    end
+
+
+
+    let g:fzf_nvim_statusline = 1 " disable statusline overwriting
+"    noremap <C-p> :FZF -m --no-hscroll<CR> 
+
+    nnoremap <silent> <leader>gl :Commits<CR>
+    nnoremap <silent> <leader>ga :BCommits<CR>
+
+    imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+    imap <C-x><C-l> <plug>(fzf-complete-line)
+
+    if executable('ag')
+        let g:ackprg = 'ag --nogroup --nocolor --column'
+    endif
+
+    nnoremap <silent> S :call SearchWordWithAg()<CR>
+    vnoremap <silent> <C-F> :call SearchVisualSelectionWithAg()<CR>
+
+    function! SearchWordWithAg()
+        execute 'Ack' expand('<cword>')
+    endfunction
+
+    function! SearchVisualSelectionWithAg()
+        let old_reg = getreg('"')
+        let old_regtype = getregtype('"')
+        let old_clipboard = &clipboard
+        set clipboard&
+        normal! ""gvy
+        let selection = getreg('"')
+        call setreg('"', old_reg, old_regtype)
+        let &clipboard = old_clipboard
+        execute 'Ack' selection
+    endfunction
+
+    " }}}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'               " interact with tmux to run commands (project-specific settings at <project>.vimrc)
-Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>)
-Plug 'ctrlpvim/ctrlp.vim'           " fuzzy search (of course, C-p)
-Plug 'sjl/gundo.vim'                " require to install python2-neovim
+Plug 'sjl/gundo.vim'                " require to install python2-neovim (remap to <leader>-u)
+    " settings for toggle gundo {{{
+    nnoremap <leader>u :GundoToggle<CR>
+    "}}} ------------------------------------------------------
+Plug 'majutsushi/tagbar'            " require to install ctags
+"Plug 'scrooloose/nerdtree'         " file browser (remap to <leader>-k)
 "Plug 'easymotion/vim-easymotion'
+
+"Plug 'ctrlpvim/ctrlp.vim'          " fuzzy search (of course, C-p)
+    " settings for CtrlP {{{
+    let g:ctrlp_dotfiles = 1                " enable search for dotfiles
+    let g:ctrlp_match_window = 'bottom,order:ttb'
+    let g:ctrlp_switch_buffer = 0           " always open files in new buffers
+    let g:ctrlp_working_path_mode = 0
+    " use ag (an external command) to improve finding maching files
+    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+    "}}} ------------------------------------------------------
 
 " language-specific plugins --------------------
 
@@ -34,26 +191,12 @@ for fpath in split(globpath('~/.config/nvim/autosource/', '*.vim'), '\n')
 	:call Source(fpath)
 endfor
 "}}}
-" What most important {{{ ===========================================
-set nocompatible " Forget compatibility with vi (This must be first)
-
-set encoding=utf-8
-set fenc=utf-8
-set termencoding=utf-8
-
-" set a map leader for more key combos
-let mapleader = ' '
-let g:mapleader = ' '
-" save a lot of unneeded shifting
-noremap ; :
-noremap : ;
-" bad habit become useful to quit insert mode
-inoremap jk <Esc>
-" }}}
 " Code folding settings {{{ =========================================
-"set foldmethod=syntax  "fold based on indentation, rather than markers
+set foldmethod=syntax   "fold based on indentation, rather than markers
 set foldlevel=0         "fold level-0 when openning a file
 set modelines=1         "check just the final line of the file for a modeline
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+                        " which commands trigger auto-unfold
 " }}}
 " Indentation  {{{ ==================================================
 " Lines too long to fit on one screen will be truncated.
@@ -80,6 +223,14 @@ set expandtab       " insert tabs rather than spaces for <Tab>
 
 set shiftwidth=4    " number of spaces to use for autoindenting
 set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
+
+" invisible characters
+set invlist
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+"set listchars=precedes:←,extends:→,nbsp:◊,trail:⠿,eol:\ ,tab:●·
+highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
+set showbreak=↪
+noremap <leader>l :set list!<cr>
 " }}}
 " Aesthetics & User Inferace Config {{{ =============================
 set t_Co=256
@@ -112,6 +263,7 @@ set smartcase   " case-sensitive if expresson contains a capital letter
 " }}}
 " Backups and Undo {{{ ==============================================
 " Keep undo history across sessions, by storing in file.
+    set undofile
 if has('persistent_undo') && !isdirectory(expand('~').'/.vim/undo')
     silent !mkdir ~/.vim/undo > /dev/null 2>&1
     set undodir=~/.vim/undo
@@ -130,13 +282,6 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 noremap <leader><leader> :w<cr>
 noremap <C-s> :w<cr>
 noremap! <C-s> <esc>:w<cr>
-
-" invisible characters
-set invlist
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
-set showbreak=↪
-noremap <leader>l :set list!<cr>
 
 " SPLIT ---------------------------------------> splitview.vim
 set splitright
@@ -254,17 +399,26 @@ nmap <silent> <leader>b :bw<cr>
 " }}}
 
 " }}}
-" AUTOCOMD : CURSOR HIGHLIGHT & FILE TYPE-SPECIFIC SETTINGS {{{ =====
+" AUTOCOMD : cursor highlight, file type-specific settings, etc. ====
 if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
-	" filetype-specific autocommands ---------------------------------"{{{
+	" Filetype-specific autocommands --------------------------------"{{{
     augroup filespecific
       "directive clears all the autocmd's for the current group.
         autocmd!
         au BufRead,BufNewFile *.json set ft=javascript
         autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
+        autocmd FileType help nested call ILikeHelpToTheRight()
 	augroup END
-
-	" When editing a file, always jump to the last known cursor position.
+    " }}}
+    " Open help files vertically ------------------------------------"{{{
+    function! ILikeHelpToTheRight()
+    if !exists('w:help_is_moved') || w:help_is_moved != "right"
+        wincmd L
+        let w:help_is_moved = "right"
+    endif
+    endfunction
+    " }}}
+	" When editing a file, always jump to the last known cursor position.{{{
 	" Don't do it when the position is invalid or when inside an event handler
 	" (happens when dropping a file on gvim).
 	autocmd BufReadPost *
@@ -272,14 +426,14 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
 		\   exe "normal g`\"" |
 		\ endif
 	" }}}
-	" Reload .vimrc and .gvimrc files as soon as they have a change --"{{{
+	" Reload .vimrc and .gvimrc files as soon as they have a change -"{{{
 	augroup VimReload
 		autocmd!
 		autocmd BufWritePost $MYVIMRC source $MYVIMRC
 		autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
 	augroup END
 	" }}}
-	" Mode-aware settings (color (relative) line number, colorize line/column ...)"{{{
+	" Mode-aware settings (colorize line number/line/column ...) ----"{{{
 	" forks of http://stackoverflow.com/questions/15561132/run-command-when-vim-enters-visual-mode
 	augroup HiLightCursor
 		autocmd!
@@ -339,23 +493,10 @@ if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd 
 		hi CursorColumn ctermfg=NONE ctermbg=235 cterm=NONE guifg=white guibg=#323D3E gui=bold
 	endfunction
 	" }}}
-    " save all files on focus lost, ignoring warnings about untitled buffers {{{
+    " Save all files on focus lost, ignoring warnings about untitled buffers {{{
     autocmd FocusLost * silent! wa
     " }}}
-    " Open help files vertically
-    function! ILikeHelpToTheRight() "{{{
-    if !exists('w:help_is_moved') || w:help_is_moved != "right"
-        wincmd L
-        let w:help_is_moved = "right"
-    endif
-    endfunction
-
-    augroup HelpPages
-    autocmd FileType help nested call ILikeHelpToTheRight()
-    augroup END
-    " }}}
 endif
-" }}}
 " OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS {{{ ================
 if has('win32') || has('win64')
 	set gfn=Consolas:h10
@@ -371,63 +512,4 @@ else
 	endif
 endif
 " }}}
-" PLUGIN SETTINGS ===================================================
-    " toggle CtrlP {{{
-    let g:ctrlp_dotfiles = 1                " enable search for dotfiles
-    let g:ctrlp_match_window = 'bottom,order:ttb'
-    let g:ctrlp_switch_buffer = 0           " always open files in new buffers
-    let g:ctrlp_working_path_mode = 0
-    " use ag (an external command) to improve finding maching files
-    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-    "}}} ------------------------------------------------------
-    " toggle gundo {{{
-    nnoremap <leader>u :GundoToggle<CR>
-    "}}} ------------------------------------------------------
-    " lightline {{{
-    let g:lightline = {
-        \ 'colorscheme' : 'Tomorrow_Night_Eighties',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'filename' ] ]
-        \ },
-        \ 'component': {
-        \   'fugitive': '%{exists("*fugitive#head") ? " ".fugitive#head() : ""}'
-        \ },
-        \ 'component_function': {
-        \   'readonly': 'LightLineReadonly',
-        \   'modified': 'LightLineModified',
-        \   'filename': 'LightLineFilename'
-        \ },
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' }
-        \ }
-
-    function! LightLineModified()
-    if &filetype == "help"
-        return ""
-    elseif &modified
-        return "+"
-    elseif &modifiable
-        return ""
-    else
-        return ""
-    endif
-    endfunction
-
-    function! LightLineReadonly()
-    if &filetype == "help"
-        return ""
-    elseif &readonly
-        return ""
-    else
-        return ""
-    endif
-    endfunction
-
-    function! LightLineFilename()
-    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-    endfunction
-    "}}}
 " vim:foldmethod=marker:foldlevel=0:syntax=vim

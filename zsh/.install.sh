@@ -19,11 +19,16 @@ install zsh
 install xclip
 install neovim
 install python2-neovim   # required for gundo
-install the_silver_searcher     # ag for CtrlP - code-searching tool similar to ack, but faster
+# CtrlP, fzf can used with Ag/ag:
+install the_silver_searcher     # ag - code-searching tool similar to ack, but faster.
+# tagbar require ctags:
+install ctags           # ctags/etags vs cscope : which is the best ?
 
 install tmux 
+# map Capslock --> Escape (Vim)
 install xorg-xmodmap
-# install xkeycaps       # for keycode
+# install xkeycaps       # for keycode --> configure .Xmodmap
+
 #=[ vim-plug ]=================================#
 # better than vunddle , pretzo, or oh-my-zsh
 if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then

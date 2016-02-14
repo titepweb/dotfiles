@@ -1,0 +1,492 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+:	zsh/.config/nvim/old.vim	/^noremap : ;$/;"	m
+;	zsh/.config/nvim/old.vim	/^noremap ; :$/;"	m
+<C-c>	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^map <C-c> "+y<CR>$/;"	m
+<C-h>	zsh/.config/nvim/old.vim	/^noremap <silent> <C-h> :call WinMove('h')<cr>$/;"	m
+<C-j>	zsh/.config/nvim/old.vim	/^noremap <silent> <C-j> :call WinMove('j')<cr>$/;"	m
+<C-k>	zsh/.config/nvim/old.vim	/^noremap <silent> <C-k> :call WinMove('k')<cr>$/;"	m
+<C-l>	zsh/.config/nvim/old.vim	/^noremap <silent> <C-l> :call WinMove('l')<cr>$/;"	m
+<Leader>W	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^noremap <Leader>W :w !sudo tee % > \/dev\/null$/;"	m
+<Leader>t	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^nmap <silent><Leader>t :NERDTreeTabsToggle<CR> " open NERDTree with \\t$/;"	m
+<S-Tab>	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^inoremap <S-Tab> <C-D>$/;"	m
+<S-Tab>	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^nnoremap <S-Tab> <<_$/;"	m
+<S-Tab>	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^vnoremap <S-Tab> <gv$/;"	m
+<Tab>	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^nnoremap <Tab> >>_$/;"	m
+<Tab>	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^vnoremap <Tab> >gv$/;"	m
+<down>	zsh/.config/nvim/old.vim	/^inoremap <down> <nop>$/;"	m
+<leader>1	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>$/;"	m
+<leader>2	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>$/;"	m
+<leader>3	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>$/;"	m
+<leader>4	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>$/;"	m
+<leader>5	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>$/;"	m
+<leader>6	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>$/;"	m
+<leader>[	zsh/.config/nvim/old.vim	/^nmap <leader>[ <<$/;"	m
+<leader>[	zsh/.config/nvim/old.vim	/^vmap <leader>[ <gv$/;"	m
+<leader>]	zsh/.config/nvim/old.vim	/^nmap <leader>] >>$/;"	m
+<leader>]	zsh/.config/nvim/old.vim	/^vmap <leader>] >gv$/;"	m
+<leader>ev	zsh/.config/nvim/old.vim	/^nnoremap <silent> <leader>ev :tabnew<CR>:e $MYVIMRC<CR>$/;"	m
+<leader>k	zsh/.config/nvim/old.vim	/^noremap <silent> <leader>k :NERDTreeToggle<cr> $/;"	m
+<leader>l	zsh/.config/nvim/old.vim	/^noremap <leader>l :set list!<cr>$/;"	m
+<leader>sb	zsh/.config/nvim/old.vim	/^noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>$/;"	m
+<leader>sv	zsh/.config/nvim/old.vim	/^nnoremap <silent> <leader>sv :so $MYVIMRC<CR>$/;"	m
+<leader>y	zsh/.config/nvim/old.vim	/^nmap <silent> <leader>y :NERDTreeFind<cr>$/;"	m
+<left>	zsh/.config/nvim/old.vim	/^inoremap <left> <nop>$/;"	m
+<right>	zsh/.config/nvim/old.vim	/^inoremap <right> <nop>$/;"	m
+<up>	zsh/.config/nvim/old.vim	/^inoremap <up> <nop>$/;"	m
+ASK	bin/tm	/^function ASK {$/;"	f
+Archey	bin/archey3	/^class Archey(object):$/;"	c
+ArcheyConfigParser	bin/archey3	/^class ArcheyConfigParser(configparser.SafeConfigParser):$/;"	c
+ArgumentError	bin/archey3	/^class ArgumentError(Exception):$/;"	c
+BAD	bin/tm	/^function BAD {$/;"	f
+CLASS_MAPPINGS	bin/archey3	/^CLASS_MAPPINGS = {}$/;"	v
+COLORS	bin/archey3	/^COLORS = {$/;"	v
+CURSOR_POSITION	trivial/2bwm/config.h	33;"	d
+ChangeStatuslineColor	zsh/.config/nvim/statusline.vim	/^function! ChangeStatuslineColor() "{{{$/;"	f
+DESKTOPCHANGE	trivial/2bwm/config.h	72;"	d
+DE_DICT	bin/archey3	/^DE_DICT = collections.OrderedDict([$/;"	v
+DISPLAY_PARSING_REGEX	bin/archey3	/^    DISPLAY_PARSING_REGEX = "(?P<func>\\w+)\\((|(?P<args>[\\w, \/]+))\\)"$/;"	v	class:Archey
+ENC	bspwm/bin/nmcli_dmenu	/^ENC = locale.getpreferredencoding()$/;"	v
+ENV	bspwm/bin/nmcli_dmenu	/^ENV = os.environ.copy()$/;"	v
+FAIL	bin/tm	/^function FAIL {$/;"	f
+FileSize	zsh/.config/nvim/statusline.vim	/^function! FileSize() "{{{$/;"	f
+FixDOTFILES	install/linkdf	/^function FixDOTFILES () {$/;"	f
+FollowSymlink	zsh/.config/nvim/autosource.symlink/sane-working-directory.vim	/^function! FollowSymlink()$/;"	f
+GetRepoRoot	zsh/.config/nvim/autosource.symlink/sane-working-directory.vim	/^function! GetRepoRoot() " {{{$/;"	f
+HL	zsh/.config/nvim/colors.symlink/badwolf.vim	/^function! s:HL(group, fg, ...)$/;"	f
+HiInterestingWord	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^function! HiInterestingWord(n)$/;"	f
+INFO	bin/tm	/^function INFO {$/;"	f
+INSTALL_DOTFILES	install/linkdf	/^INSTALL_DOTFILES () {$/;"	f
+INSTALL_PACKAGES	install/installpkg	/^INSTALL_PACKAGES () {$/;"	f
+LOOK_INTO	trivial/2bwm/config.h	40;"	d
+Logger	bin/archey3	/^    class Logger(object):$/;"	c
+Logger	bin/archey3	/^    from logbook import Logger, lookup_level$/;"	i
+MOD	trivial/2bwm/config.h	3;"	d
+MkParentFolder	bin/tm	/^MkParentFolder() {$/;"	f
+MkParentFolder	install/linkdf	/^MkParentFolder() {$/;"	f
+MyFoldText	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^function! MyFoldText()$/;"	f
+NERDTreeIgnore	zsh/.config/nvim/old.vim	/^let NERDTreeIgnore = ['\\.js.map$']  " remove some files by extension$/;"	v
+NERDTreeShowHidden	zsh/.config/nvim/old.vim	/^let NERDTreeShowHidden=1            " show hidden files in NERDTree$/;"	v
+OK	bin/tm	/^function OK {$/;"	f
+OptionGroup	bin/test_color/terminal-colors.py	/^from optparse import OptionParser, OptionGroup, make_option$/;"	i
+OptionParser	bin/archey3	/^from optparse import OptionParser$/;"	i
+OptionParser	bin/test_color/terminal-colors.py	/^from optparse import OptionParser, OptionGroup, make_option$/;"	i
+PIPE	bin/archey3	/^from subprocess import Popen, PIPE$/;"	i
+PIPE	bspwm/bin/nmcli_dmenu	/^from subprocess import Popen, PIPE$/;"	i
+Popen	bin/archey3	/^from subprocess import Popen, PIPE$/;"	i
+Popen	bspwm/bin/nmcli_dmenu	/^from subprocess import Popen, PIPE$/;"	i
+SetProjectRoot	zsh/.config/nvim/autosource.symlink/sane-working-directory.vim	/^function! SetProjectRoot() " {{{$/;"	f
+ShortenFilename	zsh/.config/nvim/statusline.vim	/^function! ShortenFilename(bufname, maxlen) "{{{$/;"	f
+Source	zsh/.config/nvim/old.vim	/^function! Source(vimfile)$/;"	f
+State	bin/archey3	/^State = collections.namedtuple("State", "color config logger")$/;"	v
+StrTrim	zsh/.config/nvim/autosource.symlink/sane-working-directory.vim	/^function! StrTrim(txt) " {{{$/;"	f
+SymlinkOrCopy	install/linkdf	/^SymlinkOrCopy () {$/;"	f
+UNAME_FLAG_MEANINGS	bin/archey3	/^UNAME_FLAG_MEANINGS = {$/;"	v
+WM_DICT	bin/archey3	/^WM_DICT = collections.OrderedDict([$/;"	v
+WinMove	zsh/.config/nvim/autosource.symlink/splitview.vim	/^function! WinMove(key)$/;"	f
+__author__	bin/test_color/256color	/^__author__ = "Marius Gedminas <marius@gedmin.as>"$/;"	v
+__call__	bin/archey3	/^    def __call__(self, proc):$/;"	m	class:processCheck	file:
+__init__	bin/archey3	/^        def __init__(self, name, level=0):$/;"	m	class:Logger
+__init__	bin/archey3	/^    def __init__(self, **kwargs):$/;"	m	class:envDisplay
+__init__	bin/archey3	/^    def __init__(self, **kwargs):$/;"	m	class:fsDisplay
+__init__	bin/archey3	/^    def __init__(self, **kwargs):$/;"	m	class:mpdDisplay
+__init__	bin/archey3	/^    def __init__(self, **kwargs):$/;"	m	class:sensorDisplay
+__init__	bin/archey3	/^    def __init__(self, **kwargs):$/;"	m	class:unameDisplay
+__init__	bin/archey3	/^    def __init__(self, caller, message):$/;"	m	class:ArgumentError
+__init__	bin/archey3	/^    def __init__(self, config, options):$/;"	m	class:Archey
+__init__	bin/archey3	/^    def __init__(self, state, args=()):$/;"	m	class:display
+__metaclass__	bin/test_color/terminal-colors.py	/^    __metaclass__ = _staticmethods$/;"	v	class:term16
+__new__	bin/test_color/terminal-colors.py	/^    def __new__(cls, r, g, b):$/;"	m	class:rgb	file:
+__new__	bin/test_color/terminal-colors.py	/^    def __new__(m, n, b, d):$/;"	m	class:_staticmethods	file:
+__parse_git_branch	temp/git_info.sh	/^__parse_git_branch() {$/;"	f
+__parse_git_compare	temp/git_info.sh	/^__parse_git_compare() {$/;"	f
+__parse_git_modified	temp/git_info.sh	/^__parse_git_modified(){$/;"	f
+__parse_git_others	temp/git_info.sh	/^__parse_git_others(){$/;"	f
+__parse_git_staged	temp/git_info.sh	/^__parse_git_staged(){$/;"	f
+__str__	bin/test_color/terminal-colors.py	/^    def __str__(self):$/;"	m	class:rgb	file:
+__url__	bin/test_color/256color	/^__url__ = "https:\/\/gist.github.com\/mgedmin\/2762225"$/;"	v
+__version__	bin/test_color/256color	/^__version__ = '2.0'$/;"	v
+__version__	bin/test_color/terminal-colors.py	/^__version__ = __doc__.split('\\n')[0]$/;"	v
+_block_display	bin/test_color/terminal-colors.py	/^def _block_display(colors):$/;"	f
+_cached	bin/test_color/terminal-colors.py	/^def _cached(f):$/;"	f
+_colors	bin/test_color/terminal-colors.py	/^    def _colors():$/;"	m	class:term256
+_colors	bin/test_color/terminal-colors.py	/^    def _colors():$/;"	m	class:term88
+_compact_display	bin/test_color/terminal-colors.py	/^    def _compact_display():$/;"	m	class:term256
+_cube_display	bin/test_color/terminal-colors.py	/^def _cube_display(colors):$/;"	f
+_get_options	bin/test_color/terminal-colors.py	/^def _get_options(args):$/;"	f
+_greyscale	bin/test_color/terminal-colors.py	/^    def _greyscale():$/;"	m	class:term256
+_greyscale	bin/test_color/terminal-colors.py	/^    def _greyscale():$/;"	m	class:term88
+_horizontal	bin/test_color/terminal-colors.py	/^        def _horizontal(colors):$/;"	f	function:_cube_display
+_mp_render_helper	bin/archey3	/^def _mp_render_helper(container):$/;"	f
+_render	bin/test_color/terminal-colors.py	/^    def _render():$/;"	m	class:term16
+_render	bin/test_color/terminal-colors.py	/^    def _render(palette):$/;"	m	class:term256
+_render	bin/test_color/terminal-colors.py	/^    def _render(palette):$/;"	m	class:term88
+_rgb_color_table	bin/test_color/terminal-colors.py	/^    def _rgb_color_table():$/;"	m	class:term256
+_rgb_color_table	bin/test_color/terminal-colors.py	/^    def _rgb_color_table():$/;"	m	class:term88
+_rgb_display	bin/test_color/terminal-colors.py	/^    def _rgb_display():$/;"	m	class:term256
+_rgb_display	bin/test_color/terminal-colors.py	/^    def _rgb_display():$/;"	m	class:term88
+_rgb_lookup	bin/test_color/terminal-colors.py	/^    def _rgb_lookup():$/;"	m	class:term256
+_rgb_lookup	bin/test_color/terminal-colors.py	/^    def _rgb_lookup():$/;"	m	class:term88
+_staticmethods	bin/test_color/terminal-colors.py	/^class _staticmethods(type):$/;"	c
+_terminal	bin/test_color/terminal-colors.py	/^def _terminal():$/;"	f
+_to_rgb	bin/test_color/terminal-colors.py	/^    def _to_rgb(n):$/;"	m	class:term256
+_to_rgb	bin/test_color/terminal-colors.py	/^    def _to_rgb(n):$/;"	m	class:term88
+_upgrade_message	bin/archey3	/^    _upgrade_message = 'starting full system upgrade'$/;"	v	class:systemUpgrade
+_vertical	bin/test_color/terminal-colors.py	/^        def _vertical(colors):$/;"	f	function:_cube_display
+arrange_results	bin/archey3	/^    def arrange_results(self, results):$/;"	m	class:Archey
+badwolf_tex	zsh/.config/nvim/colors.symlink/badwolf.vim	/^augroup badwolf_tex$/;"	a
+base16colorspace	zsh/.config/nvim/old.vim	/^let base16colorspace=256  " Access colors present in 256 colorspace"$/;"	v
+basiccodes	bin/test_color/terminal-colors.py	/^    def basiccodes():$/;"	m	class:term16
+battery	bspwm/bin/barmk.sh	/^battery() {$/;"	f
+bg_escape	bin/test_color/terminal-colors.py	/^bg_escape = "\\x1b[48;5;%dm"$/;"	v
+bg_seq	bin/test_color/256color	/^def bg_seq(color):$/;"	f
+borders	trivial/2bwm/config.h	/^static const uint8_t borders[] = {3,5,5,4};$/;"	v
+build_prompt	zsh/prompt/zsh-inverted.sh	/^build_prompt() {$/;"	f
+build_prompt	zsh/prompt/zsh-nmdf.sh	/^build_prompt() {$/;"	f
+buttons	trivial/2bwm/config.h	/^static Button buttons[] = {$/;"	v
+cache	bin/test_color/terminal-colors.py	/^    def cache():$/;"	f	function:_cached
+call_command	bin/archey3	/^    def call_command(command):$/;"	m	class:display
+ceil	bin/test_color/terminal-colors.py	/^from math import ceil, sqrt$/;"	i
+changebrightness	bspwm/lemonbar/flashkbd	/^function changebrightness {$/;"	f
+changebrightness	bspwm/lemonbar/kbl	/^function changebrightness {$/;"	f
+check_setting	bin/localcheck.sh	/^check_setting() {$/;"	f
+choose_adapter	bspwm/bin/nmcli_dmenu	/^def choose_adapter():$/;"	f
+clear	bin/test_color/terminal-colors.py	/^clear = "\\x1b[0m"$/;"	v
+click1	trivial/2bwm/config.h	/^static const char *click1[]    = { "xdotool","click", "1", NULL };$/;"	v
+click2	trivial/2bwm/config.h	/^static const char *click2[]    = { "xdotool","click", "2", NULL };$/;"	v
+click3	trivial/2bwm/config.h	/^static const char *click3[]    = { "xdotool","click", "3", NULL };$/;"	v
+clock	bspwm/bin/barmk.sh	/^clock() {$/;"	f
+collections	bin/archey3	/^import collections$/;"	i
+color	bin/archey3	/^def color(state, code, bold=False):$/;"	f
+color_bar	bin/test_color/256color	/^def color_bar(seq, color, trail):$/;"	f
+color_me	bin/archey3	/^    def color_me(self, output, number=None, low=30, low_color='green',$/;"	m	class:display
+colors	trivial/2bwm/config.h	/^static const char *colors[] = {"#ffffff","#4c4c4c","#cef318","#d43f10","#ef79ae","#1d1d1d","#1d1d1d"};$/;"	v
+colors_name	zsh/.config/nvim/colors.symlink/Mustang.vim	/^let colors_name = "mustang"$/;"	v
+command	bin/archey3	/^        print("Could not find import command, install imagemagick")$/;"	i
+command_line	bin/archey3	/^    command_line = "cat \/proc\/cpuinfo"$/;"	v	class:cpuDisplay
+command_line	bin/archey3	/^    command_line = "df -TPh {arg1}"$/;"	v	class:fsDisplay
+command_line	bin/archey3	/^    command_line = "free -m"$/;"	v	class:ramDisplay
+command_line	bin/archey3	/^    command_line = "mpc stats --host {arg1} --port {arg2}"$/;"	v	class:mpdDisplay
+command_line	bin/archey3	/^    command_line = "pacman -Q"$/;"	v	class:packageDisplay
+command_line	bin/archey3	/^    command_line = "ps -u " + getuser()$/;"	v	class:processCheck
+command_line	bin/archey3	/^    command_line = "sensors {arg1}"$/;"	v	class:sensorDisplay
+command_line	bin/archey3	/^    command_line = "uname {arg1}"$/;"	v	class:unameDisplay
+command_line	bin/archey3	/^    command_line = ''$/;"	v	class:display
+configparser	bin/archey3	/^import subprocess, optparse, re, sys, configparser$/;"	i
+configparser	bspwm/bin/nmcli_dmenu	/^    import ConfigParser as configparser$/;"	i
+configparser	bspwm/bin/nmcli_dmenu	/^    import configparser as configparser$/;"	i
+conversions	bin/archey3	/^    conversions = {$/;"	v	class:fsDisplay
+convert256to88	bin/test_color/terminal-colors.py	/^def convert256to88(n):$/;"	f
+convert88to256	bin/test_color/terminal-colors.py	/^def convert88to256(n):$/;"	f
+cpuDisplay	bin/archey3	/^class cpuDisplay(display):$/;"	c
+cpuload	bspwm/bin/barmk.sh	/^cpuload() {$/;"	f
+create_tmuxconf	bin/tm	/^function create_tmuxconf() {$/;"	f
+ctime	bin/archey3	/^from time import ctime, sleep$/;"	i
+current_conns	bspwm/bin/nmcli_dmenu	/^def current_conns():$/;"	f
+current_ssids	bspwm/bin/nmcli_dmenu	/^def current_ssids(adapter):$/;"	f
+curses	bin/test_color/terminal-colors.py	/^import curses$/;"	i
+cursorline	zsh/.config/nvim/old.vim	/^augroup cursorline$/;"	a
+cwd	zsh/.config/nvim/old.vim	/^    cmap cwd lcd %:p:h " Change Working Directory to that of the current file$/;"	m
+datetime	bin/archey3	/^from datetime import datetime$/;"	i
+deDisplay	bin/archey3	/^class deDisplay(display):$/;"	c
+decorator	bin/archey3	/^    def decorator(cls):$/;"	f	function:module_register
+defaults	bin/archey3	/^    defaults = {'core': {'align': 'top',$/;"	v	class:ArcheyConfigParser
+die	zsh/bin.80%/tmux-osdep-copy-buffer	/^die() {$/;"	f
+display	bin/archey3	/^class display(object):$/;"	c
+display	bin/test_color/terminal-colors.py	/^    def display():$/;"	m	class:term16
+display	bin/test_color/terminal-colors.py	/^    def display():$/;"	m	class:term256
+display	bin/test_color/terminal-colors.py	/^    def display():$/;"	m	class:term88
+displayTitle	bin/tm	/^function displayTitle {$/;"	f
+distroCheck	bin/archey3	/^class distroCheck(display):$/;"	c
+dmenu_cmd	bspwm/bin/nmcli_dmenu	/^def dmenu_cmd(num_lines, prompt="Networks"):$/;"	f
+do_exit	bin/rain.sh	/^do_exit() {$/;"	f
+do_render	bin/rain.sh	/^do_render() {$/;"	f
+envDisplay	bin/archey3	/^class envDisplay(display):$/;"	c
+err	bspwm/dzen2/dzen_brightness.sh	/^err() {$/;"	f
+err	bspwm/dzen2/dzen_volume.sh	/^err() {$/;"	f
+expanduser	bspwm/bin/nmcli_dmenu	/^from os.path import expanduser$/;"	i
+fg_escape	bin/test_color/terminal-colors.py	/^fg_escape = "\\x1b[38;5;%dm"$/;"	v
+fg_seq	bin/test_color/256color	/^def fg_seq(color):$/;"	f
+finish	bspwm/lemonbar/classify	/^function finish {$/;"	f
+finish	bspwm/lemonbar/flashcaps	/^function finish {$/;"	f
+finish	bspwm/lemonbar/flashkbd	/^function finish {$/;"	f
+format_item	bin/archey3	/^    def format_item(self, item):$/;"	m	class:Archey
+format_output	bin/archey3	/^    def format_output(self, instring):$/;"	m	class:cpuDisplay
+format_output	bin/archey3	/^    def format_output(self, instring):$/;"	m	class:fsDisplay
+format_output	bin/archey3	/^    def format_output(self, instring):$/;"	m	class:mpdDisplay
+format_output	bin/archey3	/^    def format_output(self, instring):$/;"	m	class:packageDisplay
+format_output	bin/archey3	/^    def format_output(self, instring):$/;"	m	class:ramDisplay
+format_output	bin/archey3	/^    def format_output(self, instring):$/;"	m	class:sensorDisplay
+format_output	bin/archey3	/^    def format_output(self, instring):$/;"	m	class:unameDisplay
+fsDisplay	bin/archey3	/^class fsDisplay(display):$/;"	c
+g:NERDTreeMapActivateNode	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:NERDTreeMapActivateNode="<F3>"$/;"	v
+g:NERDTreeMapPreview	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:NERDTreeMapPreview="<F4>"$/;"	v
+g:NERDTreeQuitOnOpen	zsh/.config/nvim/old.vim	/^let g:NERDTreeQuitOnOpen=1          " close NERDTree after a file is opened$/;"	v
+g:airline#extensions#tabline#enabled	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline#extensions#tabline#enabled = 1$/;"	v
+g:airline#extensions#tabline#enabled	zsh/.config/nvim/old.vim	/^let g:airline#extensions#tabline#enabled = 1$/;"	v
+g:airline_detect_paste	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_detect_paste=1 " Show PASTE if in paste mode$/;"	v
+g:airline_detect_paste	zsh/.config/nvim/old.vim	/^let g:airline_detect_paste=1 " Show PASTE if in paste mode$/;"	v
+g:airline_left_alt_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_left_alt_sep = ''$/;"	v
+g:airline_left_alt_sep	zsh/.config/nvim/old.vim	/^let g:airline_left_alt_sep = ''$/;"	v
+g:airline_left_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_left_sep = '»'$/;"	v
+g:airline_left_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_left_sep = '▶'$/;"	v
+g:airline_left_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_left_sep = ''$/;"	v
+g:airline_left_sep	zsh/.config/nvim/old.vim	/^let g:airline_left_sep = '»'$/;"	v
+g:airline_left_sep	zsh/.config/nvim/old.vim	/^let g:airline_left_sep = '▶'$/;"	v
+g:airline_left_sep	zsh/.config/nvim/old.vim	/^let g:airline_left_sep = ''$/;"	v
+g:airline_powerline_fonts	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_powerline_fonts = 1$/;"	v
+g:airline_powerline_fonts	zsh/.config/nvim/old.vim	/^let g:airline_powerline_fonts = 1$/;"	v
+g:airline_right_alt_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_right_alt_sep = ''$/;"	v
+g:airline_right_alt_sep	zsh/.config/nvim/old.vim	/^let g:airline_right_alt_sep = ''$/;"	v
+g:airline_right_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_right_sep = '«'$/;"	v
+g:airline_right_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_right_sep = '◀'$/;"	v
+g:airline_right_sep	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_right_sep = ''$/;"	v
+g:airline_right_sep	zsh/.config/nvim/old.vim	/^let g:airline_right_sep = '«'$/;"	v
+g:airline_right_sep	zsh/.config/nvim/old.vim	/^let g:airline_right_sep = '◀'$/;"	v
+g:airline_right_sep	zsh/.config/nvim/old.vim	/^let g:airline_right_sep = ''$/;"	v
+g:airline_section	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_section=''$/;"	v
+g:airline_section	zsh/.config/nvim/old.vim	/^let g:airline_section=''$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^    let g:airline_symbols = {}$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.branch = '⎇'$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.branch = ''$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.linenr = '¶'$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.linenr = '␊'$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.linenr = '␤'$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.linenr = ''$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.paste = 'Þ'$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.paste = 'ρ'$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.paste = '∥'$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.readonly = ''$/;"	v
+g:airline_symbols	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:airline_symbols.whitespace = 'Ξ'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^    let g:airline_symbols = {}$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.branch = '⎇'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.branch = ''$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.linenr = '¶'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.linenr = '␊'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.linenr = '␤'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.linenr = ''$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.paste = 'Þ'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.paste = 'ρ'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.paste = '∥'$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.readonly = ''$/;"	v
+g:airline_symbols	zsh/.config/nvim/old.vim	/^let g:airline_symbols.whitespace = 'Ξ'$/;"	v
+g:badwolf_css_props_highlight	zsh/.config/nvim/colors.symlink/badwolf.vim	/^    let g:badwolf_css_props_highlight = 0$/;"	v
+g:badwolf_html_link_underline	zsh/.config/nvim/colors.symlink/badwolf.vim	/^    let g:badwolf_html_link_underline = 1$/;"	v
+g:colors_name	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let g:colors_name = "badwolf"$/;"	v
+g:ctrlp_dotfiles	zsh/.config/nvim/old.vim	/^let g:ctrlp_dotfiles = 1                " enable search for dotfiles$/;"	v
+g:currentmode	zsh/.config/nvim/statusline.vim	/^let g:currentmode={$/;"	v
+g:mapleader	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:mapleader = ' '$/;"	v
+g:nerdtree_tabs_open_on_console_startup	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:nerdtree_tabs_open_on_console_startup=0 " don't open NERDTree on startup$/;"	v
+g:pymode_breakpoint	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_breakpoint = 1$/;"	v
+g:pymode_breakpoint_bind	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_breakpoint_bind = '<leader>b'$/;"	v
+g:pymode_doc	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_doc = 1$/;"	v
+g:pymode_doc_key	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_doc_key = 'K'$/;"	v
+g:pymode_folding	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_folding = 0$/;"	v
+g:pymode_lint	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_lint = 1$/;"	v
+g:pymode_lint_checker	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_lint_checker = "pyflakes,pep8"$/;"	v
+g:pymode_lint_write	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_lint_write = 1$/;"	v
+g:pymode_rope	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_rope = 1$/;"	v
+g:pymode_rope_completion	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_rope_completion = 1$/;"	v
+g:pymode_rope_completion_bind	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_rope_completion_bind = '<C-Space>'$/;"	v
+g:pymode_rope_completion_on_dot	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_rope_completion_on_dot = 1$/;"	v
+g:pymode_rope_rename_bind	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_rope_rename_bind = '<C-c>rr'$/;"	v
+g:pymode_syntax	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_syntax = 1$/;"	v
+g:pymode_syntax_all	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_syntax_all = 1$/;"	v
+g:pymode_syntax_indent_errors	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_syntax_indent_errors = g:pymode_syntax_all$/;"	v
+g:pymode_syntax_space_errors	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_syntax_space_errors = g:pymode_syntax_all$/;"	v
+g:pymode_virtualenv	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:pymode_virtualenv = 1$/;"	v
+g:syntastic_always_populate_loc_list	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:syntastic_always_populate_loc_list = 1$/;"	v
+g:syntastic_auto_loc_list	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:syntastic_auto_loc_list = 1$/;"	v
+g:syntastic_check_on_open	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:syntastic_check_on_open = 1$/;"	v
+g:syntastic_check_on_wq	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:syntastic_check_on_wq = 0$/;"	v
+g:syntastic_sh_checkers	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let g:syntastic_sh_checkers = ["shellcheck"]$/;"	v
+get_active_connections	bspwm/bin/nmcli_dmenu	/^def get_active_connections():$/;"	f
+get_charset	bin/localcheck.sh	/^get_charset() {$/;"	f
+get_locale	bin/localcheck.sh	/^get_locale() {$/;"	f
+get_network_status	bspwm/bin/nmcli_dmenu	/^def get_network_status():$/;"	f
+get_passphrase	bspwm/bin/nmcli_dmenu	/^def get_passphrase():$/;"	f
+get_selection	bspwm/bin/nmcli_dmenu	/^def get_selection(ssids, vpns, other):$/;"	f
+get_tmux_cwd	temp/git_info.sh	/^get_tmux_cwd() {$/;"	f
+getenv	bin/archey3	/^from os import getenv$/;"	i
+getuser	bin/archey3	/^from getpass import getuser$/;"	i
+git_time_since_commit	zsh/prompt/zsh-nmdf.sh	/^function git_time_since_commit() {$/;"	f
+gmrun	trivial/2bwm/config.h	/^static const char *gmrun[]     = { "\/usr\/bin\/gmrun",NULL};$/;"	v
+groups	bspwm/bin/barmk.sh	/^groups() {$/;"	f
+halfandcentered	trivial/2bwm/config.h	/^static void halfandcentered(const Arg *arg)$/;"	f
+hg_branch	zsh/prompt/zsh-inverted.sh	/^function hg_branch() {$/;"	f
+hg_in_repo	zsh/prompt/zsh-inverted.sh	/^function hg_in_repo() {$/;"	f
+hrun	bin/test_color/256color	/^def hrun(start, width, padding=0):$/;"	f
+ignore_names	trivial/2bwm/config.h	/^static const char *ignore_names[] = {"bar", "xclock"};$/;"	v
+imagemagick	bin/archey3	/^        print("Could not find import command, install imagemagick")$/;"	i
+install	bin/archey3	/^        print("Could not find import command, install imagemagick")$/;"	i
+install	install/installpkg	/^install () {$/;"	f
+installed	install/installpkg	/^installed () {$/;"	f
+inverted_colors	trivial/2bwm/config.h	/^static const bool inverted_colors = false;$/;"	v
+is_light	bin/test_color/terminal-colors.py	/^    def is_light(self):$/;"	m	class:rgb
+is_locale_supported	bin/localcheck.sh	/^is_locale_supported() {$/;"	f
+itertools	bspwm/bin/nmcli_dmenu	/^import itertools$/;"	i
+jk	zsh/.config/nvim/old.vim	/^inoremap jk <Esc>$/;"	m
+keys	trivial/2bwm/config.h	/^static key keys[] = {$/;"	v
+label	bin/test_color/terminal-colors.py	/^    def label(n, esc):$/;"	m	class:term16
+launch_connection_editor	bspwm/bin/nmcli_dmenu	/^def launch_connection_editor():$/;"	f
+layout	bin/test_color/256color	/^layout = [$/;"	v
+load_default_config	bin/archey3	/^    def load_default_config(self):$/;"	m	class:ArcheyConfigParser
+locale	bspwm/bin/nmcli_dmenu	/^import locale$/;"	i
+lookup_level	bin/archey3	/^    def lookup_level(_):$/;"	f
+lookup_level	bin/archey3	/^    from logbook import Logger, lookup_level$/;"	i
+m	bin/test_color/terminal-colors.py	/^        def m(n):$/;"	f	function:convert88to256
+m	bin/test_color/terminal-colors.py	/^        def m(n, _ratio=(4.\/6.)):$/;"	f	function:convert256to88
+main	bin/archey3	/^def main():$/;"	f
+main	bin/test_color/256color	/^def main():$/;"	f
+main	bin/test_color/terminal-colors.py	/^def main():$/;"	f
+make_option	bin/test_color/terminal-colors.py	/^from optparse import OptionParser, OptionGroup, make_option$/;"	i
+mapleader	zsh/.config/nvim/experimental-vimrc.symlink/injected.vim	/^let mapleader = ' '$/;"	v
+mark_active	bspwm/bin/nmcli_dmenu	/^def mark_active(conns, active):$/;"	f
+memused	bspwm/bin/barmk.sh	/^memused() {$/;"	f
+menucmd	trivial/2bwm/config.h	/^static const char *menucmd[]   = { "\/usr\/bin\/my_menu.sh", NULL };$/;"	v
+module_register	bin/archey3	/^def module_register(name):$/;"	f
+movements	trivial/2bwm/config.h	/^static const uint16_t movements[] = {20,40,15,400};$/;"	v
+mpdDisplay	bin/archey3	/^class mpdDisplay(display):$/;"	c
+multiprocessing	bin/archey3	/^import multiprocessing$/;"	i
+network	bspwm/bin/barmk.sh	/^network() {$/;"	f
+nmdf_help	bin/nmdf	/^function nmdf_help {$/;"	f
+note	bin/localcheck.sh	/^note() { printf "\\e[33mnotice:\\e[m %s\\n" "$*"; ((++n_notices)); }$/;"	f
+nowplaying	bspwm/bin/barmk.sh	/^nowplaying() {$/;"	f
+offsets	trivial/2bwm/config.h	/^static const uint8_t offsets[] = {0,0,0,0};$/;"	v
+options	bin/test_color/terminal-colors.py	/^options = _get_options(sys.argv[1:])$/;"	v
+optparse	bin/archey3	/^import subprocess, optparse, re, sys, configparser$/;"	i
+os	bin/archey3	/^import os.path$/;"	i
+os	bspwm/bin/nmcli_dmenu	/^import os$/;"	i
+other_actions	bspwm/bin/nmcli_dmenu	/^def other_actions():$/;"	f
+p_arrow	zsh/prompt/zsh-nmdf.sh	/^function p_arrow {$/;"	f
+packageDisplay	bin/archey3	/^class packageDisplay(display):$/;"	c
+parse_current_dir	zsh/prompt/zsh-inverted.sh	/^function parse_current_dir {$/;"	f
+parse_display	bin/archey3	/^    def parse_display(self):$/;"	m	class:Archey
+parse_git_branch	zsh/prompt/zsh-inverted.sh	/^function parse_git_branch {$/;"	f
+parse_git_dirty	zsh/prompt/zsh-inverted.sh	/^function parse_git_dirty {$/;"	f
+path	bin/archey3	/^import os.path$/;"	i
+prepare_results	bin/archey3	/^    def prepare_results(self):$/;"	m	class:Archey
+print_function	bin/test_color/terminal-colors.py	/^from __future__ import print_function$/;"	i
+problem	bin/localcheck.sh	/^problem() { (( ++sy_total )); printf "\\n\\e[33mproblem:\\e[m %s\\n" "$*"; }$/;"	f
+processCheck	bin/archey3	/^class processCheck(display):$/;"	c
+process_exists	bin/archey3	/^    def process_exists(self, key):$/;"	m	class:display
+prompt_context	zsh/prompt/zsh-inverted.sh	/^prompt_context() {$/;"	f
+prompt_context	zsh/prompt/zsh-nmdf.sh	/^function prompt_context() {$/;"	f
+prompt_dir	zsh/prompt/zsh-inverted.sh	/^prompt_dir() {$/;"	f
+prompt_dir	zsh/prompt/zsh-nmdf.sh	/^function prompt_dir() {$/;"	f
+prompt_end	zsh/prompt/zsh-inverted.sh	/^prompt_end() {$/;"	f
+prompt_end	zsh/prompt/zsh-nmdf.sh	/^prompt_end() {$/;"	f
+prompt_git	zsh/prompt/zsh-inverted.sh	/^prompt_git() {$/;"	f
+prompt_hg	zsh/prompt/zsh-inverted.sh	/^prompt_hg() {$/;"	f
+prompt_segment	zsh/prompt/zsh-inverted.sh	/^prompt_segment() {$/;"	f
+prompt_segment	zsh/prompt/zsh-nmdf.sh	/^prompt_segment() {$/;"	f
+prompt_status	zsh/prompt/zsh-inverted.sh	/^prompt_status() {$/;"	f
+prompt_status	zsh/prompt/zsh-nmdf.sh	/^function prompt_status() {$/;"	f
+prompt_vcs	zsh/prompt/zsh-nmdf.sh	/^function prompt_vcs {$/;"	f
+prompt_virtualenv	zsh/prompt/zsh-inverted.sh	/^prompt_virtualenv() {$/;"	f
+prompt_virtualenv	zsh/prompt/zsh-nmdf.sh	/^function prompt_virtualenv {$/;"	f
+ramDisplay	bin/archey3	/^class ramDisplay(display):$/;"	c
+re	bin/archey3	/^import re$/;"	i
+re	bin/archey3	/^import subprocess, optparse, re, sys, configparser$/;"	i
+read	bin/archey3	/^    def read(self, file_location=None):$/;"	m	class:ArcheyConfigParser
+regex_class	bin/archey3	/^    regex_class = re.compile("").__class__$/;"	v	class:display
+remoterunning	bin/nmdf	/^function remoterunning {$/;"	f
+render	bin/archey3	/^    def render(self):$/;"	m	class:Archey
+render	bin/archey3	/^    def render(self):$/;"	m	class:deDisplay
+render	bin/archey3	/^    def render(self):$/;"	m	class:display
+render	bin/archey3	/^    def render(self):$/;"	m	class:distroCheck
+render	bin/archey3	/^    def render(self):$/;"	m	class:envDisplay
+render	bin/archey3	/^    def render(self):$/;"	m	class:systemUpgrade
+render	bin/archey3	/^    def render(self):$/;"	m	class:uptimeDisplay
+render	bin/archey3	/^    def render(self):$/;"	m	class:wmDisplay
+render	bin/archey3	/^    render = lambda self: self$/;"	v	class:processCheck
+render_class	bin/archey3	/^def render_class(state, cls, args):$/;"	f
+reset_seq	bin/test_color/256color	/^reset_seq = '\\033[0m'$/;"	v
+resize_by_line	trivial/2bwm/config.h	/^static const bool     resize_by_line          = true;$/;"	v
+resize_keep_aspect_ratio	trivial/2bwm/config.h	/^static const float    resize_keep_aspect_ratio= 1.03;$/;"	v
+rgb	bin/test_color/terminal-colors.py	/^class rgb(tuple):$/;"	c
+run	bin/archey3	/^    def run(self, screenshot_=False):$/;"	m	class:Archey
+run	bspwm/bin/nmcli_dmenu	/^def run():$/;"	f
+run_command	bin/archey3	/^    def run_command(self):$/;"	m	class:display
+run_command	bin/archey3	/^    def run_command(self):$/;"	m	class:processCheck
+run_segment	temp/git_info.sh	/^run_segment() {$/;"	f
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc = {}$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.blackestgravel = ['141413', 232]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.blackgravel    = ['1c1b1a', 233]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.brightgravel   = ['d9cec3', 252]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.coal = ['000000', 16]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.coffee    = ['c7915b', 173]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.dalespale = ['fade3e', 221]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.darkgravel     = ['242321', 235]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.darkroast = ['88633f', 95]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.deepergravel   = ['35322d', 236]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.deepgravel     = ['45413b', 238]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.dirtyblonde = ['f4cf86', 222]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.dress = ['ff9eb8', 211]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.gravel         = ['857f78', 243]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.lightgravel    = ['998f84', 245]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.lime = ['aeee00', 154]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.mediumgravel   = ['666462', 241]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.orange = ['ffa724', 214]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.plain = ['f8f6f2', 15]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.saltwatertaffy = ['8cffba', 121]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.snow = ['ffffff', 15]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.taffy = ['ff2c4b', 196]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.tardis = ['0a9dff', 39]$/;"	v
+s:bwc	zsh/.config/nvim/colors.symlink/badwolf.vim	/^let s:bwc.toffee = ['b88853', 137]$/;"	v
+s:gutter	zsh/.config/nvim/colors.symlink/badwolf.vim	/^    let s:gutter = 'blackestgravel'$/;"	v
+s:gutter	zsh/.config/nvim/colors.symlink/badwolf.vim	/^    let s:gutter = 'blackgravel'$/;"	v
+s:tabline	zsh/.config/nvim/colors.symlink/badwolf.vim	/^        let s:tabline = 'blackestgravel'$/;"	v
+s:tabline	zsh/.config/nvim/colors.symlink/badwolf.vim	/^        let s:tabline = 'blackgravel'$/;"	v
+s:tabline	zsh/.config/nvim/colors.symlink/badwolf.vim	/^        let s:tabline = 'darkgravel'$/;"	v
+s:tabline	zsh/.config/nvim/colors.symlink/badwolf.vim	/^        let s:tabline = 'deepgravel'$/;"	v
+s:tabline	zsh/.config/nvim/colors.symlink/badwolf.vim	/^    let s:tabline = 'blackgravel'$/;"	v
+screenshot	bin/archey3	/^def screenshot(state):$/;"	f
+sensorDisplay	bin/archey3	/^class sensorDisplay(display):$/;"	c
+set_new_connection	bspwm/bin/nmcli_dmenu	/^def set_new_connection(ssid, pw):$/;"	f
+shlex	bspwm/bin/nmcli_dmenu	/^import shlex$/;"	i
+showusage	bspwm/lemonbar/classify	/^function showusage {$/;"	f
+showusage	bspwm/lemonbar/flashcaps	/^function showusage {$/;"	f
+sigwinch	bin/rain.sh	/^sigwinch() {$/;"	f
+sleep	bin/archey3	/^from time import ctime, sleep$/;"	i
+sourced	install/installpkg	/^sourced () { # cross-shell (bash, ksh, zsh)$/;"	f
+sourced	install/linkdf	/^sourced () { # cross-shell (bash, ksh, zsh)$/;"	f
+sourceif	bin/nmdf	/^function sourceif () {$/;"	f
+sqrt	bin/test_color/terminal-colors.py	/^from math import ceil, sqrt$/;"	i
+stats	bin/nmdf	/^function stats {$/;"	f
+stdindata	bin/archey3	/^    stdindata = ''$/;"	v	class:display
+subprocess	bin/archey3	/^import subprocess, optparse, re, sys, configparser$/;"	i
+sys	bin/archey3	/^import subprocess, optparse, re, sys, configparser$/;"	i
+sys	bin/test_color/terminal-colors.py	/^import sys$/;"	i
+sys	bspwm/bin/nmcli_dmenu	/^import sys$/;"	i
+systemUpgrade	bin/archey3	/^class systemUpgrade(display):$/;"	c
+term16	bin/test_color/terminal-colors.py	/^class term16(object):$/;"	c
+term256	bin/test_color/terminal-colors.py	/^class term256(term16):$/;"	c
+term88	bin/test_color/terminal-colors.py	/^class term88(term16):$/;"	c
+terminal	trivial/2bwm/config.h	/^static const char *terminal[]  = { "urxvt", NULL };$/;"	v
+toggle_existing	bspwm/bin/nmcli_dmenu	/^def toggle_existing(conn):$/;"	f
+toggle_networking	bspwm/bin/nmcli_dmenu	/^def toggle_networking(sel):$/;"	f
+unameDisplay	bin/archey3	/^class unameDisplay(display):$/;"	c
+unique_ssid	bspwm/bin/nmcli_dmenu	/^def unique_ssid(conns):$/;"	f
+updateRepo	bin/nmdf	/^function updateRepo {$/;"	f
+uptimeDisplay	bin/archey3	/^class uptimeDisplay(display):$/;"	c
+usage	bin/imgur.sh	/^function usage {$/;"	f
+usage	bspwm/dzen2/dzen_brightness.sh	/^usage() {$/;"	f
+usage	bspwm/dzen2/dzen_volume.sh	/^usage() {$/;"	f
+volume	bspwm/bin/barmk.sh	/^volume() {$/;"	f
+vpn_connections	bspwm/bin/nmcli_dmenu	/^def vpn_connections(conns):$/;"	f
+vrun	bin/test_color/256color	/^def vrun(start, width, height, padding=0):$/;"	f
+warn	bin/localcheck.sh	/^warn() { printf "\\e[31mwarning:\\e[m %s\\n" "$*"; ((++n_warnings)); } >&2$/;"	f
+wmDisplay	bin/archey3	/^class wmDisplay(display):$/;"	c
+wraps	bin/test_color/terminal-colors.py	/^from functools import wraps$/;"	i
+write_config	bin/archey3	/^    def write_config(self, location):$/;"	m	class:ArcheyConfigParser
+z0	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap z0 :set foldlevel=0<cr>$/;"	m
+z1	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap z1 :set foldlevel=1<cr>$/;"	m
+z2	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap z2 :set foldlevel=2<cr>$/;"	m
+z3	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap z3 :set foldlevel=3<cr>$/;"	m
+z4	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap z4 :set foldlevel=4<cr>$/;"	m
+z5	zsh/.config/nvim/autosource.symlink/highlight-and-folding.vim	/^nnoremap z5 :set foldlevel=5<cr>$/;"	m

@@ -157,10 +157,25 @@ function nextwall() {
   echo -e "#!/bin/sh\nfeh --bg-tile '$choose'" > "$HOME/.fehbg" | sh
 }
 
+# FZF - a command-line fuzzy finder for bash/zsh/vim + supports tmux
 #==============================================================================#
-#cd to dir of defined file | Usage: cdf <file>
+#cd to dir of defined file | Usage: cdf <file> . requirement: `install mlocate`
 cdf () { 
   cd "$(dirname "$(locate -i "$*" | head -n 1)")" ; 
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='
+  --bind ctrl-f:page-down,ctrl-b:page-up
+  --color dark,hl:33,hl+:37,fg+:235,bg+:9,fg+:254
+  --color info:254,prompt:37,spinner:108,pointer:235,marker:235
+'
+
+fkill() {
+    # fkill - kill process
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    if [ "x$pid" != "x" ]
+    then
+        kill -${1:-9} $pid
+    fi
+}

@@ -16,9 +16,10 @@ First Necessary fonts : `$ yaourt -Sb ttf-ms-fonts --export ~/Downloads`
 [Lime Night can be found on nale12's deviantart](nale12.deviantart.com/gallery/?catpath=/)
 - **GTK ICONS** : ` $ yaourt -Sb numix-circle-icon-theme-git --export ~/Downloads/ `
 
-or alternatives ...
+There are many resources I tried but did not decide to use:
+[osx icon](http://fc02.deviantart.net/fs70/f/2012/027/9/c/osx_icon_theme_for_gnome_by_n00b_un_2-d4ma1gm.zip)
+[Gnome Yosemite icons](https://github.com/ActusOS/GnomeYosemiteIcons)
 [FlatWoken 2.5 icon theme](http://alecive.deviantart.com/art/AwOken-163570862) , ...
-
 
 REQUIRED SOFTWARES
 ==================

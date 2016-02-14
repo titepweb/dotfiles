@@ -30,22 +30,30 @@ Tools :
 	+ [convert colorschemes](http://stayradiated.github.io/termcolors-web)
 	+ [vivify for vim](http://bytefluent.com/vivify/)
 
+ZSH
+===
+**Prompt**
++ auto-collapses $HOME to ~
++ incorporates git information : untracked files (denoted by .), modified files (denoted by #), or staged files (denoted by +) + a marker for how far ahead and/or behind we are from the remote branch
++ detects if it’s being viewed through SSH
+
 TMUX
 ====
 - [tmux cheatsheet](http://hyperpolyglot.org/multiplexers)
 - [] 
 VIM
 ===
-- [How I boosted my Vim](http://nvie.com/posts/how-i-boosted-my-vim/)
+- [How I boosted my Vim](http://nvie.com/posts/how-i-boosted-my-vim/) and [his
+  really good vimrc](https://github.com/nvie/vimrc/blob/master/vimrc)
 
 
 
 
 ### EXTENSIONS = PLUGINS = BUNDLES = VUNDLES
 + Toggle Comment : commentary
-+ FuzzyFinder    : [CtrlP] Commander-T fzf
++ FuzzyFinder    : [CtrlP] Commander-T fzf FuzzyFinder
 + File Brower    : [NERDTree]
-+ [airline] , powerline
++ [airline] , powerline, Lightline
 + gundo
 + status line    : lightline
 + sidebar        : Tag list, Voom, Tagbar, 
@@ -68,10 +76,6 @@ MY DISCOVERY
 
 [fzf]: https://github.com/junegunn/fzf
 
-**Prompt**
-+ auto-collapses $HOME to ~
-+ incorporates git information : untracked files (denoted by .), modified files (denoted by #), or staged files (denoted by +) + a marker for how far ahead and/or behind we are from the remote branch
-+ detects if it’s being viewed through SSH
 
 
 
