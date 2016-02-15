@@ -22,12 +22,47 @@ endif
 " }}}
 " Plugins with their settings "{{{ ==================================
 call plug#begin('~/.config/nvim/plugged')
+    " usage : PlugInstall PlugUpdate PlugClean
 " colorscheme & appearance ----------------------
 "Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
 "Plug 'sjl/badwolf'
 "Plug 'morhetz/gruvbox'
 "Plug 'w0ng/vim-hybrid'
-Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
+
+Plug 'vim-airline/vim-airline' " fancy statusline
+Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+    " settings for vim-airline {{{
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline_section=''
+    let g:airline_detect_paste=1 " Show PASTE if in paste mode
+    let g:airline_powerline_fonts = 1
+    if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+    endif
+
+    " unicode symbols
+    let g:airline_left_sep = '»'
+    let g:airline_left_sep = '▶'
+    let g:airline_right_sep = '«'
+    let g:airline_right_sep = '◀'
+    let g:airline_symbols.linenr = '␊'
+    let g:airline_symbols.linenr = '␤'
+    let g:airline_symbols.linenr = '¶'
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.paste = 'Þ'
+    let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.whitespace = 'Ξ'
+    " airline symbols
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = ''
+    " }}}
+"Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
     " settings for lightline {{{
     let g:lightline = {
         \ 'colorscheme' : 'Tomorrow_Night_Eighties',
@@ -52,7 +87,7 @@ Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
         if &filetype == "help"
             return ""
         elseif &modified
-            return "+"
+            return "¶"
         elseif &modifiable
             return ""
         else
@@ -81,8 +116,8 @@ Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
             return ''
         endif
         return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() : 
-                \  &ft == 'unite' ? unite#get_status_string() : 
+                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+                \  &ft == 'unite' ? unite#get_status_string() :
                 \  &ft == 'vimshell' ? vimshell#get_status_string() :
                 \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
                 \ ('' != MyModified() ? ' ' . MyModified() : '')
@@ -128,11 +163,13 @@ Plug 'junegunn/rainbow_parentheses.vim' " visualize nested parentheses
     endif
     "}}}
 Plug 'itchyny/landscape.vim'
+Plug 'ryanoasis/vim-devicons'           " WHY ? Adds filetype icons to NERDTree, lighline, ...
 
 " must-have utilities --------------------------
 " fzf can take any list as input (files, buffers, project-wide tags, history, mru, etc.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+    " HOW? :Files :Buffers :BLines :BTags :Tags :History :Commits :BCommits ...
     " settings for fzf {{{
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
     let g:fzf_height='35%'
@@ -148,7 +185,7 @@ Plug 'junegunn/fzf.vim'
     if executable('fzf')
         " <C-p> to search files (-m means multi-select with (shift)tab)
         noremap <silent> <C-p> :FZF -m --no-hscroll<cr>
-        
+
         " Open files in vertical horizontal split
         nnoremap <silent> <Leader>v :call fzf#run({
         \   'right': winwidth('.') / 2,
@@ -171,8 +208,8 @@ Plug 'junegunn/fzf.vim'
     " CtrlP fallback
     end
     " }}}
-" use ack and ag as a replacement for vim's built in grep and vimgrep
 Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> ? --> o/v ...
+    " WHY ? use ack and ag as a replacement for vim's built in grep and vimgrep
     " settings for Ack/Ag {{{
     nnoremap <silent> <leader>/ :execute 'Ack ' . input('Ack/')<CR>
     if executable('ag')
@@ -184,8 +221,19 @@ Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> 
         execute 'Ack' expand('<cword>')
     endfunction
     " }}}
-Plug 'tpope/vim-fugitive'           " usage: Gstatus, Gdiff, Gblame, Gedit, Gread, Gwrite, Gwrite!, Gwq, Glog [q]q, Gcommit
+Plug 'tpope/vim-fugitive'
+    " HOW ? {{{
+    " (1) Gblame (who edit every sigle lines)
+    " (2) Glog --> [q ]q to load every version of the editted file --> Gedit to the head file
+    " (3) Gdiff --> Gwrite (git add) --> Gcommit --> write commit message --> wq
+    " (4) Gstatus --> - to stage files
+    " }}}
     " settings for fugitive {{{
+    nnoremap <silent> <leader>gs :Gstatus<cr>
+    noremap <leader>ge :Gedit<cr>
+    nnoremap <silent><leader>gr :Gread<cr>
+    noremap <silent><leader>gb :Gblame<cr>
+
     function! ReviewLastCommit()
         if exists('b:git_dir')
             Gtabedit HEAD^{}
@@ -195,6 +243,7 @@ Plug 'tpope/vim-fugitive'           " usage: Gstatus, Gdiff, Gblame, Gedit, Grea
         endif
     endfunction
     nnoremap <silent> <leader>rlc :call ReviewLastCommit()<CR>
+
     " }}}
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'               " interact with tmux to run commands (project-specific settings at <project>.vimrc)
@@ -203,14 +252,28 @@ Plug 'sjl/gundo.vim'                " require to install python2-neovim (remap t
     nnoremap <leader>u :GundoToggle<CR>
     " }}}
 Plug 'majutsushi/tagbar'            " require to install ctags
-Plug 'scrooloose/nerdtree'          " file browser (remap to <leader>-k)
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
+    " HOW ? <leader>k --> m --> a to add new file
     " settings for NERDTree {{{
     let g:NERDTreeQuitOnOpen=1          " close NERDTree after a file is opened
     let NERDTreeShowHidden=1            " show hidden files in NERDTree
     let NERDTreeIgnore = ['\.js.map$']  " remove some files by extension
-    noremap <silent> <leader>k :NERDTreeToggle<cr> 
+    noremap <silent> <leader>k :NERDTreeToggle<cr>
     " expand to the path of the file in the current buffer
     noremap <silent> <leader><S-k> :NERDTreeFind<cr>
+    " }}}
+    " settings for nerdtree-git-plugin {{{
+    let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
     " }}}
 Plug 'easymotion/vim-easymotion'
     " settings for easymotion {{{
@@ -223,21 +286,15 @@ Plug 'easymotion/vim-easymotion'
     nmap <Leader>f <Plug>(easymotion-overwin-f)
     " }}}
 
-"Plug 'ctrlpvim/ctrlp.vim'          " fuzzy search (of course, C-p)
-    " settings for CtrlP {{{
-    let g:ctrlp_dotfiles = 1                " enable search for dotfiles
-    let g:ctrlp_match_window = 'bottom,order:ttb'
-    let g:ctrlp_switch_buffer = 0           " always open files in new buffers
-    let g:ctrlp_working_path_mode = 0
-    " use ag (an external command) to improve finding maching files
-    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-    " }}}
-"Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'         " bundling text with [e ]e
-
 " utilities ------------------------------------
-
+Plug 'tpope/vim-unimpaired'         " bundling text with [e ]e
+"Plug 'tpope/vim-surround'          " surround code with delimiters
+"Plug 'junegunn/vim-easy-align'
+"Plug 'tomtom/tcomment_vim'
+"Plug 'Raimondi/delimitMate'
+"Plug 'mattn/emmet-vim'
 " language-specific plugins --------------------
+"Plug 'scrooloose/syntastic'
 
 call plug#end()
 " }}}
@@ -265,7 +322,7 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 " Lines too long to fit on one screen will be truncated.
 set nowrap
 let &showbreak='↪ '
-" Force a 79 column policy with an auto-break on words in comments to assure 
+" Force a 79 column policy with an auto-break on words in comments to assure
 " maximum readability. Visually add a column to see where the cut will be.
 set linebreak
 set colorcolumn=81
@@ -278,6 +335,11 @@ set textwidth=80
 " q : Comments can be re-wrapped using gq
 " 1 : Do not end lines with one-char words
 set formatoptions=cronq1
+"highlight column 80 as well as 120 and onward
+"let &colorcolumn="80,".join(range(120,999),",")
+set colorcolumn=+1,+40
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+"mark +80 characters as error :/\%>80v./+
 " }}}
 " Spaces & Tabs {{{ =================================================
 set tabstop=4       " number of visual spaces per TAB
@@ -324,7 +386,7 @@ set relativenumber      " take a look at AUTOCMD section
 " switch syntax highlighting on, when the terminal has colors
 if &t_Co > 2 || has("gui_running") | syntax enable | endif
 
-set noshowmode          " hide INSERT-VISUAL...text, we already have statusbar 
+set noshowmode          " hide INSERT-VISUAL...text, we already have statusbar
 set showcmd             " Show the current command in the lower right corner
 
 " }}}
@@ -339,7 +401,7 @@ set showmatch   " show matching braces
 set ignorecase  " case insensitive searching
 set smartcase   " case-sensitive if expresson contains a capital letter
 
-" Highlight all instances of the word under cursor: 
+" Highlight all instances of the word under cursor:
 noremap <silent> <leader>hh :setl hls<CR>:let @/="\\<<C-r><C-w>\\>"<CR>
 " }}}
 " Backups and Undo {{{ ==============================================
@@ -390,9 +452,6 @@ noremap <silent> <C-l> :call WinMove('l')<cr>
 " Column scroll-binding on <leader>sb
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 " }}}
-" remove extra whitespace at the end of each line
-noremap r<space> :%s/\s\+$<cr>
-
 " Open current fold, closing every other fold to get more focus
 nnoremap zz zozMzvzz
 
@@ -453,7 +512,7 @@ inoremap <C-U>= <Esc>kyyp^v$r=ja
 
     augroup filespecific
         "directive clears all the autocmd's for the current group.
-        autocmd! 
+        autocmd!
         au BufRead,BufNewFile *.json set ft=javascript
         autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
         autocmd FileType help nested call ILikeHelpToTheRight()
@@ -544,7 +603,9 @@ inoremap <C-U>= <Esc>kyyp^v$r=ja
 	" }}}
     " Save all files on focus lost, ignoring warnings about untitled buffers {{{
     autocmd FocusLost * silent! wa
-
+    " }}}
+    " Auto remove all trailing whitespace on :w {{{
+    autocmd BufWritePre * :%s/\s\+$//e
     " }}}
     endif
 " OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS ====================
@@ -559,6 +620,7 @@ inoremap <C-U>= <Esc>kyyp^v$r=ja
             " this doesn't work in mountain lion's default vim (does on macvim)
             set clipboard=unnamed    " brew install reattach-to-user-namespace
         elseif s:kernel == 'Linux'
+            set guifont=Liberation\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 12
             set clipboard=unnamed,unnamedplus " copy/paste between gui/cli --> require xclip/xsel
         endif
     endif
