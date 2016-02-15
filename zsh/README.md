@@ -45,8 +45,9 @@ VIM
 ===
 - [How I boosted my Vim](http://nvie.com/posts/how-i-boosted-my-vim/) and [his
   really good vimrc](https://github.com/nvie/vimrc/blob/master/vimrc)
-
-
+- [greduan's vimrc](https://github.com/greduan/dotfiles)
+- [wnodom's vimrc](https://github.com/wnodom/)
+- [blaenk's vimrc](https://github.com/blaenk)
 
 
 ### EXTENSIONS = PLUGINS = BUNDLES = VUNDLES

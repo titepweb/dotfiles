@@ -32,50 +32,92 @@ Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
     let g:lightline = {
         \ 'colorscheme' : 'Tomorrow_Night_Eighties',
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'filename' ] ]
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ]
         \ },
         \ 'component': {
         \   'fugitive': '%{exists("*fugitive#head") ? " ".fugitive#head() : ""}'
         \ },
         \ 'component_function': {
-        \   'readonly': 'LightLineReadonly',
-        \   'modified': 'LightLineModified',
-        \   'filename': 'LightLineFilename'
+        \   'modified': 'MyModified',
+        \   'readonly': 'MyReadonly',
+        \   'filename': 'MyFilename',
+        \   'mode': 'MyMode',
+        \   'ctrlpmark': 'CtrlPMark'
         \ },
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
         \ }
 
-    function! LightLineModified()
-    if &filetype == "help"
-        return ""
-    elseif &modified
-        return "+"
-    elseif &modifiable
-        return ""
-    else
-        return ""
-    endif
+    function! MyModified()
+        if &filetype == "help"
+            return ""
+        elseif &modified
+            return "+"
+        elseif &modifiable
+            return ""
+        else
+            return ""
+        endif
     endfunction
 
-    function! LightLineReadonly()
-    if &filetype == "help"
-        return ""
-    elseif &readonly
-        return ""
-    else
-        return ""
-    endif
+    function! MyReadonly()
+        if &filetype == "help"
+            return ""
+        elseif &readonly
+            return ""
+        else
+            return ""
+        endif
     endfunction
 
-    function! LightLineFilename()
-    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+    function! MyFilename()
+            if expand('%:t') == 'ControlP'
+                return g:lightline.ctrlp_item
+        endif
+        if expand('%:t') == '__Tagbar__'
+            return g:lightline.fname
+        endif
+        if expand('%:t') =~ '__Gundo'
+            return ''
+        endif
+        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() : 
+                \  &ft == 'unite' ? unite#get_status_string() : 
+                \  &ft == 'vimshell' ? vimshell#get_status_string() :
+                \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+                \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
+
+    function! MyMode()
+        let fname = expand('%:t')
+        return fname == '__Tagbar__' ? 'Tagbar' :
+                \ fname == 'ControlP' ? 'CtrlP':
+                \ fname == '__Gundo__' ? 'Gundo' :
+                \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+                \ fname =~ 'NERD_tree' ? 'NERDTree' :
+                \ &ft == 'unite' ? 'Unite' :
+                \ &ft == 'vimfiler' ? 'VimFiler' :
+                \ &ft == 'vimshell' ? 'VimShell' :
+                \ winwidth('.') > 60 ? lightline#mode() : ''
+    endfunction
+
+    function! CtrlPMark()
+        return expand('%:t') =~ 'ControlP' ?
+                \ g:lightline.ctrlp_prev . ' ' . g:lightline.subseparator.left . ' ' .
+                \ g:lightline.ctrlp_item . ' ' . g:lightline.subseparator.left . ' ' .
+                \ g:lightline.ctrlp_next . ' ' . g:lightline.subseparator.left . ' ' .
+                \ g:lightline.ctrlp_marked : ''
     endfunction
     "}}}
-"Plug 'jszakmeister/vim-togglecursor'
+Plug 'jszakmeister/vim-togglecursor'
+    " use vim-togglecursor OR just 4 loc {{{
+    " Use a blinking upright bar cursor in Insert mode, a solid block in normal
+    " and a blinking underline in replace mode
+    "  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    "  let &t_SI = "\<Esc>[5 q"
+    "  let &t_SR = "\<Esc>[3 q"
+    "  let &t_EI = "\<Esc>[2 q"
+    " }}}
 Plug 'junegunn/rainbow_parentheses.vim' " visualize nested parentheses
     " settings for rainbow_parentheses {{{
     let g:rainbow#max_level = 8
@@ -106,6 +148,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         nnoremap <silent> <Leader>v :call fzf#run({
         \   'right': winwidth('.') / 2,
         \   'sink':  'vertical botright split' })<CR>
+
     else
     " CtrlP fallback
     end
@@ -142,7 +185,7 @@ Plug 'sjl/gundo.vim'                " require to install python2-neovim (remap t
     nnoremap <leader>u :GundoToggle<CR>
     " }}}
 Plug 'majutsushi/tagbar'            " require to install ctags
-Plug 'scrooloose/nerdtree'         " file browser (remap to <leader>-k)
+Plug 'scrooloose/nerdtree'          " file browser (remap to <leader>-k)
     " settings for NERDTree {{{
     let g:NERDTreeQuitOnOpen=1          " close NERDTree after a file is opened
     let NERDTreeShowHidden=1            " show hidden files in NERDTree
@@ -170,6 +213,8 @@ Plug 'easymotion/vim-easymotion'
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
     " }}}
 "Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'         " bundling text with [e ]e
+
 " language-specific plugins --------------------
 
 call plug#end()
@@ -226,7 +271,20 @@ set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 "set listchars=precedes:←,extends:→,nbsp:◊,trail:⠿,eol:\ ,tab:●·
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
-noremap <leader>l :set list!<cr>
+
+noremap <leader>l :call ListWrapToggle()<CR>
+    function! ListWrapToggle()
+        if(&list == 1)
+            set nolist
+            set wrap
+        elseif(&wrap == 1)
+            set nowrap
+            set list
+        else
+            set nowrap
+            set list
+        endif
+    endfunction
 " }}}
 " Aesthetics & User Inferace Config {{{ =============================
 set t_Co=256
@@ -235,22 +293,18 @@ let base16colorspace=256  " Access colors present in 256 colorspace"
 execute "set background=".$BACKGROUND
 "execute "colorscheme ".$THEME
 colorscheme badwolf     " config badwolf (https://github.com/sjl/badwolf)
+
 set number
-set relativenumber      "take a look at AUTOCMD section
+set relativenumber      " take a look at AUTOCMD section
+
 "set numberwidth=3
 
 " switch syntax highlighting on, when the terminal has colors
 if &t_Co > 2 || has("gui_running") | syntax enable | endif
 
-set noshowmode          "hide INSERT-VISUAL...text, we already have statusbar 
-"set showcmd             "Show more info about current command
+set noshowmode          " hide INSERT-VISUAL...text, we already have statusbar 
+set showcmd             " Show the current command in the lower right corner
 
-" Use a blinking upright bar cursor in Insert mode, a solid block in normal
-" and a blinking underline in replace mode
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  let &t_SI = "\<Esc>[5 q"
-  let &t_SR = "\<Esc>[3 q"
-  let &t_EI = "\<Esc>[2 q"
 " }}}
 " Search & Replace {{{ ==============================================
 "automatically inserting a \v for searching using regex
@@ -262,6 +316,9 @@ set incsearch   " set incremental search, like modern browsers
 set showmatch   " show matching braces
 set ignorecase  " case insensitive searching
 set smartcase   " case-sensitive if expresson contains a capital letter
+
+" Highlight all instances of the word under cursor: 
+noremap <silent> <leader>hh :setl hls<CR>:let @/="\\<<C-r><C-w>\\>"<CR>
 " }}}
 " Backups and Undo {{{ ==============================================
 " Keep undo history across sessions, by storing in file.
@@ -276,8 +333,9 @@ set nobackup                " do not keep backup files, it's 70's style clutteri
 set noswapfile              " do not write annoying intermediate swap files,
                             "    who did ever restore from swap files anyway?
 
-" store swap files in one of these directories (in case swapfile is ever turned on)
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" in case swapfile, backup is ever turned on ...
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp     " store swap files in one of these directories
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp     " store backup files in one of these directories
 " }}}
 " General shortcuts for functionality {{{ ===========================
 " shortcut to save
@@ -285,7 +343,7 @@ noremap <leader><leader> :w<cr>
 noremap <C-s> :w<cr>
 noremap! <C-s> <esc>:w<cr>
 
-" SPLIT ---------------------------------------> splitview.vim
+" SPLIT : ?/autosource/splitview.vim {{{ -------------------------------------
 set splitright
 noremap <silent> <C-h> :call WinMove('h')<cr>
 noremap <silent> <C-j> :call WinMove('j')<cr>
@@ -294,13 +352,14 @@ noremap <silent> <C-l> :call WinMove('l')<cr>
 
 " Column scroll-binding on <leader>sb
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
+" }}}
 " remove extra whitespace at the end of each line
 noremap r<space> :%s/\s\+$<cr>
 
 " Open current fold, closing every other fold to get more focus
 nnoremap zz zozMzvzz
 
-" move vertically by each visual line for wrapped long lines
+" move vertically by each visual line for wrapped long lines {{{ -------------
 nnoremap j gj
 nnoremap k gk
 nnoremap <silent> ^ g^
@@ -308,13 +367,13 @@ nnoremap <silent> $ g$
 nnoremap V :vnoremap j j<cr>V
 nnoremap v :vnoremap j gj<cr>v
 " OR : xnoremap <expr> j mode() ==# 'V' ? 'j' : 'gj'
+" }}}
 
 " set paste toggle
 set pastetoggle=<F6>
-" toggle paste mode
-map <leader>v :set paste!<cr>
+" Preserve indentation while pasting text
+nnoremap p ]p
 
-" insert a new line after/before the current line
 noremap <CR> o<Esc>
 
 " clear highlighted searches
@@ -323,10 +382,14 @@ noremap <silent> ,/ :nohlsearch<CR>
 "nnoremap <leader>/ "fyiw :/<c-r>f<cr>
 
 " for when you forgot to sudo before editing a file that requires root privileges
-cmap w!! w !sudo tee % >/dev/null
+cnoremap w!! w !sudo tee % >/dev/null
 
-"visually select recently entered text
+" Bubbling text : http://vimcasts.org/episodes/bubbling-text/ {{{ ------------
+" Visually select the text that was last edited/pasted
 nnoremap gV `[v`]
+" Select (charwise) the contents of the current line, excluding indentation
+nnoremap vv ^vg_
+" }}}
 
 "toggle between bracket pairs
 nnoremap <tab> %
@@ -334,10 +397,17 @@ nnoremap <tab> %
 " enable . command in visual mode
 vnoremap . :normal .<cr>
 " switch between current and last buffer
-nmap <leader>. <c-^>
+noremap <leader>. <c-^>
 " wipout buffer
-nmap <silent> <leader>b :bw<cr>
+noremap <silent> <leader>b :bw<cr>
 
+" Make the dot command operate over a Visual range.
+" (Excellent tip from Drew Neil's Vim Masterclass.)
+xnoremap .  :normal .<CR>
+
+" Draw lines of dashes or equal signs based on the length of the line above
+inoremap <C-U>- <Esc>kyyp^v$r-ja
+inoremap <C-U>= <Esc>kyyp^v$r=ja
 " }}}
 " AUTOCOMD : cursor highlight, file type-specific settings, etc. ====
     if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
@@ -437,7 +507,9 @@ nmap <silent> <leader>b :bw<cr>
 	" }}}
     " Save all files on focus lost, ignoring warnings about untitled buffers {{{
     autocmd FocusLost * silent! wa
+
     " }}}
+
     endif
 " OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS ====================
     " System clipboard {{{ ------------------------------------------
@@ -515,5 +587,9 @@ nmap <silent> <leader>b :bw<cr>
 	elseif has("gui_win32") " Windows
 		" :D
 	endif
+" }}}
+" Cursor & mouse {{{ ================================================
+" }}}
+" Commands {{{ ======================================================
 " }}}
 " vim:foldmethod=marker:foldlevel=0:syntax=vim
