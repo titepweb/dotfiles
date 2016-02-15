@@ -75,7 +75,7 @@ Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
     endfunction
     "}}}
-Plug 'jszakmeister/vim-togglecursor'
+"Plug 'jszakmeister/vim-togglecursor'
 Plug 'junegunn/rainbow_parentheses.vim' " visualize nested parentheses
     " settings for rainbow_parentheses {{{
     let g:rainbow#max_level = 8
@@ -124,6 +124,17 @@ Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> 
     endfunction
     " }}}
 Plug 'tpope/vim-fugitive'
+    " settings for fugitive {{{
+    function! ReviewLastCommit()
+        if exists('b:git_dir')
+            Gtabedit HEAD^{}
+            nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
+        else
+            echo 'No git a git repository:' expand('%:p')
+        endif
+    endfunction
+    nnoremap <silent> <leader>lc :call ReviewLastCommit()<CR>
+    " }}}
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'               " interact with tmux to run commands (project-specific settings at <project>.vimrc)
 Plug 'sjl/gundo.vim'                " require to install python2-neovim (remap to <leader>-u)
@@ -141,7 +152,13 @@ Plug 'scrooloose/nerdtree'         " file browser (remap to <leader>-k)
     noremap <silent> <leader><S-k> :NERDTreeFind<cr>
     " }}}
 
-"Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
+" {{{
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_smartcase = 1
+  let g:EasyMotion_off_screen_search = 0
+  noremap <leader>; <Plug>(easymotion-s2)
+" }}}
 
 "Plug 'ctrlpvim/ctrlp.vim'          " fuzzy search (of course, C-p)
     " settings for CtrlP {{{
@@ -152,7 +169,7 @@ Plug 'scrooloose/nerdtree'         " file browser (remap to <leader>-k)
     " use ag (an external command) to improve finding maching files
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
     " }}}
-
+"Plug 'tpope/vim-surround'
 " language-specific plugins --------------------
 
 call plug#end()
@@ -227,6 +244,13 @@ if &t_Co > 2 || has("gui_running") | syntax enable | endif
 
 set noshowmode          "hide INSERT-VISUAL...text, we already have statusbar 
 "set showcmd             "Show more info about current command
+
+" Use a blinking upright bar cursor in Insert mode, a solid block in normal
+" and a blinking underline in replace mode
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  let &t_SI = "\<Esc>[5 q"
+  let &t_SR = "\<Esc>[3 q"
+  let &t_EI = "\<Esc>[2 q"
 " }}}
 " Search & Replace {{{ ==============================================
 "automatically inserting a \v for searching using regex
