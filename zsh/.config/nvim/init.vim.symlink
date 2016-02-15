@@ -7,7 +7,6 @@ set termencoding=utf-8
 
 " set a map leader for more key combos
 let mapleader = ' '
-let g:mapleader = ' '
 " save a lot of unneeded shifting
 noremap ; :
 noremap : ;
@@ -26,6 +25,8 @@ call plug#begin('~/.config/nvim/plugged')
 " colorscheme & appearance ----------------------
 "Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
 "Plug 'sjl/badwolf'
+"Plug 'morhetz/gruvbox'
+"Plug 'w0ng/vim-hybrid'
 Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
     " settings for lightline {{{
     let g:lightline = {
@@ -105,13 +106,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         nnoremap <silent> <Leader>v :call fzf#run({
         \   'right': winwidth('.') / 2,
         \   'sink':  'vertical botright split' })<CR>
-
-        " <M-p> for open buffers
-        nnoremap <silent> <M-p> :Buffers<cr>
-
-        " <M-S-p> for MRU
-        nnoremap <silent> <M-S-p> :History<cr>
-
     else
     " CtrlP fallback
     end
@@ -125,22 +119,8 @@ Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> 
     endif
 
     nnoremap <silent> S :call SearchWordWithAg()<CR>
-    vnoremap <silent> <C-F> :call SearchVisualSelectionWithAg()<CR>
-
     function! SearchWordWithAg()
         execute 'Ack' expand('<cword>')
-    endfunction
-
-    function! SearchVisualSelectionWithAg() range
-        let old_reg = getreg('"')
-        let old_regtype = getregtype('"')
-        let old_clipboard = &clipboard
-        set clipboard&
-        normal! ""gvy
-        let selection = getreg('"')
-        call setreg('"', old_reg, old_regtype)
-        let &clipboard = old_clipboard
-        execute 'Ack' selection
     endfunction
     " }}}
 Plug 'tpope/vim-fugitive'
@@ -338,6 +318,8 @@ nmap <silent> <leader>b :bw<cr>
 " AUTOCOMD : cursor highlight, file type-specific settings, etc. ====
     if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
 	" Filetype-specific autocommands --------------------------------"{{{
+    filetype on
+
     augroup filespecific
         "directive clears all the autocmd's for the current group.
         autocmd! 
