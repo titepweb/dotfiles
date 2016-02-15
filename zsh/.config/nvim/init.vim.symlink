@@ -229,10 +229,13 @@ Plug 'tpope/vim-fugitive'
     " (4) Gstatus --> - to stage files
     " }}}
     " settings for fugitive {{{
+    nnoremap <silent><leader>gb :Gblame<cr>
+    nnoremap <silent><leader>Gl :Glog<cr>
+    nnoremap <leader>ge :Gedit<cr>
+    nnoremap <silent><leader>Gd :Gdiff<cr>
+    nnoremap <silent><leader>gw :Gwrite<cr>
+    nnoremap <silent><leader>gc :Gcommit<cr>
     nnoremap <silent> <leader>gs :Gstatus<cr>
-    noremap <leader>ge :Gedit<cr>
-    nnoremap <silent><leader>gr :Gread<cr>
-    noremap <silent><leader>gb :Gblame<cr>
 
     function! ReviewLastCommit()
         if exists('b:git_dir')
@@ -504,6 +507,13 @@ xnoremap .  :normal .<CR>
 " Draw lines of dashes or equal signs based on the length of the line above
 inoremap <C-U>- <Esc>kyyp^v$r-ja
 inoremap <C-U>= <Esc>kyyp^v$r=ja
+
+" indenting keybinds
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 " }}}
 " AUTOCOMD : cursor highlight, file type-specific settings, etc. ====
     if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
