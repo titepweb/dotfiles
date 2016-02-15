@@ -129,7 +129,8 @@ Plug 'junegunn/rainbow_parentheses.vim' " visualize nested parentheses
     "}}}
 Plug 'itchyny/landscape.vim'
 
-" utilities ------------------------------------
+" must-have utilities --------------------------
+" fzf can take any list as input (files, buffers, project-wide tags, history, mru, etc.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     " settings for fzf {{{
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
@@ -139,6 +140,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         \ 'ctrl-s': 'split',
         \ 'ctrl-v': 'vsplit'
         \ }
+    let g:fzf_layout = { 'window': 'enew' }
 
     if executable('fzf')
         " <C-p> or <C-t> to search files (-m means multi-select with (shift)tab)
@@ -149,6 +151,18 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         \   'right': winwidth('.') / 2,
         \   'sink':  'vertical botright split' })<CR>
 
+         " Use fuzzy completion relative filepaths across directory
+        inoremap <expr> <c-x><c-f> fzf#vim#complete#path('git ls-files $(git rev-parse --show-toplevel)')
+
+        " Better command history with q:
+        command! CmdHist call fzf#vim#command_history({'right': '40'})
+        nnoremap q: :CmdHist<CR>
+
+        " Better search history
+        command! QHist call fzf#vim#search_history({'right': '40'})
+        nnoremap q/ :QHist<CR>
+
+        command! -bang -nargs=* Ack call fzf#vim#ag(<q-args>, {'down': '40%', 'options': --no-color'})
     else
     " CtrlP fallback
     end
@@ -196,12 +210,12 @@ Plug 'scrooloose/nerdtree'          " file browser (remap to <leader>-k)
     " }}}
 
 Plug 'easymotion/vim-easymotion'
-" {{{
-  let g:EasyMotion_do_mapping = 0
-  let g:EasyMotion_smartcase = 1
-  let g:EasyMotion_off_screen_search = 0
-  noremap <leader>; <Plug>(easymotion-s2)
-" }}}
+    " settings for easymotion {{{
+    let g:EasyMotion_do_mapping = 0
+    let g:EasyMotion_smartcase = 1
+    let g:EasyMotion_off_screen_search = 0
+    noremap <leader>; <Plug>(easymotion-s2)
+    " }}}
 
 "Plug 'ctrlpvim/ctrlp.vim'          " fuzzy search (of course, C-p)
     " settings for CtrlP {{{
@@ -214,6 +228,8 @@ Plug 'easymotion/vim-easymotion'
     " }}}
 "Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'         " bundling text with [e ]e
+
+" utilities ------------------------------------
 
 " language-specific plugins --------------------
 
@@ -339,7 +355,6 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp     " store backup files in 
 " }}}
 " General shortcuts for functionality {{{ ===========================
 " shortcut to save
-noremap <leader><leader> :w<cr>
 noremap <C-s> :w<cr>
 noremap! <C-s> <esc>:w<cr>
 
