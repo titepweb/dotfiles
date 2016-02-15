@@ -161,6 +161,7 @@ function nextwall() {
 #==============================================================================#
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 export FZF_DEFAULT_OPTS='
   --bind ctrl-f:page-down,ctrl-b:page-up
   --color dark,hl:33,hl+:37,fg+:235,bg+:9,fg+:254
@@ -169,3 +170,7 @@ export FZF_DEFAULT_OPTS='
 export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
+# bind '"\C-F":"fh\n"'
+
+# usage : fzfr <program> , for example: fzfr feh
+fzfr() { fzf -m -x | { xargs -d'\n' -r "$@" & } }

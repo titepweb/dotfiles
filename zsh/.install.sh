@@ -8,26 +8,30 @@
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES for the combo ZSH + NEOVIM + TMUX + base16     │
-│ base16-shell ┌──zsh     + zplug                                             │
-│ colorscheme  └──neovim  + vim-plug + xclip + xmodmap (Capslock --> Escape)  │
-│ + a custom     ---------------------------                                  │
-│ colorscheme     tmux    + Tmux Plugin Manager                               │
+│ base16-shell ┌──zsh     + zplug               + fzf                         │
+│ colorscheme  └──neovim  + vim-plug + xclip    + fzf.vim  + tagbar/ctags     │
+│ + xmodmap       ---------------------------                                 │
+│                 tmux    + Tmux Plugin Manager + fzf-tmux                    │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
 
 install zsh
 install xclip
 install neovim
-install python2-neovim   # required for gundo
+install tmux 
+
+install xorg-xmodmap    # for mapping Capslock --> Escape --> easily switch to NORMAL mode (Vim)
+# install xkeycaps       # for keycode --> configure .Xmodmap
+
+install python2-neovim  # for gundo (vim plugin)
 # CtrlP, fzf can used with Ag/ag:
 install the_silver_searcher     # ag - code-searching tool similar to ack, but faster.
-# tagbar require ctags:
-install ctags           # ctags/etags vs cscope : which is the best ?
 
-install tmux 
-# map Capslock --> Escape (Vim)
-install xorg-xmodmap
-# install xkeycaps       # for keycode --> configure .Xmodmap
+install ctags           # for tagbar (vim plugin)
+                        # ctags/etags vs cscope : which is the best ?
+
+# fzf together with fzf.vim is managed by vim-plug.
+# 
 
 #=[ vim-plug ]=================================#
 # better than vunddle , pretzo, or oh-my-zsh

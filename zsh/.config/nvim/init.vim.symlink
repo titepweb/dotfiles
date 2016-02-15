@@ -132,6 +132,7 @@ Plug 'itchyny/landscape.vim'
 " must-have utilities --------------------------
 " fzf can take any list as input (files, buffers, project-wide tags, history, mru, etc.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
     " settings for fzf {{{
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
     let g:fzf_height='35%'
@@ -140,10 +141,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         \ 'ctrl-s': 'split',
         \ 'ctrl-v': 'vsplit'
         \ }
-    let g:fzf_layout = { 'window': 'enew' }
+
+    "Unite-like layout
+    "let g:fzf_layout = { 'window': 'enew' }
 
     if executable('fzf')
-        " <C-p> or <C-t> to search files (-m means multi-select with (shift)tab)
+        " <C-p> to search files (-m means multi-select with (shift)tab)
         noremap <silent> <C-p> :FZF -m --no-hscroll<cr>
         
         " Open files in vertical horizontal split
@@ -156,13 +159,14 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
         " Better command history with q:
         command! CmdHist call fzf#vim#command_history({'right': '40'})
-        nnoremap q: :CmdHist<CR>
+        nnoremap h: :CmdHist<CR>
 
         " Better search history
         command! QHist call fzf#vim#search_history({'right': '40'})
-        nnoremap q/ :QHist<CR>
+        nnoremap h/ :QHist<CR>
 
         command! -bang -nargs=* Ack call fzf#vim#ag(<q-args>, {'down': '40%', 'options': --no-color'})
+
     else
     " CtrlP fallback
     end
@@ -180,7 +184,7 @@ Plug 'mileszs/ack.vim'              " search inside files (:Ack <keywords>) --> 
         execute 'Ack' expand('<cword>')
     endfunction
     " }}}
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'           " usage: Gstatus, Gdiff, Gblame, Gedit, Gread, Gwrite, Gwrite!, Gwq, Glog [q]q, Gcommit
     " settings for fugitive {{{
     function! ReviewLastCommit()
         if exists('b:git_dir')
@@ -190,7 +194,7 @@ Plug 'tpope/vim-fugitive'
             echo 'No git a git repository:' expand('%:p')
         endif
     endfunction
-    nnoremap <silent> <leader>lc :call ReviewLastCommit()<CR>
+    nnoremap <silent> <leader>rlc :call ReviewLastCommit()<CR>
     " }}}
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'               " interact with tmux to run commands (project-specific settings at <project>.vimrc)
@@ -208,13 +212,15 @@ Plug 'scrooloose/nerdtree'          " file browser (remap to <leader>-k)
     " expand to the path of the file in the current buffer
     noremap <silent> <leader><S-k> :NERDTreeFind<cr>
     " }}}
-
 Plug 'easymotion/vim-easymotion'
     " settings for easymotion {{{
     let g:EasyMotion_do_mapping = 0
     let g:EasyMotion_smartcase = 1
     let g:EasyMotion_off_screen_search = 0
-    noremap <leader>; <Plug>(easymotion-s2)
+
+    " <Leader>f{char} to move to {char}
+    map  <Leader>f <Plug>(easymotion-bd-f)
+    nmap <Leader>f <Plug>(easymotion-overwin-f)
     " }}}
 
 "Plug 'ctrlpvim/ctrlp.vim'          " fuzzy search (of course, C-p)
@@ -359,11 +365,27 @@ noremap <C-s> :w<cr>
 noremap! <C-s> <esc>:w<cr>
 
 " SPLIT : ?/autosource/splitview.vim {{{ -------------------------------------
-set splitright
+set splitbelow         "horizontally open new panes to bottom
+set splitright         "vertically open new panes to right
 noremap <silent> <C-h> :call WinMove('h')<cr>
 noremap <silent> <C-j> :call WinMove('j')<cr>
 noremap <silent> <C-k> :call WinMove('k')<cr>
 noremap <silent> <C-l> :call WinMove('l')<cr>
+
+    " Window movement shortcuts "
+    " move to the window in the direction shown, or create a new window "
+    function! WinMove(key)
+        let t:curwin = winnr()
+        exec "wincmd ".a:key
+        if (t:curwin == winnr())
+            if (match(a:key,'[jk]'))
+                wincmd v
+            else
+                wincmd s
+            endif
+            exec "wincmd ".a:key
+        endif
+    endfunction
 
 " Column scroll-binding on <leader>sb
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
@@ -524,7 +546,6 @@ inoremap <C-U>= <Esc>kyyp^v$r=ja
     autocmd FocusLost * silent! wa
 
     " }}}
-
     endif
 " OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS ====================
     " System clipboard {{{ ------------------------------------------
@@ -606,5 +627,11 @@ inoremap <C-U>= <Esc>kyyp^v$r=ja
 " Cursor & mouse {{{ ================================================
 " }}}
 " Commands {{{ ======================================================
+    " Convenient command to see the difference between the current buffer and the
+    " file it was loaded from, thus the changes you made.
+    if !exists(":DiffOrig")
+    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+            \ | wincmd p | diffthis
+    endif
 " }}}
 " vim:foldmethod=marker:foldlevel=0:syntax=vim
