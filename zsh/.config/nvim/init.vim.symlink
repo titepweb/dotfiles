@@ -24,6 +24,7 @@ endif
 call plug#begin('~/.config/nvim/plugged')
     " usage : PlugInstall PlugUpdate PlugClean
 " colorscheme & appearance ----------------------
+Plug 'flazz/vim-colorschemes'
 "Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
 "Plug 'sjl/badwolf'
 "Plug 'morhetz/gruvbox'
@@ -32,6 +33,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
     " settings for vim-airline {{{
+    "let g:airline_theme="base16"
     let g:airline#extensions#tabline#enabled = 1
     let g:airline_section=''
     let g:airline_detect_paste=1 " Show PASTE if in paste mode
@@ -41,109 +43,16 @@ Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
     endif
 
     " unicode symbols
-    let g:airline_left_sep = '»'
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '«'
-    let g:airline_right_sep = '◀'
-    let g:airline_symbols.linenr = '␊'
-    let g:airline_symbols.linenr = '␤'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.branch = '⎇'
-    let g:airline_symbols.paste = 'ρ'
-    let g:airline_symbols.paste = 'Þ'
-    let g:airline_symbols.paste = '∥'
-    let g:airline_symbols.whitespace = 'Ξ'
-    " airline symbols
     let g:airline_left_sep = ''
     let g:airline_left_alt_sep = ''
     let g:airline_right_sep = ''
     let g:airline_right_alt_sep = ''
+    let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = ''
     let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.whitespace = 'Ξ'
     " }}}
-"Plug 'itchyny/lightline.vim'            " a lightweight customizable statusline
-    " settings for lightline {{{
-    let g:lightline = {
-        \ 'colorscheme' : 'Tomorrow_Night_Eighties',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ]
-        \ },
-        \ 'component': {
-        \   'fugitive': '%{exists("*fugitive#head") ? " ".fugitive#head() : ""}'
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'filename': 'MyFilename',
-        \   'mode': 'MyMode',
-        \   'ctrlpmark': 'CtrlPMark'
-        \ },
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' }
-        \ }
-
-    function! MyModified()
-        if &filetype == "help"
-            return ""
-        elseif &modified
-            return "¶"
-        elseif &modifiable
-            return ""
-        else
-            return ""
-        endif
-    endfunction
-
-    function! MyReadonly()
-        if &filetype == "help"
-            return ""
-        elseif &readonly
-            return ""
-        else
-            return ""
-        endif
-    endfunction
-
-    function! MyFilename()
-            if expand('%:t') == 'ControlP'
-                return g:lightline.ctrlp_item
-        endif
-        if expand('%:t') == '__Tagbar__'
-            return g:lightline.fname
-        endif
-        if expand('%:t') =~ '__Gundo'
-            return ''
-        endif
-        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-                \  &ft == 'unite' ? unite#get_status_string() :
-                \  &ft == 'vimshell' ? vimshell#get_status_string() :
-                \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-                \ ('' != MyModified() ? ' ' . MyModified() : '')
-    endfunction
-
-    function! MyMode()
-        let fname = expand('%:t')
-        return fname == '__Tagbar__' ? 'Tagbar' :
-                \ fname == 'ControlP' ? 'CtrlP':
-                \ fname == '__Gundo__' ? 'Gundo' :
-                \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-                \ fname =~ 'NERD_tree' ? 'NERDTree' :
-                \ &ft == 'unite' ? 'Unite' :
-                \ &ft == 'vimfiler' ? 'VimFiler' :
-                \ &ft == 'vimshell' ? 'VimShell' :
-                \ winwidth('.') > 60 ? lightline#mode() : ''
-    endfunction
-
-    function! CtrlPMark()
-        return expand('%:t') =~ 'ControlP' ?
-                \ g:lightline.ctrlp_prev . ' ' . g:lightline.subseparator.left . ' ' .
-                \ g:lightline.ctrlp_item . ' ' . g:lightline.subseparator.left . ' ' .
-                \ g:lightline.ctrlp_next . ' ' . g:lightline.subseparator.left . ' ' .
-                \ g:lightline.ctrlp_marked : ''
-    endfunction
-    "}}}
 Plug 'jszakmeister/vim-togglecursor'
     " use vim-togglecursor OR just 4 loc {{{
     " Use a blinking upright bar cursor in Insert mode, a solid block in normal
@@ -163,11 +72,10 @@ Plug 'junegunn/rainbow_parentheses.vim' " visualize nested parentheses
     endif
     "}}}
 Plug 'itchyny/landscape.vim'
-Plug 'ryanoasis/vim-devicons'           " WHY ? Adds filetype icons to NERDTree, lighline, ...
 
 " must-have utilities --------------------------
 " fzf can take any list as input (files, buffers, project-wide tags, history, mru, etc.)
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
     " HOW? :Files :Buffers :BLines :BTags :Tags :History :Commits :BCommits ...
     " settings for fzf {{{
@@ -229,33 +137,45 @@ Plug 'tpope/vim-fugitive'
     " (4) Gstatus --> - to stage files
     " }}}
     " settings for fugitive {{{
-    nnoremap <silent><leader>gb :Gblame<cr>
-    nnoremap <silent><leader>Gl :Glog<cr>
-    nnoremap <leader>ge :Gedit<cr>
-    nnoremap <silent><leader>Gd :Gdiff<cr>
-    nnoremap <silent><leader>gw :Gwrite<cr>
-    nnoremap <silent><leader>gc :Gcommit<cr>
-    nnoremap <silent> <leader>gs :Gstatus<cr>
+      " Fix broken syntax highlight in gitcommit files
+        " (https://github.com/tpope/vim-git/issues/12)
+        let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
 
-    function! ReviewLastCommit()
-        if exists('b:git_dir')
+        nnoremap <silent> <leader>gd :Gdiff<CR>
+        nnoremap <silent> <leader>gb :Gblame<CR>
+        nnoremap <silent> <leader>gl :Glog<cr>
+        nnoremap <silent> <leader>ge :Gedit<CR>
+        nnoremap <silent> <leader>gE :Gedit<space>
+        nnoremap <silent> <leader>gs :Gstatus<CR>
+        nnoremap <silent> <leader>gr :Gread<CR>
+        nnoremap <silent> <leader>gR :Gread<space>
+        nnoremap <silent> <leader>gw :Gwrite<CR>
+        nnoremap <silent> <leader>gW :Gwrite!<CR>
+        nnoremap <silent> <leader>gc :Gcommit<CR>
+        nnoremap <silent> <leader>gq :Gwq<CR>
+        nnoremap <silent> <leader>gQ :Gwq!<CR>
+
+        function! ReviewLastCommit()
+            if exists('b:git_dir')
             Gtabedit HEAD^{}
             nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
-        else
+            else
             echo 'No git a git repository:' expand('%:p')
-        endif
-    endfunction
-    nnoremap <silent> <leader>rlc :call ReviewLastCommit()<CR>
+            endif
+        endfunction
+        nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
 
+        augroup fugitiveSettings
+            autocmd!
+            autocmd FileType gitcommit setlocal nolist
+            " Fugitive - remove when done
+            autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+        augroup END
     " }}}
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'               " interact with tmux to run commands (project-specific settings at <project>.vimrc)
-Plug 'sjl/gundo.vim'                " require to install python2-neovim (remap to <leader>-u)
-    " settings for toggle gundo {{{
-    nnoremap <leader>u :GundoToggle<CR>
-    " }}}
 Plug 'majutsushi/tagbar'            " require to install ctags
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons'           " WHY ? Adds filetype icons to NERDTree, lighline, ...
     " HOW ? <leader>k --> m --> a to add new file
     " settings for NERDTree {{{
     let g:NERDTreeQuitOnOpen=1          " close NERDTree after a file is opened
@@ -288,32 +208,40 @@ Plug 'easymotion/vim-easymotion'
     map  <Leader>f <Plug>(easymotion-bd-f)
     nmap <Leader>f <Plug>(easymotion-overwin-f)
     " }}}
+Plug 'terryma/vim-multiple-cursors'
+"Plug 'coot/cmdalias_vim'
 
-" utilities ------------------------------------
-Plug 'tpope/vim-unimpaired'         " bundling text with [e ]e
-"Plug 'tpope/vim-surround'          " surround code with delimiters
-"Plug 'junegunn/vim-easy-align'
-"Plug 'tomtom/tcomment_vim'
-"Plug 'Raimondi/delimitMate'
-"Plug 'mattn/emmet-vim'
+" Navigation -----------------------------------
 " language-specific plugins --------------------
 "Plug 'scrooloose/syntastic'
 
+" Completion -----------------------------------
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
+" Text Manipulation ----------------------------
+Plug 'tpope/vim-unimpaired'         " bundling text with [e ]e
+"Plug 'tpope/vim-surround'          " surround code with delimiters
+Plug 'tomtom/tcomment_vim'
+"Plug 'junegunn/vim-easy-align'
+"Plug 'Raimondi/delimitMate'
+"Plug 'mattn/emmet-vim'
+" Text Objects ---------------------------------
+
+" Language -------------------------------------
+Plug 'scrooloose/syntastic'
+Plug 'mattn/emmet-vim'
+
+" Git ------------------------------------------
+
+
+" Misc -----------------------------------------
+Plug 'mbbill/undotree'
+    " settings for toggle gundo {{{
+    nnoremap <leader>u :UndotreeToggle<CR>
+    " }}}
+" utilities ------------------------------------
 call plug#end()
 " }}}
-" Source my own custom functions and settings "{{{ ==================
-function! Source(vimfile)
-	let src=a:vimfile
-	if strlen(src) && filereadable(src)
-		exec ':source' . src
-	endif
-endfunction
-
-"automatically sources all file in autosource
-for fpath in split(globpath('~/.config/nvim/autosource/', '*.vim'), '\n')
-	:call Source(fpath)
-endfor
-"}}}
 " Code folding settings {{{ =========================================
 set foldmethod=syntax   "fold based on indentation, rather than markers
 set foldlevel=0         "fold level-0 when openning a file
@@ -409,12 +337,13 @@ noremap <silent> <leader>hh :setl hls<CR>:let @/="\\<<C-r><C-w>\\>"<CR>
 " }}}
 " Backups and Undo {{{ ==============================================
 " Keep undo history across sessions, by storing in file.
-if has('persistent_undo') && !isdirectory(expand('~').'/.vim/undo')
-    silent !mkdir ~/.vim/undo > /dev/null 2>&1
+if has('persistent_undo')
+    if !isdirectory(expand('~').'/.vim/undo')
+        silent !mkdir ~/.vim/undo > /dev/null 2>&1
+    endif
+    set undofile
+    set undodir=~/.vim/undo
 endif
-
-set undofile
-set undodir=~/.vim/undo
 
 set nobackup                " do not keep backup files, it's 70's style cluttering
 set noswapfile              " do not write annoying intermediate swap files,
@@ -515,42 +444,20 @@ inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 " }}}
+" Command Aliases {{{ ===============================================
+" }}}
 " AUTOCOMD : cursor highlight, file type-specific settings, etc. ====
     if has('autocmd') && !exists('autocommands_loaded') " Make sure Vim has autocmd support
 	" Filetype-specific autocommands --------------------------------"{{{
     filetype on
 
     augroup filespecific
-        "directive clears all the autocmd's for the current group.
+        "Remove all previously defined autocmds for the current group.
         autocmd!
         au BufRead,BufNewFile *.json set ft=javascript
         autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
-        autocmd FileType help nested call ILikeHelpToTheRight()
 	augroup END
     " }}}
-    " Open help files vertically ------------------------------------"{{{
-    function! ILikeHelpToTheRight()
-    if !exists('w:help_is_moved') || w:help_is_moved != "right"
-        wincmd L
-        let w:help_is_moved = "right"
-    endif
-    endfunction
-    " }}}
-	" When editing a file, always jump to the last known cursor position.{{{
-	" Don't do it when the position is invalid or when inside an event handler
-	" (happens when dropping a file on gvim).
-	autocmd BufReadPost *
-		\ if line("'\"") > 0 && line("'\"") <= line("$") |
-		\   exe "normal g`\"" |
-		\ endif
-	" }}}
-	" Reload .vimrc and .gvimrc files as soon as they have a change -"{{{
-	augroup VimReload
-		autocmd!
-		autocmd BufWritePost $MYVIMRC source $MYVIMRC
-		autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
-	augroup END
-	" }}}
 	" Mode-aware settings (colorize line number/line/column ...) ----"{{{
 	" forks of http://stackoverflow.com/questions/15561132/run-command-when-vim-enters-visual-mode
 	augroup HiLightCursor
@@ -611,11 +518,42 @@ vnoremap <S-Tab> <gv
 		hi CursorColumn ctermfg=NONE ctermbg=235 cterm=NONE guifg=white guibg=#323D3E gui=bold
 	endfunction
 	" }}}
-    " Save all files on focus lost, ignoring warnings about untitled buffers {{{
-    autocmd FocusLost * silent! wa
-    " }}}
-    " Auto remove all trailing whitespace on :w {{{
-    autocmd BufWritePre * :%s/\s\+$//e
+    " basic autocommands {{{
+    augroup vimrcEx
+        autocmd!
+        " Automatically create parent directory on save if directory doesn't exist {{{
+            autocmd BufWritePre *
+                \ if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) |
+                \ execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+        "}}}
+        " Save all files on focus lost, ignoring warnings about untitled buffers {{{
+            autocmd FocusLost * silent! wa
+        " }}}
+        " Auto remove all trailing whitespace on :w {{{
+            autocmd BufWritePre * :%s/\s\+$//e
+        " }}}
+        " When editing a file, always jump to the last known cursor position.{{{
+            " Don't do it when the position is invalid or when inside an event handler
+            " (happens when dropping a file on gvim).
+            autocmd BufReadPost *
+                \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                \   exe "normal g`\"" |
+                \ endif
+        " }}}
+        " Open help files vertically ------------------------------------"{{{
+            autocmd FileType help nested call ILikeHelpToTheRight()
+            function! ILikeHelpToTheRight()
+            if !exists('w:help_is_moved') || w:help_is_moved != "right"
+                wincmd L
+                let w:help_is_moved = "right"
+            endif
+            endfunction
+        " }}}
+        " Reload .vimrc and .gvimrc files as soon as they have a change -"{{{
+        autocmd BufWritePost $MYVIMRC source $MYVIMRC
+        autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+        " }}}
+    augroup END
     " }}}
     endif
 " OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS ====================
@@ -630,7 +568,7 @@ vnoremap <S-Tab> <gv
             " this doesn't work in mountain lion's default vim (does on macvim)
             set clipboard=unnamed    " brew install reattach-to-user-namespace
         elseif s:kernel == 'Linux'
-            set guifont=Liberation\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 12
+            set guifont=Knack\ Nerd\ Font\ Complete\ Mono\ 12
             set clipboard=unnamed,unnamedplus " copy/paste between gui/cli --> require xclip/xsel
         endif
     endif
@@ -706,4 +644,16 @@ vnoremap <S-Tab> <gv
             \ | wincmd p | diffthis
     endif
 " }}}
+" Post-process : Load my personal functions and settings "{{{ =================
+    function! Source(vimfile)
+        let src=a:vimfile
+        if strlen(src) && filereadable(src)
+            exec ':source' . src
+        endif
+    endfunction
+    "automatically sources all file in autosource
+    for fpath in split(globpath('~/.config/nvim/autosource/', '*.vim'), '\n')
+        :call Source(fpath)
+    endfor
+"}}}
 " vim:foldmethod=marker:foldlevel=0:syntax=vim
