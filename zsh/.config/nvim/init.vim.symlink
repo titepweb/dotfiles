@@ -243,11 +243,14 @@ Plug 'mbbill/undotree'
 call plug#end()
 " }}}
 " Code folding settings {{{ =========================================
-set foldmethod=syntax   "fold based on indentation, rather than markers
-set foldlevel=0         "fold level-0 when openning a file
-set modelines=1         "check just the final line of the file for a modeline
-set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-                        " which commands trigger auto-unfold
+if has("folding")
+  set foldmethod=syntax   "fold based on indentation, rather than markers
+  set foldlevel=0         "fold level-0 when openning a file
+  set modelines=1         "check just the final line of the file for a modeline
+  set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+  "set foldminlines=5     " Don't fold stuff with less lines
+  "set nofoldenable     " Don't enable automatic folding!
+endif
 " }}}
 " Indentation  {{{ ==================================================
 " Lines too long to fit on one screen will be truncated.
@@ -456,7 +459,19 @@ vnoremap <S-Tab> <gv
         autocmd!
         au BufRead,BufNewFile *.json set ft=javascript
         autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
-	augroup END
+
+        " Tabstop settings for file types
+        autocmd FileType * set tabstop=2|set shiftwidth=2|set expandtab
+        autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+        autocmd FileType coffee setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+        autocmd FileType php set tabstop=4|set shiftwidth=4|set expandtab
+
+        " Setup file types
+        au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown
+        au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake} set ft=ruby
+        au BufRead,BufNewFile *.twig set filetype=html
+
+    augroup END
     " }}}
 	" Mode-aware settings (colorize line number/line/column ...) ----"{{{
 	" forks of http://stackoverflow.com/questions/15561132/run-command-when-vim-enters-visual-mode
@@ -529,6 +544,9 @@ vnoremap <S-Tab> <gv
         " Save all files on focus lost, ignoring warnings about untitled buffers {{{
             autocmd FocusLost * silent! wa
         " }}}
+        " Check if any buffers were changed outside of Vim {{{
+            autocmd CursorHold * checktime
+        " }}}
         " Auto remove all trailing whitespace on :w {{{
             autocmd BufWritePre * :%s/\s\+$//e
         " }}}
@@ -560,6 +578,7 @@ vnoremap <S-Tab> <gv
         " }}}
     augroup END
     " }}}
+
     endif
 " OS-SPECIFIC SETTINGS & CROSS-PLATFORM SETTINGS ====================
     " System clipboard {{{ ------------------------------------------
