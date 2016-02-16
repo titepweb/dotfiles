@@ -1,7 +1,7 @@
 " First and Foremost {{{ ============================================
 set nocompatible " Forget compatibility with vi (This must be first)
 
-set encoding=utf-8
+set encoding=utf-8 nobomb                   " set default encoding
 set fenc=utf-8
 set termencoding=utf-8
 
@@ -24,7 +24,7 @@ endif
 call plug#begin('~/.config/nvim/plugged')
     " usage : PlugInstall PlugUpdate PlugClean
 " colorscheme & appearance ----------------------
-Plug 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'           " nice colorscheme : neverland-darker
 "Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
 "Plug 'sjl/badwolf'
 "Plug 'morhetz/gruvbox'
@@ -174,7 +174,6 @@ Plug 'tpope/vim-fugitive'
     " }}}
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'               " interact with tmux to run commands (project-specific settings at <project>.vimrc)
-Plug 'majutsushi/tagbar'            " require to install ctags
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons'           " WHY ? Adds filetype icons to NERDTree, lighline, ...
     " HOW ? <leader>k --> m --> a to add new file
     " settings for NERDTree {{{
@@ -212,6 +211,21 @@ Plug 'terryma/vim-multiple-cursors'
 "Plug 'coot/cmdalias_vim'
 
 " Navigation -----------------------------------
+" Tags -----------------------------------------
+Plug 'majutsushi/tagbar'            " require to install ctags
+Plug 'xolox/vim-easytags'
+    Plug 'vim-misc'
+    " Easy Tags {{{
+    set tags=~/.vimtags
+    let g:easytags_dynamic_files = 1
+    let g:easytags_updatetime_min = 1
+    let easytags_resolve_links = 1
+    let g:easytags_on_cursorhold = 0
+    let g:easytags_always_enabled = 0
+    let g:tagbar_autofocus = 1
+    let g:tagbar_compact = 1
+    let g:tagbar_autoclose = 1
+    " }}}
 " language-specific plugins --------------------
 "Plug 'scrooloose/syntastic'
 
@@ -237,7 +251,10 @@ Plug 'mattn/emmet-vim'
 " Misc -----------------------------------------
 Plug 'mbbill/undotree'
     " settings for toggle gundo {{{
-    nnoremap <leader>u :UndotreeToggle<CR>
+        nnoremap <leader>u :UndotreeToggle<CR>
+        if !exists('g:undotree_WindowLayout')
+            let g:undotree_WindowLayout = 2
+        endif
     " }}}
 " utilities ------------------------------------
 call plug#end()
