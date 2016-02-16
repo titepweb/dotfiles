@@ -9,3 +9,7 @@ nnoremap <leader>' viW<esc>a'<esc>gvo<esc>i'<esc>gvo<esc>3l
 vnoremap <leader>" <esc>a"<esc>gvo<esc>i"<esc>gvo<esc>ll
 vnoremap <leader>' <esc>a'<esc>gvo<esc>i'<esc>gvo<esc>ll
 
+
+" dupe stuff
+vmap <c-d> mby`bp`bgv
+nmap <c-d> mpyyp`p
