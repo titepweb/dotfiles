@@ -123,11 +123,11 @@ Plug 'junegunn/fzf.vim'
         nnoremap <Right> :bn<CR>
         nnoremap <Left> :bp<CR>
         " forcefully save, close the current buffer and move to the previous one
-        noremap <Down> :w!:bp <BAR> bd #<CR>
-        " switch between current and last buffer
-        noremap <leader>. <c-^>
+        nnoremap <Down> w! <CR> :bp <BAR> bd #<CR>
         " wipout buffer
-        noremap <silent> <leader>w :bw<cr>
+        nnoremap <silent> <leader>w :bw<cr>
+        " switch between current and last buffer
+        nnoremap <leader>. <c-^>
     else
     " CtrlP fallback
     end
