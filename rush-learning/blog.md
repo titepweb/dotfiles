@@ -71,6 +71,12 @@ REMOVE SUBMODULE: Currently, we must do it manuually
 **subtree**
 
 
+**Download a directory, not the whole repo**
+```
+https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack
+svn ls --> tree/master --> trunk
+svn export https://github.com/ryanoasis/nerd-fonts/trunk/patched-fonts/Hack 
+```
 **Reference**
 1. [ragerdudler's guide to use git](http://rogerdudler.github.io/git-guide/) 
 2. [arnklint's Git Submodule Guide](http://arnklint.com/technology/git-submodules.html)

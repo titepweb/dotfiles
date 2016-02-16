@@ -19,7 +19,7 @@ function updateRepo {
   local REPO_LOCAL="$1"
   local action="$2"
   # 1 - Check if git is installed before doing git operations
-  type git >/dev/null 2>&1 || { 
+  type git >/dev/null 2>&1 || {
     echo "************************************"
     echo >&2 "Git is required to clone/pull/push dot files from/to a remote repository. "\
     "Symlinks can still be auto created to files in $REPO_LOCAL but a remote repository will not be used.";
@@ -40,15 +40,15 @@ function updateRepo {
   # 3 - If REPO_LOCAL does not exist, return.
   [ ! -d "$REPO_LOCAL" ] && FAIL "${red}${bold}The REPO_LOCAL $REPO_LOCAL does not exist. \nUpdating Repository fails!${reset}"
 
-  # 4 - PULL or PUSH - 
+  # 4 - PULL or PUSH -
   if [ "$action" == "pull" ]; then
     displayTitle "PULLING CHANGES FROM THE MASTER REPOSITORY"
     (cd $REPO_LOCAL && git pull origin "$REPO_BRANCH")
     OK "${green}${bold}Pulling changes from the MASTER REPOSITORY completed!${reset}"
   elif [ "$action" == "push" ]; then
     displayTitle "PUSHING CHANGES TO MASTER REPOSITORY"
-    cd $REPO_LOCAL && git add . && git commit -m "$commitMessage" 
-    OK "\`git commit -m <commitMessage> ${green}${bold}done${reset}!"
+    cd $REPO_LOCAL && git add . && git commit -m "$commitMessage"
+    OK "\`git commit -m <commitMessage>\` ${green}${bold}done${reset}!"
     INFO "Commit message : ${yellow}$commitMessage${reset}"
 
     echo -e "\n✱ ${underline}${bold}PRIVACY WARNING${reset} ( by ${yellow}$FUNCNAME${reset} from ${yellow}$BASH_SOURCE${reset} )
@@ -59,7 +59,7 @@ function updateRepo {
     "
     read -p "Are you sure [y/n] ? " -n 1 -r && echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      FAIL "Please take a look over your dotfiles..." 
+      FAIL "Please take a look over your dotfiles..."
     fi
     git push origin "$REPO_BRANCH"
     OK "${green}${bold}Pushing changes from the MASTER REPOSITORY completed!${reset}"
@@ -127,12 +127,12 @@ cat << EOF
 │ (x) INSTALL_PACKAGES + INSTALL_DOTFILES                                     │
 │  │  $ > nmdf -I [options]                                                   │
 │ (x) INSTALL_DOTFILES only                                                   │
-│  │  $ > nmdf command [options]                                              │  
+│  │  $ > nmdf command [options]                                              │
 │  │           -i  : Copy dotfiles base on their extensions.                  │
 │  │           -l  : Symlink both *.copy and *.symlink files                  │
 │  │           -c  : Copy both *.copy and *.symlink files                     │
-│  │                                                                          │ 
-│  │                   -o  : Create symlinks without overwrite confirmation.  │ 
+│  │                                                                          │
+│  │                   -o  : Create symlinks without overwrite confirmation.  │
 │  │                   -b  : Create symlinks without backup confirmation.     │
 │  │                   -a  : Ask user for copying file or creating symlink.   │
 │  │                                                                          │
@@ -189,7 +189,7 @@ function stats {
 
 #=[ MAIN ]====================================================================#
 
-# Parse option arguments or ask for them if not been specified 
+# Parse option arguments or ask for them if not been specified
 # ----------------------------------------------------------------------
   if [ $# = 0 ]; then
     nmdf_help
@@ -214,7 +214,7 @@ function stats {
       b)  backup_all=true ;;
       # }}}
       s)  showStats=true ;;
-      d)  dotDir=$OPTARG 
+      d)  dotDir=$OPTARG
           # Trim the trailing slash from the dot directory if user mistyped.
           [[ $dotDir == */ ]] && dotDir="${dotDir%?}"  # OR dotDir=${dotDir:1}
       ;;
@@ -240,13 +240,13 @@ function stats {
   done
   shift $((OPTIND-1))  #This tells getopts to move on to the next argument.
 #------------------------------------------------------------------------------
-  [ "$pullOption" == "true" ] && updateRepo "$dotDir" "pull" 
+  [ "$pullOption" == "true" ] && updateRepo "$dotDir" "pull"
 
   # @FIXME:
   # sh -c "`curl -fsSL https://raw.githubusercontent.com/$AUTHOR/nmdf/master/bin/nmdf`"
   # sh -c "$(wget https://raw.githubusercontent.com/$AUTHOR/nmdf/master/bin/nmdf -O -)"
   # bash <(wget -nv -O -https://raw.githubusercontent.com/$AUTHOR/nmdf/master/bin/nmdf)
-  # if this script is running from a remote location and the dotfiles directory was empty, download and save nmdf to the bin directory, however, 
+  # if this script is running from a remote location and the dotfiles directory was empty, download and save nmdf to the bin directory, however,
   if [ ! -f "$binDir/nmdf" ] && [ ! hash nmdf >/dev/null 2>&1 ]; then
     curl -fsSL -o "$binDir/nmdf" $APP_URL
     chmod +x "$binDir/nmdf"
@@ -258,12 +258,12 @@ function stats {
   [ "$installpkg" == "true" ] && INSTALL_PACKAGES
   [ -n "$symlinkORcopy" ] && INSTALL_DOTFILES
 
-    # for the first time, submodule need to be 
+    # for the first time, submodule need to be
     # displayTitle "INITIALIZING SUBMODULES"
     # cd "$dotDir" && git submodule update --init --recursive #--recrusive means update all submodules within
 
   [ "$showStats" == "true" ] && stats "$DOTREPO" "$dotDir"
-  [ "$pushOption" == "true" ] && updateRepo "$dotDir" "push" 
+  [ "$pushOption" == "true" ] && updateRepo "$dotDir" "push"
 #---------------------------------------------------------------------------------------------------------
 echo -e "\n$message"
 
