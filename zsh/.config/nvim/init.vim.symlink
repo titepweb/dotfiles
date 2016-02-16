@@ -548,6 +548,11 @@ vnoremap <S-Tab> <gv
                 let w:help_is_moved = "right"
             endif
             endfunction
+
+            " Help File speedups, <enter> to follow tag, delete for back
+            au filetype help nnoremap <buffer><cr> <c-]>
+            au filetype help nnoremap <buffer><bs> <c-T>
+            au filetype help nnoremap <buffer>q :q<CR>
         " }}}
         " Reload .vimrc and .gvimrc files as soon as they have a change -"{{{
         autocmd BufWritePost $MYVIMRC source $MYVIMRC
