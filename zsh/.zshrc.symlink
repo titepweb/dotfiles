@@ -16,9 +16,9 @@ function() {
   # Save extended_glob option for restore. We need to change it for zplug's of tags. --------------------
   local eg=$options[extended_glob]
   setopt extended_glob
-  
+
 # zplug {{{ ---------------------------------------------------------------------------------------------
-  
+
   # specific-topic *.zsh files --------------------------------------------------------------------------
   local nice=
   # zsh #2 : Load paths first.
@@ -58,7 +58,7 @@ function() {
   zplug load --verbose
 
 # }}} zplug ---------------------------------------------------------------------------------------------
-  
+
   # Restore extended_glob option. -----------------------------------------------------------------------
   options[extended_glob]=$eg
 
@@ -78,7 +78,7 @@ clear
 # reload zsh config
 alias reload!='source ~/.zshrc'
 
-# Default THEME and BACKGROUND 
+# Default THEME and BACKGROUND
 if [ -z "$THEME" ]; then
     # export THEME="base16-chalk"
     export THEME="base16-nmdf"
@@ -107,7 +107,7 @@ function nexttheme() {
   if [[ $choose == "true" ]]; then choose="$firstfile" ; fi
   echo "==>choose=$choose"
 
-  # remove .[dark|light].sh from $choose 
+  # remove .[dark|light].sh from $choose
   choose=$(basename "$choose" | cut -d. -f1)
   echo "==> THEME=$choose"
   if [[ $choose != "$THEME" ]]; then export THEME="$choose" && reload! ; fi
@@ -132,7 +132,7 @@ function testcolorscheme(){
   for i in {0..7}; do echo -en "${esc}[0;3${i}m▉${esc}[0;9${i}m■" ; done; echo -e "\n"
 }
 
-# CHANGING WALLPAPER using feh 
+# CHANGING WALLPAPER using feh
 #==============================================================================#
 function nextwall() {
   # get the current wallpaper from the 2nd line: feh --bg-tile '/home/march/.wallpaper/patterns/fresh.png'
