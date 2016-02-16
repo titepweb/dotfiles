@@ -20,10 +20,10 @@ MORE READING
 4. [thoughtbot](https://robots.thoughtbot.com/tags/vim)
 
 
-COLORSCHEME + FONTS + 
+COLORSCHEME + FONTS +
 =========================
-Tools : 
-+ For Vim/Zsh: [base16-shell](https://github.com/morhetz/gruvbox) , [gruvbox](https://github.com/morhetz/gruvbox) , 
+Tools :
++ For Vim/Zsh: [base16-shell](https://github.com/morhetz/gruvbox) , [gruvbox](https://github.com/morhetz/gruvbox) ,
 + For Vim: [Vim colorscheme](https://github.com/flazz/vim-colorschemes/tree/master/colors)
 + [or create your own](http://ciembor.github.io/4bit) with assistance of:
 	+ [convert hex-rgb](http://www.zonums.com/online/color_converter]
@@ -40,7 +40,7 @@ ZSH
 TMUX
 ====
 - [tmux cheatsheet](http://hyperpolyglot.org/multiplexers)
-- [] 
+- []
 VIM
 ===
 - [How I boosted my Vim](http://nvie.com/posts/how-i-boosted-my-vim/) and [his
@@ -52,12 +52,12 @@ VIM
 
 ### EXTENSIONS = PLUGINS = BUNDLES = VUNDLES
 + Toggle Comment : commentary
-+ FuzzyFinder    : [CtrlP] Commander-T fzf FuzzyFinder
++ FuzzyFinder    : CtrlP Commander-T [fzf] FuzzyFinder
 + File Brower    : [NERDTree]
 + [airline] , powerline, Lightline
 + gundo
-+ status line    : lightline
-+ sidebar        : Tag list, Voom, Tagbar, 
++ status line    : lightline Unite
++ sidebar        : Tag list, Voom, Tagbar,
 + ahw/vim-hooks
 
 
@@ -68,11 +68,11 @@ MY DISCOVERY
 	- map! --> ic
 	- nmap --> normal only, vmap, ...
 	- *noremap = non-recursive
-+ Keybinding Confliction ? Termite --> Tmux --> zsh/neovim ? 
++ Keybinding Confliction ? Termite --> Tmux --> zsh/neovim ?
 
 
 ##### Have you ever heard of...
-[spf13-vim](https://github.com/spf13/spf13-vim), 
+[spf13-vim](https://github.com/spf13/spf13-vim),
 
 
 [fzf]: https://github.com/junegunn/fzf

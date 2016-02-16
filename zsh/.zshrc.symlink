@@ -172,5 +172,20 @@ bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
 # bind '"\C-F":"fh\n"'
 
+# If you're running fzf in a large git repository, git ls-tree can boost up the speed of the traversal.
+export FZF_DEFAULT_COMMAND='
+  (git ls-tree -r --name-only HEAD ||
+   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+      sed s/^..//) 2> /dev/null'
+
 # usage : fzfr <program> , for example: fzfr feh
 fzfr() { fzf -m -x | { xargs -d'\n' -r "$@" & } }
+
+# usage : fzf-tmux [-h HEIGHT[%]] [-w WIDTH[%]] [--] [FZF OPTIONS]
+# fbr - checkout git branch
+fbr() {
+  local branches branch
+  branches=$(git branch) &&
+  branch=$(echo "$branches" | fzf-tmux -h 15 +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //")
+}

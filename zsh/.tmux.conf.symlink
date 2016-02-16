@@ -46,7 +46,7 @@
 
 # =======================================================================#
 
-# !IMPORTANT: Fix Tmux's bug : vim's key binding <C-h> can not work 
+# !IMPORTANT: Fix Tmux's bug : vim's key binding <C-h> can not work
 bind-key -T root C-h send-keys Escape "[104;5u"
 
 # !IMPORTANT: for display prompt, vim's status line
@@ -112,15 +112,20 @@ bind r source-file ~/.tmux.conf \; display "Reloaded!"
 # bind-key C-a last-window           # switch between current and last-found window
 bind -rn C-PageUp select-window -t :-        # previous window (default: p)
 bind -rn C-PageDown select-window -t :+      # next window     (default: n)
-bind Tab choose-window   # 
+bind Tab choose-window   #
 
 # quickly cycle through panels
 bind C-a select-pane -t:.+
 # pane movement shortcuts
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+## switch panes using Alt-arrow without prefix
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+#bind h select-pane -L
+#bind j select-pane -D
+#bind k select-pane -U
+#bind l select-pane -R
 # Resize pane shortcuts
 bind -r H resize-pane -L 5
 bind -r J resize-pane -D 5
@@ -172,7 +177,7 @@ bind y setw synchronize-panes
 
 # Join-panen
    # join-pane [-bdhv] [-l size | -p percentage] [-s src-pane] [-t dst-pane]
-# Like split-window, but instead of splitting dst-pane and creating a new pane, split it and move src-pane into the space.  This can be used to reverse break-pane.  
+# Like split-window, but instead of splitting dst-pane and creating a new pane, split it and move src-pane into the space.  This can be used to reverse break-pane.
 # The -b option causes src-pane to be joined to [left of or above] dst-pane.
 # If -s is omitted and a marked pane is present (see select-pane -m), the marked pane is used rather than the current pane.
 
@@ -184,7 +189,7 @@ bind J   join-pane -t !
 #             prefix-]  Paste the most recently copied buffer of text.
 
 #-- Use KEYBOARD only ----{{{---------------------------------------------
-# step 1 # prefix-Escape to enter copy-mode 
+# step 1 # prefix-Escape to enter copy-mode
 unbind [
 bind Escape copy-mode
 # set vi mode for copy mode
@@ -212,7 +217,7 @@ bind p paste-buffer
 # step 5 # --> or paste in the GUI apps, if you like...
 
 #-- For Dawwin (MacOSX) --{{{---------------------------------------------
-# require: brew install reattach-to-user-namespace --> then, ... 
+# require: brew install reattach-to-user-namespace --> then, ...
 
 # dumb osx : connect tmux to the OS X clipboard service :
 set -g default-command "which reattach-to-user-namespace 2>/dev/null && reattach-to-user-namespace -l $SHELL || $SHELL"
