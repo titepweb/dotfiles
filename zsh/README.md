@@ -76,8 +76,3 @@ MY DISCOVERY
 
 
 [fzf]: https://github.com/junegunn/fzf
-
-
-
-
-**Vim statusline**

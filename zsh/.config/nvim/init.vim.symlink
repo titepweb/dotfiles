@@ -34,7 +34,6 @@ Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
     " settings for vim-airline {{{
     "let g:airline_theme="base16"
-    let g:airline#extensions#tabline#enabled = 1
     let g:airline_section=''
     let g:airline_detect_paste=1 " Show PASTE if in paste mode
     let g:airline_powerline_fonts = 1
@@ -52,6 +51,11 @@ Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
     let g:airline_symbols.readonly = ''
     let g:airline_symbols.paste = 'ρ'
     let g:airline_symbols.whitespace = 'Ξ'
+
+    " airline can manage buffers
+    set hidden
+    let g:airline#extensions#tabline#enabled = 1        "enable the list of buffers
+    let g:airline#extensions#tabline#fnamemod = ':t'    "show just file name
     " }}}
 Plug 'jszakmeister/vim-togglecursor'
     " use vim-togglecursor OR just 4 loc {{{
@@ -212,6 +216,8 @@ Plug 'terryma/vim-multiple-cursors'
 
 " Navigation -----------------------------------
 " Tags -----------------------------------------
+    " HOW ?
+    set tags+=tags                  " to tell vim use ./tags files
 Plug 'majutsushi/tagbar'            " require to install ctags
 Plug 'xolox/vim-easytags'
     Plug 'vim-misc'
@@ -256,6 +262,8 @@ Plug 'mbbill/undotree'
             let g:undotree_WindowLayout = 2
         endif
     " }}}
+Plug 'tpope/vim-commentary'
+Plug 'matze/vim-move'
 " utilities ------------------------------------
 call plug#end()
 " }}}
@@ -448,6 +456,8 @@ vnoremap . :normal .<cr>
 noremap <leader>. <c-^>
 " wipout buffer
 noremap <silent> <leader>b :bw<cr>
+" close the current buffer and move to the previous one
+noremap <leader>bq :bp <BAR> bd #<CR>
 
 " Make the dot command operate over a Visual range.
 " (Excellent tip from Drew Neil's Vim Masterclass.)
@@ -578,10 +588,10 @@ vnoremap <S-Tab> <gv
         " Open help files vertically ------------------------------------"{{{
             autocmd FileType help nested call ILikeHelpToTheRight()
             function! ILikeHelpToTheRight()
-            if !exists('w:help_is_moved') || w:help_is_moved != "right"
-                wincmd L
-                let w:help_is_moved = "right"
-            endif
+                if !exists('w:help_is_moved') || w:help_is_moved != "right"
+                    wincmd L
+                    let w:help_is_moved = "right"
+                endif
             endfunction
 
             " Help File speedups, <enter> to follow tag, delete for back
