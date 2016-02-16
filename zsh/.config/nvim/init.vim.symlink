@@ -29,6 +29,7 @@ Plug 'flazz/vim-colorschemes'           " nice colorscheme : neverland-darker
 "Plug 'sjl/badwolf'
 "Plug 'morhetz/gruvbox'
 "Plug 'w0ng/vim-hybrid'
+"Plug 'AlessandroYorba/Sierra'
 
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
@@ -81,7 +82,7 @@ Plug 'itchyny/landscape.vim'
 " fzf can take any list as input (files, buffers, project-wide tags, history, mru, etc.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
-    " HOW? :Files :Buffers :BLines :BTags :Tags :History :Commits :BCommits ...
+    " HOW? :Files :Buffers :BLines :BTags :Tags :History :Commits :BCommits :Commands
     " settings for fzf {{{
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
     let g:fzf_height='35%'
@@ -245,6 +246,7 @@ Plug 'tomtom/tcomment_vim'
 "Plug 'junegunn/vim-easy-align'
 "Plug 'Raimondi/delimitMate'
 "Plug 'mattn/emmet-vim'
+Plug 'jiangmiao/auto-pairs'
 " Text Objects ---------------------------------
 
 " Language -------------------------------------
@@ -279,7 +281,7 @@ endif
 " }}}
 " Indentation  {{{ ==================================================
 " Lines too long to fit on one screen will be truncated.
-set nowrap
+set wrap
 let &showbreak='↪ '
 " Force a 79 column policy with an auto-break on words in comments to assure
 " maximum readability. Visually add a column to see where the cut will be.
