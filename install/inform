@@ -8,7 +8,7 @@ set -e
 
 ### COLOR DEFENITION ### reference: https://en.wikipedia.org/wiki/ANSI_escape_code
 # Note: \033 = \e   30+i to specify foreground color, 40+i to specify background color,
-reset='\e[0m'     ;   
+reset='\e[0m'     ;
 
 bold='\e[1m'      ;   faint='\e[2m'       ;   italic='\e[3m'       ;   underline='\e[4m'    ;
 blink='\e[5m'     ;   blinkfast='\e[6m'   ;   negative='\e[7m'     ;   conceal='\e[8m'      ;
@@ -27,31 +27,37 @@ bgxterm='\e[48'   ;   bgdefault='\e[49m'  ;
 # USAGE : printf , echo -e "just a ${underline}${red}${bold}underline red${reset}, ${negative}NEGATIVE${reset}, and ${strike}bold${reset} text."
 
 #### LIBRARIES OFFERING COLORFUL INFORMATIVENESS #############################
-# NOTE: echo -e "..." = printf "...\n" 
+# NOTE: echo -e "..." = printf "...\n"
 function displayTitle {
   #NOTE: [01;04;33  = bold + underline + xterm
   BoldUnderlinedRed='\n\e[01;04;38m%s\e[0m\n'
-  printf $BoldUnderlinedRed "$1"
+  local message="${1//$HOME/\~}"
+  printf $BoldUnderlinedRed "$message"
 }
 function SCAN {
-  echo -e "\r  [${bold}${magenta} SCAN ${reset}] ${magenta}$1${reset}" 
+  local message="${1//$HOME/\~}"
+  echo -e "\r  [${bold}${magenta} SCAN ${reset}] ${magenta}$message${reset}"
 }
 function INFO {
-  echo -e "\r  [${bold}${cyan} INFO ${reset}] $1" 
+  local message="${1//$HOME/\~}"
+  echo -e "\r  [${bold}${cyan} INFO ${reset}] $message"
 }
 function ASK {
-  echo -e "\r  [ ${bold}${yellow} ?? ${reset} ] $1"
+  local message="${1//$HOME/\~}"
+  echo -e "\r  [ ${bold}${yellow} ?? ${reset} ] $message"
 }
 function OK {
-  echo -e "\r  [${bold}${green}  OK  ${reset}] $1" 
+  local message="${1//$HOME/\~}"
+  echo -e "\r  [${bold}${green}  OK  ${reset}] $message"
 }
 function FAIL {
-  printf "\r  [${bold}${red} FAIL ${reset}] $1\n"
+  local message="${1//$HOME/\~}"
+  printf "\r  [${bold}${red} FAIL ${reset}] $message\n"
   exit 1
 }
 
 # Storing message to display at the end of the script
 # USAGE : let `echo -e "$message"` at the end of the main script.
-function WARNING { 
+function WARNING {
   message=$message"$1"
 }
