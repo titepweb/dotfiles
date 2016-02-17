@@ -21,13 +21,13 @@
 # |  default : |  pre-$  |   pre-,  |                |
 # |--------------------------------------------------|
 # |    switch  |  <--->  |   <--->  |      <-+->     |
-# |            |   M-AD  | C-Page+- |  C-a  pre-hjkl |
+# |            |   M-AD  | C-Page+- | C-a  C-L/D/U/R |
 # |--------------------------------------------------|
 # |     swap   |         |   <--->  |      <-+->     |
 # |            |         |   M-ad   |    M-s / C-=   |
 # |--------------------------------------------------|
 # |    resize  |         |          |      <-+->     |
-# |            |         |          |     pre-HJKL   |
+# |            |         |          | prefix-L/D/U/R |
 # |            |         |          |      (*)C-z    |
 # |            |         |          | pre-(Up->Down) |
 # +--------------------------------------------------+
@@ -118,19 +118,23 @@ bind Tab choose-window   #
 bind C-a select-pane -t:.+
 # pane movement shortcuts
 ## switch panes using Alt-arrow without prefix
-bind -n M-Left select-pane -L
-bind -n M-Right select-pane -R
-bind -n M-Up select-pane -U
-bind -n M-Down select-pane -D
+bind -n C-Left select-pane -L
+bind -n C-Right select-pane -R
+bind -n C-Up select-pane -U
+bind -n C-Down select-pane -D
 #bind h select-pane -L
 #bind j select-pane -D
 #bind k select-pane -U
 #bind l select-pane -R
 # Resize pane shortcuts
-bind -r H resize-pane -L 5
-bind -r J resize-pane -D 5
-bind -r K resize-pane -U 5
-bind -r L resize-pane -R 5
+bind -r Left resize-pane -L 5
+bind -r Right resize-pane -D 5
+bind -r Up resize-pane -U 5
+bind -r Down resize-pane -R 5
+#bind -r H resize-pane -L 5
+#bind -r J resize-pane -D 5
+#bind -r K resize-pane -U 5
+#bind -r L resize-pane -R 5
 
 #*# unbind C-z (suspend tmux client - useless) <--mistype-- z (Toggle zoom-state - useful)
 unbind C-z
