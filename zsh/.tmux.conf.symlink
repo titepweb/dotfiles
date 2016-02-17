@@ -127,10 +127,10 @@ bind -n C-Down select-pane -D
 #bind k select-pane -U
 #bind l select-pane -R
 # Resize pane shortcuts
-bind -r Left resize-pane -L 5
-bind -r Right resize-pane -D 5
-bind -r Up resize-pane -U 5
-bind -r Down resize-pane -R 5
+bind -nr M-Left resize-pane -L 5
+bind -nr M-Right resize-pane -R 5
+bind -nr M-Up resize-pane -U 5
+bind -nr M-Down resize-pane -D 5
 #bind -r H resize-pane -L 5
 #bind -r J resize-pane -D 5
 #bind -r K resize-pane -U 5
