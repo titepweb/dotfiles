@@ -25,12 +25,14 @@ endif
 call plug#begin('~/.config/nvim/plugged')
     " usage : PlugInstall PlugUpdate PlugClean
 " colorscheme & appearance ----------------------
-Plug 'flazz/vim-colorschemes'           " nice colorscheme : neverland-darker
 "Plug 'chriskempson/base16-vim'          " preview : http://chriskempson.github.io/base16/
+Plug 'flazz/vim-colorschemes'           " nice colorscheme : neverland-darker
+"Plug 'AlessandroYorba/Alduin'
 "Plug 'sjl/badwolf'
 "Plug 'morhetz/gruvbox'
 "Plug 'w0ng/vim-hybrid'
-"Plug 'AlessandroYorba/Sierra'
+"Plug 'mhinz/vim-janah'
+
 
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
@@ -79,6 +81,7 @@ Plug 'junegunn/rainbow_parentheses.vim' " visualize nested parentheses
     "}}}
 Plug 'itchyny/landscape.vim'
 
+
 " must-have utilities --------------------------
 " fzf can take any list as input (files, buffers, project-wide tags, history, mru, etc.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
@@ -110,11 +113,11 @@ Plug 'junegunn/fzf.vim'
 
         " Better command history with q:
         command! CmdHist call fzf#vim#command_history({'right': '40'})
-        nnoremap h: :CmdHist<CR>
+        nnoremap <leader>h: :CmdHist<CR>
 
         " Better search history
         command! QHist call fzf#vim#search_history({'right': '40'})
-        nnoremap h/ :QHist<CR>
+        nnoremap <leader>h/ :QHist<CR>
 
         command! -bang -nargs=* Ack call fzf#vim#ag(<q-args>, {'down': '40%', 'options': --no-color'})
 
