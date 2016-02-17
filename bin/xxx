@@ -58,7 +58,7 @@ ip link show $eth0 | grep 'state UP' >/dev/null && int=$eth0 ||int=$wifi
 
 #int=eth0
 
-ping -c 1 8.8.8.8 >/dev/null 2>&1 && 
+ping -c 1 8.8.8.8 >/dev/null 2>&1 &&
     echo "$int connected" || echo "$int disconnected"
 
 exit
@@ -73,7 +73,7 @@ chsh -s $(which /bin/bash)
 
 heading="COMMAND SUBSTITUTION:"
 echo -e "\n\e[4m\033[1m$heading\033[0m"
-echo -e "Syntax:\n\t\$( <commands> )\n\t\` <commands> \`\n" 
+echo -e "Syntax:\n\t\$( <commands> )\n\t\` <commands> \`\n"
 rstring="even \\n with 'echo -e' , are removed."
 subcmd=$(echo -e " ALL trailing newlines ,\n"
          # comment here is OK
@@ -89,13 +89,13 @@ ListMinimalSymLink=".bash_profile,.bashrc"
 ListMinimalSymLink="-name ${ListMinimalSymLink/,/ -o -name }"
 echo $ListMinimalSymLink
 
-find "$dotDir" -type f $ListMinimalSymLink -printf "%f:%p\n" | while IFS=":" read FNAME FPATH 
-  do 
+find "$dotDir" -type f $ListMinimalSymLink -printf "%f:%p\n" | while IFS=":" read FNAME FPATH
+  do
     echo -e "FNAME=$FNAME\nFPATH=$FPATH"
   done
 exit
 
-#SHJRT FORM: BATCH RENAME USING EXEC 
+#SHJRT FORM: BATCH RENAME USING EXEC
 find "$dotDir/test" -type d -name '*.txt' -exec sh -c 'mv "$0" "${0%.txt}.txt_bak"' {} \;
 
 #LONG FORM
@@ -145,7 +145,7 @@ for i in `seq 1 10`; #10 here is customizable
   			mv "$0" "${0%.lnk}"
   		fi
   	}' {} \;
-  done  
+  done
 echo "--------------------"
 
 #COUNT ITMES
@@ -164,7 +164,7 @@ exit
 
 # USER XARGS : BATCH RENAME
 find "$dotDir" -type d -path "*.lnk/*.lnk" -print0 | xargs -0 -I {} sh -c 'export file={}; mv $file ${file/_test.rb/_spec.rb}'
-find "$dotDir/test" -type d -path "*.lnk/*.lnk" -print0 | xargs -0 -I {} sh -c 'export file={}; 
+find "$dotDir/test" -type d -path "*.lnk/*.lnk" -print0 | xargs -0 -I {} sh -c 'export file={};
 {
   index=0
   echo -e "$file"

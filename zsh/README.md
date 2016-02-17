@@ -41,6 +41,7 @@ TMUX
 ====
 - [tmux cheatsheet](http://hyperpolyglot.org/multiplexers)
 - []
+
 VIM
 ===
 - [How I boosted my Vim](http://nvie.com/posts/how-i-boosted-my-vim/) and [his
@@ -59,6 +60,14 @@ VIM
 + status line    : lightline Unite
 + sidebar        : Tag list, Voom, Tagbar,
 + ahw/vim-hooks
+
+FZF
+===
+**:Commits**
+[!:Commits](http://tilvim.com/img/fzfcommits.gif)
+**fzf-complete-line**
+[! imap <c-x><c-l> <plug>(fzf-complete-line) ](http://tilvim.com/img/fzflinewise.gif)
+
 
 
 MY DISCOVERY

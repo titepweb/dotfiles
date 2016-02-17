@@ -1,8 +1,6 @@
 #-------------------
 # Personnal Aliases
 #-------------------
-alias vim='nvim'
-
 # Also done by Ctrl + L.
 alias cls='echo -ne "\033c"'        # Win-like command
 
@@ -37,7 +35,7 @@ alias .....="cd ../../../.."
 #-------------------
 # DEFAULT PARAMETERS
 #-------------------
-alias mkdir='mkdir -pv'         # Make parent directories as needed and output result 
+alias mkdir='mkdir -pv'         # Make parent directories as needed and output result
 alias md='mkdir --parents'      # Win-like command
 alias cp='cp -ar'               # including hidden files
 alias ping='ping -c 5'          # Don't let ping go on forever
