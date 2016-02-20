@@ -302,6 +302,7 @@ let &showbreak='↪ '
 set linebreak
 set colorcolumn=81
 set textwidth=80
+" Automatical code/comment... prefixing:
 " Create two format modes, for code and for text
 " c : Comments are wrapped based on textwidth
 " r : New line in comment is a comment when pressing <Enter>
@@ -468,7 +469,6 @@ nnoremap <tab> %
 
 " enable . command in visual mode
 vnoremap . :normal .<cr>
-
 " Make the dot command operate over a Visual range.
 " (Excellent tip from Drew Neil's Vim Masterclass.)
 xnoremap .  :normal .<CR>

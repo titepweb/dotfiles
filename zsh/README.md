@@ -9,8 +9,9 @@ Gtk3 Theme	:	~/.config/gtk-3.0/setting.ini
 
 Inpirated by
 ============
-1. [nicknisi's vim+tmux](https://www.youtube.com/watch?v=5r6yzFEXajQ): [His website](http://nicknisi.com) and [dotfiles](https://github.com/nicknisi/dotfiles)
-2. [Damian Conway's speech](https://www.youtube.com/results?search_query=Damian+Conway) and [his vim scripts](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup)
+1. [nicknisi's vim+tmux](https://www.youtube.com/watch?v=5r6yzFEXajQ): [his website](http://nicknisi.com) and [dotfiles](https://github.com/nicknisi/dotfiles)
+2. [tilvim.com](http://tilvim.com) and [his dotfiles](https://github.com/jackfranklin/dotfiles)
+3. [Damian Conway's speech](https://www.youtube.com/results?search_query=Damian+Conway) and [his vim scripts](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup)
 
 MORE READING
 ============
@@ -32,7 +33,7 @@ Tools :
 
 ZSH
 ===
-**Prompt**
+**nmdf Prompt**
 + auto-collapses $HOME to ~
 + incorporates git information : untracked files (denoted by .), modified files (denoted by #), or staged files (denoted by +) + a marker for how far ahead and/or behind we are from the remote branch
 + detects if it’s being viewed through SSH
@@ -40,7 +41,6 @@ ZSH
 TMUX
 ====
 - [tmux cheatsheet](http://hyperpolyglot.org/multiplexers)
-- []
 
 VIM
 ===
@@ -53,10 +53,10 @@ VIM
 
 ### EXTENSIONS = PLUGINS = BUNDLES = VUNDLES
 + Toggle Comment : commentary
-+ FuzzyFinder    : CtrlP Commander-T [fzf] FuzzyFinder
-+ File Brower    : [NERDTree]
++ FuzzyFinder    : CtrlP Commander-T [fzf] FuzzyFinder selecta
++ File Browser   : [NERDTree]
 + [airline] , powerline, Lightline
-+ gundo
++ undotree > gundo
 + status line    : lightline Unite
 + sidebar        : Tag list, Voom, Tagbar,
 + ahw/vim-hooks
@@ -64,9 +64,9 @@ VIM
 FZF
 ===
 **:Commits**
-[!:Commits](http://tilvim.com/img/fzfcommits.gif)
+![:Commits](http://tilvim.com/img/fzfcommits.gif)
 **fzf-complete-line**
-[! imap <c-x><c-l> <plug>(fzf-complete-line) ](http://tilvim.com/img/fzflinewise.gif)
+![imap <c-x><c-l> <plug>(fzf-complete-line) ](http://tilvim.com/img/fzflinewise.gif)
 
 
 
