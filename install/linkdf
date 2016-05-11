@@ -4,7 +4,7 @@
 # status  : stable. Last edit on 2016-02-05                                   #
 # feature   2. source $DOTREPO/link to create symlink or copy dotfiles to ~   #
 ###############################################################################
-# this script designed to be sourced with some inherited parameters ($DOTREPO 
+# this script designed to be sourced with some inherited parameters ($DOTREPO
 # symlinkORcopy, recopy, askbeforeaction, overwrite_all, and backup_all )
 # or run with default ones.
 
@@ -22,9 +22,9 @@ source $DOTREPO/install/cross-platform
 #### THE CORE LIBRARIES ######################################################
 
 MkParentFolder() {
-  local inDir="$(dirname "$1")" 
-  
-  # Remove $inDir if it is a broken symbolic file 
+  local inDir="$(dirname "$1")"
+
+  # Remove $inDir if it is a broken symbolic file
   if [[ -h "$inDir" ]]; then
     [[ -z "$(readsymlink "$inDir" )" ]] && rm "$inDir"
   # ask for remove $inDir if it is a regular file
@@ -35,7 +35,7 @@ MkParentFolder() {
     # if not yes, then skip it
     if [[ $action =~ ^[Yy]$ ]]; then
       rm "$inDir"
-      OK "Removed${red} ${strike}$inDir${reset}" 
+      OK "Removed${red} ${strike}$inDir${reset}"
     else
       FAIL "Please take a look at ${red}$inDir${reset}"
     fi
@@ -53,7 +53,7 @@ SymlinkOrCopy () {
   local dst="$2"
   local ext="${src##*.}"
 
-  local overwrite= ; local backup= ; local skip= 
+  local overwrite= ; local backup= ; local skip=
   local action=
 
   # STEP 1 - Evaluate parameters and Choose the right word to ask -----------
@@ -139,7 +139,7 @@ SymlinkOrCopy () {
 
     # 1- Make sure that the destination directory exists before creating symlinks or copying
     MkParentFolder "$dst"
-    # Ask users before creating symlinks or copying. if destination files has been moved or overwritten, take action. 
+    # Ask users before creating symlinks or copying. if destination files has been moved or overwritten, take action.
     if [ "$askbeforeaction" == "true" -a "$overwrite" != "true" -a "$backup" != "true" ]; then
       ASK "$askword2 $(dirname "$dst")/${yellow}$(basename "$dst")${reset}? [${green}${bold}y${reset}/${red}${bold}n${reset}/install ${green}${bold}a${reset}ll] "
       read -n 1 action < /dev/tty
@@ -166,7 +166,7 @@ SymlinkOrCopy () {
     elif [ $willbe = "copied" ] ; then
 
       # Copy command (-r stands for recursively copy )
-      cp -r "$src" "$dst" 
+      cp -r "$src" "$dst"
       copyindex=$(($copyindex+1))
       OK "${green}╔Copied═${reset}${green}$src${reset} \n \t   ${green}╚═ ✔ ══>${reset}${green}$dst${reset}"
 
@@ -221,9 +221,9 @@ INSTALL_DOTFILES () {
 
   local platforms="$(detectplatform)"
   while IFS=$'\n' read -r platform; do
-    local home="$(detecthome "$platform")" 
-    
-    INFO "Installing dotfiles in ${cyan}$home${reset} for platform ${cyan}$platform${reset}"  
+    local home="$(detecthome "$platform")"
+
+    INFO "Installing dotfiles in ${cyan}$home${reset} for platform ${cyan}$platform${reset}"
     # First, add a symlink for this dotfiles directory.
     if [[ ! "$DOTREPO" == "$dotDir" ]]; then
       SymlinkOrCopy "$DOTREPO" "$dotDir"
@@ -242,7 +242,7 @@ INSTALL_DOTFILES () {
       fi
 # ┌─────────────────────────────────────────────────────────────────────────────┐
       # 1. Remove the taling .symlink in the names of all the sub-directories of another *.symlink directory
-      # 2. Symlinks with name *.copy and *.symlink are not allow in $DOTREPO 
+      # 2. Symlinks with name *.copy and *.symlink are not allow in $DOTREPO
       FixDOTFILES "$topic"
 
       # Recursively search any named *.symlink files/directories below each topic directory, exclude files in 80% directories.
@@ -266,9 +266,9 @@ INSTALL_DOTFILES () {
         scanindex=$(($scanindex+1))
         [[ -z "$src" ]] && continue
 
-        # remove the leading $topic from the destination directory name 
+        # remove the leading $topic from the destination directory name
         local dst="$home/${src#$topic/}"
-        # remove the leading .symlink or .copy from the destination directory name 
+        # remove the leading .symlink or .copy from the destination directory name
         dst=${dst%.symlink}
         dst=${dst%.copy}
 
@@ -296,7 +296,7 @@ INSTALL_DOTFILES () {
   home="$(detecthome "$platform")"    # create the global variable home
 
   backupDir=$home/dotfiles-backup     #--> This folder should not be in $dotDir because if we delete $dotDir, we also delete $backupDir
-  # dotDir will be used to create symlink from $dotDir to $dotDir 
+  # dotDir will be used to create symlink from $dotDir to $dotDir
   dotDir=$home/.dotfiles              #--> Don't change this because bashrc and zsh setup contain: 'export DOTREPO=~/.dotfiles'
 
   # Set special directories and files based on defined dotDir.
@@ -330,9 +330,9 @@ INSTALL_DOTFILES () {
 # [[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_DOTFILES && echo -e "\n$message" && exit 0
 
 sourced () { # cross-shell (bash, ksh, zsh)
-  ([[ -n $ZSH_EVAL_CONTEXT && $ZSH_EVAL_CONTEXT =~ :file$ ]] || 
+  ([[ -n $ZSH_EVAL_CONTEXT && $ZSH_EVAL_CONTEXT =~ :file$ ]] ||
    [[ -n $KSH_VERSION && $(cd "$(dirname -- "$0")" &&
-      printf '%s' "${PWD%/}/")$(basename -- "$0") != "${.sh.file}" ]] || 
+      printf '%s' "${PWD%/}/")$(basename -- "$0") != "${.sh.file}" ]] ||
    [[ -n $BASH_VERSION && $0 != "$BASH_SOURCE" ]]) && return 0 || return 1
 }
 
