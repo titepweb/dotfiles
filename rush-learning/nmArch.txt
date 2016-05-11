@@ -1,9 +1,9 @@
-													 d8b           d8b   d8,                            
-													 ?88           88P  `8P                             
-														88b         d88                                   
+													 d8b           d8b   d8,
+													 ?88           88P  `8P
+														88b         d88
  d888b8b    88bd88b d8888b  888888b     888    88b  88bd88b ?88   d8P?88,  88P
 d8P' ?88    88P'  `d8P' `P  88P `?8b    ?88    88P  88P' ?8bd88   88  `?8bd8P'
-88b  ,88b  d88     88b     d88   88P     88b  d88  d88   88P?8(  d88  d8P?8b, 
+88b  ,88b  d88     88b     d88   88P     88b  d88  d88   88P?8(  d88  d8P?8b,
 `?88P'`88bd88'     `?888P'd88'   88b      88bd88' d88'   88b`?88P'?8bd8P' `?8b
 
 >"Everything should be made as simple as possible, but not simpler."
@@ -33,7 +33,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 ====================================
 	? loadkeys us
 --------------------
-1. STABLE INTERNET CONNECTION is required! 
+1. STABLE INTERNET CONNECTION is required!
 	# wifi-menu
 	# ping google.com ---> (Ctrl-C để stop)
 --------------------
@@ -46,7 +46,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 		--> check for all drive
 	# lsblk /dev/sda
 	# cfdisk
-		--> (for MBR) (NEW -> Bootable -> Write -> {yes} {enter} -> Quit) 
+		--> (for MBR) (NEW -> Bootable -> Write -> {yes} {enter} -> Quit)
 	# mkfs.ext4 /dev/sda3 		--> format
 	# mount /dev/sda3 /mnt
 	HOME
@@ -63,7 +63,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 4. INSTALL BASE & BASE-DEVEL PACKAGE GROUP
 	Choose the closest mirror to get the fastest possible speed:
 	# nano /etc/pacman.d/mirrorlist
-			(Ctrl+W to search -- Alt+6 to copy -- Ctrl+U to paste -- Ctrl+O to save -- Ctrl+X to exit) 
+			(Ctrl+W to search -- Alt+6 to copy -- Ctrl+U to paste -- Ctrl+O to save -- Ctrl+X to exit)
 			Bo sung:
 			Server = http://mirror-fpt-telecom.fpt.net/archlinux/$repo/os/$arch
 	# pacstrap -i /mnt base base-devel
@@ -72,7 +72,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 		# genfstab -U /mnt > /mnt/etc/fstab
 		# nano /mnt/etc/fstab
 			--> check if fstab file is create properly:
-				#/dev/sda3 
+				#/dev/sda3
 				UUID=dd24f94b-2ccc-4a03-8e86-58eddc311173c  /  etx4  rw,realtime,data=prdered 01
 --------------------
 5. CONFIG BASE
@@ -100,15 +100,15 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 	# grub-install --recheck /dev/sda
 	# grub-mkconfig -o /boot/grub/grub.cfg
 	NOTE: in case of dualboot, use easy-bcd to chain-boot to Linux, use boot.wim for repairing windows boot.
-	NOTE: Recommended : let Linux's grub manage boot menu (repeat grub-install & grub-mkconfig above) 
-	NOTE: how about syslinux, EFISTUB, [systemd-boot] ? 
+	NOTE: Recommended : let Linux's grub manage boot menu (arch-chroot and grub-install & grub-mkconfig as above)
+	NOTE: how about syslinux, EFISTUB, [systemd-boot] ?
 --------------------
-7. 
+7.
 	# echo marchcom > /etc/hostname
 	# vi /etc/hosts
 			--> add marchcom vao cuoi moi dong:
 			#<ip-address> <hostname.domain.org> <hostname>
-			127.0.0.1 localhost.localdomain localhost marchcom 
+			127.0.0.1 localhost.localdomain localhost marchcom
 			::1   localhost.localdomain localhost marchcom
 --------------------
 8**. NETWORK CONFIGURE to enable service to start at system boot:
@@ -125,7 +125,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 	# passwd
 			--> type: lsvn4kn
 	# exit
-	# umount -R /mnt 
+	# umount -R /mnt
 	# reboot
 -------------------------------------------------------------
 10.ADD USER(s)
@@ -135,7 +135,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 			--> type: 113
 	# users
 			check user list
-	? if you mistyping username: 
+	? if you mistyping username:
 		# userdel {mistyped_username}
 	! ko can pacman -S sudo
 	# EDITOR=nano visudo
@@ -143,7 +143,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 			## Uncomment to allow members of group wheel to execute any command
 			march ALL= (ALL) ALL
 			Defaults lecture=always
-	? Disable root: 
+	? Disable root:
 		passwd -l root
 		root:!:12345::::::
 --------------------
@@ -161,7 +161,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 12. X11 (the fucking old Display Server) or Wayland ?
 	X11:
 		# pacman -S xorg-server xorg-xinit xterm
-		? pacman -S xorg-twm xorg-xclock 
+		? pacman -S xorg-twm xorg-xclock
 		# startx
 		? pacman -S xorg-utils		==> 1 so tinh nang hay nhu xev xprop de tim WM_CLASS cho vao Window Rule cua cac WM nhu bspwm
 	Wayland
@@ -179,17 +179,17 @@ DE = DESKTOP MANAGER
 	# systemctl disable netctl-auto@wlp16s0.service
 	$ reboot
 ----------
-?. KDE Plasma 5.4 (DE) + sddm (display manager) 
-	# pacman -S plasma-meta (da bao gom sddm – login manager) 
-	# systemctl enable sddm (start the display manager at system boot) 
+?. KDE Plasma 5.4 (DE) + sddm (display manager)
+	# pacman -S plasma-meta (da bao gom sddm – login manager)
+	# systemctl enable sddm (start the display manager at system boot)
 	# systemctl start sddm (run sddm)
 ?. MATE
 	# pacman -S mate mate-extra
 ?. GNOME
-	# pacman -S gnome gnome-extra 
-	# systemctl enable gdm.service (display manager) 
-	# pacman -S gnome-tweak-tool 
-	$ yaourt gnome-software (Gnome Software, a counterpart of App Store) 
+	# pacman -S gnome gnome-extra
+	# systemctl enable gdm.service (display manager)
+	# pacman -S gnome-tweak-tool
+	$ yaourt gnome-software (Gnome Software, a counterpart of App Store)
 ? NOTE:
 	For GNOME/Xfce/LXDE :
 		# pacman -S network-manager-applet
@@ -202,15 +202,15 @@ DE = DESKTOP MANAGER
 
 ESSENTIAL APPS
 ==============
-ONE LINE: 
-	# pacman -S mousepad chromium vim wget tmux gvfs htop pacgraph git zsh wget rofi 
+ONE LINE:
+	# pacman -S mousepad chromium vim wget tmux gvfs htop pacgraph git zsh wget rofi
 			extension for chrome : Dark Reader + uBlock Origin (G!: FMSF 2.0 github) + avim
 	# pacman -S xdg-user-dirs	(to generate common user directories)
 			~ > xdg-user-dirs-update
 --------------------
 3. http://www.noah.org/wiki/FAM,_Gamin,_inotify
 4. Removable devices -----------------------------------
-! mount tam thoi de doc file txt nay: 
+! mount tam thoi de doc file txt nay:
 	 $ mkdir ~/temp
 	 # mount /dev/sdb1 ~/temp
 # pacman -S gvfs	(da co udisks2)     ([access] partitions and removable media without a password)
@@ -233,7 +233,7 @@ Server = http://repo.archlinux.fr/$arch
 ------------
 	#pacman -Syu yaourt
 --> yaourt ttf-ms-fonts --noconfirm
-	yaourt default build directory = /etc/yaourtrc --uncomment--> #P_SAVEDIR='/var/lib/yaourt/backupfiles' --> vào save lại file .apk , hoặc là 
+	yaourt default build directory = /etc/yaourtrc --uncomment--> #P_SAVEDIR='/var/lib/yaourt/backupfiles' --> vào save lại file .apk , hoặc là
 --> $yaourt -Sb ttf-ms-fonts --export ~/Downloads
 FONT INSTALL -------------------------------
 	1-copy vao [~/.fonts] va /usr/share/fonts
@@ -245,7 +245,7 @@ http://www.techrapid.co.uk/linux/arch-linux/improve-font-rendering-on-arch-linux
 3-add and update repo
 	#vim /etc/pacman.conf
 ------------
-[multilib] 
+[multilib]
 Include = /etc/pacman.d/mirrorlist
 
 [infinality-bundle]
@@ -256,7 +256,7 @@ Server = http://bohoomil.com/repo/fonts
 [infinality-bundle-multilib]
 Server = http://bohoomil.com/repo/multilib/$arch
 ------------
-4-Then import and sign bohoomil (dev key) to pacman local key database 
+4-Then import and sign bohoomil (dev key) to pacman local key database
 	# pacman-key -r 962DDE58
 	# pacman-key --lsign-key 962DDE58
 5-Install the Infinality Bundle for Arch Linux (32 Bit + 64 Bit)
@@ -268,7 +268,7 @@ XFCE : THEME and COLOR SCHEME
 -----------------------------
 YouTube Video: https://youtu.be/JkSTa9ITISY
 $ tar -zcvf xfce4_backup.tar.gz ~/.config/xfce4		--> backup!
-$ pacman -Ss numix ----> # pacman -S numix-themes 
+$ pacman -Ss numix ----> # pacman -S numix-themes
 vim /home/march/.config/xfce4/terminal/terminalrc
 	--> MiscCursorShape=TERMINAL_CURSOR_SHAPE_UNDERLINE
 
@@ -309,12 +309,12 @@ panel 2 --> Deskbar + hide intelligently hoac del luon panel 2
 
 SYSTEM MANAGEMENT
 =================
-# pacman -S archey3 > screenfetch, screenfo, envee, archinfo, fetter 
+# pacman -S archey3 > screenfetch, screenfo, envee, archinfo, fetter
 # pacman -S pacgraph > debtree, pac
 yaourt --stats
 ? pactree -u network-manager-applet | grep gconf
-# pacman -S lm-sensors 
-	$ sensors-detect 
+# pacman -S lm-sensors
+	$ sensors-detect
 	$ watch sensors
 ? pacman + paucaur > yaourt > parker + apper
 
@@ -389,15 +389,15 @@ SSH vao remote server -----------------------
 	? pacman -S ssh openssh
 	# pacman -S sshfs
 		(a filesystem client to mount and interact with directories/files located on a remote server or workstation over a normal ssh connection)
-	# systemctl enable sshd.service 
+	# systemctl enable sshd.service
 	To log in your computer remotely, install openssh-client
-	# ssh user-name@ip-of-server 
+	# ssh user-name@ip-of-server
 
 CLI & TUI apps
 ==============
 misc        : tree mlocate xsel
 composite 	: xcompmgr or [compton] --> window transition effect: for example, compton -f ==> fade effect.
-shell				: [zsh]		zsh + oh-my-zsh	fish mksh  	
+shell				: [zsh]		zsh + oh-my-zsh	fish mksh
 termnial		: rxvt-unicode	< LilyTerm	< [termite]	Terminator 			Xfce4-terminal  	sakura 	urxvtc + urxvtd
 multiplexer	: screen	[tmux] 	https://github.com/gpakosz/.tmux
 IRC client	: - interactive : [irssi]	[weechat w/ buffers.pl]+bitlbee		xchat2		bitlbee 	meowchat 	clementine hexchat
@@ -408,10 +408,10 @@ File manager: [ranger]	> mc pcmanfm spacefm	vifm
 process manager : [htop] iotop [glances] 			$ [dfc]  $ [inxi] -Fi 		$ [ncdu]
 sys info 		: [archey3] 	alsi 	screenfetch
 reader 			: [zuthura] + plugins: zathura-pdf-mupdf zathura-djvu (0.2.0) : https://pwmt.org/projects/zathura/plugins/
-pdf reader	: mupdf  [Qpdfview] 
+pdf reader	: mupdf  [Qpdfview]
 Image editor: gimp pinta
 Compressor  : Xarchiver
-Player			: mpc (scripts) --> [ncmpcpp](backend:mpd) OR [clerk](mppc as backend) https://github.com/carnager/clerk 		
+Player			: mpc (scripts) --> [ncmpcpp](backend:mpd) OR [clerk](mppc as backend) https://github.com/carnager/clerk
 Player 			: mopidy (server) with spotify plugin + ncmpcpp (client)  	cmus 	MoC (da kem interface) +-gmusicproxy
 codec 			: flac
 Video player: smplayer/mpv chon /usr/bin/mpv trong option->preferences->general
@@ -421,16 +421,16 @@ torrent			: [rtorrent] transmission-remote-cli (torrent client) seedbox rutorren
 Image viewer: [GPicView]
 Set wall		: [feh](0.3MB) << nitrogen
 						: pulseaudio
-*Statusbar	: [lemonbar]	tint2/tint3		dzen2	conky	bmpanel2	
-*launcher		: dmenu < dmenu2 < [rofi] 	lighthouse-git (+icon)	interrobang 
+*Statusbar	: [lemonbar]	tint2/tint3		dzen2	conky	bmpanel2
+*launcher		: dmenu < dmenu2 < [rofi] 	lighthouse-git (+icon)	interrobang
 			https://davedavenport.github.io/rofi/index.html
 			USAGE : $ rofi -show run
 dock				: bar	https://github.com/LemonBoy/bar
 screen capture	: scrot		[teiler]
 text expand	: Snippy
 fun 			  : cmatrix cowsay weathercli 	tty-clock
-Browser GUI : [firefox] [chromium] midori qutebrowser iceweasel  
-Browser CLI : [youtube-viewer] lynx 
+Browser GUI : [firefox] [chromium] midori qutebrowser iceweasel
+Browser CLI : [youtube-viewer] lynx
 markdown editors : [haroopad]
  previews       > unixporn screenshots
  pygments       > add syntax highlighting to cat and less commands
@@ -471,7 +471,7 @@ video convert	:	[ffmpeg] -i input.mp4 output.avi
 which tiling wm ?
 =================
 minimalism 	: [bspwm] > dwm (simplistic-->finised) or wmii (dead)
-powerful	: [xmonad] > awesome [-lua], i3 [border] 
+powerful	: [xmonad] > awesome [-lua], i3 [border]
 i3		: http://i3wm.org/docs
 franken wm	: https://github.com/sulami/FrankenWM/blob/master/config.def.h 		not supports multi monitor :(
 
@@ -494,20 +494,20 @@ Selection Creteria:
 bspwm
 =====
 	* COMBO DE: bspwm + yaourt -S compton + XFCE (-WM -compositor) + # pacman -S whiskermenu
-		+ rip out xfwm4, swap in bspwm : xfce settings > Session and Startup > 
+		+ rip out xfwm4, swap in bspwm : xfce settings > Session and Startup >
 	 		+ Session tab --> 'xfce4-panel', 'xfdesktop' and 'xfwm4' : never --> save session
-			+ Application Autostart tab --> add 4 commands: 'bspwm', 'sxhkd', 'xfdesktop -D' and 'xfce4-panel -d' 
+			+ Application Autostart tab --> add 4 commands: 'bspwm', 'sxhkd', 'xfdesktop -D' and 'xfce4-panel -d'
 	* COMBO WM: startx ==> i3/bspwm + rofi + lemonbar + termite + tmux
-		Based on : https://github.com/inject3d/dotfiles + benjcalderon + 
+		Based on : https://github.com/inject3d/dotfiles + benjcalderon +
 			Reference : http://blog.z3bra.org/2014/04/meeting-at-the-bar.html
 		COMBO : lemonbar + stalonetray + XFCE4-Power-Manager + nm-applet + caffein
 		|__.Xresources : rxvt-unicode + termninal color scheme + cursors + dpi + rofi + ... --> $ xrdb ~/.Xresources
 		+ yaourt -S lemonbar-xft-git : patched version of the lemonbar with xft support and then play with font size.
-			+ G! : 	1. Font Awesome icon Cheatsheet --> http://fontawesome.io/		
+			+ G! : 	1. Font Awesome icon Cheatsheet --> http://fontawesome.io/
 							2. Foundation Icon Font
 							3. Source Code Pro and Sans,
 							Others: Material Design icon font
-		+ bspwmrc window management rule : $ xprop | grep WM_CLASS <-- xprop <-- pacman -S xorg-utils 
+		+ bspwmrc window management rule : $ xprop | grep WM_CLASS <-- xprop <-- pacman -S xorg-utils
 		? pac -S dunst (nortification)
 		? xmodmap
 		x yaourt -S compton --> nang ne --> sd wallpaper co showdown --> GIMP : filters>map>tile
@@ -517,7 +517,7 @@ bspwm
 
 2015-01-23
 		+ mutt -s "Subject of mail" -c <email add for CC> -b <email-add for BCC> mail address of recipient
-		+ newsbeuter 
+		+ newsbeuter
 		+ mlocate --> manually update database : sudo updatedb
 
 		# Presel window for splitting
@@ -539,7 +539,7 @@ bspwm
 		xmonap?
 		playctl for spotify, vlc, audacious, bmp, xmms2, ...
 
-		
+
 alias porn=' mpv "http://www.pornhub.com/random"'
 I have no shame! BTW, the space before the command tells zsh not to record it in the histfile. I think that works in bash too.
 alias aimee='mpv --shuffle "https://soundcloud.com/reynolds-ame/likes"'
@@ -558,41 +558,41 @@ NODE.JS
 - SublimeLinter + jslint for Sublime
 
 CODING
-======= 
+=======
 # figlet – fancy fonts for Sublime Text minimap
 		$ figlet -f 3d -d ~/.fonts/figlet_fonts "Your Text Here"
 		$ watch -n1 "date '+%D%n%T'|figlet -f roman -d ~/.fonts/figlet_fonts -k"
 
 PROGRAMMING FONTS
 -----------------
-Selection Criteria: 
+Selection Criteria:
 	1.Monospaced fonts (+) offer uniform indentation and large punctuations (-) often low resolution, designed for terminals only
 	2.big+rounded commas 3.slashed > dotted zero 3.legibility at non-antialiased small sizes
 	3.Distinction > ambiguous * B80oO l1LIij!|\/[](){} ""''`` .,:; *-+<> Ss Cc Vv Pp gq Aa backticks or apostrophes
 #### My decision on Programming fonts for easily skimming codes
-1. [Input](http://input.fontbureau.com/preview) --> monospaced + bold + condensed + 
+1. [Input](http://input.fontbureau.com/preview) --> monospaced + bold + condensed +
 2. [Monaco-bold](https://github.com/vjpr/monaco-bold) > Monaco	(-)Mac only	(-) without bold variants > Consolas (+) bold (-)Windows only
 3. [Menlo for Powerline](https://github.com/powerline/fonts "a vim pluggin") instead of Menlo (+) distinctive puctuations
 4. Pragmata Pro Mono (+)legibilitive (-)expensive
 [Other fonts](http://www.fontsquirrel.com/fonts/list/tag/programming)
-I tried these: 
+I tried these:
 	- Source Code Pro (dan dong) , CamingoCode (co bold) , Cousine , Ubuntu Mono (chu nho bat thuong)...
 	- Anonymous Pro , DejaVu Sans Mono , Luculent , Droid Sans Mono (0=O nhu nhau) , IBM 3270...
 
-#### My decision on system fonts 
+#### My decision on system fonts
 1.Sans Francisco Display
 2.Lato
 
 #### Shell Font (bitmap fonts is more consistent than TTF fonts (smooth--> gtk font))
 monospace bitmap font (suited for programming and terminal use).
 	1. GohuFont : http://font.gohu.org/ > lemon, tewi, usshi...
-	2. Roboto Mono 
+	2. Roboto Mono
 	3. stkarch 	Meslo sakamoto
 	5. [Pro font](http://tobiasjung.name/profont/)
 
 Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, and take up similar horizontal space. I find the vertical space around neep easier to read. The large font I'm using here is vertically condensed: https://github.com/Lokaltog/lokaltog-fonts and takes up even less space then gohufont. Here's a comparison between sizes. Fonts clockwise are lemon 8 -> neep 8 -> lokaltog 11 -> gohufontmod 11:
 
-	
+
 # MY IMPROVEMENTS ON USING ARCH LINUX
 2016-01-11
 	! ~/.fonts --> have a instant effect
@@ -613,7 +613,7 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 	+	nmdf is first relased
 	? nmdf submodules for vim pluggins ...?
 	+ youtube-viewer
-2016-01-18 	: DISCOVERY CLI APPS + LEMONBAR + rofi : Should I use wm or xfce?  
+2016-01-18 	: DISCOVERY CLI APPS + LEMONBAR + rofi : Should I use wm or xfce?
 	+ youtube-dl : a python script website/github --> need to update to catch up what youtube fixed code.
 	+ youtube-dl -cit "playlist link"
 	+ youtube-dl -a "list file"
@@ -623,16 +623,16 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 	+ mpv "đường dẫn phim.mkv" --sub-file="đường dẫn sub.srt"
 		mpv https://
 	+ sublime text -- 1. tarball [2]. $ pac -S sublime-text-dev <== key luu trong ~/.config/sublime_text roi + co CLI
-	+ fun: ASCII animation = 
+	+ fun: ASCII animation =
 		1. (# pac -S cowsay) {message} 	cowsay -f sheep/duck/elephant --> danh sach :	cowsay -l
 		2. xcowsay {message} 	oneko		asciiquarium		bb 	sl 	aafire 	fortune	2spooky
 		3. (factor) 55 --> = 5x11 <- phan tich thanh tich cac so nguyen to:
-		4. (hash) : built-in command 	
+		4. (hash) : built-in command
 		5. (# pac -S cmatrix)
 	* del unnecessary actions
 	+ vim vundle (agross) -+-> $dorDir/vim/.install.sh
 2016-01-19
-	+ .xinitrc 
+	+ .xinitrc
 	+ .Xresources
 	? Why vim update pluggin command exit loop
 2016-01-20
@@ -662,7 +662,7 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 2016-02-5
 	+ bootstrap.sh + nmdf / installpkg + link // inform + cross-platform
 	+ fix tm
-	+ pacman -S linux-lts 
+	+ pacman -S linux-lts
 
 COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 -----------------------------------------------
@@ -670,7 +670,7 @@ COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 					--long-form
 					-s (short form)
 	$ man <command> 		<command> --help 			<command> -h			For example: pacman -Q -h
-	
+
 	Ctrl-C to exit, Ctrl-L = $clear
 	$ shutdown now 					$ sudo halt 			$ reboot
 	$ echo $PATH
@@ -696,7 +696,7 @@ COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 
 	$ pwd (show working directory)
 	$ sudo su - (run as root)
-	
+
 	$ mv file1 file2 (move or rename file1 to file2)
 	$ cp ~/.bashrc ~/.bashrc.bak
 	$ rmdir ~/emptyfolder
@@ -714,7 +714,7 @@ COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 	$ df -h 	> 	lsblk
 	$ cd 	(natigate to $HOME or ~)	cd ..
 	$	chmod +x script 				(777 666 711 --> man chmod)
-	$ ./script 
+	$ ./script
 
 	$ history ---> ctrl-R to search (zsh only)
 	$ typescript

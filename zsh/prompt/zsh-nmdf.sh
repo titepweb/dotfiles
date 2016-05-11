@@ -116,7 +116,7 @@ RPROMPT='$(prompt_vcs) $(git_time_since_commit)'
 
 # More symbols to choose from:
 # ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
-# ✡ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ ➟ ➼ ✂ ✎ ✐ ⨀ ⨁ ⨂ ⨍ ⨎ ⨏ ⨷ ⩚ ⩛ ⩡ ⩱ ⩲ ⩵  ⩶ ⨠ 
+# ✡ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ ➟ ➼ ✂ ✎ ✐ ⨀ ⨁ ⨂ ⨍ ⨎ ⨏ ⨷ ⩚ ⩛ ⩡ ⩱ ⩲ ⩵  ⩶ ⨠
 # ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬟  ⬤ 〒 ǀ ǁ ǂ ĭ Ť Ŧ ☂ ✭ ☀ ✚ ✖ ♒ → 𝝙
 
 #=[ GIT ONLY ]===========================================================#
@@ -216,12 +216,12 @@ function git_time_since_commit() {
       # Totals
       MINUTES=$((seconds_since_last_commit / 60))
       HOURS=$((seconds_since_last_commit/3600))
-     
+
       # Sub-hours and sub-minutes
       DAYS=$((seconds_since_last_commit / 86400))
       SUB_HOURS=$((HOURS % 24))
       SUB_MINUTES=$((MINUTES % 60))
-      
+
       if [[ -n $(git status -s 2> /dev/null) ]]; then
         if [ "$MINUTES" -gt 30 ]; then   COLOR="$G_COMMIT_LONG"
         elif [ "$MINUTES" -gt 10 ]; then COLOR="$G_COMMIT_MEDIUM"

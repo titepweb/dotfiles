@@ -3,7 +3,7 @@
 # script  : $DOTREPO/bootstrap.sh   maintained by titepweb at gmail.com       #
 # status  : stable. Last edit on 2016-02-05                                   #
 # feature : 1. source/run $DOTREPO/install/installpkg with default parameters #
-#           -->scan for $DOTREPO/topic/.install.sh and source them to install # 
+#           -->scan for $DOTREPO/topic/.install.sh and source them to install #
 #              packages and configure them.                                   #
 #           2. source/run $DOTREPO/install/linkdf with default parameters     #
 #           -->source $DOTREPO/link to create symlink or copy dotfiles to ~   #

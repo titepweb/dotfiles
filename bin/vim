@@ -1,8 +1,0 @@
-#!/bin/sh
-[ $EDITOR = "/dev/null" ] && echo "Please set \$EDITOR = vim/macvim/nvim ..." && exit 1
-if [ "$2" = "/dev/null" ]; then
-  $EDITOR "$1"
-else
-  $EDITORdiff "$1" "$2"
-fi
-exit 0
