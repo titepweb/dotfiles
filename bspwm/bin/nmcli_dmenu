@@ -149,6 +149,17 @@ def vpn_connections(conns):
     return [i[0] for i in conns if i and 'vpn' in i[1]]
 
 
+def gsm_connections(conns):
+    """Parse list of current connections for GSM
+
+    Args: conns - ['ssid:security', 'firecat4153:WPA2', ...]
+    Returns: list of GSM connection names ['some_provider',...]
+
+    """
+    conns = [i.split(':') for i in conns if i]
+    return [i[0] for i in conns if i and 'gsm' in i[1]]
+
+
 def get_network_status():
     """Get current status of networking
 
@@ -156,6 +167,20 @@ def get_network_status():
 
     """
     stat = ["nmcli", "networking"]
+    res = Popen(stat, stdout=PIPE, env=ENV).communicate()[0]
+    if 'enabled' in res.decode(ENC):
+        return 'Disable'
+    else:
+        return 'Enable'
+
+
+def get_wifi_status():
+    """Get current status of Wifi
+
+    Returns: string 'Enable' or 'Disable',
+
+    """
+    stat = ["nmcli", "r", "wifi"]
     res = Popen(stat, stdout=PIPE, env=ENV).communicate()[0]
     if 'enabled' in res.decode(ENC):
         return 'Disable'
@@ -196,23 +221,27 @@ def other_actions():
     """Return list of other actions that can be taken
 
     """
-    return ["{} Networking".format(get_network_status()),
+    return ["{} Wifi".format(get_wifi_status()),
+            "{} Networking".format(get_network_status()),
             "Launch Connection Manager"]
 
 
-def get_selection(ssids, vpns, other):
+def get_selection(ssids, vpns, gsms, other):
     """Combine the arg lists and send to dmenu for selection.
 
     Args: args - ssids: list of strings
                  vpns: list of strings
+                 gsms: list of strings
                  other: list of strings
     Returns: selection (string)
 
     """
     active = get_active_connections()
     vpns = ["{}:VPN".format(i) for i in vpns]
-    inp = ssids + [""] + \
-        mark_active(vpns, active) + [""] + other
+    vpns = mark_active(vpns, active) + [""] if vpns else []
+    gsms = ["{}:GSM".format(i) for i in gsms]
+    gsms = mark_active(gsms, active) + [""] if gsms else []
+    inp = ssids + [""] + vpns + gsms + other
     inp_bytes = "\n".join(inp).encode(ENC)
     sel = Popen(dmenu_cmd(len(inp)),
                 stdin=PIPE,
@@ -251,6 +280,20 @@ def toggle_networking(sel):
     else:
         updown = 'off'
     net = ["nmcli", "networking", updown]
+    Popen(net, stdout=PIPE, env=ENV).communicate()
+
+
+def toggle_wifi(sel):
+    """Enable/disable Wifi
+
+    Args: sel - string ('Enable Wifi' or 'Disable Wifi')
+
+    """
+    if sel.startswith('Enable'):
+        updown = 'on'
+    else:
+        updown = 'off'
+    net = ["nmcli", "r", "wifi", updown]
     Popen(net, stdout=PIPE, env=ENV).communicate()
 
 
@@ -334,13 +377,16 @@ def run():
     adapter = choose_adapter()
     conns = current_conns()
     vpns = vpn_connections(conns)
+    gsms = gsm_connections(conns)
     ssids = current_ssids(adapter)
     other = other_actions()
-    sel = get_selection(ssids, vpns, other)
+    sel = get_selection(ssids, vpns, gsms, other)
     if sel in other:
         # Parse other actions
         if 'Networking' in sel:
             toggle_networking(sel)
+        elif 'Wifi' in sel:
+            toggle_wifi(sel)
         elif 'Launch' in sel:
             launch_connection_editor()
         sys.exit()
@@ -353,6 +399,9 @@ def run():
     elif sel.replace(":VPN", "").replace("**", "") in vpns:
         # Select VPN connection (sel="pia_us_west:VPN")
         ssid = sel.replace(":VPN", "").replace("**", "")
+    elif sel.replace(":GSM", "").replace("**", "") in gsms:
+        # Select GSM connection (sel="some_provider:GSM")
+        ssid = sel.replace(":GSM", "").replace("**", "")
     else:
         sys.exit()
     # Decide if selection is existing connection or new

@@ -11,6 +11,7 @@ function() {
   if [[ $? -ne 0 ]]; then
     return 1
   fi
+
 # }}} $DOTFILES/zsh/startup -----------------------------------------------------------------------------
 
   # Save extended_glob option for restore. We need to change it for zplug's of tags. --------------------
@@ -22,19 +23,19 @@ function() {
   # specific-topic *.zsh files --------------------------------------------------------------------------
   local nice=
   # zsh #2 : Load paths first.
-  nice=-20; zplug "$DOTFILES", from:local, nice:$nice, of:'**/path.zsh'
+  nice=-20; zplug "$DOTFILES", from:local, nice:$nice, use:'**/path.zsh'
 
   # zsh #3 : Load everything but the zprofile, path, completion and postinit files second. Neither do files in *80% *.ignore dir.
-  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, of:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*.80%|*.ignore|.git)/*"
+  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, use:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*.80%|*.ignore|.git)/*"
 
   # Set theme.
-  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, of:'zsh-nmdf.sh'
+  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, use:'zsh-nmdf.sh'
 
   # zsh #4 : Load postinit last.
-  nice=9;   zplug "$DOTFILES", from:local, nice:$nice, of:'**/postinit.zsh'
+  nice=9;   zplug "$DOTFILES", from:local, nice:$nice, use:'**/postinit.zsh'
 
   # zsh #5 : Load completions after compinit was run.
-  nice=10;  zplug "$DOTFILES", from:local, nice:$nice, of:'**/completion.zsh'
+  nice=10;  zplug "$DOTFILES", from:local, nice:$nice, use:'**/completion.zsh'
 
   # external zsh plugins --------------------------------------------------------------------------------
   zplug 'b4b4r07/zplug'
@@ -44,12 +45,12 @@ function() {
   # zplug 'bobthecow/git-flow-completion'
   # zplug 'rhysd/zsh-bundle-exec', if:"(($+commands[bundle])) && [[ "$(platform)" != "windows" ]]"
 
-  # zplug 'holman/dotfiles', as:command, of:'bin/e'
-  # zplug 'transcode-open/apt-cyg', as:command, if:"[[ "$(platform)" == "windows" ]]", of:'apt-cyg'
-  # zplug 'agross/rapid-git', if:"(($+commands[git]))", of:'rapid-git.sh'
+  # zplug 'holman/dotfiles', as:command, use:'bin/e'
+  # zplug 'transcode-open/apt-cyg', as:command, if:"[[ "$(platform)" == "windows" ]]", use:'apt-cyg'
+  # zplug 'agross/rapid-git', if:"(($+commands[git]))", use:'rapid-git.sh'
 
   zplug 'zsh-users/zsh-syntax-highlighting', nice:10, if:"[[ "$(platform)" != "windows" ]]"
-  # zplug 'knu/z', of:'z.sh', nice:10
+  # zplug 'knu/z', use:'z.sh', nice:10
 
   # Install plugins if they are not installed -----------------------------------------------------------
   zplug-install # see also : ./functions/startup/zplug-install

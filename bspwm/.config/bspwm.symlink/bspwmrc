@@ -1,7 +1,22 @@
 #! /bin/sh
 
-############## BSPWM CONFIG ###############
+ws1= # main
+ws2= # web
+ws3= # mail
+ws4= # code
+ws5= # math [infinity]  (term icon)
+ws6= # media
+ws7= # misc  (9 squares icon)
+ws8= # notes/docs  (pdf icon)
+ws9= # settings  (1 cog settings icon)
+ws10= # security
 
+# bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+# bspc monitor -d $(echo -e '\uf120') $(echo -e '\uf1a0') $(echo -e '\uf121') $(echo -e '\uf02d') $(echo -e '\uf07c') $(echo -e '\uf03e') $(echo -e '\uf16a') $(echo -e '\uf0e6') $(echo -e '\uf023') $(echo -e '\uf141')
+# terminal  Firefox   coding  chrome  file navigation   graphic   players   chatting  network   ...
+
+############## BSPWM CONFIG ###############
 bspc config border_width	3
 bspc config window_gap		5
 
@@ -13,8 +28,6 @@ bspc config normal_frame_opacity 0.0
 bspc config focused_frame_opacity 0.1
 bspc config focus_follows_pointer true
 
-bspc monitor -d $(echo -e '\uf120') $(echo -e '\uf1a0') $(echo -e '\uf121') $(echo -e '\uf02d') $(echo -e '\uf07c') $(echo -e '\uf03e') $(echo -e '\uf16a') $(echo -e '\uf0e6') $(echo -e '\uf023') $(echo -e '\uf141')
-# terminal 	Firefox 	coding 	chrome 	file navigation 	graphic 	players 	chatting 	network 	...	
 # border colors
 ###############
 bspc config normal_border_color '#282828'
@@ -33,6 +46,7 @@ bspc rule -a urxvt window=pseudo_tiled
 
 bspc rule -a Firefox desktop=^2 follow=on
 bspc rule -a subl3 desktop=^3
+bspc rule -a Subl3 desktop=^3
 bspc rule -a chromium desktop=^4
 bspc rule -a pcmanfm desktop=^5
 
@@ -41,6 +55,8 @@ bspc rule -a Gimp desktop=^6 follow=on floating=on
 
 bspc rule -a mpv desktop=^7
 bspc rule -a smplayer desktop=^7
-
+bspc rule motion_recorder desktop=^9
+bspc rule simplescreenrecorder desktop=^9
+bspc rule Simplescreenrecorder desktop=^9
 
 panel &

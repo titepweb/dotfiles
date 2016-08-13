@@ -1,5 +1,5 @@
 #!/bin/sh
-# PURPOSE : install packages for the combo : bspwm + lemonbar + dzen2 + rofi + termite 
+# PURPOSE : install packages for the combo : bspwm + lemonbar + dzen2 + rofi + termite
 # status : nearly finished. last edit on 2016-02-05
 # dependancy : this script is designed to be sourced by $DOTREPO/install.sh
 
@@ -9,7 +9,7 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
 │ - bspwm sxhkd rofi rxvt-unicode termite feh                                 │
-│ - lemonbar-git (AUR) (patched with xft support) + xtitle-git (AUR) + dzen2  │
+│ - lemonbar-xft-git (AUR) (xft support) + xtitle-git (AUR) + dzen2           │
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
 │ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
 │ - nmcli_dmenu / networkmanager + network-manager-applet + rofi              │
@@ -24,7 +24,7 @@ install rofi
 install dzen2
 install feh
 install networkmanager network-manager-applet
-install mpd mpc ncmpcpp flac 
+install mpd mpc ncmpcpp flac
 # install cava
 install pcmanfm engrampa unrar zip unzip p7zip
 install ranger w3m
@@ -50,7 +50,8 @@ install git
 WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ MANUALLY INSTALL packages from AUR which cannot be installed automatically: │
-│ - lemonbar-git (AUR) (patched with xft support) + xtitle-git (AUR)          │
+│ - lemonbar-xft-git (AUR) (patched with xft support) + xtitle-git (AUR)      │
+│ - yaourt -Sb numix-circle-icon-theme-git --noconfirm --export ~/Downloads/  │
 └─────────────────────────────────────────────────────────────────────────────┘
 "
 
@@ -67,8 +68,8 @@ fi
 ########### CONFIGURATION ###########
 
 # mpd requires some files to start
-touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 mkdir -p ~/.config/mpd/playlists
+touch ~/.config/mpd/{mpd.db,mpd.log,mpd.pid,state}
 OK "Created ${bold}${green}mpd.db,mpd.log,mpd.pid,state${reset} in ~/.config/mpd"
 
 WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
@@ -102,8 +103,7 @@ cat << EOF
 EOF
 
 
-# CLI -----------
-
+# CLI ------------------
 install ack
 install tree
 install wget
@@ -112,7 +112,7 @@ install mlocate # is slowly replacing slocate (old)
 	sudo updatedb               # run it immediately
 	# sudo ionice -c3 updatedb	# schedule to run for idle
 
-# GUI -----------
+# GUI ------------------
 install mousepad
 install mpv
 install gpicview
@@ -128,3 +128,8 @@ install youtube-viewer
 # └─────────────────────────────────────────────────────────────────────────────┘
 # "
 # return
+
+
+# SCREEN RECOREDER -----
+install simplescreenrecorder
+install audacity kdenlive

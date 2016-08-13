@@ -13,7 +13,7 @@ super + shift + Escape
 
 # close window
 super + w
-	bspc window -c
+	bspc node -c
 
 super + t
 	bspc desktop -l next
@@ -22,51 +22,51 @@ super + b
 	bspc desktop -B
 
 super + {s,f}
-	bspc window -t {floating,fullscreen}
+	bspc node -t {floating,fullscreen}
 
 super + {apostrophe,Tab}
-	bspc {window,desktop} -f last
+	bspc {node,desktop} -f last
 
 super + {o,i}
 	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
+	bspc node {older,newer} -f; \
 	bspc control --record-history on
 
 super + y
-	bspc window -w last.manual
+	bspc node -w last.manual
 
 super + m
-	bspc window -s biggest
+	bspc node -s biggest
 
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+	bspc node -{f,s} {west,south,north,east}
 
 super + {_,shift + }c
-	bspc window -f {next,prev}
+	bspc node -f {next,prev}
 
 super + {comma,period}
 	bspc desktop -C {backward,forward}
 
-super + bracket{left,right}
+super + bracket{west,east}
 	bspc desktop -f {prev,next}
 
 super + ctrl + {h,j,k,l}
-	bspc window -p {left,down,up,right}
+	bspc node -p {west,south,north,east}
 
 super + ctrl + {_,shift + }space
-	bspc {window -p cancel,desktop -c}
+	bspc {node -p cancel,desktop -c}
 
 super + alt + {h,j,k,l}
-	bspc window -e {left -10,down +10,up -10,right +10}
+	bspc node -e {west -10,south +10,north -10,east +10}
 
 super + alt + shift + {h,j,k,l}
-	bspc window -e {right -10,up +10,down -10,left +10}
+	bspc node -e {east -10,north +10,south -10,west +10}
 
 super + ctrl + {1-9}
-	bspc window -r 0.{1-9}
+	bspc node -r 0.{1-9}
 
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} ^{1-9,10}
+	bspc {desktop -f,node -d} ^{1-9,10}
 
 ~button1
 	bspc pointer -g focus
@@ -129,7 +129,7 @@ XF86AudioMute
 # keyboard brightness
 XF86KbdBrightnessUp
 	kbl up
-  # kbdlight up 
+  # kbdlight up
   # xbacklight -inc 10%
 XF86KbdBrightnessDown
 	kbl down
@@ -146,3 +146,7 @@ XF86AudioPrev
 # make sxhkd reload its configuration files:
 super + q
 	pkill -USR1 -x sxhkd
+
+
+Print
+  mkdir -p ~/Pictures/screenshots/ && scrot '%Y.%m.%d.%s_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'

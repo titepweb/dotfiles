@@ -16,6 +16,9 @@ cat << EOF
 EOF
 
 install zsh
+#=[ zplug ]====================================#
+# curl -sL zplug.sh/installer | zsh
+
 install xclip
 install neovim
 install tmux
@@ -69,9 +72,11 @@ fi
 WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CONFIGURATION                                                               │
+│ - Manually run curl -sL zplug.sh/installer | zsh for zplug                  │
 │ - Manually run :PlugInstall for neovim (and then :PlugClean if needed)      │
 │   NOTE: remove directories in '~/.config/nvim/plugged/' if failure.         │
 │ - Fetch tmux plugins by manually running 'prefix + I' inside tmux           │
+│ - Manually run chsh -s `which zsh` to change default shell to zsh           │
 └─────────────────────────────────────────────────────────────────────────────┘
 "
 
@@ -82,7 +87,7 @@ case $SHELL in
 	;;
 */bash)
 	INFO "Changing default shell to ${bold}${green}zsh${reset}..."
-	chsh -s `which zsh`
+	# chsh -s `which zsh`
 	;;
 *)
 	USER "Default shell is $(basename $SHELL)"
