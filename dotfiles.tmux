@@ -10,9 +10,9 @@ PROJECT_NAME="${PROJECT_NAME//[,. ]/}"   # remove all occurances of space and pe
 # retrieve absolute path of /home/march/PROJECT/dotfiles/temp
 PROJECT_LOCATION="$( cd -P "$(dirname "$0" )" && pwd )"
 PROJECT_TMUX="$PROJECT_LOCATION/$(basename "$0")"
-# move to project directory, which needed for NERDTree, CtrlP, etc. to perform sanely 
+# move to project directory, which needed for NERDTree, CtrlP, etc. to perform sanely
 cd "$PROJECT_LOCATION"
-# cd to git root directory if available 
+# cd to git root directory if available
 type git >/dev/null 2>&1 && [[ -n $(git rev-parse --show-toplevel) ]] && {
 	PROJECT_LOCATION=$(git rev-parse --show-toplevel)
 	cd "$PROJECT_LOCATION"
@@ -76,3 +76,4 @@ fi
 
 # Attach to session
 tmux -2 attach-session -t $PROJECT_NAME
+HIGHLIGHTS BY 0

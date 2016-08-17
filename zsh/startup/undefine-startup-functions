@@ -2,8 +2,6 @@
 # http://stackoverflow.com/a/28336473/149264
 local this_directory=${${(%):-%x}:h}
 
-verbose ✔ Unfunction every funtion in $fg[yellow]$this_directory$reset_color -- by $fg[cyan]$(basename "$0")$reset_color
-
 local -a functions
 functions=($this_directory/*(:t))
 
@@ -11,7 +9,7 @@ functions=($this_directory/*(:t))
 # another for the actual unfunction.
 local fun
 for fun in $functions; do
-  verbose – Unfunction $fg[red]$fun$reset_color
+  verbose Unfunction $fg[red]$fun$reset_color
 done
 
 for fun in $functions; do
@@ -19,6 +17,8 @@ for fun in $functions; do
 done
 
 # Kill function cache.
-unset function_cache
+unset _function_cache
 
 unset ZSH_VERBOSE
+
+# vim:set filetype=sh:

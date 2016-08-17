@@ -1,23 +1,18 @@
-local destination="$1"
+local zplug_init="$1"
+local zplug_dir="$(dirname "$zplug_init")"
 
-verbose Downloading $fg[cyan]zplug$reset_color to $fg[green]$destination$reset_color -- by $fg[cyan]$(basename "$0")$reset_color
+verbose Downloading $fg[cyan]zplug$reset_color to $fg[green]$zplug_dir$reset_color
 
-if (($+commands[wget])); then
-  mkdir --parents "$(dirname "$destination")"
-  wget --output-document="$destination" https://git.io/zplug
-elif (($+commands[curl])); then
-  curl --fail --location --create-dirs --output "$destination" https://git.io/zplug
-else
-  verbose You either need $fg[red]wget$reset_color or $fg[red]curl$reset_color to download $fg[cyan]zplug$reset_color. Please install one of them. ZSH startup will continue without zplug.
+(($+commands[git])) || {
+  verbose You need $fg[red]git$reset_color to download $fg[cyan]zplug$reset_color. ZSH startup will continue without $fg[cyan]zplug$reset_color.
   return 1
-fi
+}
+
+git clone https://github.com/zplug/zplug "$zplug_dir"
 
 if [[ $? -ne 0 ]]; then
-  verbose Failed to download $fg[cyan]zplug$reset_color to $fg[green]$destination$reset_color. ZSH startup will continue without zplug.
+  verbose Failed to download $fg[cyan]zplug$reset_color to $fg[green]$zplug_dir$reset_color. ZSH startup will continue without $fg[cyan]zplug$reset_color.
   return 2
 fi
 
-verbose Loading $fg[cyan]zplug$reset_color from $fg[green]$destination$reset_color
-source "$destination"
-
-zplug update --self
+# vim:set filetype=sh:

@@ -7,50 +7,24 @@ function() {
   # Cache function results.
   build-cache
 
-  zplug-source
+  zplug-init
   if [[ $? -ne 0 ]]; then
     return 1
   fi
-
 # }}} $DOTFILES/zsh/startup -----------------------------------------------------------------------------
 
-  # Save extended_glob option for restore. We need to change it for zplug's of tags. --------------------
-  local eg=$options[extended_glob]
-  setopt extended_glob
+  # Use extended_glob option for zplug subshells. We need to change it for zplug's use tags containing extended globs.
+  zstyle ":zplug:config:setopt" only_subshell extended_glob
+
+  # # Save extended_glob option for restore. We need to change it for zplug's of tags. --------------------
+  # local eg=$options[extended_glob]
+  # setopt extended_glob
 
 # zplug {{{ ---------------------------------------------------------------------------------------------
+  ZPLUG_LOADFILE="$DOTFILES/zsh/zplugs"
 
-  # specific-topic *.zsh files --------------------------------------------------------------------------
-  local nice=
-  # zsh #2 : Load paths first.
-  nice=-20; zplug "$DOTFILES", from:local, nice:$nice, use:'**/path.zsh'
-
-  # zsh #3 : Load everything but the zprofile, path, completion and postinit files second. Neither do files in *80% *.ignore dir.
-  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, use:'**/(^(zprofile|path|completion|postinit)).zsh', ignore:"**/(*.80%|*.ignore|.git)/*"
-
-  # Set theme.
-  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, use:'zsh-nmdf.sh'
-
-  # zsh #4 : Load postinit last.
-  nice=9;   zplug "$DOTFILES", from:local, nice:$nice, use:'**/postinit.zsh'
-
-  # zsh #5 : Load completions after compinit was run.
-  nice=10;  zplug "$DOTFILES", from:local, nice:$nice, use:'**/completion.zsh'
-
-  # external zsh plugins --------------------------------------------------------------------------------
-  zplug 'b4b4r07/zplug'
-  # zplug 'plugins/ssh-agent', from:oh-my-zsh, ignore:oh-my-zsh.sh
-  # zplug 'plugins/sudo', from:oh-my-zsh, ignore:oh-my-zsh.sh, if:"(($+commands[sudo]))"
-  # zplug 'plugins/systemd', from:oh-my-zsh, ignore:oh-my-zsh.sh, if:"(($+commands[systemctl]))"
-  # zplug 'bobthecow/git-flow-completion'
-  # zplug 'rhysd/zsh-bundle-exec', if:"(($+commands[bundle])) && [[ "$(platform)" != "windows" ]]"
-
-  # zplug 'holman/dotfiles', as:command, use:'bin/e'
-  # zplug 'transcode-open/apt-cyg', as:command, if:"[[ "$(platform)" == "windows" ]]", use:'apt-cyg'
-  # zplug 'agross/rapid-git', if:"(($+commands[git]))", use:'rapid-git.sh'
-
-  zplug 'zsh-users/zsh-syntax-highlighting', nice:10, if:"[[ "$(platform)" != "windows" ]]"
-  # zplug 'knu/z', use:'z.sh', nice:10
+  # Work around https://github.com/zplug/zplug/issues/212 until https://github.com/zplug/zplug/pull/215 is merged.
+  export PATH=$ZPLUG_HOME/bin:$PATH
 
   # Install plugins if they are not installed -----------------------------------------------------------
   zplug-install # see also : ./functions/startup/zplug-install
@@ -61,13 +35,14 @@ function() {
 # }}} zplug ---------------------------------------------------------------------------------------------
 
   # Restore extended_glob option. -----------------------------------------------------------------------
-  options[extended_glob]=$eg
+  # options[extended_glob]=$eg
 
 # $DOTFILES/zsh/startup {{{ -----------------------------------------------------------------------------
-  # startup-directory ~/PROJECT #/scratch
 
   # Clean up after ourselves.
   undefine-startup-functions
+
+  # vim:set filetype=sh:
 # }}} $DOTFILES/zsh/startup -----------------------------------------------------------------------------
 }
 
@@ -170,7 +145,7 @@ export FZF_DEFAULT_OPTS='
 '
 export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
-bindkey '^I' $fzf_default_completion
+# bindkey '^I' $fzf_default_completion
 # bind '"\C-F":"fh\n"'
 
 # If you're running fzf in a large git repository, git ls-tree can boost up the speed of the traversal.

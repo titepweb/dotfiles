@@ -52,7 +52,7 @@ ls_colors=(
   'no=00'           #  NORMAL, NORM  Global default, although everything should be something
   'fi=00'           #  FILE  Normal file
   'di=33'           #  DIR Directory
-  'ln=36'           #  SYMLINK, LINK, LNK  Symbolic link. 
+  'ln=36'           #  SYMLINK, LINK, LNK  Symbolic link.
                     #  If you set this to ‘target’ instead of a numerical value, the color is as for the file pointed to.
   'pi=95'           #  FIFO, PIPE  Named pipe
   'do=35'           #  DOOR  Door
@@ -152,7 +152,7 @@ ls_colors=(
   '*.xcf=35'
   '*.xwd=35'
   '*.yuv=35'
-  
+
 # http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
   '*.axv=35'
   '*.anx=35'

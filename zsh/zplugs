@@ -1,0 +1,45 @@
+  # specific-topic *.zsh files --------------------------------------------------------------------------
+  local nice
+
+  # zsh #2 : Load paths first.
+  # Except for files in *80% *.ignore dir.
+  nice=-20; zplug "$DOTFILES", from:local, nice:$nice, use:'**/path.zsh', ignore:"**/(*.80%|*.ignore|.git)/*"
+
+  # zsh #3 : Load everything but the path (implicit), function path (implicit), zprofile, completion and postinit files second.
+  # Except for files in *80% *.ignore dir.
+  nice=-19; zplug "$DOTFILES", from:local, nice:$nice, use:'**/(^(zprofile|completion|postinit)).zsh', ignore:"**/(*.80%|*.ignore|.git)/*"
+
+  # Set theme.
+  nice=-18; zplug "$DOTFILES/zsh/prompt", from:local, nice:$nice, use:'zsh-nmdf.sh'
+
+  # zsh #4 : Load postinit last.
+  nice=9;   zplug "$DOTFILES", from:local, nice:$nice, use:'**/postinit.zsh'
+
+  # zsh #5 : Load completions after compinit was run.
+  nice=10;  zplug "$DOTFILES", from:local, nice:$nice, use:'**/completion.zsh'
+  # external zsh plugins --------------------------------------------------------------------------------
+
+  # Manage zplug with zplug.
+  zplug 'zplug/zplug', hook-build:'zplug update --self'
+
+  # oh-my-zsh plugins.
+  # zplug 'plugins/ssh-agent', from:oh-my-zsh, ignore:oh-my-zsh.sh
+  # zplug 'plugins/sudo', from:oh-my-zsh, ignore:oh-my-zsh.sh, if:"(($+commands[sudo]))"
+  # zplug 'plugins/systemd', from:oh-my-zsh, ignore:oh-my-zsh.sh, if:"(($+commands[systemctl]))"
+
+  # Other useful plugins.
+  # zplug 'Tarrasch/zsh-bd'
+  # zplug 'holman/dotfiles', as:command, use:'bin/e'
+  # zplug 'zsh-users/zsh-completions'
+
+  # Plugins related to git.
+  # zplug 'so-fancy/diff-so-fancy', if:"(($+commands[git]))", as:command, use: 'diff-so-fancy'
+  # zplug 'nvie/gitflow', if:"(($+commands[git]))", as:command, use:'not-needed'
+  # zplug 'bobthecow/git-flow-completion'
+  # zplug 'grossweber/git-some', if:"(($+commands[git]))", as:command, use:'git-some.sh'
+  # zplug 'rapid-git/rapid-git', if:"(($+commands[git]))", use:'rapid-git.sh'
+  # zplug 'kamranahmedse/git-standup', if:"(($+commands[git]))", as:command, use:'git-standup'
+
+  # Plugins to be Loaded after compinit was run.
+  zplug 'zsh-users/zsh-syntax-highlighting', nice:10, if:"[[ "$(platform)" != "windows" ]]"
+  # zplug 'knu/z', use:'z.sh', nice:10

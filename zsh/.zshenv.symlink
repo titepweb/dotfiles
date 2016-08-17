@@ -1,7 +1,7 @@
 # Loaded for all shells.
 
 # ZSH_VERBOSE=true enables logging. Because verbose conflict with sane-working-directory.vim, uncomment only when debugging
-# ZSH_VERBOSE=true
+ZSH_VERBOSE=true
 
 # Path to dotfiles.
 typeset -xr DOTFILES="$HOME/.dotfiles"
@@ -15,3 +15,5 @@ autoload -Uz $DOTFILES/zsh/startup/*(:t)
 autoload -U colors && colors
 
 verbose $fg_bold[red]Loaded$reset_color $fg_bold[green]zshenv$reset_color -- by $fg[cyan]$(basename "$0")$reset_color
+
+# vim:set filetype=sh:
