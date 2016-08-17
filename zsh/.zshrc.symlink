@@ -136,6 +136,17 @@ function nextwall() {
 # FZF - a command-line fuzzy finder for bash/zsh/vim + supports tmux
 #==============================================================================#
 
+#     ____      ____
+#    / __/___  / __/
+#   / /_/_  / / /_
+#  / __/ / /_/ __/
+# /_/   /___/_/-completion.bash
+#
+# - $FZF_TMUX               (default: 1)
+# - $FZF_TMUX_HEIGHT        (default: '40%')
+# - $FZF_COMPLETION_TRIGGER (default: '**')
+# - $FZF_COMPLETION_OPTS    (default: empty)
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZF_DEFAULT_OPTS='
@@ -144,8 +155,12 @@ export FZF_DEFAULT_OPTS='
   --color info:254,prompt:37,spinner:108,pointer:235,marker:235
 '
 export FZF_COMPLETION_TRIGGER=''
+
+bindkey '^P' up-history
+bindkey '^N' down-history
 bindkey '^T' fzf-completion
-# bindkey '^I' $fzf_default_completion
+bindkey '^I' $fzf_default_completion
+bindkey '^S' sudo-command-line
 # bind '"\C-F":"fh\n"'
 
 # If you're running fzf in a large git repository, git ls-tree can boost up the speed of the traversal.

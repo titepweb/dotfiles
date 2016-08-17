@@ -31,9 +31,16 @@ install the_silver_searcher     # ag - code-searching tool similar to ack, but f
 
 install ctags           # for tagbar (vim plugin)
                         # ctags/etags vs cscope : which is the best ?
-
-# fzf together with fzf.vim is managed by vim-plug.
-#
+#=[ fzf ]======================================#
+# fzf.vim is managed by vim-plug.
+# fzf can be installed by vim-plug. Nhung ko the chay tu dong ~/.fzf/install sau do
+if [ ! -d "$HOME/.fzf/.git" ]; then
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install
+	OK "Downloaded ${bold}${green}fzf${reset} for zsh."
+else
+	OK "✔ ${bold}${green}fzf${reset} has been installed."
+fi
 
 #=[ vim-plug ]=================================#
 # better than vunddle , pretzo, or oh-my-zsh
