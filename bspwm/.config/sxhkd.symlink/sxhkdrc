@@ -149,4 +149,4 @@ super + q
 
 
 Print
-  mkdir -p ~/Pictures/screenshots/ && scrot '%Y.%m.%d.%s_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+  mkdir -p ~/Pictures/screenshots/ && scrot '%Y.%m.%d.%Hh.%M.%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
