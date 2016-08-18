@@ -12,6 +12,7 @@ alias clock='watch -n1 "date '+%D%n%T'|figlet -f roman.flf -d ~/.fonts/figlet_fo
 #---------------------
 # Pretty-print of some PATH variables:
 alias path='echo -e ${PATH//:/\\n}'
+alias fpath='echo -e ${FPATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 
 # Arch Linux : Package Manager
