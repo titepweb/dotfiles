@@ -148,7 +148,7 @@ INSTALLATION ONTO A HDD OR USB DRIVE
 		root:!:12345::::::
 --------------------
 11. DRIVERS
-	Graphics:
+	? Graphics:
 		# pacman -S xf86-video-intel
 	Touchpad:
 		# pacman -S xf86-input-synaptics
@@ -343,9 +343,9 @@ $ make
 $ sudo make install
 
 syncronize timedatectl :
-# pacman -Syu ntp
-# systemctl enable ntpd.service && systemctl start ntpd.service
-One could also run ntpd -qg as root.
+	# pacman -Syu ntp
+	# systemctl enable ntpd.service && systemctl start ntpd.service
+	One could also run ntpd -qg as root.
 
 
 LINUX ALTERNATIVE SOFTWARES
@@ -657,12 +657,15 @@ Limey, Lemon, and Lime are all semicondensed like neep and most artwiz fonts, an
 2016-02-03
 	+ vimrc
 	+ Cai lai may
-	+ networkmanager thay vi netctl NGAY TU DAU
+	+ networkmanager thay vi netctl/dhcpcd NGAY TU DAU
 	+ install.sh
 2016-02-5
 	+ bootstrap.sh + nmdf / installpkg + link // inform + cross-platform
 	+ fix tm
 	+ pacman -S linux-lts
+2016-08-18
+	+ update syntax cho bspwm va zplug
+
 
 COMMAND LINE SHORT TUTORIAL -+-> BASH SCRIPTING
 -----------------------------------------------
@@ -750,6 +753,6 @@ systemctl --now | grep netctl
 1.default apps
 2.pass manager?
 ? password manager tren linux (Dashlane? lastpass?)
-? autohotkey
+? autohotkey tren linux ?
 
 test *.vimrc : vim -u testing_vimrc

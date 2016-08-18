@@ -1,0 +1,34 @@
+xưa để có mỗi helloword mò cả ngày
+
+nếu thích OCP
+thì đừng học kiểu đó
+bắt đầu bằng việc tìm hiểu sqllite là gì đi
+làm quen toàn bộ lệnh đã
+thế giới IT rộng lớn tới mức ngay cả tên ngôn ngữ tớ cũng chưa biết được 1/10
+
+Viettel :
+  tớ vô nó còn soát cả cốp xe
+  cấm mang usb tablet
+  cổng usb đều được dán tem
+  cấm chụp hình
+
+ọc thì dễ nhưng ứng dụng thực tế mới khó
+
+
+ps -ef | grep PCdrInDB | grep -v grep | wc -l
+đây là 1 lệnh kiểm tra của tớ đang làm đêm nay
+
+
+lệnh chính nó dài thế này này
+cd /cvbs/bin;CustCache -p|grep -E "TableName|RecordTotalCount|RecordUsedCount"|awk '{if(NR%3==1) name=$3;if(NR%3==2)total=$3;if(NR%3==0) print "[" name "] = " $3*100/total}'|awk '{if ($3 > 80) print $1":"$3} END {if (NR!=25) print "NOK"}'
+
+
+
+http://www.tutorialspoint.com/sqlite/sqlite_java.htm
+cần có: eclipse để dev
+java để compile và run
+thư viện sqllite jdbc để có các lệnh về sqllite cho java
+
+web (php, json, javascript, html5,...)
+mobile (ios, android)
+hay linux / win (c/c++/c#, java)

@@ -1,21 +1,5 @@
 #! /bin/sh
 
-ws1= # main
-ws2= # web
-ws3= # mail
-ws4= # code
-ws5= # math [infinity]  (term icon)
-ws6= # media
-ws7= # misc  (9 squares icon)
-ws8= # notes/docs  (pdf icon)
-ws9= # settings  (1 cog settings icon)
-ws10= # security
-
-# bspc monitor -d I II III IV V VI VII VIII IX X
-bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
-# bspc monitor -d $(echo -e '\uf120') $(echo -e '\uf1a0') $(echo -e '\uf121') $(echo -e '\uf02d') $(echo -e '\uf07c') $(echo -e '\uf03e') $(echo -e '\uf16a') $(echo -e '\uf0e6') $(echo -e '\uf023') $(echo -e '\uf141')
-# terminal  Firefox   coding  chrome  file navigation   graphic   players   chatting  network   ...
-
 ############## BSPWM CONFIG ###############
 bspc config border_width	3
 bspc config window_gap		5
@@ -36,6 +20,46 @@ bspc config presel_border_color '#d79921'
 bspc config normal_sticky_border_color '#1d2021'
 bspc config focused_sticky_border_color '#d5c4a1'
 bspc config urgent_border_color '#cc241d'
+
+############### WORKSPACES ################
+
+# bspc monitor -d I II III IV V VI VII VIII IX X
+
+# COPY FROM : http://fontawesome.io/cheatsheet/
+
+ws1=    # terminal
+# ws1=   # code
+# ws5=
+# ws1=    # main
+# ws4=
+ws2=   # firefox
+# ws2=    # web
+ws3=    # mail
+ws4=    # chrome
+ws5=   # misc
+ws6=   # graphic
+ws7=   # media
+ws8=   # notes/docs
+# ws9=   # settings
+ws9=   # chatting
+# ws9=
+# ws3=   # email
+# ws8=
+ws0=      # network
+bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws0
+
+# bspc monitor -d \
+#   $(echo -e '\uf120') \
+#   $(echo -e '\uf1a0') \
+#   $(echo -e '\uf121') \
+#   $(echo -e '\uf02d') \
+#   $(echo -e '\uf07c') \
+#   $(echo -e '\uf03e') \
+#   $(echo -e '\uf16a') \
+#   $(echo -e '\uf0e6') \
+#   $(echo -e '\uf023') \
+#   $(echo -e '\uf141')
+# terminal  Firefox   coding  chrome  file navigation   graphic   players   chatting  network   ...
 
 ################## RULE ###################
 bspc rule -a mplayer2 floating=on
@@ -60,3 +84,4 @@ bspc rule simplescreenrecorder desktop=^9
 bspc rule Simplescreenrecorder desktop=^9
 
 panel &
+# compton --config "$HOME/.config/compton.conf" -b

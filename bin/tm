@@ -17,7 +17,7 @@
 
 ### COLOR DEFENITION ### reference: https://en.wikipedia.org/wiki/ANSI_escape_code
 # Note: \033 = \e   30+i to specify foreground color, 40+i to specify background color,
-reset='\e[0m'     ;   
+reset='\e[0m'     ;
 
 bold='\e[1m'      ;   faint='\e[2m'       ;   italic='\e[3m'       ;   underline='\e[4m'    ;
 blink='\e[5m'     ;   blinkfast='\e[6m'   ;   negative='\e[7m'     ;   conceal='\e[8m'      ;
@@ -28,21 +28,21 @@ blue='\e[34m'     ;   magenta='\e[35m'    ;   cyan='\e[36m'        ;   white='\e
 xterm='\e[38'     ;   default='\e[39m'    ;
 
 #### LIBRARIES OFFERING COLORFUL INFORMATIVENESS #############################
-# NOTE: echo -e "..." = printf "...\n" 
+# NOTE: echo -e "..." = printf "...\n"
 function displayTitle {
-  echo -e "\r${bold}$1${reset}" 
+  echo -e "\r${bold}$1${reset}"
 }
 function BAD {
-  echo -e "\r  [${bold}${magenta}BADBOY${reset}] $1" 
+  echo -e "\r  [${bold}${magenta}BADBOY${reset}] $1"
 }
 function INFO {
-  echo -e "\r  [${bold}${cyan} INFO ${reset}] $1" 
+  echo -e "\r  [${bold}${cyan} INFO ${reset}] $1"
 }
 function ASK {
   printf "\r  [ ${bold}${yellow} ?? ${reset} ] $1"
 }
 function OK {
-  echo -e "\r  [${bold}${green}  OK  ${reset}] $1" 
+  echo -e "\r  [${bold}${green}  OK  ${reset}] $1"
 }
 function FAIL {
   printf "\r  [${bold}${red} FAIL ${reset}] $1\n"
@@ -52,18 +52,18 @@ function FAIL {
 ### A SAMPLE OF PRE-CONFIGURED TMUX ENVIRONMENT ###
 
 MkParentFolder() {
-  local inDir="$(dirname "$1")" 
+  local inDir="$(dirname "$1")"
 
   # ask for remove $inDir if it is a regular file
 	if [ ! -d $inDir ] && [ -e "$inDir" ]; then
     BAD "File \`${yellow}$inDir${reset}\` ${red}exists${reset}"
     ASK "Delete it [${green}${bold}y${reset}/${red}${bold}n${reset}] "
   	read -p "?" -n 1 -r && echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then 
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 		  FAIL "Please take a look at \`${red}$inDir${reset}\`"
 		else
-	    rm "$inDir" 
-	    OK "${green}Removed ${reset} ${strike}${red} $inDir ${reset}" 
+	    rm "$inDir"
+	    OK "${green}Removed ${reset} ${strike}${red} $inDir ${reset}"
 		fi
 	fi
 
@@ -97,9 +97,9 @@ PROJECT_NAME="\${PROJECT_NAME//[,. ]/}"   # remove all occurances of space and p
 # retrieve absolute path of /home/march/PROJECT/dotfiles/temp
 PROJECT_LOCATION="\$( cd -P "\$(dirname "\$0" )" && pwd )"
 PROJECT_TMUX="\$PROJECT_LOCATION/\$(basename "\$0")"
-# move to project directory, which needed for NERDTree, CtrlP, etc. to perform sanely 
+# move to project directory, which needed for NERDTree, CtrlP, etc. to perform sanely
 cd "\$PROJECT_LOCATION"
-# cd to git root directory if available 
+# cd to git root directory if available
 type git >/dev/null 2>&1 && [[ -n \$(git rev-parse --show-toplevel) ]] && {
 	PROJECT_LOCATION=\$(git rev-parse --show-toplevel)
 	cd "\$PROJECT_LOCATION"
@@ -176,7 +176,7 @@ if [ ! $# == 0 ]; then
 	displayTitle "✱ ${underline}TMUX SESSIONS MANAGER${reset}"
 	# evaluate parameters -------------------------------------------------
 	[[ ! $# == 1 ]] && BADBOY "${red}Too many parameters${reset}. Only \`${magenta}$1${reset}\` is used."
-	# 1 - try to figure out the meaningful projectname, which frequently happens when tab-tab is typed quickly, 
+	# 1 - try to figure out the meaningful projectname, which frequently happens when tab-tab is typed quickly,
 	# by fixing mistyped paramaters for tm command: .<projectname> <projetname>. <projectname>.tmux
 	tmux_name=$(basename "${1%.tmux}") # remove the taling .tmux if any
   tmux_name=${tmux_name%.} # remove the taling dot if running `tm <dotfile>` (<-- tab tab)

@@ -10,6 +10,6 @@ mkfifo "$PANEL_FIFO"
 ```
 and
 ```bash
-bspc control --subscribe > "$PANEL_FIFO" &
+bspc subscribe > "$PANEL_FIFO" &
 ```
 in your panel script.
