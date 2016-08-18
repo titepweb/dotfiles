@@ -2,7 +2,12 @@
 
 ############## BSPWM CONFIG ###############
 bspc config border_width	3
-bspc config window_gap		5
+bspc config window_gap    5
+
+# bspc config top_padding 5
+# bspc config left_padding 5
+# bspc config right_padding 5
+# bspc config bottom_padding 5
 
 bspc config split_ratio         0.50
 bspc config borderless_monocle  true
@@ -27,25 +32,22 @@ bspc config urgent_border_color '#cc241d'
 
 # COPY FROM : http://fontawesome.io/cheatsheet/
 
-ws1=    # terminal
 # ws1=   # code
 # ws5=
-# ws1=    # main
 # ws4=
-ws2=   # firefox
+# ws0=      # network
 # ws2=    # web
+# ws5=    # main
+ws1=    # terminal
+ws2=   # firefox
 ws3=    # mail
 ws4=    # chrome
-ws5=   # misc
+ws5=   # file manager
 ws6=   # graphic
 ws7=   # media
 ws8=   # notes/docs
-# ws9=   # settings
 ws9=   # chatting
-# ws9=
-# ws3=   # email
-# ws8=
-ws0=      # network
+ws0=   # settings
 bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws0
 
 # bspc monitor -d \
@@ -73,6 +75,18 @@ bspc rule -a subl3 desktop=^3
 bspc rule -a Subl3 desktop=^3
 bspc rule -a chromium desktop=^4
 bspc rule -a pcmanfm desktop=^5
+bspc rule -a Thunar desktop=^5
+bspc rule -a Gimp desktop=^6 follow=on floating=on
+bspc rule -a Vlc desktop=^7
+bspc rule -a mplayer2 floating=on
+bspc rule -a qbittorrent desktop=^9
+bspc rule -a VirtualBox desktop=^10
+
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+bspc rule -a Nitrogen desktop=^9
+bspc rule -a Feh desktop=^6
+bspc rule -a Gpicview desktop=^6
 
 # gimp, inscape, teamspeak needs opening floatingly. Don't open their associated file types from the context menu.
 bspc rule -a Gimp desktop=^6 follow=on floating=on
@@ -83,5 +97,6 @@ bspc rule motion_recorder desktop=^9
 bspc rule simplescreenrecorder desktop=^9
 bspc rule Simplescreenrecorder desktop=^9
 
+# compton --config ~/.config/compton.conf -b -c &
+# mpd &
 panel &
-# compton --config "$HOME/.config/compton.conf" -b

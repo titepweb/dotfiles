@@ -30,7 +30,7 @@ function() {
   zplug-install # see also : ./functions/startup/zplug-install
 
   # Then, source plugins and add commands to the PATH ---------------------------------------------------
-  zplug load --verbose
+  zplug load #--verbose
 
 # }}} zplug ---------------------------------------------------------------------------------------------
 

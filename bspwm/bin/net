@@ -9,9 +9,8 @@ fi
 
 # Quick check for current networking
 # nmcli connection show
-echo -------------------
 (nmcli -p c && echo && nmcli dev wifi) || netctl-auto list
-echo 
+echo
 echo "Current enabled services:"
 echo "-------------------------"
 systemctl list-unit-files | grep ${colorflag}=auto --ignore-case --binary-files=without-match --line-number --initial-tab net
@@ -30,7 +29,7 @@ exit 0
 
 # nmcli <-- networkmanager use to SWITCH TO SAVED WIRELESS PROFILES
 alias netm='nmcli connection up M454'
-alias netq='nmcli connection up "Sophop pho hue"'
+alias netv='nmcli connection up "VoDuyenQua"'
 
 # netctl-auto
 # alias net='netctl-auto list'
