@@ -135,7 +135,6 @@ function nextwall() {
 
 # FZF - a command-line fuzzy finder for bash/zsh/vim + supports tmux
 #==============================================================================#
-
 #     ____      ____
 #    / __/___  / __/
 #   / /_/_  / / /_
