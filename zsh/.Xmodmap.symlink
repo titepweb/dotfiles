@@ -3,12 +3,25 @@
 
 !map capslock key {{{
 !and use another program to google capslock state: xdotool key Caps_Lock
-	clear Lock
+	!clear Lock
 
 	!to escape key (using much in Vim)
-	keycode 0x42 = Escape
+	!keycode 0x42 = Escape
 
 	!to the left control key (using much in tmux)
 	!keycode 0x42 = Control_L
 	!add Control = Control_L
 !}}}
+
+
+
+!
+! Swap Caps_Lock and Control_L
+!
+
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L

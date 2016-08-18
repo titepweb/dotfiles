@@ -16,7 +16,7 @@ function() {
   # Use extended_glob option for zplug subshells. We need to change it for zplug's use tags containing extended globs.
   zstyle ":zplug:config:setopt" only_subshell extended_glob
 
-  # # Save extended_glob option for restore. We need to change it for zplug's of tags. --------------------
+  # # Save extended_glob option for restore. We need to change it for zplug's of tags. ------------------
   # local eg=$options[extended_glob]
   # setopt extended_glob
 

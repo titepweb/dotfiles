@@ -14,22 +14,10 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 export QT_STYLE_OVERRIDE=GTK+
 
 # merge in defaults and keymaps
-
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
-fi
-
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
+[[ -f $sysresources ]] && xrdb -merge $sysresources
+[[ -f $sysmodmap ]] && xmodmap $sysmodmap
+[[ -f "$userresources" ]] && xrdb -merge "$userresources"
+[[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
 
 # start some nice programs
 
@@ -51,9 +39,19 @@ rm -f '/tmp/xkbconf' '/tmp/xkbconfnew'
 # below, my she-devil of an ex flatmate lives there, and it is probably best to avoid Charlotte altogether.
 # redshift -r -l 35.22:-80.84 &
 
+# Swap Ctrl and Caps Lock
+# setxkbmap -option ctrl:swapcaps
+
+# Disable trackpad on keystrokes (Ignoreing modifier keycombos with -K)
+# syndaemon -d -K -i 0.25
+
 # desktop wallpaper
 sh ~/.fehbg &
 
+# start compon
+# compton --config ~/.config/compton.conf -b -c &
+
+# Start MPD
 mpd &
 
 # hide x11 cursor

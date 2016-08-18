@@ -97,6 +97,4 @@ bspc rule motion_recorder desktop=^9
 bspc rule simplescreenrecorder desktop=^9
 bspc rule Simplescreenrecorder desktop=^9
 
-# compton --config ~/.config/compton.conf -b -c &
-# mpd &
 panel &
