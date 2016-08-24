@@ -9,7 +9,7 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
 │ - bspwm sxhkd rofi rxvt-unicode termite feh compton parcellite              │
-│ - lemonbar-xft-git (AUR) (xft support) + xtitle-git (AUR) + dzen2           │
+│ - lemonbar-xft-git (AUR)(xft support) + net-tools + xtitle-git (AUR) + dzen2│
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
 │ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
 │ - nmcli_dmenu / networkmanager + network-manager-applet + rofi              │
@@ -28,6 +28,8 @@ install parcellite
 install networkmanager network-manager-applet
 # bar
 yaourt -Sb lemonbar-xft-git --noconfirm --export ~/Downloads
+# net-tools cung cap lenh ifconfig, duoc su dung trong lemonbar > panel > wifi
+install net-tools
 # Compositor
 install compton
 install dzen2

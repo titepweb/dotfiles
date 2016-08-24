@@ -31,23 +31,19 @@ bspc config urgent_border_color '#cc241d'
 # bspc monitor -d I II III IV V VI VII VIII IX X
 
 # COPY FROM : http://fontawesome.io/cheatsheet/
-
-# ws1=   # code
-# ws5=
-# ws4=
-# ws0=      # network
-# ws2=    # web
-# ws5=    # main
+# Tuong lai co bo sung tinh nang nay khong ?
+#  bitcoin
+#  bluetooth
 ws1=    # terminal
-ws2=   # file manager
-ws3=    # git          
-ws4=    # chrome
+ws2=   # file manager     
+ws3=    # git            
+ws4=    # chrome      
 ws5=   # network      
 ws6=   # graphic
 ws7=   # media        
-ws8= # notes/docs    
+ws8= # notes/docs     
 ws9=   # chatting    
-ws0=  # security  
+ws0=  # security   
 bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws0
 
 # bspc monitor -d \

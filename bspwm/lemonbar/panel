@@ -13,11 +13,11 @@ fi
 # exit gracefully if terminated
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
-# remove old panel fifo, creat new one
-[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
-mkfifo "$PANEL_FIFO"
-
 # ┌────────────────────────────────────────────┐
+    # remove old panel fifo, create new one
+    [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+    mkfifo "$PANEL_FIFO"
+
     # set up bspwm to not overlap the panel
     bspc config top_padding "$PANEL_HEIGHT"
 
@@ -101,6 +101,8 @@ done > "$PANEL_FIFO" &
 while true; do
     WIFI_SSID=$(iw $WIFI_INTERFACE link | grep 'SSID' | sed 's/SSID: //' | sed 's/\t//')
     # WIFI_IP=$(ifconfig $WIFI_INTERFACE | grep "inet " | cut -d' ' -f10)
+    WIFI_SIGNAL=$(iw "$WIFI_INTERFACE" link | grep 'signal' | sed 's/signal: //' | sed 's/ dBm//' | sed 's/\t//')
+
     # ifconfig la lenh trong net-tools
     if [[ $(iw "$WIFI_INTERFACE" link) != "Not connected." ]]; then
         if [[ $WIFI_SIGNAL -ge -67 ]]; then

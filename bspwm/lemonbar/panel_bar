@@ -9,7 +9,6 @@ while read -r line ; do
 		DAY*)
 			# date output
 			date="$PADDING%{B$COLOR_DATETIME_BG}%{F$COLOR_DATETIME_FG}  ${line#???}$PADDING%{F-}%{B-}"
-			# %{F#fabd2f}
 			;;
 
 		TIME*)
@@ -29,24 +28,23 @@ while read -r line ; do
 
 		WIRELESS*)
 			# wifi link
-			wifi="$PADDING%${line#????????}$PADDING"
-			# wifi="$PADDING%{F#689d6a}${line#????????}$PADDING"
+			wifi="$PADDING${line#????????}$PADDING"
 			;;
 
     EMAIL*)
-        # email alerts
-        email="$PADDING${line#?????}$PADDING"
-        ;;
+      # email alerts
+      email="$PADDING${line#?????}$PADDING"
+      ;;
 
     MESSAGE*)
-        # Weechat messages
-        messages="$PADDING${line#???????}$PADDING"
-        ;;
+      # Weechat messages
+      messages="$PADDING${line#???????}$PADDING"
+      ;;
 
     NEWS*)
-        # Newsbeuter articles
-        news="$PADDING${line#????}$PADDING"
-          ;;
+      # Newsbeuter articles
+      news="$PADDING${line#????}$PADDING"
+      ;;
 
 		MUSIC*)
 			# music info
@@ -65,12 +63,12 @@ while read -r line ; do
 
 		ROOT*)
 			# disk output
-			hddroot="$PADDING%{F#458588} root ${line#????}%{F-}$PADDING"
+			hddroot="$PADDING%{F#458588} ${line#????}%{F-}$PADDING"
 			;;
 
 		DATA*)
 			# disk output
-			hdddata="$PADDING%{F#d79921} data ${line#????}%{F-}$PADDING"
+			hdddata="$PADDING%{F#d79921} ${line#????}%{F-}$PADDING"
 			;;
 
 # uncomment for window title support
@@ -91,13 +89,13 @@ while read -r line ; do
 					M*)
 						# active monitor
 						if [ $num_mon -gt 1 ] ; then
-					    wm_infos="$wm_infos %{F$COLOR_ACTIVE_MONITOR_FG}%{B$COLOR_ACTIVE_MONITOR_BG}$PADDING${name}$PADDING%{B-}%{F-}  "
+					    wm_infos="$wm_infos %{F$COLOR_ACTIVE_MONITOR_FG}%{B$COLOR_ACTIVE_MONITOR_BG}$PADDING${name}$PADDING%{B-}%{F-}  "
 						fi
 						;;
 					m*)
 						# inactive monitor
 						if [ $num_mon -gt 1 ] ; then
-					    wm_infos="$wm_infos %{F$COLOR_INACTIVE_MONITOR_FG}%{B$COLOR_INACTIVE_MONITOR_BG}$PADDING${name}$PADDING%{B-}%{F-}  "
+					    wm_infos="$wm_infos %{F$COLOR_INACTIVE_MONITOR_FG}%{B$COLOR_INACTIVE_MONITOR_BG}$PADDING${name}$PADDING%{B-}%{F-}  "
 						fi
 						;;
 					O*)
@@ -136,8 +134,3 @@ while read -r line ; do
 	esac
 	printf "%s\n" "%{l}${wm_infos}${hddroot}${hdddata}${cpu}${memory}%{c}${music}%{r}${news}${messages}${email}${wifi}${volume}${battery}${date}${clock}"
 done
-
-
-#  bitcoin
-#  bluetooth
-#  git
