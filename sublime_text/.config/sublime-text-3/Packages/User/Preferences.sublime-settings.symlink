@@ -32,13 +32,11 @@
 	"draw_minimap_border": true,
 	"fade_fold_buttons": false,
 	"font_face": "Input",
-	"font_size": 10,
+	"font_size": 9,
 	"highlight_line": true,
 	"ignored_packages":
 	[
-		"AutoHotkey",
 		"GitGutter",
-		"REG",
 		"Sublimerge Pro",
 		"Vintageous"
 	],

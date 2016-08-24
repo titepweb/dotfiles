@@ -15,5 +15,7 @@ and
 in your panel script.
 
 ### REFERENCE
+[bspwm gruvbox on reddit](https://www.reddit.com/r/unixporn/comments/3ngwcg/bspwm_gruvbox/) and
 [inject3d's config](https://github.com/inject3d/dotfiles/blob/master/bin/panel)
+
 [dagnachewa's config](https://github.com/dagnachewa/dotfiles/blob/master/bspwm/panel/panel)
