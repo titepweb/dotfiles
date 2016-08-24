@@ -60,6 +60,9 @@ unclutter &
 # urxvt daemon is required to start urxvtc
 urxvtd -q -f -o &
 
+# run parcellite as deamon
+parcellite -d &
+
 # The trick was to add the following to .xinitrc (before starting the window manager session) as suggested.
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 

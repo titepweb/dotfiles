@@ -8,34 +8,46 @@
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
-│ - bspwm sxhkd rofi rxvt-unicode termite feh compton (Compositor)            │
+│ - bspwm sxhkd rofi rxvt-unicode termite feh compton parcellite              │
 │ - lemonbar-xft-git (AUR) (xft support) + xtitle-git (AUR) + dzen2           │
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
 │ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
 │ - nmcli_dmenu / networkmanager + network-manager-applet + rofi              │
 │ - pcmanfm + engrampa unrar zip unzip p7zip     &     ranger w3m             │
-│ - polkit-gnome dosfstools ntfs-3g gvfs                                      │
+│ - ntfs-3g + gvfs + polkit-gnome + dosfstools                                │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
-install polkit-gnome
-# install dosfstools ntfs-3g gvfs
 
-install compton
-
+# window manager
 install bspwm sxhkd
+install xorg-xsetroot # xsetroot -cursor_name left_ptr
+# use a clipboard manager for clipboard persistance
+install parcellite
+
+# su dung networkmanager service thay vi netctl, netctl-auto, ...
+install networkmanager network-manager-applet
+# bar
+yaourt -Sb lemonbar-xft-git --noconfirm --export ~/Downloads
+# Compositor
+install compton
+install dzen2
+# terminals
 install termite
 install rxvt-unicode
+# application launcher
 install rofi
-install dzen2
+#
 install feh
-install networkmanager network-manager-applet
 install mpd mpc ncmpcpp flac
 # install cava
 install pcmanfm engrampa unrar zip unzip p7zip
 install ranger w3m
 install mutt newsbeuter weechat
 
-install xorg-xsetroot # xsetroot -cursor_name left_ptr
+install polkit-gnome ntfs-3g gvfs
+# Change labels on MS-DOS filesystems
+install dosfstools
+
 
 # # development server setup
 # install nginx
