@@ -14,8 +14,11 @@ cat << EOF
 │ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
 │ - nmcli_dmenu / networkmanager + network-manager-applet + rofi              │
 │ - pcmanfm + engrampa unrar zip unzip p7zip     &     ranger w3m             │
+│ - polkit-gnome dosfstools ntfs-3g gvfs                                      │
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
+install polkit-gnome
+install dosfstools ntfs-3g gvfs
 
 install bspwm sxhkd
 install termite
