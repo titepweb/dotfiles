@@ -36,7 +36,9 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
+		"AutoHotkey",
 		"GitGutter",
+		"REG",
 		"Sublimerge Pro",
 		"Vintageous"
 	],

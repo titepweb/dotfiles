@@ -49,7 +49,7 @@ rm -f '/tmp/xkbconf' '/tmp/xkbconfnew'
 sh ~/.fehbg &
 
 # start compon
-# compton --config ~/.config/compton.conf -b -c &
+compton --config ~/.config/compton.conf -b -c &
 
 # Start MPD
 mpd &

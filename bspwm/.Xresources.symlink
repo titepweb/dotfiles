@@ -81,7 +81,7 @@ URxvt.matcher.rend.0: Uline Bold fg5
 ! soft contrast: *background: #32302f
 *.foreground: #ebdbb2
 
-!! [0-7] for normal text + [8-15] for bold text 
+!! [0-7] for normal text + [8-15] for bold text
 ! Black + DarkGrey
 *.color0:  #282828
 *.color8:  #928374

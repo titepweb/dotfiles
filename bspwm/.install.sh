@@ -8,7 +8,7 @@
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
-│ - bspwm sxhkd rofi rxvt-unicode termite feh                                 │
+│ - bspwm sxhkd rofi rxvt-unicode termite feh compton (Compositor)            │
 │ - lemonbar-xft-git (AUR) (xft support) + xtitle-git (AUR) + dzen2           │
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
 │ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
@@ -18,7 +18,9 @@ cat << EOF
 └─────────────────────────────────────────────────────────────────────────────┘
 EOF
 install polkit-gnome
-install dosfstools ntfs-3g gvfs
+# install dosfstools ntfs-3g gvfs
+
+install compton
 
 install bspwm sxhkd
 install termite

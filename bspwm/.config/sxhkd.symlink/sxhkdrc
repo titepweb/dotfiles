@@ -11,10 +11,10 @@ super + shift + Escape
   bspc quit && pkill panel
 
 # open terminal
-super + Return
-  urxvtc
 super + shift + Return
-  termite -d ~/PROJECT
+  urxvtc
+super + Return
+  mkdir -p ~/PROJECT && termite -d ~/PROJECT
 
 # program launcher
 super + space
