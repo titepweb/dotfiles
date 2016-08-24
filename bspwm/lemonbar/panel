@@ -140,7 +140,7 @@ while true; do
     else
         WEECHAT_ICON="$ICON_CHAT_NEW %{F$COLOR_TEXT_FG} $UNREADMESSAGES%{F-}"
     fi
-    echo -e "MESSAGE$WEECHAT_ICON"
+    echo -e "MESSAGE%{A:urxvtc -e "weechat":}$WEECHAT_ICON%{A}"
     sleep $REFRESH_CHAT
 done > "$PANEL_FIFO" &
 

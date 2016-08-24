@@ -1,51 +1,70 @@
-#
-# bspwm hotkeys
-# key dac biet gom : apostrophe, grave, Tab, ...
+### ${XDG_CONFIG_HOME}/bspwm/sxhkdrc
+
+########################
+## Internal (bspwm):  ## apostrophe, grave, Tab, ...
+########################
 
 # make sxhkd reload its configuration files:
 super + q
   pkill -USR1 -x sxhkd
 
-# exit session
+# exit bspwm session
 super + shift + Escape
   bspc quit && pkill panel
 
-# open terminal
-super + shift + Return
-  urxvtc
+# close/kill window
+super + {_,shift + }w
+  bspc node -{c,k}
+
+#+ quit bspwm
+super + {_,shift} + q
+    {bspc query -T > "$BSPWM_TREE"; \
+        bspc query -H > "$BSPWM_HISTORY"; \
+            bspc quit,\
+     bspc quit 1}
+
+# ┌─────────────────────────────────────────────────────────────────────────────┐
 super + Return
   mkdir -p ~/PROJECT && termite -d ~/PROJECT
+
+# open a terminal
+super + shift + Return
+  urxvtc
+  # st
+
+# open a "scratchpad" terminal (quake-style, in this case, on a 1366x768 display)
+F12
+  xdotool search --onlyvisible --classname URxvtQuake windowunmap \
+    || xdotool search --classname URxvtQuake windowmap \
+    || urxvt -name URxvtQuake -geometry 110x20+297+1
+# └─────────────────────────────────────────────────────────────────────────────┘
 
 # program launcher
 super + space
   rofi -show run
   # dmenu_run -i -h 30 -p "execute>" -nb "#282828" -nf "#ebdbb2" -sb "#a89984" -sf "#282828" -fn "xft:Source\ Code\ Pro\ Medium:size=13"
 
-# close and kill
-super + {_,shift + }w
-  bspc node -{c,k}
+#
+# state/flags
+#
 
 # alternate between the tiled and monocle layout
 super + t
   bspc desktop -l next
 
-# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
-super + y
-  bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
-
-# swap the current node and the biggest node
-super + m
-  bspc node -s biggest
-
-#
-# state/flags
-#
+# balance tree
+super + b
+  bspc desktop -B
 
 # set the window state
 # super + {t,shift + t,s,f}
   # bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 super + {s,f}
   bspc node -t {floating,fullscreen}
+
+# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
+super + y
+  bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
 
 # set the node flags
 super + ctrl + {x,y,z}
@@ -55,7 +74,11 @@ super + ctrl + {x,y,z}
 # focus/swap
 #
 
-# focus the node in the given direction
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+  bspc {desktop -f,node -d} '^{1-9,10}'
+
+# switch/move node in the given direction (vim keybinding)
 super + {_,shift + }{h,j,k,l}
   bspc node -{f,s} {west,south,north,east}
 
@@ -74,16 +97,24 @@ super + bracket{left,right}
 # focus the last node/desktop
 super + {grave,Tab}
   bspc {node,desktop} -f last
+# swap position of current window with the last one
+super + apostrophe
+  bspc window -s last
 
 # focus the older or newer node in the focus history
 super + {o,i}
-  bspc wm -h off; \
+  bspc wm --record-history off; \
   bspc node {older,newer} -f; \
-  bspc wm -h on
+  bspc wm --record-history on
 
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-  bspc {desktop -f,node -d} '^{1-9,10}'
+# swap this window with the largest one in the layout
+super + m
+  bspc node -s biggest
+
+# swap position of current window with the last one (in manual mode)
+# seems useless
+# super + y
+  # bspc node -w last.manual
 
 #
 # preselect
@@ -94,16 +125,45 @@ super + ctrl + {h,j,k,l}
   bspc node -p {west,south,north,east}
 
 # preselect the ratio
-super + ctrl + {1-9}
-  bspc node -o 0.{1-9}
+# super + ctrl + {1-9}
+  # bspc node -o 0.{1-9}
 
-# cancel the preselection for the focused node
-super + ctrl + space
-  bspc node -p cancel
+# cancel the preselection for the focused node/desktop
+super + ctrl + {_,shift + }space
+  bspc {node -p cancel,desktop -c}
 
 # cancel the preselection for the focused desktop
 super + ctrl + shift + space
   bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# resize window outwards(?)
+super + alt + {h,j,k,l}
+  bspc node -e {left -10,down +10,up -10,right +10}
+
+# resize window inwards(?)
+super + alt + shift + {h,j,k,l}
+  bspc window -e {right -10,up +10,down -10,left +10}
+
+# man page says "set the splitting ratio of the selected window" (appears useless)
+# super + ctrl + {1-9}
+#   bspc window -r 0.{1-9}
+
+# adjust desktop split ratio - replaced window ratio command above
+super + ctrl + {1-9}
+  bspc config -d focused split_ratio {0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90};\
+  bspc desktop --equalize
+
+# dynamic window gaps (mostly just showing off...)
+super + {minus,equal}
+  bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+,-} 2 ))
+
+# rotate binary tree clockwise/counter-clockwise
+super + ctrl + {comma,period}
+    bspc desktop -R {-90,90}
+
+# flip (mirror) binary tree horizontally/vertically
+super + alt + {comma,period}
+    bspc desktop -F {vertical,horizontal}
 
 #
 # move/resize
@@ -121,17 +181,6 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
   bspc node -v {-10 0,0 10,0 -10,10 0}
 
-~button1
-	bspc pointer -g focus
-
-super + button{1-3}
-	bspc pointer -g {move,resize_side,resize_corner}
-
-super + !button{1-3}
-	bspc pointer -t %i, %i
-
-super + @button{1-3}
-	bspc pointer -u
 
 
 
@@ -143,26 +192,21 @@ super + button{4}
 super + button{5}
 	bspc config -d focused window_gap $((`bspc config -d focused window_gap` - 5))
 
+
+# adjust desktop split ratio - replaced window ratio command above
+super + ctrl + {1-9}
+  bspc config -d focused split_ratio {0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90};\
+  bspc desktop --equalize
+
+# dynamic window gaps (mostly just showing off...)
+super + {minus,equal}
+  bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+,-} 2 ))
+
 #
 # wm independent hotkeys
 #
 
-# mpd hotkeys
-super + shift + {comma, period}
-    mpc {prev,next}
-
-# open file manager in new urxvt window
-super + e
-	urxvtc -e "ranger"
-
-# open web browser.  temporary, change this to something more intuitive later
-super + F
-	firefox
-
-
-# lock screen
-ctrl + alt + l
-	i3lock -f -r 6 -s 15
+# ┌─────────────────────────────────────────────────────────────────────────────┐
 
 # volume up
 XF86Audio{LowerVolume,RaiseVolume}
@@ -188,6 +232,61 @@ XF86AudioNext
 XF86AudioPrev
   mpc prev
 
+# └─────────────────────────────────────────────────────────────────────────────┘
 
 Print
   mkdir -p ~/Pictures/screenshots/ && scrot '%Y.%m.%d.%Hh.%M.%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+
+# mpd hotkeys
+super + shift + {comma, period}
+    mpc {prev,next}
+
+# open file manager in new urxvt window
+super + e
+  urxvtc -e "ranger"
+
+# open web browser.  temporary, change this to something more intuitive later
+super + F
+  firefox
+
+# lock screen
+ctrl + alt + l
+  i3lock -f -r 6 -s 15
+
+# some simple notifications in lieu of a systray might be better to dedicate a desktop to system performance
+
+# show acpi output (battery status)
+#super + a
+#    notify-send -t 5000 "`acpi`"
+
+# show current date/time
+#super + space
+#    notify-send -t 5000 "`date +'%H:%M   %a, %d %b %Y'`"
+
+# show output of periodically run update-checking script
+#super + u
+#    notify-send -t 5000 "`cat /var/local/updates-available-sh.info`"
+
+########################
+## Mouse:             ##
+########################
+#  i do not use these  #
+# but have them anyway #
+########################
+# click to focus
+~button1
+    bspc pointer --grab focus
+
+# move/resize window
+super + button{1-3}
+    bspc pointer --grab {move,resize_side,resize_corner}
+
+# send the coordinates of the pointer to the current action (don't change this)
+super + !button{1-3}
+    bspc pointer --track %i %i
+
+# terminate the current pointer action (don't change this)
+super + @button{1-3}
+    bspc pointer --ungrab
+
+# vim: set ft=sxhkdrc:
