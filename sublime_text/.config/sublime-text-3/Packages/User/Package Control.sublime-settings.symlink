@@ -2,8 +2,6 @@
 	"bootstrapped": true,
 	"in_process_packages":
 	[
-		"AutoHotkey",
-		"REG"
 	],
 	"installed_packages":
 	[
