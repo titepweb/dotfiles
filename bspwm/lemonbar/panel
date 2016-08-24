@@ -28,7 +28,7 @@ bspc subscribe > "$PANEL_FIFO" &
 
 # clock
 while true; do
-	echo -e "TIME$ICON_CLOCK$(date +"%_H:%M")"
+    echo -e "TIME$ICON_CLOCK$(date +"%_H:%M %p")"
     sleep $REFRESH_CLOCK
 done > "$PANEL_FIFO" &
 
@@ -133,8 +133,9 @@ done > "$PANEL_FIFO" &
 
 # wifi
 while true; do
-#   WIFI_SSID=$(iw $WIFI_INTERFACE link | grep 'SSID' | sed 's/SSID: //' | sed 's/\t//')
-    WIFI_SIGNAL=$(iw "$WIFI_INTERFACE" link | grep 'signal' | sed 's/signal: //' | sed 's/ dBm//' | sed 's/\t//')
+    WIFI_SSID=$(iw $WIFI_INTERFACE link | grep 'SSID' | sed 's/SSID: //' | sed 's/\t//')
+    # WIFI_IP=$(ifconfig $WIFI_INTERFACE | grep "inet " | cut -d' ' -f10)
+    # ifconfig la lenh trong net-tools
 	if [[ $(iw "$WIFI_INTERFACE" link) != "Not connected." ]]; then
 		if [[ $WIFI_SIGNAL -ge -67 ]]; then
 			WIFI_COLOR=$COLOR_SIGNAL_HIGH
@@ -143,7 +144,7 @@ while true; do
 		elif [[ $WIFI_SIGNAL -ge -80 && $WIFI_SIGNAL -lt -70 ]]; then
 			WIFI_COLOR=$COLOR_SIGNAL_LOW
 		fi
-		echo -e "LINK%{A:dzen_popup_toggle.sh netinfo:}%{F$WIFI_COLOR}$ICON_WIFI_CONNECTED%{F-}%{A}"
+        echo -e "LINK%{A:dzen_popup_toggle.sh netinfo:}%{F$WIFI_COLOR}$ICON_WIFI_CONNECTED $WIFI_SSID $WIFI_IP%{F-}%{A}"
 	else
 		WIFI_COLOR=$COLOR_SIGNAL_NONE
 		echo -e "LINK%{A:dzen_popup_toggle.sh netinfo:}%{F$WIFI_COLOR}$ICON_WIFI_DISCONNECTED%{F-}%{A}"
