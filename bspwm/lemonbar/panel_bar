@@ -8,31 +8,13 @@ while read -r line ; do
 	case $line in
 		DAY*)
 			# date output
-			date="  %{B$COLOR_DTG_BG}%{F$COLOR_DTG_FG}  ${line#???}$PADDING%{F-}%{B-}"
+			date="$PADDING%{B$COLOR_DATETIME_BG}%{F$COLOR_DATETIME_FG}  ${line#???}$PADDING%{F-}%{B-}"
+			# %{F#fabd2f}
 			;;
 
-        EMAIL*)
-            # email alerts
-            email="$PADDING${line#?????}$PADDING"
-            ;;
-
-        MESSAGE*)
-            # Weechat messages
-            messages="$PADDING${line#???????}$PADDING"
-            ;;
-
-        NEWS*)
-            # Newsbeuter articles
-            news="$PADDING${line#????}$PADDING"
-            ;;
-
-		MUSIC*)
-			# music info
-			music="$PADDING${line#?????}$PADDING"
-			;;
 		TIME*)
 			# clock output
-			clock="%{B$COLOR_DTG_BG}%{F$COLOR_DTG_FG}${line#????}$PADDING%{F-}%{B-}"
+			clock="%{B$COLOR_DATETIME_BG}%{F$COLOR_DATETIME_FG}${line#????}$PADDING%{F-}%{B-}"
 			;;
 
 		BAT*)
@@ -40,21 +22,62 @@ while read -r line ; do
 			battery="$PADDING${line#???}$PADDING"
 			;;
 
-# uncomment for window title support
-#		TITLE*)
-#			# xtitle output
-#			title="${line#?????}$PADDING$PADDING"
-#			;;
-
 		VOL*)
 			# alsa volume
 			volume="$PADDING${line#???}$PADDING"
 			;;
 
-		LINK*)
+		WIRELESS*)
 			# wifi link
-			wifi="$PADDING${line#????}$PADDING"
+			wifi="$PADDING%${line#????????}$PADDING"
+			# wifi="$PADDING%{F#689d6a}${line#????????}$PADDING"
 			;;
+
+    EMAIL*)
+        # email alerts
+        email="$PADDING${line#?????}$PADDING"
+        ;;
+
+    MESSAGE*)
+        # Weechat messages
+        messages="$PADDING${line#???????}$PADDING"
+        ;;
+
+    NEWS*)
+        # Newsbeuter articles
+        news="$PADDING${line#????}$PADDING"
+          ;;
+
+		MUSIC*)
+			# music info
+			music="$PADDING${line#?????}$PADDING"
+			;;
+
+		RAM*)
+			# ram output
+			memory="$PADDING%{F#d3869b} ${line#???}$PADDING"
+			;;
+
+    CPU*)
+			# cpu output
+			cpu="$PADDING%{F#cc241d} ${line#???}%{F-}$PADDING"
+			;;
+
+		ROOT*)
+			# disk output
+			hddroot="$PADDING%{F#458588} root ${line#????}%{F-}$PADDING"
+			;;
+
+		DATA*)
+			# disk output
+			hdddata="$PADDING%{F#d79921} data ${line#????}%{F-}$PADDING"
+			;;
+
+# uncomment for window title support
+#		TITLE*)
+#			# xtitle output
+#			title="${line#?????}$PADDING$PADDING"
+#			;;
 
 		W*)
 			# bspwm internal state
@@ -111,5 +134,10 @@ while read -r line ; do
 			done
 			;;
 	esac
-	printf "%s\n" "%{l}${wm_infos}%{c}${music}%{r}${news}${messages}${email}${wifi}${volume}${battery}${date}${clock}"
+	printf "%s\n" "%{l}${wm_infos}${hddroot}${hdddata}${cpu}${memory}%{c}${music}%{r}${news}${messages}${email}${wifi}${volume}${battery}${date}${clock}"
 done
+
+
+#  bitcoin
+#  bluetooth
+#  git

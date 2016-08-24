@@ -39,15 +39,15 @@ bspc config urgent_border_color '#cc241d'
 # ws2=    # web
 # ws5=    # main
 ws1=    # terminal
-ws2=   # firefox
-ws3=    # mail
+ws2=   # file manager
+ws3=    # git          
 ws4=    # chrome
-ws5=   # file manager
+ws5=   # network      
 ws6=   # graphic
-ws7=   # media
-ws8=   # notes/docs
-ws9=   # chatting
-ws0=   # settings
+ws7=   # media        
+ws8= # notes/docs    
+ws9=   # chatting    
+ws0=  # security  
 bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws0
 
 # bspc monitor -d \

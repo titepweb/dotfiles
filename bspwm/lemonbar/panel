@@ -6,8 +6,8 @@
 
 # check if panel is already running
 if [[ $(pgrep -cx panel) -gt 1 ]]; then
-	printf "%s\n" "The panel is already running." >&2
-	exit 1
+    printf "%s\n" "The panel is already running." >&2
+    exit 1
 fi
 
 # exit gracefully if terminated
@@ -17,11 +17,13 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
-# set up bspwm to not overlap the panel
-bspc config top_padding "$PANEL_HEIGHT"
+# ┌────────────────────────────────────────────┐
+    # set up bspwm to not overlap the panel
+    bspc config top_padding "$PANEL_HEIGHT"
 
-# get bspwms status feed
-bspc subscribe > "$PANEL_FIFO" &
+    # get bspwms status feed
+    bspc subscribe > "$PANEL_FIFO" &
+# └────────────────────────────────────────────┘
 
 # window title
 # xtitle -sf 'TITLE%s' > "$PANEL_FIFO" &
@@ -34,7 +36,7 @@ done > "$PANEL_FIFO" &
 
 # date
 while true; do
-	echo -e "DAY%{A:dzen_popup_toggle.sh calendar:}$ICON_DATE$(date +'%a, %b %_d')%{A}"
+    echo -e "DAY%{A:dzen_popup_toggle.sh calendar:}$ICON_DATE$(date +'%a, %b %_d')%{A}"
     sleep $REFRESH_DATE
 done > "$PANEL_FIFO" &
 
@@ -53,23 +55,23 @@ while true; do
     #--------
     if [[ $(cat "$POWERSUPPLY/online") != 1 ]]; then
         if [[ $BATT_LEVEL -ge 80 ]]; then
-	    	BATT_ICON=$ICON_BATTERY_FULL
-    	elif [[ $BATT_LEVEL -ge 60 && $BATT_LEVEL -lt 80 ]]; then
-	    	BATT_ICON=$ICON_BATTERY_THREEQUARTERS
-    	elif [[ $BATT_LEVEL -ge 40 && $BATT_LEVEL -lt 60 ]]; then
-	    	BATT_ICON=$ICON_BATTERY_HALF
-    	elif [[ $BATT_LEVEL -ge 20 && $BATT_LEVEL -lt 40 ]]; then
-	    	BATT_ICON=$ICON_BATTERY_QUARTER
-    	elif [[ $BATT_LEVEL -lt 20 ]]; then
-	    	BATT_ICON=$ICON_BATTERY_EMPTY
-    	fi
+            BATT_ICON=$ICON_BATTERY_FULL
+        elif [[ $BATT_LEVEL -ge 60 && $BATT_LEVEL -lt 80 ]]; then
+            BATT_ICON=$ICON_BATTERY_THREEQUARTERS
+        elif [[ $BATT_LEVEL -ge 40 && $BATT_LEVEL -lt 60 ]]; then
+            BATT_ICON=$ICON_BATTERY_HALF
+        elif [[ $BATT_LEVEL -ge 20 && $BATT_LEVEL -lt 40 ]]; then
+            BATT_ICON=$ICON_BATTERY_QUARTER
+        elif [[ $BATT_LEVEL -lt 20 ]]; then
+            BATT_ICON=$ICON_BATTERY_EMPTY
+        fi
     else
         BATT_ICON=$ICON_BATTERY_CHARGING
     fi
-	#uncomment next and delete the line after that to see percentage
-	echo -e "BAT%{A:dzen_popup_toggle.sh sysinfo:}$BATT_ICON %{F$COLOR_TEXT_FG} $BATT_LEVEL%%{F-}%{A}"
-	# echo -e BAT$BATT_ICON
-	sleep $REFRESH_BATTERY
+    #uncomment next and delete the line after that to see percentage
+    echo -e "BAT%{A:dzen_popup_toggle.sh sysinfo:}$BATT_ICON %{F$COLOR_TEXT_FG} $BATT_LEVEL%%{F-}%{A}"
+    # echo -e BAT$BATT_ICON
+    sleep $REFRESH_BATTERY
 done > "$PANEL_FIFO" &
 
 # alsa volume
@@ -77,13 +79,13 @@ while true; do
     ALSA_VOLUME=$(amixer get Master | grep 'Mono: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
     ALSA_STATE=$(amixer get Master | grep 'Mono: Playback' | grep -o '\[on]')
     if [[ $ALSA_STATE ]]; then
-    	if [[ $ALSA_VOLUME -ge 70 ]]; then
-    		VOLUME_ICON=$ICON_VOLUME_HIGH
-    	elif [[ $ALSA_VOLUME -gt 0 && $ALSA_VOLUME -lt 70 ]]; then
-    		VOLUME_ICON=$ICON_VOLUME_LOW
-    	else
-	    	VOLUME_ICON=$ICON_VOLUME_MUTE
-    	fi
+        if [[ $ALSA_VOLUME -ge 70 ]]; then
+            VOLUME_ICON=$ICON_VOLUME_HIGH
+        elif [[ $ALSA_VOLUME -gt 0 && $ALSA_VOLUME -lt 70 ]]; then
+            VOLUME_ICON=$ICON_VOLUME_LOW
+        else
+            VOLUME_ICON=$ICON_VOLUME_MUTE
+        fi
     else
         VOLUME_ICON=$ICON_VOLUME_MUTE
     fi
@@ -93,6 +95,39 @@ while true; do
     else
         sleep $REFRESH_VOLUME_SLOW
     fi
+done > "$PANEL_FIFO" &
+
+# wifi
+while true; do
+    WIFI_SSID=$(iw $WIFI_INTERFACE link | grep 'SSID' | sed 's/SSID: //' | sed 's/\t//')
+    # WIFI_IP=$(ifconfig $WIFI_INTERFACE | grep "inet " | cut -d' ' -f10)
+    # ifconfig la lenh trong net-tools
+    if [[ $(iw "$WIFI_INTERFACE" link) != "Not connected." ]]; then
+        if [[ $WIFI_SIGNAL -ge -67 ]]; then
+            WIFI_COLOR=$COLOR_SIGNAL_HIGH
+        elif [[ $WIFI_SIGNAL -ge -70 && $WIFI_SIGNAL -lt -67 ]]; then
+            WIFI_COLOR=$COLOR_SIGNAL_MEDIUM
+        elif [[ $WIFI_SIGNAL -ge -80 && $WIFI_SIGNAL -lt -70 ]]; then
+            WIFI_COLOR=$COLOR_SIGNAL_LOW
+        fi
+        echo -e "WIRELESS%{A:dzen_popup_toggle.sh netinfo:}%{F$WIFI_COLOR}$ICON_WIFI_CONNECTED $WIFI_SSID $WIFI_IP%{F-}%{A}"
+    else
+        WIFI_COLOR=$COLOR_SIGNAL_NONE
+        echo -e "WIRELESS%{A:dzen_popup_toggle.sh netinfo:}%{F$WIFI_COLOR}$ICON_WIFI_DISCONNECTED%{F-}%{A}"
+    fi
+    sleep $REFRESH_WIFI
+done > "$PANEL_FIFO" &
+
+# email
+while true; do
+    NEWEMAILS=$(ls $NEWMAILDIR | wc -l)
+    if [[ -z $NEWEMAILS || $NEWEMAILS = 0 ]]; then
+        EMAIL_ICON="$ICON_EMAIL_NONE"
+    else
+        EMAIL_ICON="$ICON_EMAIL_NEW %{F$COLOR_TEXT_FG} $NEWEMAILS%{F-}"
+    fi
+    echo -e "EMAIL%{A:urxvtc -e "mutt":}$EMAIL_ICON%{A}"
+    sleep $REFRESH_EMAIL
 done > "$PANEL_FIFO" &
 
 # weechat (use hl2file weechat script)
@@ -107,49 +142,16 @@ while true; do
     sleep $REFRESH_CHAT
 done > "$PANEL_FIFO" &
 
-# email
-while true; do
-    NEWEMAILS=$(ls $NEWMAILDIR | wc -l)
-    if [[ -z $NEWEMAILS || $NEWEMAILS = 0 ]]; then
-	    EMAIL_ICON="$ICON_EMAIL_NONE"
-    else
-        EMAIL_ICON="$ICON_EMAIL_NEW %{F$COLOR_TEXT_FG} $NEWEMAILS%{F-}"
-    fi
-    echo -e "EMAIL%{A:urxvtc -e "mutt":}$EMAIL_ICON%{A}"
-    sleep $REFRESH_EMAIL
-done > "$PANEL_FIFO" &
-
 # newsbeuter
 while true; do
     UNREAD_NEWS=$(echo $(newsbeuter -x print-unread) | sed 's/[^0-9]*//g')
     if [[ -z $UNREAD_NEWS || $UNREAD_NEWS = 0 ]]; then
-	    newsline="$ICON_NEWS_NONE"
+        newsline="$ICON_NEWS_NONE"
     else
         newsline="$ICON_NEWS_NEW %{F$COLOR_TEXT_FG} $UNREAD_NEWS%{F-}"
     fi
     echo -e "NEWS%{A:urxvtc -e "newsbeuter -r":}$newsline%{A}"
     sleep $REFRESH_NEWS
-done > "$PANEL_FIFO" &
-
-# wifi
-while true; do
-    WIFI_SSID=$(iw $WIFI_INTERFACE link | grep 'SSID' | sed 's/SSID: //' | sed 's/\t//')
-    # WIFI_IP=$(ifconfig $WIFI_INTERFACE | grep "inet " | cut -d' ' -f10)
-    # ifconfig la lenh trong net-tools
-	if [[ $(iw "$WIFI_INTERFACE" link) != "Not connected." ]]; then
-		if [[ $WIFI_SIGNAL -ge -67 ]]; then
-			WIFI_COLOR=$COLOR_SIGNAL_HIGH
-		elif [[ $WIFI_SIGNAL -ge -70 && $WIFI_SIGNAL -lt -67 ]]; then
-			WIFI_COLOR=$COLOR_SIGNAL_MEDIUM
-		elif [[ $WIFI_SIGNAL -ge -80 && $WIFI_SIGNAL -lt -70 ]]; then
-			WIFI_COLOR=$COLOR_SIGNAL_LOW
-		fi
-        echo -e "LINK%{A:dzen_popup_toggle.sh netinfo:}%{F$WIFI_COLOR}$ICON_WIFI_CONNECTED $WIFI_SSID $WIFI_IP%{F-}%{A}"
-	else
-		WIFI_COLOR=$COLOR_SIGNAL_NONE
-		echo -e "LINK%{A:dzen_popup_toggle.sh netinfo:}%{F$WIFI_COLOR}$ICON_WIFI_DISCONNECTED%{F-}%{A}"
-	fi
-    sleep $REFRESH_WIFI
 done > "$PANEL_FIFO" &
 
 # music controls
@@ -161,29 +163,29 @@ while true; do
     if [[ $(pgrep -cx mpv) -gt 0 ]]; then
         MEDIA_TITLE=$(mpv_get_title)
         if mpv_paused | grep -q 'yes'; then
-	    	# music is paused
-    		medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpv_previous:}$ICON_MEDIA_BACK %{A}%{A:mpv_toggle_playback:}%{A3:mpv_exit:}$MEDIA_TITLE%{A}%{A}%{A:mpv_next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
-		else
-	    	# music is playing
-    		medialine="%{F$COLOR_MEDIA_PLAYING}%{T3}%{A:mpv_previous:}$ICON_MEDIA_BACK %{A}%{A:mpv_toggle_playback:}%{A3:mpv_next:}$MEDIA_TITLE%{A}%{A}%{A:mpv_next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
-    	fi
+            # music is paused
+            medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpv_previous:}$ICON_MEDIA_BACK %{A}%{A:mpv_toggle_playback:}%{A3:mpv_exit:}$MEDIA_TITLE%{A}%{A}%{A:mpv_next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
+        else
+            # music is playing
+            medialine="%{F$COLOR_MEDIA_PLAYING}%{T3}%{A:mpv_previous:}$ICON_MEDIA_BACK %{A}%{A:mpv_toggle_playback:}%{A3:mpv_next:}$MEDIA_TITLE%{A}%{A}%{A:mpv_next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
+        fi
     fi
 
     # check if mpd is running
     if [[ $(pgrep -cx mpd) -gt 0 && $(pgrep -cx mpv) = 0 ]]; then
-    	MEDIA_TITLE=$(mpc current)
-    	if [[ -z $MEDIA_TITLE ]]; then
-	    	# no music in playlist
-    		medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpc listall | mpc add; mpc shuffle; mpc play:}%{A3:mpd:}$ICON_MEDIA_BACK  $ICON_MEDIA_PLAY  $ICON_MEDIA_FORWARD%{A}%{A}%{T1}%{F-}"
-    	else
+        MEDIA_TITLE=$(mpc current)
+        if [[ -z $MEDIA_TITLE ]]; then
+            # no music in playlist
+            medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpc listall | mpc add; mpc shuffle; mpc play:}%{A3:mpd:}$ICON_MEDIA_BACK  $ICON_MEDIA_PLAY  $ICON_MEDIA_FORWARD%{A}%{A}%{T1}%{F-}"
+        else
             if mpc status | grep -q 'paused'; then
-		    	# music is paused
-    			medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpc prev:}$ICON_MEDIA_BACK %{A}%{A:mpc play:}%{A3:mpc clear:}$MEDIA_TITLE%{A}%{A}%{A:mpc next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
-    		else
-	    		# music is playing
-    			medialine="%{F$COLOR_MEDIA_PLAYING}%{T3}%{A:mpc prev:}$ICON_MEDIA_BACK %{A}%{A:mpc pause:}%{A3:mpc next:}$MEDIA_TITLE%{A}%{A}%{A:mpc next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
-    		fi
-    	fi
+                # music is paused
+                medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpc prev:}$ICON_MEDIA_BACK %{A}%{A:mpc play:}%{A3:mpc clear:}$MEDIA_TITLE%{A}%{A}%{A:mpc next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
+            else
+                # music is playing
+                medialine="%{F$COLOR_MEDIA_PLAYING}%{T3}%{A:mpc prev:}$ICON_MEDIA_BACK %{A}%{A:mpc pause:}%{A3:mpc next:}$MEDIA_TITLE%{A}%{A}%{A:mpc next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
+            fi
+        fi
     fi
 
     echo -e "MUSIC$medialine"
@@ -194,6 +196,35 @@ while true; do
     else
         sleep $REFRESH_MEDIA_SLOW
     fi
+done > "$PANEL_FIFO" &
+
+# cpu
+while true; do
+    CPU="$(eval $(awk '/^cpu /{print "previdle="$5";prevtotal="$2+$3+$4+$5}' /proc/stat);sleep 0.4;eval $(awk '/^cpu /{print "idle="$5";total="$2+$3+$4+$5}' /proc/stat);intervaltotal=$((total-${prevtotal:-0}));echo -ne "$((100*((intervaltotal)-($idle-${previdle:-0}))/(intervaltotal)))")"
+    echo -e "CPU" $CPU;
+    sleep $REFRESH_CPU
+done > "$PANEL_FIFO" &
+
+# ram usage
+while true; do
+    mem_total=$(free -h | grep Mem | awk '{print $3}' | tr '[:upper:]' '[:lower:]')
+    mem_used=$(free -h | grep Mem | awk '{print $4}' | tr '[:upper:]' '[:upper:]')
+    echo -e "RAM" $mem_used;
+    sleep $REFRESH_RAM
+done > $PANEL_FIFO &
+
+# disk root
+while true; do
+    HDDROOT="$(df -Ph /dev/sda3 | awk '$3 ~ /[0-9]+/ {print $4}')"
+    echo -e "ROOT" $HDDROOT;
+    sleep $REFRESH_DISK
+done > "$PANEL_FIFO" &
+
+# disk data
+while true; do
+    HDDDATA="$(df -Ph /dev/sda4 | awk '$3 ~ /[0-9]+/ {print $4}')"
+    echo -e "DATA" $HDDDATA;
+    sleep $REFRESH_DISK
 done > "$PANEL_FIFO" &
 
 # dump panel into panel_bar and then into lemonbar
