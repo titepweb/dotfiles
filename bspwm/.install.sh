@@ -5,6 +5,9 @@
 
 ######### REQUIRED PACKAGES #########
 
+# git is required for nmdf pull va push
+install git
+
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
@@ -50,8 +53,14 @@ install polkit-gnome ntfs-3g gvfs
 # Change labels on MS-DOS filesystems
 install dosfstools
 
-# git is required for nmdf pull va push
-install git
+# capture a specific area on the screen at 90% the quality of the original high quality screen.
+install main slop xdotool xclip
+  # 1 - maim = make image la 1 script o day https://github.com/naelstrof/maim
+  # 2 - slop = lenh nay duoc main su dung
+  # 3 - xdtool = Take a screenshot of the active window: (Requires xdotool.)
+  # 4 - xclip = sxhkdrc > Print : su dung xclip de copy image vao clipboard
+  # Ngoai ra, can 1 script nua la imgurbash.sh = sxhkdrc > shift + Print : su dung de upload -> imgur
+  # imgurbash.sh download tai : http://imgur.com/tools/imgurbash.sh --> bo vao $DOTFILES/bspwm/bin
 
 WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐

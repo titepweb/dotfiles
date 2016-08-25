@@ -6,7 +6,7 @@
 
 # Required: curl
 #
-# Optional: xsel or xclip for automatically putting the URLs on the X selection 
+# Optional: xsel or xclip for automatically putting the URLs on the X selection
 # for easy pasting
 #
 # Instructions:
@@ -14,15 +14,15 @@
 # 	mv ~/Downloads/imgurbash.sh ~/bin/imgur
 # Make it executable:
 # 	chmod +x ~/bin/imgur
-# Optional, since Alan kindly provided an API key for this script: stick your 
+# Optional, since Alan kindly provided an API key for this script: stick your
 # API key in the top:
 # 	vim ~/bin/imgur
 # Upload an image:
 # 	imgur images/hilarious/manfallingover.jpg
 # Upload multiple images:
 # 	imgur images/delicious/cake.png images/exciting/bungeejump.jpg
-# The URLs will be displayed (and the delete page's URLs will be displayed on 
-# stderr). If you have xsel or xclip the URLs will also be put on the X 
+# The URLs will be displayed (and the delete page's URLs will be displayed on
+# stderr). If you have xsel or xclip the URLs will also be put on the X
 # selection, which you can usually paste with a middle click.
 
 # API Key provided by Alan@imgur.com
@@ -77,7 +77,7 @@ while [ $# -gt 0 ]; do
 	# upload the image
 	response=$(curl -F "key=$apikey" -H "Expect: " -F "image=@$file" \
 		http://imgur.com/api/upload.xml 2>/dev/null)
-	# the "Expect: " header is to get around a problem when using this through 
+	# the "Expect: " header is to get around a problem when using this through
 	# the Squid proxy. Not sure if it's a Squid bug or what.
 	if [ $? -ne 0 ]; then
 		echo "Upload failed" >&2

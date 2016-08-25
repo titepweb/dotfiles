@@ -26,17 +26,58 @@ install ack
 install tree
 install wget
 install htop
-install mlocate # is slowly replacing slocate (old)
-	sudo updatedb               # run it immediately
+
+# mlocate is slowly replacing slocate (old)
+install mlocate
+  # configuration : run it immediately after install mlocate
+  sudo updatedb
 	# sudo ionice -c3 updatedb	# schedule to run for idle
 
-# ============= GUI ===============
-install mousepad
-install mpv
-install gpicview
 install youtube-viewer
 
+# hex editor ----------------------
+# install bviplus
+
+# nortification -------------------
+# install twmn dust
+
+# install redshift ----------------
+# WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
+# ┌─────────────────────────────────────────────────────────────────────────────┐
+# │ CONFIGURATION                                                               │
+# │ - systemctl --user enable redshift.service                                  │
+# │ - systemctl --user start redshift.service                                   │
+# └─────────────────────────────────────────────────────────────────────────────┘
+# "
+# return
+
+# ============= GUI ===============
+# office --------------------------
+install mousepad
 install zathura zathura-pdf-poppler zathura-djvu
+# install libreoffice-fresh
+# install libreoffice-still
+
+# image viewer --------------------
+install gpicview
+
+# image editor --------------------
+# install imagemagick
+
+# web browser ---------------------
+install chromium
+# browser pdf plugin
+# install chromium-libpdf
+# browser flash plugin
+# install chromium-pepper-flash
+
+# dictionary ----------------------
+install goldendict
+
+# media player -----------------
+# install vlc
+install mpv
+# install xbmc
 
 # screen recorder -----------------
 install simplescreenrecorder
@@ -52,14 +93,3 @@ install audacity kdenlive
 # install nvm
 # install z
 # install markdown
-
-# install redshift ---------------
-# WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
-# ┌─────────────────────────────────────────────────────────────────────────────┐
-# │ CONFIGURATION                                                               │
-# │ - systemctl --user enable redshift.service                                  │
-# │ - systemctl --user start redshift.service                                   │
-# └─────────────────────────────────────────────────────────────────────────────┘
-# "
-# return
-
