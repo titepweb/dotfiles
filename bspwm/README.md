@@ -1,18 +1,18 @@
 ## FONTS & THEME
 First Necessary fonts : `$ yaourt -Sb ttf-ms-fonts --export ~/Downloads`
 
-- **ICON FONTS** : 
+- **ICON FONTS** :
 [Nerd Font's collection](https://github.com/ryanoasis/nerd-fonts)
-- **GTK FONTS** : 
+- **GTK FONTS** :
 [System San Francisco TextFace](https://github.com/supermarin/YosemiteSanFranciscoFont)
-- **TERMINAL FONTS** : 
+- **TERMINAL FONTS** :
 [Liberation Mono for Powerline](https://github.com/powerline/fonts) for termite ,
 [GohuFont](http://font.gohu.org/) for urxvt.
-- **LEMONBAR FONTS** : 
+- **LEMONBAR FONTS** :
   + [Source Sans Pro Semibold](https://google.com) to display text
   + [FontAwesome](http://fontawesome.io/) for most icons. [its cheatsheet](https://fortawesome.github.io/Font-Awesome/cheatsheet/)
   + [Foundation Icon Fonts 3](http://zurb.com/playground/foundation-icon-fonts-3) for media icons.
-- **GTK THEME** : 
+- **GTK THEME** :
 [Lime Night can be found on nale12's deviantart](nale12.deviantart.com/gallery/?catpath=/)
 - **GTK ICONS** : ` $ yaourt -Sb numix-circle-icon-theme-git --export ~/Downloads/ `
 
@@ -23,7 +23,7 @@ There are many resources I tried but did not decide to use:
 
 REQUIRED SOFTWARES
 ==================
-Clipboard manager : [xclip] , xsel , diodon, klipper, glipper, parcellite or xfce4-clipman
+Clipboard manager : [xclip] , xsel , diodon, klipper, glipper, [parcellite] or xfce4-clipman
 [nmcli_menu](https://github.com/firecat53/nmcli-dmenu)
 
 [ninetyfourbit's scripts + wallpaper](https://github.com/ninetyfourbit)
@@ -46,11 +46,11 @@ REFERENCE FOR CONFIGURING BSPWM
 1. [bspwm for dummies](https://github.com/windelicato/dotfiles/wiki/bspwm-for-dummies)
 2. [tutorial at manjaro forum](https://forum.manjaro.org/index.php?topic=18970.0)
 3. [Bleeding edge bspwm](http://yuri-rage.github.io/geekery/2015/01/26/bleeding-edge-bspwm/)
-4. [Steven Hum's colophon](http://thedarnedestthing.com/bspwm) 
+4. [Steven Hum's colophon](http://thedarnedestthing.com/bspwm)
   - [his dotfiles](https://github.com/sdothum/dotfiles)
 
 ### FORKS
-1. [benjcalderon's work](https://www.reddit.com/r/unixporn/comments/3cdhz0/bspwm_after_4_months_with_bspwm_i_finally_made_my/)  based on [inject3d](https://www.reddit.com/r/unixporn/comments/3ngwcg/bspwm_gruvbox/) : benjalderon's words: "Thanks, the panel is derived from this If you use that, be sure to adjust the sleep statements (especially for the alsa volume script) or it'll maul your battery life." benj also recommend [prezto](https://github.com/sorin-ionescu/prezto) over oh-my-zsh because it is "(1) very fast and (2) you know what's under the hood (read init files in ~/.zpresto/modules)." 
+1. [benjcalderon's work](https://www.reddit.com/r/unixporn/comments/3cdhz0/bspwm_after_4_months_with_bspwm_i_finally_made_my/)  based on [inject3d](https://www.reddit.com/r/unixporn/comments/3ngwcg/bspwm_gruvbox/) : benjalderon's words: "Thanks, the panel is derived from this If you use that, be sure to adjust the sleep statements (especially for the alsa volume script) or it'll maul your battery life." benj also recommend [prezto](https://github.com/sorin-ionescu/prezto) over oh-my-zsh because it is "(1) very fast and (2) you know what's under the hood (read init files in ~/.zpresto/modules)."
 2. [dagnachewa](https://www.reddit.com/search?q=dagnachewa+bspwm) and [his dotfiles](https://github.com/dagnachewa/dotfiles)
 3. [pinusc](https://github.com/pinusc/dotfiles)
 4. [neeasade's script for dzen2](https://github.com/neeasade/dotfiles)
@@ -158,4 +158,4 @@ the panel design is evolving fairly rapidly, so updating will probably break you
 3. Gentner, D. Structure mapping: A theoretical framework for analogy. Cognitive Science, 7, 155-170.
 4. Grudin, J. The case against user interface consistency. Communications of the ACM, vol. 32, number 10, 1164-1173, 1989.
 5. Mountford, S.J. Tools and techniques for creative design. In B. Laurel (Ed.), The Art of Human-Computer Interface Design, Addison-Wesley Publishing Co., Inc. 1990.
-6. Rideout, T., & Lundell, J. Hewlett Packard's Usability Engineering Program. In M. E. Wiklund (Ed.), Usability in Practice. AP Professional, 1994. 
+6. Rideout, T., & Lundell, J. Hewlett Packard's Usability Engineering Program. In M. E. Wiklund (Ed.), Usability in Practice. AP Professional, 1994.

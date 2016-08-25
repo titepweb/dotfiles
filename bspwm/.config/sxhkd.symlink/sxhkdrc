@@ -208,6 +208,10 @@ super + {minus,equal}
 
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 
+# volume down/up (shift + scroll down/up)
+shift + button{5,4}
+  amixer -q set Master 3%{-,+}
+
 # volume up
 XF86Audio{LowerVolume,RaiseVolume}
 	amixer -q set Master 3%{-,+}
