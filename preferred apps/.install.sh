@@ -54,13 +54,14 @@ install youtube-viewer
 # ============= GUI ===============
 # office --------------------------
 # install fcitx
-# yao ibus-bogo
+# install --AUR ibus-bogo
 # install ibus-unikey
 
 install mousepad
 install zathura zathura-pdf-poppler zathura-djvu
 # install libreoffice-fresh
 # install libreoffice-still
+# install --AUR wps-office
 
 # image viewer --------------------
 install gpicview
@@ -77,7 +78,7 @@ install mpv
 
 # web browser ---------------------
 install chromium
-yaourt -Sb --export ~/Downloads --noconfirm google-chromium
+install --AUR google-chromium
 # browser pdf plugin
 # install chromium-libpdf
 # browser flash plugin

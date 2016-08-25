@@ -30,7 +30,9 @@ install parcellite
 # su dung networkmanager service thay vi netctl, netctl-auto, ...
 install networkmanager network-manager-applet
 # bar
-yaourt -Sb lemonbar-xft-git --noconfirm --export ~/Downloads
+install --AUR lemonbar-xft-git xtitle-git
+install --AUR numix-circle-icon-theme-git
+
 # net-tools cung cap lenh ifconfig, duoc su dung trong lemonbar > panel > wifi
 install net-tools
 # Compositor
@@ -61,14 +63,6 @@ install main slop xdotool xclip
   # 4 - xclip = sxhkdrc > Print : su dung xclip de copy image vao clipboard
   # Ngoai ra, can 1 script nua la imgurbash.sh = sxhkdrc > shift + Print : su dung de upload -> imgur
   # imgurbash.sh download tai : http://imgur.com/tools/imgurbash.sh --> bo vao $DOTFILES/bspwm/bin
-
-WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ MANUALLY INSTALL packages from AUR which cannot be installed automatically: │
-│ - lemonbar-xft-git (AUR) (patched with xft support) + xtitle-git (AUR)      │
-│ - yaourt -Sb numix-circle-icon-theme-git --noconfirm --export ~/Downloads/  │
-└─────────────────────────────────────────────────────────────────────────────┘
-"
 
 # nmcli_menu
 if [[ ! -f "$DOTFILES/bspwm/bin/nmcli_dmenu" ]]; then

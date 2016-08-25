@@ -2,7 +2,7 @@
 ###############################################################################
 # script  : $DOTREPO/install/installpkg   maintained by titepweb at gmail.com #
 # status  : stable. Last edit on 2016-02-05                                   #
-# feature : 1. scan for $DOTREPO/topic/.install.sh and source them to install # 
+# feature : 1. scan for $DOTREPO/topic/.install.sh and source them to install #
 #              packages and configure them.                                   #
 ###############################################################################
 # this script designed to be sourced with some inherited parameters ($DOTREPO)
@@ -39,7 +39,13 @@ install () {
     Linux)
       distro=$(cat /etc/issue | head -n +1 | awk '{print $1}')
       case $distro in
-        Arch) [[ $(which pacman) ]] && pgkmanager="sudo pacman -S --noconfirm" || FAIL "pacman is not installed." ;;
+        Arch)
+          if [ $1 == "--AUR" ]; then
+            [[ $(which yaourt) ]] && pgkmanager="yaourt -Sb --export ~/Downloads --noconfirm" || FAIL "yaourt is not installed."
+          else
+            [[ $(which pacman) ]] && pgkmanager="sudo pacman -S --noconfirm" || FAIL "pacman is not installed."
+          fi
+        ;;
         *) FAIL "This script was tested on $distro."
       esac
     ;;
@@ -82,7 +88,7 @@ INSTALL_PACKAGES () {
 
   local platforms="$(detectplatform)"
   while IFS=$'\n' read -r platform; do
-    local home="$(detecthome "$platform")" 
+    local home="$(detecthome "$platform")"
 
     # Look for .install.sh files and source them
     topics="$(/usr/bin/find "$DOTREPO" -mindepth 1 -maxdepth 1 -type d -not -name '\.*' -not -name '*.ignore' -not -name '*.80%')"
@@ -122,9 +128,9 @@ INSTALL_PACKAGES () {
 # [[ $0 != "$BASH_SOURCE" ]] && return || INSTALL_PACKAGES && echo -e "\n$message" && exit 0
 
 sourced () { # cross-shell (bash, ksh, zsh)
-  ([[ -n $ZSH_EVAL_CONTEXT && $ZSH_EVAL_CONTEXT =~ :file$ ]] || 
+  ([[ -n $ZSH_EVAL_CONTEXT && $ZSH_EVAL_CONTEXT =~ :file$ ]] ||
    [[ -n $KSH_VERSION && $(cd "$(dirname -- "$0")" &&
-      printf '%s' "${PWD%/}/")$(basename -- "$0") != "${.sh.file}" ]] || 
+      printf '%s' "${PWD%/}/")$(basename -- "$0") != "${.sh.file}" ]] ||
    [[ -n $BASH_VERSION && $0 != "$BASH_SOURCE" ]]) && return 0 || return 1
 }
 
