@@ -1,17 +1,25 @@
 ### ${XDG_CONFIG_HOME}/bspwm/sxhkdrc
 
-# cần install main slop xdotool xclip
+#───────────────────────────────────────────────────────┐
+#  cần install main slop xdotool xclip va imgurbash.sh
+#  download tai : http://imgur.com/tools/imgurbash.sh
+#  --> sau do bo vao $DOTFILES/bspwm/bin
 Print
   file=~/Pictures/screenshots/$(date +%F-%T).png && \
-  mkdir -p ~/Pictures/screenshots/ && maim --format png -s $file && \
+  mkdir -p ~/Pictures/screenshots/ && \
+  maim --format png -s $file && \
   command -v xclip >/dev/null 2>&1 && \
     TYPE=$(file -b --mime-type "$file") && \
     xclip -selection clipboard -t "$TYPE" < "$file"
 
 shift + Print
-  mkdir -p ~/Pictures/screenshots/ && maim --format png -s ~/Pictures/screenshots/$(date +%F-%T).png; imgurbash.sh /tmp/screenshot.png
-  # imgurbash.sh download tai : http://imgur.com/tools/imgurbash.sh --> bo vao $DOTFILES/bspwm/bin
+  file=~/Pictures/screenshots/$(date +%F-%T).png && \
+  mkdir -p ~/Pictures/screenshots/ && \
+  maim --format png -s $file; imgurbash.sh $file
+# ──────────────────────────────────────────────────────
+  # mkdir -p ~/Pictures/screenshots/ && maim --format png -s ~/Pictures/screenshots/$(date +%F-%T).png; imgurbash.sh /tmp/screenshot.png
   # mkdir -p ~/Pictures/screenshots/ && scrot '%Y.%m.%d.%Hh.%M.%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+# ──────────────────────────────────────────────────────┘
 
 # mpd hotkeys
 super + shift + {comma, period}
