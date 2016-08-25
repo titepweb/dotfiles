@@ -10,7 +10,7 @@ cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING OPTIONAL PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
 │ CLI/TUI                                                                     │
-│ - Video player: smplayer/[mpv]                                              │
+│ - Video player: [smtube] & smplayer/[mpv]                                   │
 │ - File Manager: tree                                                        │
 │ - READER  : zathura zathura-pdf-poppler zathura-djvu                        │
 │ - HEX EDITOR  : bviplus                                                     │
@@ -53,6 +53,10 @@ install youtube-viewer
 
 # ============= GUI ===============
 # office --------------------------
+# install fcitx
+# yao ibus-bogo
+# install ibus-unikey
+
 install mousepad
 install zathura zathura-pdf-poppler zathura-djvu
 # install libreoffice-fresh
@@ -64,8 +68,16 @@ install gpicview
 # image editor --------------------
 # install imagemagick
 
+# media player -----------------
+# install vlc
+install mpv
+# install smplayer smtube smplayer-themes smplayer-skins youtube-dl
+# install xbmc
+# install lollypop
+
 # web browser ---------------------
 install chromium
+yaourt -Sb --export ~/Downloads --noconfirm google-chromium
 # browser pdf plugin
 # install chromium-libpdf
 # browser flash plugin
@@ -73,11 +85,6 @@ install chromium
 
 # dictionary ----------------------
 install goldendict
-
-# media player -----------------
-# install vlc
-install mpv
-# install xbmc
 
 # screen recorder -----------------
 install simplescreenrecorder

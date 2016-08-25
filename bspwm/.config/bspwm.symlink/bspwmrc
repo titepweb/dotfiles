@@ -2,7 +2,7 @@
 
 ############## BSPWM CONFIG ###############
 
-bspc config top_padding           28
+bspc config top_padding           26
 bspc config left_padding          4
 bspc config right_padding         4
 bspc config bottom_padding        4
@@ -82,6 +82,7 @@ bspc rule -a Firefox desktop=^2 follow=on
 bspc rule -a subl3 desktop=^3
 bspc rule -a Subl3 desktop=^3
 
+bspc rule -a google-chrome desktop=^4
 bspc rule -a chromium desktop=^4
 
 bspc rule -a pcmanfm desktop=^5

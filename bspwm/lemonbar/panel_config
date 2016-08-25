@@ -25,12 +25,12 @@ REFRESH_RAM=2.0
 REFRESH_DISK=2.0
 
 # Dimensions
-PANEL_HEIGHT=28
+PANEL_HEIGHT=26
 
 # Fonts
 PANEL_FONT="Source Sans Pro Semibold:size=13"
-ICON_FONT="FontAwesome:size=16"
-ICON_FONT2="fontcustom:size=16"
+ICON_FONT="FontAwesome:size=14"
+ICON_FONT2="fontcustom:size=14"
 
 # Icons
 ICON_CLOCK='\uf017'

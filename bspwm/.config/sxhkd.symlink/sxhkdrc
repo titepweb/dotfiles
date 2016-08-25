@@ -1,9 +1,18 @@
 ### ${XDG_CONFIG_HOME}/bspwm/sxhkdrc
+# ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+#
 
 #───────────────────────────────────────────────────────┐
 #  cần install main slop xdotool xclip va imgurbash.sh
 #  download tai : http://imgur.com/tools/imgurbash.sh
 #  --> sau do bo vao $DOTFILES/bspwm/bin
+
+Insert
+  file=~/Pictures/screenshots/$(date +%F-%T).png && \
+  mkdir -p ~/Pictures/screenshots/ && \
+  maim --format png -s $file && \
+  echo $file | xclip -selection c
+
 Print
   file=~/Pictures/screenshots/$(date +%F-%T).png && \
   mkdir -p ~/Pictures/screenshots/ && \
@@ -17,13 +26,19 @@ shift + Print
   mkdir -p ~/Pictures/screenshots/ && \
   maim --format png -s $file; imgurbash.sh $file
 # ──────────────────────────────────────────────────────
-  # mkdir -p ~/Pictures/screenshots/ && maim --format png -s ~/Pictures/screenshots/$(date +%F-%T).png; imgurbash.sh /tmp/screenshot.png
-  # mkdir -p ~/Pictures/screenshots/ && scrot '%Y.%m.%d.%Hh.%M.%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+  # mkdir -p ~/Pictures/screenshots/ && \
+  # scrot '%Y.%m.%d.%Hh.%M.%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
 # ──────────────────────────────────────────────────────┘
+
+# mpv
+ctrl + shift + m
+  mpv --no-terminal http://192.168.1.73:9884
+ctrl + shift + j
+  killall mpv
 
 # mpd hotkeys
 super + shift + {comma, period}
-    mpc {prev,next}
+  mpc {prev,next}
 
 # open file manager in new urxvt window
 super + e
@@ -37,8 +52,36 @@ super + F
 ctrl + alt + l
   i3lock -f -r 6 -s 15
 
+#─────────────────────────────────────────────────────────────────────────────┐
+super + Return
+  mkdir -p ~/PROJECT && termite -d ~/PROJECT
+
+# open a terminal
+super + shift + Return
+  urxvtc
+  # st
+
+# ................................. Scratchpad .................................
+
+# open a "SCRATCHPAD" terminal (quake-style, in this case, on a 1366x768 display)
+F12
+  xdotool search --onlyvisible --classname SCRATCHPAD windowunmap \
+    || xdotool search --classname SCRATCHPAD windowmap \
+    || urxvt -name SCRATCHPAD -geometry 80x10 &
+    # || termite --class=SCRATCHPAD --geometry 900x400+460 &
+# F12
+#   xdotool search --onlyvisible --classname URxvtQuake windowunmap \
+#     || xdotool search --classname URxvtQuake windowmap \
+#     || urxvt -name URxvtQuake -geometry 110x20+297+1
+
+# program launcher
+super + space
+  rofi -show run
+  # dmenu_run -i -h 30 -p "execute>" -nb "#282828" -nf "#ebdbb2" -sb "#a89984" -sf "#282828" -fn "xft:Source\ Code\ Pro\ Medium:size=13"
+#─────────────────────────────────────────────────────────────────────────────┘
+
 ########################
-## Internal (bspwm):  ## apostrophe, grave, Tab, ...
+## Internal (bspwm):  ##
 ########################
 
 # make sxhkd reload its configuration files:
@@ -60,36 +103,9 @@ super + {_,shift} + q
             bspc quit,\
      bspc quit 1}
 
-# ┌─────────────────────────────────────────────────────────────────────────────┐
-
-super + Return
-  mkdir -p ~/PROJECT && termite -d ~/PROJECT
-
-# open a terminal
-super + shift + Return
-  urxvtc
-  # st
-
-# open a "SCRATCHPAD" terminal (quake-style, in this case, on a 1366x768 display)
-F12
-  xdotool search --onlyvisible --classname SCRATCHPAD windowunmap \
-    || xdotool search --classname SCRATCHPAD windowmap \
-    || urxvt -name SCRATCHPAD -geometry 80x10 &
-# F12
-#   xdotool search --onlyvisible --classname URxvtQuake windowunmap \
-#     || xdotool search --classname URxvtQuake windowmap \
-#     || urxvt -name URxvtQuake -geometry 110x20+297+1
-
-# └─────────────────────────────────────────────────────────────────────────────┘
-
-# program launcher
-super + space
-  rofi -show run
-  # dmenu_run -i -h 30 -p "execute>" -nb "#282828" -nf "#ebdbb2" -sb "#a89984" -sf "#282828" -fn "xft:Source\ Code\ Pro\ Medium:size=13"
-
-#
-# state/flags
-#
+########################
+##     state/flags    ##
+########################
 
 # alternate between the tiled and monocle layout
 super + t
@@ -113,9 +129,9 @@ super + y
 super + ctrl + {x,y,z}
   bspc node -g {locked,sticky,private}
 
-#
-# focus/swap
-#
+########################
+##     focus/swap     ##
+########################
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
@@ -159,9 +175,9 @@ super + m
 # super + y
   # bspc node -w last.manual
 
-#
-# preselect
-#
+########################
+##      preselect     ##
+########################
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -208,9 +224,9 @@ super + ctrl + {comma,period}
 super + alt + {comma,period}
     bspc desktop -F {vertical,horizontal}
 
-#
-# move/resize
-#
+########################
+##     move/resize    ##
+########################
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
@@ -223,9 +239,6 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
   bspc node -v {-10 0,0 10,0 -10,10 0}
-
-
-
 
 # increase window gaps (meta + scroll up)
 super + button{4}
@@ -245,9 +258,9 @@ super + ctrl + {1-9}
 super + {minus,equal}
   bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+,-} 2 ))
 
-#
-# wm independent hotkeys
-#
+##############################
+##  wm independent hotkeys  ##
+##############################
 
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 
@@ -301,6 +314,7 @@ XF86AudioPrev
 #  i do not use these  #
 # but have them anyway #
 ########################
+
 # click to focus
 ~button1
     bspc pointer --grab focus
