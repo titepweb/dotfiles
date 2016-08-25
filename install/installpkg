@@ -36,9 +36,11 @@ install () {
   local distro ; local pgkmanager
   # 1 -- detect distro and package manager
   case `uname` in
+  # ................................. LINUX ..................................
     Linux)
       distro=$(cat /etc/issue | head -n +1 | awk '{print $1}')
       case $distro in
+      # ─────────────────────────────────────────────────────────────────────┐
         Arch)
           if [ $1 == "--AUR" ]; then
             [[ $(which yaourt) ]] && pgkmanager="yaourt -Sb --export ~/Downloads --noconfirm" || FAIL "yaourt is not installed."
@@ -46,9 +48,14 @@ install () {
             [[ $(which pacman) ]] && pgkmanager="sudo pacman -S --noconfirm" || FAIL "pacman is not installed."
           fi
         ;;
+      # ─────────────────────────────────────────────────────────────────────
+      # ─────────────────────────────────────────────────────────────────────
+      # ─────────────────────────────────────────────────────────────────────
         *) FAIL "This script was tested on $distro."
+      # ─────────────────────────────────────────────────────────────────────┘
       esac
     ;;
+  # ................................. MAC OS .................................
     Darwin)
       if test ! $(which brew); then
         INFO "✱ Installing ${cyan}$Homebrew{reset}..."
@@ -64,6 +71,9 @@ install () {
 
   # 2 -- Install
   for pkg in $* ; do
+    [[ "$pkg" == "--AUR" ]] && continue
+    [ $1 == "--AUR" -a ! $distro == "Arch" ] && continue
+    # ─────────────────────────────────────────────────────
     if installed $pkg
       then OK "✔ ${green}$pkg${reset} has been installed."
       else

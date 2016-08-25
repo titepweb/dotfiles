@@ -53,20 +53,29 @@ install youtube-viewer
 
 # ============= GUI ===============
 # office --------------------------
-# install fcitx
-# install --AUR ibus-bogo
-# install ibus-unikey
-
 install mousepad
+
 install zathura zathura-pdf-poppler zathura-djvu
 # install libreoffice-fresh
 # install libreoffice-still
 # install --AUR wps-office
 
+# install fcitx
+# install --AUR ibus-bogo
+# install ibus-unikey
+
+# font ----------------------------
+install noto-fonts
+
+# Latex ---------------------------
+#
+
 # image viewer --------------------
 install gpicview
 
 # image editor --------------------
+# install gimp
+# install krita
 # install imagemagick
 
 # media player -----------------
@@ -96,8 +105,14 @@ install audacity kdenlive
 # install dnsmasq
 
 # development tools --------------
+
+# C++
+install qtcreator
+# install kdevelop
+
 # install hub
 # install highlight
 # install nvm
 # install z
+
 # install markdown
