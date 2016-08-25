@@ -1,0 +1,133 @@
+MainWindow {
+	background-color: #D9D9D9;
+}
+/* 1) Search Pane background color EDEDED----------------------------------------------------------------------------------------*/
+MainWindow #searchPane #wordList{
+   background-color: #F0F0F0;
+   color: black;
+   font-weight: bold;
+   font-family: Helvetica;
+   selection-background-color: #FFD800;
+   selection-color:black;
+}
+
+/* 2) Change nav toolbar icons ----------------------------------------------------------------------------------------*/
+MainWindow #navToolbar {
+	background-color: #CCCCCD; border-color: #CCCCCD
+}
+MainWindow #navToolbar #backButton
+{
+   background-color: #CCCCCD;
+   /*border-image: url(':/icons/programicon.png') no-repeat center;*/
+}
+
+MainWindow #navToolbar #forwardButton
+{
+   background-color: #CCCCCD;
+}
+
+MainWindow #navToolbar #scanPopupButton
+{
+   background-color: #FFBE08;
+}
+
+MainWindow #navToolbar #soundButton
+{
+   background-color: #FF6054;
+}
+MainWindow #navToolbar:hover {background-color: #5A5A5B}
+
+MainWindow #navToolbar #zoomInButton, MainWindow #navToolbar #zoomOutButton,
+MainWindow #navToolbar #zoomBaseButton, MainWindow #navToolbar #saveArticleButton,
+MainWindow #navToolbar #printButton, MainWindow #navToolbar #menuButton
+{
+   background-color: greenYellow;
+}
+
+/* 3) Dictionary Bar background color ----------------------------------------------------------------------------------------*/
+MainWindow #dictionaryBar
+{
+   background: url('portable/NhatMinh.png') no-repeat right;
+   background-color: #CCCCCD;
+   border-color: #CCCCCD
+}
+
+MainWindow #dictionaryBar QToolButton
+{
+   background-color: red;
+}
+
+MainWindow #dictionaryBar QToolButton:pressed, MainWindow #dictionaryBar QToolButton:hover,
+MainWindow #dictionaryBar QToolButton:checked, MainWindow #dictionaryBar QToolButton::menu-indicator:pressed,
+MainWindow #dictionaryBar QToolButton:flat, MainWindow #dictionaryBar QToolButton:default
+{
+   background-color: green;
+}
+
+/* 4) Tab and Tab Bar color ----------------------------------------------------------------------------------------*/
+
+/*
+MainWindow #centralWidget QTabBar::tab {
+    background-color: #979797;
+    border: 1px solid #686868;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 1px 3px;
+    height: 20px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+MainWindow #centralWidget QTabBar::tab:selected {
+    background-color: red;
+    border-bottom-color: #FAF0E6;
+    border: 2px solid #696969;
+/* 7) Results Navigation Pane selection color ----------------------------------------------------------------------------------------*/
+
+MainWindow #dictsPane #dictsList {
+   background-color: #F0F0F0;
+   color:#585556;
+   font-style: italic;
+   font-family: Helvetica;
+}
+MainWindow #dictsPane #dictsList::item:selected
+{
+   background-color: green;
+   color: yellow;
+}
+
+MainWindow #dictsPane #dictsList::item:hover
+{
+   background-color: orange;
+   color: black;
+}
+
+/* MINH : HISTORY Pane selection color; ------------------------------------------------------------------------------------------------------------------- */
+MainWindow #historyPane #historyList {
+   background-color: #F0F0F0;
+   color: #585556;
+   font-weight: bold;
+   font-family: Helvetica;
+   selection-background-color: #FFD800;
+   selection-color:black;
+}
+/*----------------------- POP-UP -------------------------------------------------------------------------------------------------- */
+ScanPopup #outerFrame
+{
+   background-color: #B2B2B2;
+   margin-left: -5px;
+   margin-right: -5px;
+   margin-bottom: -4px;
+   border:2px solid red;
+}
+
+ScanPopup #groupList
+{
+   margin-left: 5px;
+}
+
+ScanPopup #pinButton
+{
+   margin-right: 9px;
+}
+

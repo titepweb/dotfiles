@@ -163,7 +163,7 @@ while true; do
 
     # check if mpv is running
     if [[ $(pgrep -cx mpv) -gt 0 ]]; then
-        # MEDIA_TITLE=$(mpv_get_title)
+        MEDIA_TITLE=$(mpv_get_title)
         if mpv_paused | grep -q 'yes'; then
             # music is paused
             medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpv_previous:}$ICON_MEDIA_BACK %{A}%{A:mpv_toggle_playback:}%{A3:mpv_exit:}$MEDIA_TITLE%{A}%{A}%{A:mpv_next:} $ICON_MEDIA_FORWARD%{A}%{T1}%{F-}"
@@ -175,7 +175,7 @@ while true; do
 
     # check if mpd is running
     if [[ $(pgrep -cx mpd) -gt 0 && $(pgrep -cx mpv) = 0 ]]; then
-        # MEDIA_TITLE=$(mpc current)
+        MEDIA_TITLE=$(mpc current)
         if [[ -z $MEDIA_TITLE ]]; then
             # no music in playlist
             medialine="%{F$COLOR_MEDIA_PAUSED}%{T3}%{A:mpc listall | mpc add; mpc shuffle; mpc play:}%{A3:mpd:}$ICON_MEDIA_BACK  $ICON_MEDIA_PLAY  $ICON_MEDIA_FORWARD%{A}%{A}%{T1}%{F-}"

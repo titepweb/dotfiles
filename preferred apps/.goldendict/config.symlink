@@ -1,0 +1,524 @@
+<config>
+ <paths>
+  <path recursive="1">D:/NMGolden/content</path>
+ </paths>
+ <sounddirs/>
+ <dictionaryOrder id="0" name="">
+  <dictionary name="Từ điển Lạc Việt: Anh Việt - Việt Anh - Việt Việt">a2306eae36cc0d8289804e36617e1648</dictionary>
+  <dictionary name="Moby Hyphenator II">d54ec0fa518e945b1f083941b4c6c83b</dictionary>
+  <dictionary name="COCA Frequency 60000">93d6c84775713c87b49ba160dab1ff6a</dictionary>
+  <dictionary name="Freakuency Pack">e524dbf88da68f8b18e879ca32d1fa89</dictionary>
+  <dictionary name="BNC+ANC+COCA词频词典">752bafd30e3e26517c46d84b23b8cbef</dictionary>
+  <dictionary name="COCA Frequency List">56eeddad1cd10da965e1c79ebdae919b</dictionary>
+  <dictionary name="Vocabulary">c6dbf54c06fbf48db8804dd6704d9917</dictionary>
+  <dictionary name="VOCABULARY.COM">b4053e7fb22da65cb16bf3578e820cde</dictionary>
+  <dictionary name="VDex_8.4-20150727">f7afa5dac454b90686e2a6905fd49abf</dictionary>
+  <dictionary name="3200MB">bee4da3e0b3a24640be8298a3eb29911</dictionary>
+  <dictionary name="980MB">8fec6cce22cc361a9e67a6dba61772d5</dictionary>
+  <dictionary name="Cambridge English Pronouncing Dictionary - 18th Edition">1dae220d75389fa619ee4871d2d70109</dictionary>
+  <dictionary name="Longman Pronunciation Dictionary 3ed">af9e815b8316cf0282a545c463869940</dictionary>
+  <dictionary name="Longman WordWise Dictionary">c5cee77e4e2ebb8e9b6cbbd59c42ae1c</dictionary>
+  <dictionary name="Macmillan School Dictionary">2b5680cfaf5d70d1daceaa8a265904f1</dictionary>
+  <dictionary name="Macmillan English Dictionary 2nd Edition">cf3e206ccaaf3e861ac126d041e5973b</dictionary>
+  <dictionary name="Longman Dictionary of Contemporary English 6th edition">9d4807947672ec427e49a68cd89a079f</dictionary>
+  <dictionary name="LAAD3">a9b46a07e223720600604fbe26007a37</dictionary>
+  <dictionary name="LDAE5">03cecc9a482971991d53ee2ea04b71d5</dictionary>
+  <dictionary name="LCDT 15.09.5">1f495bb6cfbbaf2f0cb7b4e564bdd4f0</dictionary>
+  <dictionary name="LTAE 15.09.5">b524ccc7d95c193b3dc939b49f8bf983</dictionary>
+  <dictionary name="Longman Dictionary of Common Errors">32e6d8a174692a39229ba4d6635f71d5</dictionary>
+  <dictionary name="Cambridge Advanced Learner's Dictionary, 4th Ed.(En-En)">b47ed3b429c3d1c1ee3ff06dbc1237b7</dictionary>
+  <dictionary name="Oxford Advanced Learner's Dictionary 9th edition">9f09e09d23c5aba9556ef65132a17771</dictionary>
+  <dictionary name="Cambridge Academic Content Dictionary">3c0e66b48f5898f3275bf8e87504fa85</dictionary>
+  <dictionary name="ODE2015 by tsiank ">edbf7025bfec9c6e9129b5025a59480d</dictionary>
+  <dictionary name="Oxford Dictionary of English, 3/e">c132de8870b4b3f15a2dbd081e8f97c5</dictionary>
+  <dictionary name="Oxford Dictionary of English">11a75b4bedee7e31b9c5338f180ba65d</dictionary>
+  <dictionary name="Oxford Thesaurus English Dictionary 2016">36e2c9e95ae230329f7da72fd6a76853</dictionary>
+  <dictionary name="Macmillan English Dictionary-2016-02-01">9589046ebcc8b8564ea8d70d6ad1c6c5</dictionary>
+  <dictionary name="Shorter Oxford English Dictionary 6th">e8737c19cf5c887a1fe8567915acbf48</dictionary>
+  <dictionary name="Cambridge Business English Dictionary (En-En)">810aa50f4686fb6bd741ef5570600a5d</dictionary>
+  <dictionary name="Longman Language Activator">eb7a5f877f02bb3688384f60740a46b5</dictionary>
+  <dictionary name="A Frequency Dictionary of Contemporary American English">2d217bed6d2bac15ba6b80420c54b730</dictionary>
+  <dictionary name="The American Heritage Book of English Usage 3rd">8f74bdf09e53b6a409e7d7588c956fe2</dictionary>
+  <dictionary name="H. W. Fowler, A Dictionary of Modern English Usage 1th Ed. - 2009">1c962ebf8ba59c6eccb4c4c169bfe76a</dictionary>
+  <dictionary name="Oxford English Usage (En-En)">2de75cfc625e23152d27015106fba29b</dictionary>
+  <dictionary name="Pocket Oxford English Usage, 2E">44ef6b32a8ca488e189cf30e86c3dcbe</dictionary>
+  <dictionary name="Garner's Modern American Usage, 3rd">f9fdfca81ef2bc62c13956dfbf13d47a</dictionary>
+  <dictionary name="Oxford American Writer's Thesaurus 2nd">b19d8cbc226a5680546d1546eb3bc5fa</dictionary>
+  <dictionary name="Oxford Learner's Thesaurus Dictionary">d495d376bbace7e8776c5f7bc41ec101</dictionary>
+  <dictionary name="Reader's Digest Use the Right Word">06c39458c23fca257fc4259e481e370a</dictionary>
+  <dictionary name="Right Word Wrong Word">eb0fe2d10cb2fa375c1999c1a461ecb7</dictionary>
+  <dictionary name="Roget 21c Thes 3">76552ad5eef2cf558a24684d523666dc</dictionary>
+  <dictionary name="Roget’s International Thesaurus | Mawson ed (En-En)">fc72fd1d8a9d9beac7390e6a70d32967</dictionary>
+  <dictionary name="Roget's Thesaurus of Words for Students">b6af197bff7ff3dc7fa04e53d21dcd65</dictionary>
+  <dictionary name="Roget's Thesaurus of Words for Writers">e2210b499e79ad0621d80e1d2897dbcf</dictionary>
+  <dictionary name="The Thinker's Thesaurus,2nd Ed">333775a0d3441471ae5d6d1963f8a30d</dictionary>
+  <dictionary name="The Highly Selective Dictionary for the Extraordinarily Literate">773b7d3572c3e9f65f0960b339e6c4a9</dictionary>
+  <dictionary name="Oxford English Dictionary 2nd v4">8fda359ebc4aad6c97dece22fc4daaa8</dictionary>
+  <dictionary name="Oxford Collocations Dictionary 2ed">bc8b57fea2216191ce8b9b47e03fed97</dictionary>
+  <dictionary name="Dictionnaire de l’Académie Française">2a13632331f2b21159d6742e0b4dbd71</dictionary>
+  <dictionary name="Merriam-Webster's Advanced Learner's English Dictionary">87507c98f5e8e1e016eb5303cbc3cc6b</dictionary>
+  <dictionary name="Merriam-Webster's Dictionary of Law (En-En)">6e0e00446684a910962126d07e908327</dictionary>
+  <dictionary name="Merriam-Webster's Collegiate Dictionary and Thesaurus">f41b0054be46170a842f2ba7a130b810</dictionary>
+  <dictionary name="Merriam-Webster's Dictionary of Synonyms and Antonyms">a237edc84881d5633fc78a294e555c53</dictionary>
+  <dictionary name="Merriam-Webster's Medical Dictionary, 2015">255d63127d666a6e137599ab7010e12e</dictionary>
+  <dictionary name="Merriam-Webster's Vocabulary Builder">b28479ab4d296f35a47fd290dc844c81</dictionary>
+  <dictionary name="PEU third edition">24c3e97f1035eaee5ef88df8a5fe3da9</dictionary>
+  <dictionary name="Collins COBUILD English Grammar">034846b0941cd61434c1c6f0ce68319e</dictionary>
+  <dictionary name="AHD5 by tsiank ">711fefa2628a159515634d01c6a0c2c3</dictionary>
+  <dictionary name="Collins English Dictionary and Thesaurus, 2015">dbc62627db7ef8d2e63bdba399c1f51b</dictionary>
+  <dictionary name="Oxford_Origin_Dictionary">923cc867743e54f805e1b4988f50faf7</dictionary>
+  <dictionary name="The Oxford Dictionary of Word Origins 2 ed-2016-04-08">80e46cc09c397af82d5cd7ad3b508575</dictionary>
+  <dictionary name="Cambridge English Vocabulary Profile">7d6359b3d58e88240d539869677f7a64</dictionary>
+  <dictionary name="Cambridge Phrasal Verbs Dictionary">e5ddfb9682062644c1897dcecb7cb643</dictionary>
+  <dictionary name="Nga-Viet-Nga">2ce4128a9ac26f173c296269972876aa</dictionary>
+  <dictionary name="Từ điển kỹ thuật Nga - Việt">3f765743dbd82543e0a96d26257bf7b6</dictionary>
+  <dictionary name="Từ điển phổ thông Nga - Việt">5f24a26ffcaa9c4cfd2f465bc17c98ef</dictionary>
+  <dictionary name="Từ điển phổ thông Việt - Nga">dbb5ea7bde57be5a3b7f934b0e016e91</dictionary>
+  <dictionary name="Từ điển tổng hợp Nga - Việt 01">e5483169cca953aa45d0ac08138eae04</dictionary>
+  <dictionary name="Từ điển tổng hợp Nga - Việt 02">d2ef0d35e5786e6054b0a98f70d207cb</dictionary>
+  <dictionary name="Prodict EV business">149deb6ed898a976f6126ad3de7259e5</dictionary>
+  <dictionary name="Prodict EV Tech">80fa25991a97a909a0f6a2faa3c1bf91</dictionary>
+  <dictionary name="Prodict VE business">620a93c65bdab9407239c24ae0b0e9c5</dictionary>
+  <dictionary name="Prodict VE Tech">4c2af23f9a561c31696d4f9c7453cc89</dictionary>
+  <dictionary name="JaViDic Ja-Vi">a5d319acd13d39bbe0635d177e7b1fbc</dictionary>
+  <dictionary name="JaViDic Vi-Ja">f7437a0e8d9563aeaa7248ae6726ad21</dictionary>
+  <dictionary name="mtBab FV v1.0">501996dac6d74af55db0c8e85b85207a</dictionary>
+  <dictionary name="mtBab VF v1.0">cebb5560980c2ff48bcd1d271d630653</dictionary>
+  <dictionary name="mtBab CV v1.0">2305b263aaf1c2bd3e5f8551539f53d4</dictionary>
+  <dictionary name="mtBab VC v1.0">36e42a0d46654720f60e3dec1ac43258</dictionary>
+  <dictionary name="Confusing words">5b2e5dead50bc976a924553efe85c972</dictionary>
+  <dictionary name="Oxford Advanced Learner's En-Ch Dictionary">2d945f6851e96ddc630006d81be548d8</dictionary>
+  <dictionary name="CC-CEDICT">90f44241c23b1e1a9d051fe029786f06</dictionary>
+  <dictionary name="Oxford Student's Dictionary">6b9f0ecc71c44e4d23affa91e769bfe7</dictionary>
+  <dictionary name="Concise Oxford American Dictionary - 1st Edition">0a4585c0359123a6f189af2d0f0a77e2</dictionary>
+  <dictionary name="林语堂当代汉英词典-繁简索引">9fca63f042da54c18f8be3115129b869</dictionary>
+  <dictionary name="Merriam-Webster's Pocket Dictionary (En-En)">efe4075a4d25aa15280d688012ff0946</dictionary>
+  <dictionary name="Collins English Dictionary 12th edition">1e2e4acd0aca432b92051dfd6f466d94</dictionary>
+  <dictionary name="OALD7 Word Finder">15f7b939396b291c91be8374d838939d</dictionary>
+  <dictionary name="Microsoft Computet Dictionary 5th Ed">071c34abcd5e105c63d5bcc9deef2b96</dictionary>
+  <dictionary name="ODOCS">3e422934179518c88f8dbd874c1d788f</dictionary>
+  <dictionary name="柯林斯高阶英汉双解学习词典">8310b40d9333813d09b683228b4ad8ff</dictionary>
+  <dictionary name="21世紀電腦英漢漢英雙向辭典">079902c711def40dd65d9fc402ae304a</dictionary>
+  <dictionary name="Oxford Advanced American Dictionary for learners of English">497ea8c46c65d4a38586137f136ce63f</dictionary>
+  <dictionary name="Oxford Basic American Dictionary">58c58806648a59afce1d0ee2b16c8d19</dictionary>
+  <dictionary name="Oxford Dictionary of English 4">b48935ca746a73d3604298f2b65f66c4</dictionary>
+  <dictionary name="朗文当代双解">3242940c1f1987172b4730b5d4565d8b</dictionary>
+  <dictionary name="OLCC">8f2049c08831d230180d662361ea5cc0</dictionary>
+  <dictionary name="SOUND_FR">d6d56c904f9463e00a155cbd1676be25</dictionary>
+  <dictionary name="Langenscheidt Vokabeln Audio (De-De)">d2916c46d855af684c344a645aa82e23</dictionary>
+  <dictionary name="SOUND_IT">3f249f2418ceb3c8dd153c9582b8a605</dictionary>
+  <dictionary name="NHK日本語発音アクセント辞書">ec5eb9896b65e5adae80aec44d49cf8d</dictionary>
+  <dictionary name="Collins English Usage (En-En)">aecacb3528579468928d610cb5c05372</dictionary>
+  <dictionary name="Oxford Taking Dictionary">057782a994991eda56635bcb5890685a</dictionary>
+  <dictionary name="Oxford Paperback Thesaurus (4 ed)-2016-02-10">4e327fbae335c8c8aaf14b0fc1535830</dictionary>
+  <dictionary name="COD&amp;T">f5469226f312b660f6c60647bd8cbdc4</dictionary>
+  <dictionary name="CALD3 by Hugh">7ff67b591bdad49de0eb4127de40dcac</dictionary>
+  <dictionary name="LDOCE4 by Hugh">8cf8031e82d8f8015237cd260500f6c3</dictionary>
+  <dictionary name="WBDEL">fd6793f78dad3c3ff26744e48d3a6716</dictionary>
+  <dictionary name="WordNet 3.0 Copyright 2006 by Princeton University. ">67ff89830812a2d1684789e41d84f559</dictionary>
+  <dictionary name="French Morphology and Phonetics">b02635f7b08de31e9754b7a033c5d24c</dictionary>
+  <dictionary name="YouDict Word Roots">3bd797e7685fdf1cc04a8cfa348adb1b</dictionary>
+  <dictionary name="Oxford Dictionary of Medicines">5875d93cadf5996553d141d1f424d84d</dictionary>
+  <dictionary name="Oxford Dictionary of Nursing">6d7a9ec1b3833a480f636b3174a56b01</dictionary>
+  <dictionary name="Oxford Dictionary of Physics">a9637db32545744b271ad1a2a0bcdbd8</dictionary>
+  <dictionary name="Oxford Dictionary of World History">9c21e0d0abbd7aa035b49ec525b50545</dictionary>
+  <dictionary name="Concise Oxford Dictionary of Art Terms">ecc1031166200d9f1220c21c1065f2bf</dictionary>
+  <dictionary name="Food and Fitness - A Dictionary of Diet and Exercise">365c1ee028f21d95b81617956fd5b78c</dictionary>
+  <dictionary name="Concise Oxford Companion to English Literature">9d78ec889dd6a8e83e5bbf3bbdb9cdb4</dictionary>
+  <dictionary name="Concise Oxford Companion to Irish Literature">41bf3e4489e9e1d6ca252e9c4d1d95b5</dictionary>
+  <dictionary name="Concise Oxford Dictionary of Archaeology">0f16164e0a309b622e74167fb04bec16</dictionary>
+  <dictionary name="Concise Oxford Dictionary of Art and Artists">2aac4e69c84ed5e5776045e256382941</dictionary>
+  <dictionary name="Concise Oxford Dictionary of Politics">d1fdb856d5b3773054871d131564abd3</dictionary>
+  <dictionary name="The LTP Dictionary of Selected Collocations">88166b844d03bc1e9d3cfb12c2cd8b54</dictionary>
+  <dictionary name="OxfordBusinessAndManagement (En-En)">f4df7791643806a1a529ef3053cb9920</dictionary>
+  <dictionary name="OxfordEconomics (En-En)">b5404ac2f5c5a686d05bb351d08c1eb1</dictionary>
+  <dictionary name="Urban Dictionary 2014">bdac9258342fdc16e4c6171c044cfeba</dictionary>
+  <dictionary name="Medical_EV">78f077aac46d24bb0413215cfdf5f30c</dictionary>
+  <dictionary name="Larousse Chambers French-English-French">1fec90a12d6959b288368269585b6898</dictionary>
+  <dictionary name="The American Heritage Book of English Usage">d4c933253929e9479fc34e9f39cb3211</dictionary>
+  <dictionary name="Cambridge English–Chinese Dictionary">3a2029300e1669d458ba14d618449c5d</dictionary>
+  <dictionary name="Kernerman Advanced English Dictionary">5113d48a8e9ada1f4cb233c96405bb89</dictionary>
+  <dictionary name="Longman Active Study Dictionary">4718151ef41bdfbea77c78c6f9a79691</dictionary>
+  <dictionary name="GrandRobert">c2f6cf50667b478381ed47cd966bbc26</dictionary>
+  <dictionary name="Famous Quotes And Authors 2014">75ca247dc1fe1f8d044d92fb2beae5f0</dictionary>
+  <dictionary name="Brainyquote 2014 by Authors">0687dfac18b9098c45fcb533aca0e2d0</dictionary>
+  <dictionary name="Brainyquote 2014">6a62a5bf5585b91425c3d8e0f51f591d</dictionary>
+  <dictionary name="Collins Dictionary of Quotations">1c9951d93ea10c58815f92505d1dc47e</dictionary>
+  <dictionary name="Yourdictionary Quotes by People 2014">3587cb866e0762e97a37baca0164bb57</dictionary>
+  <dictionary name="The 21st Century English-Chinese Dictionary">3a94ad9e40d840161f83fd5d1ff0b2a7</dictionary>
+  <dictionary name="傲慢与偏见">240792fe37cfe1113674a7f1c723e144</dictionary>
+  <dictionary name="The Economist 36k">4b49e191570f894b1725372a3a9cfe9c</dictionary>
+  <dictionary name="Oxford Classical Dictionary-2016-02-08">b4a29cc239efa30458ce9253e7a16701</dictionary>
+  <dictionary name="Dictionary of American Slang (4th Edition by Barbara Ann Kipfer)">396d614831f704348f2be668699b0b95</dictionary>
+  <dictionary name="Word Smart, 5th Edition (Smart Guides)">b40a700f23ed7622df0c68e4346c5d40</dictionary>
+  <dictionary name="Word Nerd by Barbara Ann Kipfer">07bde63aba10adcbc8a9c7d083aa3cb8</dictionary>
+  <dictionary name="Collins COBUILD Compact 2015">84e3b09ebc77636cd691c49485cafe2d</dictionary>
+  <dictionary name="World Book Dictionary, 2015">99a1d0ecb462ae6d14409f6d7de27cbc</dictionary>
+  <dictionary name="Free Dictionary of Idioms">4f846fd346f9bbbff38296af2d32f67e</dictionary>
+  <dictionary name="Dictionary">5130b6c01e0867ac9e6926d74771d39d</dictionary>
+  <dictionary name="phrases">69a9b74fa9d56f4ebf3819fc7fce9f2e</dictionary>
+  <dictionary name="505 Business English Idioms and Phrasal Verbs">9b64b0a69dbe02292522efecd91bc131</dictionary>
+  <dictionary name="Cambridge">bb8e901d3b07ec1dd0800c1de5c684e5</dictionary>
+  <dictionary name="Core Fluency Thesaurus">4116eddc505bd79703bcde237d193536</dictionary>
+  <dictionary name="Crabb's English Synonyms">d83ec57d1c4ea1263c3090bc9ee2f86c</dictionary>
+  <dictionary name="The Writer's Digest Flip Dictionary">349a8ee2a773d892cec0b7176ba54567</dictionary>
+  <dictionary name="The Synonym Finder">9bd34cf9a64b64bb70b23e6b2bcf2845</dictionary>
+  <mutedDictionaries/>
+ </dictionaryOrder>
+ <inactiveDictionaries id="0" name="">
+  <mutedDictionaries/>
+ </inactiveDictionaries>
+ <groups nextId="11">
+  <group shortcut="Ctrl+1" icon="1" id="4" name="MEANING + PRONUNCIATION" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAPCSURBVEiJ7ZZPaBRXHMe/v/d2Z3Z2WEMSmkXJ+o+CMRuXlOJFxHQPCj14KQSh9eBZEMEe0uRQ5lzjIfRkLkXoQfAmHkSFFcGDSMDuxhh7WSSa4mbzz9Wd2Zl579eDZpvsJrrNxlP7Ob735vd57/F7v/kB/zXoUwsYEDja14lAHgKiJzUiQ1oj5QneLZSvTBmdI8IzQeouQr4P5gUUCisE8LbFnE6nEJVZreNnq0TH3pS6jcmu3ojDkQ3f5aig0xKhTVXfIr4nyL0OJXOUz5e2ih3ZUjo4MKTZuuSpjuxb3mu+qyhhYj9DAUC8YXUvpK7yZXj2Bfnq23hQ/sa0lm9wJjNO+fyfLZ+Yv8p8p5T18wMdO5JVJ0SOYzqLiNjyatbxFFWVplCu0mM3YSzeFrI2RlPTs58U8+DAkNL2xKLqO9yjvjQAoxVfEw694YuRQq1DzP0uiMfoyZOF9fMbTsHpdEqzdemBjh1pRwoADu+iCXXYfLGSPAemM9zfvyFYXcyAQFRmPd2RzaoToh1pXa676Jp9UPraGENC7dlUjKN9nVrHz77lvWaOY7pt6wfOL/QEDxFLai82wsPDslkcyENVomPvKkq0mkit0NNtGRndG3haf4/i7L5mMaIn35S6DdPf/9GHvx2MIKl+EbsSCHG6SawRGZrs6o1Mdmz9trfLFZGwHJUiTXRqbawu0Rqp9xWpsTi0j4M4AQa0woG1sfqJPcG7d9zYQE0i1SQWylefW2zXwrqjLjZldO5zi5Upi01iIjzLUUHnwDv2htcoujoELUGC/mgSC1J30xJhhqrBTouT9kvXka8ZwM0mMUK+b1PV/xVe+7WygUc0bY8gXEUtvNMsZl6wiO9dkK/8p6juWKItY96DACyoq5iZcZvFhcKKIPd6PCi7aQrlplH+NYxO6cWOozoH6U8Q0JzVBDCUzJnW8o1Veuw6VGmzdGo4Yp59NVuKymAUsMvrZzf8DCifLwntjSeMxdsXZaHmiKVtyhmO+ItHMV02zMo4XPcWTU1tSNrNW5+vB/p0GP3xxUry3DX7oDy/0BP0dFstJd0y5r1O6cV8NVsyzMo4IvQbTU2VG9dt2WXy4OAXYDrja2PsIWLJjO4NjCCproiE9b72/kPR1WHSfuk+omkbAjiO6lxUBqNw3Vv0/Hlls/gfb2/7+w0k1B5ds35yQT9c5rjtqBQ1dSe0BEe+5hGEqxbUVUh/ArDLjdfbsri+geFhieLsPoQ4rYlOaYUDNYmUXQuVMmXxQ0W6iVp4BzMz7vrs/Z81/ga87JeSUOu83AAAAABJRU5ErkJgggAAADQARAA6AC8ATgBNAEcAbwBsAGQAZQBuAC8AcABvAHIAdABhAGIAbABlAC8AMQAuAHAAbgBnAAAAHgAAAB4AAAAAAAAAAQ==">
+   <dictionary name="Moby Hyphenator II">d54ec0fa518e945b1f083941b4c6c83b</dictionary>
+   <dictionary name="Vocabulary">c6dbf54c06fbf48db8804dd6704d9917</dictionary>
+   <dictionary name="Longman Pronunciation Dictionary 3ed">af9e815b8316cf0282a545c463869940</dictionary>
+   <dictionary name="Cambridge English Pronouncing Dictionary - 18th Edition">1dae220d75389fa619ee4871d2d70109</dictionary>
+   <dictionary name="Từ điển Lạc Việt: Anh Việt - Việt Anh - Việt Việt">a2306eae36cc0d8289804e36617e1648</dictionary>
+   <dictionary name="Longman Dictionary of Contemporary English 6th edition">9d4807947672ec427e49a68cd89a079f</dictionary>
+   <dictionary name="Longman WordWise Dictionary">c5cee77e4e2ebb8e9b6cbbd59c42ae1c</dictionary>
+   <dictionary name="LAAD3">a9b46a07e223720600604fbe26007a37</dictionary>
+   <dictionary name="LDAE5">03cecc9a482971991d53ee2ea04b71d5</dictionary>
+   <dictionary name="Macmillan School Dictionary">2b5680cfaf5d70d1daceaa8a265904f1</dictionary>
+   <dictionary name="Macmillan English Dictionary 2nd Edition">cf3e206ccaaf3e861ac126d041e5973b</dictionary>
+   <dictionary name="Oxford Student's Dictionary">6b9f0ecc71c44e4d23affa91e769bfe7</dictionary>
+   <dictionary name="Oxford Basic American Dictionary">58c58806648a59afce1d0ee2b16c8d19</dictionary>
+   <dictionary name="Oxford Advanced American Dictionary for learners of English">497ea8c46c65d4a38586137f136ce63f</dictionary>
+   <dictionary name="Prodict EV business">149deb6ed898a976f6126ad3de7259e5</dictionary>
+   <dictionary name="Prodict EV Tech">80fa25991a97a909a0f6a2faa3c1bf91</dictionary>
+   <dictionary name="Prodict VE business">620a93c65bdab9407239c24ae0b0e9c5</dictionary>
+   <dictionary name="Prodict VE Tech">4c2af23f9a561c31696d4f9c7453cc89</dictionary>
+   <dictionary name="Medical_EV">78f077aac46d24bb0413215cfdf5f30c</dictionary>
+   <dictionary name="SOUND_FR">d6d56c904f9463e00a155cbd1676be25</dictionary>
+   <dictionary name="Langenscheidt Vokabeln Audio (De-De)">d2916c46d855af684c344a645aa82e23</dictionary>
+   <dictionary name="SOUND_IT">3f249f2418ceb3c8dd153c9582b8a605</dictionary>
+   <dictionary name="NHK日本語発音アクセント辞書">ec5eb9896b65e5adae80aec44d49cf8d</dictionary>
+   <dictionary name="Urban Dictionary 2014">bdac9258342fdc16e4c6171c044cfeba</dictionary>
+   <dictionary name="Dictionary of American Slang (4th Edition by Barbara Ann Kipfer)">396d614831f704348f2be668699b0b95</dictionary>
+   <dictionary name="Word Smart, 5th Edition (Smart Guides)">b40a700f23ed7622df0c68e4346c5d40</dictionary>
+   <dictionary name="YouDict Word Roots">3bd797e7685fdf1cc04a8cfa348adb1b</dictionary>
+   <dictionary name="Oxford Dictionary of Medicines">5875d93cadf5996553d141d1f424d84d</dictionary>
+   <dictionary name="Oxford Dictionary of Nursing">6d7a9ec1b3833a480f636b3174a56b01</dictionary>
+   <dictionary name="Oxford Dictionary of Physics">a9637db32545744b271ad1a2a0bcdbd8</dictionary>
+   <dictionary name="Oxford Dictionary of World History">9c21e0d0abbd7aa035b49ec525b50545</dictionary>
+   <dictionary name="Concise Oxford Dictionary of Art Terms">ecc1031166200d9f1220c21c1065f2bf</dictionary>
+   <dictionary name="Food and Fitness - A Dictionary of Diet and Exercise">365c1ee028f21d95b81617956fd5b78c</dictionary>
+   <dictionary name="Concise Oxford Companion to English Literature">9d78ec889dd6a8e83e5bbf3bbdb9cdb4</dictionary>
+   <dictionary name="Concise Oxford Companion to Irish Literature">41bf3e4489e9e1d6ca252e9c4d1d95b5</dictionary>
+   <dictionary name="Concise Oxford Dictionary of Archaeology">0f16164e0a309b622e74167fb04bec16</dictionary>
+   <dictionary name="Concise Oxford Dictionary of Art and Artists">2aac4e69c84ed5e5776045e256382941</dictionary>
+   <dictionary name="Concise Oxford Dictionary of Politics">d1fdb856d5b3773054871d131564abd3</dictionary>
+   <dictionary name="OxfordBusinessAndManagement (En-En)">f4df7791643806a1a529ef3053cb9920</dictionary>
+   <dictionary name="OxfordEconomics (En-En)">b5404ac2f5c5a686d05bb351d08c1eb1</dictionary>
+   <dictionary name="Word Nerd by Barbara Ann Kipfer">07bde63aba10adcbc8a9c7d083aa3cb8</dictionary>
+   <dictionary name="505 Business English Idioms and Phrasal Verbs">9b64b0a69dbe02292522efecd91bc131</dictionary>
+   <dictionary name="phrases">69a9b74fa9d56f4ebf3819fc7fce9f2e</dictionary>
+   <dictionary name="Free Dictionary of Idioms">4f846fd346f9bbbff38296af2d32f67e</dictionary>
+   <mutedDictionaries/>
+  </group>
+  <group shortcut="Ctrl+2" icon="2" id="7" name="LEXICAL PHRASE" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAPdSURBVEiJ7ZZPaBRXHMe/7+3szM4O200i2U1ClubPQZPFTaHJRYR0Dwn04KUgQuvBsyCCHtLkUOZc4yH0ZC5F6EHITTyICitCKmKXRkVTAzL5B637p8lm3ZnJzM779aBrstmNbpP11H5Ow7x5v8/7vfm9P8B/DfbRLwh8BGgl4CiHNCYL/ygEi3k2dXIOjym0JhgtOty9yyDu20D2GbAJBjqweJgQ4+BJVYTOqmbwhLQFuW82IUm6VNUvnSoIxF+WA5rPMdXiPYtbN/wQqYcMmf1iS/tLpVFNBC+12eFkx5s+xSx18R6lSEAPWvaMtxtPUfCNk3elrBkXjK9zwdxXppKdG6Hi9GOGpYYzHibfN0Ev+AN7MHh8LDnAlZQhpGSCf2h2Kmw+dzweN31LhbS1Elq+bXFzKs3wx0fFwySNBj115lh+aKA/MijLUBrx1Q5AL9DCxcfbubDxS4nbUwsM2d3tVVkME2KaCF5iDwaPH0YKAC16mCVmhpT2leg5DeqZQYJcX0zgHDzZZoeTY8kBfhhphTa9nfVej/skxz8VArrqikeAVlWEzna86VOUlCEObX1H+/kOF/OdUQj/xGmCr0ZMwFHVDJ4wS1280UJqBDWiyUOJsMtt/q0BfF4j5pDGpC3Ib5dMc4nI/V7wRy0E8FM1Yln4R/tmExJme/Zd2wfFvXpE7db7GRM0Xnm3IxEsJukS27s5NIMWnTEZMkjwXsADsCtjz6bOphv3wLYRqzzv/GP+biifUqztON6LmUJrn1oMj4wasWC0mE4VBKWeNm0Nv49tbJU3kAN87EmN2OHuXcRflguJbrfZ4ny0ZL3W10nAu1kjZhD3A5rP8X4qy/W7H5z5R1nNmXALGnCnRmwDWVMt3jMuGM7mc6dphVbaWLWBZZDqXYsAVo34GbBpcetGLpizeNz01Q/z7yAQMq1WQJzMrynwZuZYnaoGA/khUqaSnVsqpK1NvXCorVPAw5/6Kr1yXmTIX540gdzu9qrD4CFDxubF6ZXQ8u2Fi79t/61nDyQnEP7S12lx8vdcXs5MC9i30gxVRVt3f/yScCwgApfbV6Lneq/Hfe3nO1w1ojVUdKWNVTvTagVeOS8yeTkz7cL5Oc2qs91XDABfENo1qGckxz+F+c7oUCLsRuR+z716RG3RWVU/YWyV89GSNf8oqwHLECfza+QvTwrYt35lKNaL/8ETYZAgh4AuCP/3wuLffXZF07r1fiZX32KwgRxe6+vkTLgFUr1rCrwZE8jtnd6GxRVOE3xvD3F+igkaJ8F72TZiTIMHjwz42BMB76YG3IkA1u7q/Z8K/wAJFZh31TpYqwAAAABJRU5ErkJgggAAADQARAA6AC8ATgBNAEcAbwBsAGQAZQBuAC8AcABvAHIAdABhAGIAbABlAC8AMgAuAHAAbgBnAAAAHgAAAB4AAAAAAAAAAQ==">
+   <dictionary name="980MB">8fec6cce22cc361a9e67a6dba61772d5</dictionary>
+   <dictionary name="COCA Frequency 60000">93d6c84775713c87b49ba160dab1ff6a</dictionary>
+   <dictionary name="Freakuency Pack">e524dbf88da68f8b18e879ca32d1fa89</dictionary>
+   <dictionary name="COCA Frequency List">56eeddad1cd10da965e1c79ebdae919b</dictionary>
+   <dictionary name="BNC+ANC+COCA词频词典">752bafd30e3e26517c46d84b23b8cbef</dictionary>
+   <dictionary name="Oxford_Origin_Dictionary">923cc867743e54f805e1b4988f50faf7</dictionary>
+   <dictionary name="The Oxford Dictionary of Word Origins 2 ed-2016-04-08">80e46cc09c397af82d5cd7ad3b508575</dictionary>
+   <dictionary name="Longman Dictionary of Common Errors">32e6d8a174692a39229ba4d6635f71d5</dictionary>
+   <dictionary name="Cambridge Phrasal Verbs Dictionary">e5ddfb9682062644c1897dcecb7cb643</dictionary>
+   <dictionary name="Cambridge English Vocabulary Profile">7d6359b3d58e88240d539869677f7a64</dictionary>
+   <dictionary name="Cambridge Advanced Learner's Dictionary, 4th Ed.(En-En)">b47ed3b429c3d1c1ee3ff06dbc1237b7</dictionary>
+   <dictionary name="Cambridge Academic Content Dictionary">3c0e66b48f5898f3275bf8e87504fa85</dictionary>
+   <dictionary name="Cambridge Business English Dictionary (En-En)">810aa50f4686fb6bd741ef5570600a5d</dictionary>
+   <dictionary name="Oxford Advanced Learner's Dictionary 9th edition">9f09e09d23c5aba9556ef65132a17771</dictionary>
+   <dictionary name="Oxford Dictionary of English, 3/e">c132de8870b4b3f15a2dbd081e8f97c5</dictionary>
+   <dictionary name="ODE2015 by tsiank ">edbf7025bfec9c6e9129b5025a59480d</dictionary>
+   <dictionary name="Oxford Dictionary of English">11a75b4bedee7e31b9c5338f180ba65d</dictionary>
+   <dictionary name="Shorter Oxford English Dictionary 6th">e8737c19cf5c887a1fe8567915acbf48</dictionary>
+   <dictionary name="Macmillan English Dictionary-2016-02-01">9589046ebcc8b8564ea8d70d6ad1c6c5</dictionary>
+   <dictionary name="Merriam-Webster's Advanced Learner's English Dictionary">87507c98f5e8e1e016eb5303cbc3cc6b</dictionary>
+   <dictionary name="Oxford English Dictionary 2nd v4">8fda359ebc4aad6c97dece22fc4daaa8</dictionary>
+   <dictionary name="WBDEL">fd6793f78dad3c3ff26744e48d3a6716</dictionary>
+   <dictionary name="World Book Dictionary, 2015">99a1d0ecb462ae6d14409f6d7de27cbc</dictionary>
+   <dictionary name="Dictionary">5130b6c01e0867ac9e6926d74771d39d</dictionary>
+   <dictionary name="Collins English Dictionary and Thesaurus, 2015">dbc62627db7ef8d2e63bdba399c1f51b</dictionary>
+   <dictionary name="AHD5 by tsiank ">711fefa2628a159515634d01c6a0c2c3</dictionary>
+   <dictionary name="VOCABULARY.COM">b4053e7fb22da65cb16bf3578e820cde</dictionary>
+   <dictionary name="VDex_8.4-20150727">f7afa5dac454b90686e2a6905fd49abf</dictionary>
+   <dictionary name="傲慢与偏见">240792fe37cfe1113674a7f1c723e144</dictionary>
+   <dictionary name="The Economist 36k">4b49e191570f894b1725372a3a9cfe9c</dictionary>
+   <mutedDictionaries/>
+  </group>
+  <group shortcut="Ctrl+3" icon="3" id="1" name="COLLOCATION + THESAURUS = WC" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAP0SURBVEiJ7ZZPaFRHHMe/M/PevN2si6ameRpJY0isa5aNW9pcREj3oNiDl4JVrFCRHEpAAvaQJoey5xoP25zMISHQgij0IB5EhVXRQ5BATGI2bliCbJuS7Aaz+bf7/s300sTd7Ea3+XNqP8eZ+f0+84bfb94A/zXIB1dISVsQq7RAjlKQU1yQVkfIWpqjB0GJA81JCsJiJhUPJZTHEiupMQQWQIjcstgvp2pVILRH4JKzSk7sX1R5Q1+/ooa/L4h7EY0J+Ott1SPMJbfzyKTilgMlOkoa5zbLrWw2EZTxVo8Q16pyPFSzzLUDKwYVmiIBoApawdpPAMwzr5TXez2Jq21fpSuWv8xouNMsEz2jpCFe9hd/Jl9/rTn0J+1pMnAmFKCu6JhQQkG6+dm8I/1qxlH9OpvIzGYTXn7fpqJ7mPgmPygOyniryyGRwLz7mK/axTnK8hVvIByRIx1XjL/2Gr+aFN0j5NNU/nxBVr+cqvUIeU17mgxsRwoAVeEOEoz0a/ob5TIHOd8kx3lpsZRUBUJVOR46EwrQ7Ujz5UcGBxk10e0FqykpbkGsco/ApZplrrmiY2Lb1n/Q29st7XlStwTpPCdvsyKxBXLUWSUnDqwYtNxCKoeKapUHm32WlTMuTuJ4XZGYgpzav6hyoWnvbfytoHPufPTz714GcbZIzAVpbejrV9DXt2lvbxXjRq/7cLiNEMFOr42tt1OLNTnVquxtrNtwOewUo1jFkL0YG1WbmoD8o87Rg7tizIMZrHbdtz5KibPbYsNjrTveiTUnudtizWHTRWJBWOxFNCZkdGTHengNZ3rBnocNMPaySGxS8RD+enu+udnaaXFKZ9mZ8IB0IO8WiSWUx6pHmLK3l5cO3zrPhhIeu/NCxsa+ByXEK6klt/MocbXNTL+a2bFCW3pr5wBAuOnNCTzJFonHEFgwqbiVrljOqn6dlUryb5EAZittl3XyUJJAi4B8U6KqCZEOlGhGU+9MZGaz6XBkW1engMQf4YiMm7k5W0UXkE7nzxf8DEZJ49wqJT0JL78/0nHF2KpcAvgz/Isc7/ouneJWTwbi3jD5oqBoSz59PpeTPiboD/ob5fKRwUGmt7dbFdVqWUW39NbOzVbarriZm0txq0dCDgwTX3rjuk1fmUEZ/5iDnKcmurXnST3Y7LN0zh3jRq+7KtxREOdML9gpnWWfDSU8AGCdPJS0VXRlIO69JseWSuV/7/O2SY5zL1iNJdiPNItvPdd/8xwOtxG+IWweNmbCA9LuvJARbnqTQIsA6fTG4y1bvMY5eZtN4ngdgzhLBDvtCLueGazW8FiO5rBpMPbSgbxrY9+DCTzJ5lfv/6zxNwwspjp5NUouAAAAAElFTkSuQmCCAAAANABEADoALwBOAE0ARwBvAGwAZABlAG4ALwBwAG8AcgB0AGEAYgBsAGUALwAzAC4AcABuAGcAAAAeAAAAHgAAAAAAAAAB">
+   <dictionary name="3200MB">bee4da3e0b3a24640be8298a3eb29911</dictionary>
+   <dictionary name="Oxford Collocations Dictionary 2ed">bc8b57fea2216191ce8b9b47e03fed97</dictionary>
+   <dictionary name="The LTP Dictionary of Selected Collocations">88166b844d03bc1e9d3cfb12c2cd8b54</dictionary>
+   <dictionary name="Oxford Thesaurus English Dictionary 2016">36e2c9e95ae230329f7da72fd6a76853</dictionary>
+   <dictionary name="LCDT 15.09.5">1f495bb6cfbbaf2f0cb7b4e564bdd4f0</dictionary>
+   <dictionary name="LTAE 15.09.5">b524ccc7d95c193b3dc939b49f8bf983</dictionary>
+   <dictionary name="Longman Language Activator">eb7a5f877f02bb3688384f60740a46b5</dictionary>
+   <dictionary name="Longman Active Study Dictionary">4718151ef41bdfbea77c78c6f9a79691</dictionary>
+   <dictionary name="OALD7 Word Finder">15f7b939396b291c91be8374d838939d</dictionary>
+   <dictionary name="A Frequency Dictionary of Contemporary American English">2d217bed6d2bac15ba6b80420c54b730</dictionary>
+   <dictionary name="H. W. Fowler, A Dictionary of Modern English Usage 1th Ed. - 2009">1c962ebf8ba59c6eccb4c4c169bfe76a</dictionary>
+   <dictionary name="Oxford English Usage (En-En)">2de75cfc625e23152d27015106fba29b</dictionary>
+   <dictionary name="Pocket Oxford English Usage, 2E">44ef6b32a8ca488e189cf30e86c3dcbe</dictionary>
+   <dictionary name="Oxford American Writer's Thesaurus 2nd">b19d8cbc226a5680546d1546eb3bc5fa</dictionary>
+   <dictionary name="Oxford Learner's Thesaurus Dictionary">d495d376bbace7e8776c5f7bc41ec101</dictionary>
+   <dictionary name="Garner's Modern American Usage, 3rd">f9fdfca81ef2bc62c13956dfbf13d47a</dictionary>
+   <dictionary name="Reader's Digest Use the Right Word">06c39458c23fca257fc4259e481e370a</dictionary>
+   <dictionary name="Right Word Wrong Word">eb0fe2d10cb2fa375c1999c1a461ecb7</dictionary>
+   <dictionary name="Collins English Usage (En-En)">aecacb3528579468928d610cb5c05372</dictionary>
+   <dictionary name="Roget 21c Thes 3">76552ad5eef2cf558a24684d523666dc</dictionary>
+   <dictionary name="Roget’s International Thesaurus | Mawson ed (En-En)">fc72fd1d8a9d9beac7390e6a70d32967</dictionary>
+   <dictionary name="Roget's Thesaurus of Words for Writers">e2210b499e79ad0621d80e1d2897dbcf</dictionary>
+   <dictionary name="Roget's Thesaurus of Words for Students">b6af197bff7ff3dc7fa04e53d21dcd65</dictionary>
+   <dictionary name="The Thinker's Thesaurus,2nd Ed">333775a0d3441471ae5d6d1963f8a30d</dictionary>
+   <dictionary name="The Highly Selective Dictionary for the Extraordinarily Literate">773b7d3572c3e9f65f0960b339e6c4a9</dictionary>
+   <dictionary name="Merriam-Webster's Dictionary of Law (En-En)">6e0e00446684a910962126d07e908327</dictionary>
+   <dictionary name="Merriam-Webster's Collegiate Dictionary and Thesaurus">f41b0054be46170a842f2ba7a130b810</dictionary>
+   <dictionary name="Merriam-Webster's Dictionary of Synonyms and Antonyms">a237edc84881d5633fc78a294e555c53</dictionary>
+   <dictionary name="Merriam-Webster's Medical Dictionary, 2015">255d63127d666a6e137599ab7010e12e</dictionary>
+   <dictionary name="Merriam-Webster's Vocabulary Builder">b28479ab4d296f35a47fd290dc844c81</dictionary>
+   <dictionary name="Confusing words">5b2e5dead50bc976a924553efe85c972</dictionary>
+   <dictionary name="Oxford Taking Dictionary">057782a994991eda56635bcb5890685a</dictionary>
+   <dictionary name="Oxford Paperback Thesaurus (4 ed)-2016-02-10">4e327fbae335c8c8aaf14b0fc1535830</dictionary>
+   <dictionary name="PEU third edition">24c3e97f1035eaee5ef88df8a5fe3da9</dictionary>
+   <dictionary name="COD&amp;T">f5469226f312b660f6c60647bd8cbdc4</dictionary>
+   <dictionary name="The American Heritage Book of English Usage">d4c933253929e9479fc34e9f39cb3211</dictionary>
+   <dictionary name="WordNet 3.0 Copyright 2006 by Princeton University. ">67ff89830812a2d1684789e41d84f559</dictionary>
+   <dictionary name="World Book Dictionary, 2015">99a1d0ecb462ae6d14409f6d7de27cbc</dictionary>
+   <dictionary name="Kernerman Advanced English Dictionary">5113d48a8e9ada1f4cb233c96405bb89</dictionary>
+   <dictionary name="Core Fluency Thesaurus">4116eddc505bd79703bcde237d193536</dictionary>
+   <dictionary name="Crabb's English Synonyms">d83ec57d1c4ea1263c3090bc9ee2f86c</dictionary>
+   <dictionary name="The Writer's Digest Flip Dictionary">349a8ee2a773d892cec0b7176ba54567</dictionary>
+   <dictionary name="The Synonym Finder">9bd34cf9a64b64bb70b23e6b2bcf2845</dictionary>
+   <mutedDictionaries/>
+  </group>
+  <group shortcut="Ctrl+4" icon="4" id="6" name="FRENCH" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAPhSURBVEiJ5ZZNTBtHFIDfzKxnvV4wNi1YuHUCVVNcDKS99BAhUR8SqYdcKlWR2hxyjhRFSg8UDtGeG3JAPYVLFamHSLlFOURJJEeRckglpMaQQCgRAquB2BDbYPZvvPNyQFBggTgGDlW/4/y8b2f03psF+L9B3r8EaTIJUYbQyRicpkz2SyITtGK3eTr1GKo5CWQSq/QBAXiEASiMj0MJgGDd4lQKE+BBmmvyPFfNU8GGFR5uGVWoYmzbV5rPSCFTVWHrrnC0h0LQWywAmWyW5PeKrew10Z3Efq7IK6EWO82wosba16gZVfEjxf+5pXmA9mMMReiaPpe/9J26GPrWddTbvUkczk6R6ZpPnEri91zzrobDj3vi3Wn6eiIjO75J030uZxNPPPeEk2JvXpWt4kLjvapDhyamydR7xd1J7A9o3kg4vPzlsa9bOQvUovNjrxk4OX3ZgcWmP4hNh/6aIYWt89tOkUphgqvySjj8uOcgUgCAoG6Qzs9G1NLq3AUMwrmuLuR7iJGCB+lQ1E7Hu9P0ININQk0GOdl3k0niDnkexHcVJ5MQ5Zo8z7Civp7IyINr12lsuigizU9inMkBAGQ+MUPo5Kp5Kta+RmtNpFoI6K08Eu8VQOwfe07Acb+Ywelgwwo3o+q+hV8PDc3cU7VfG6UCZ31iymR/uGVU+VgZ3bO264Vr17VIm0GolGc2xjYlksgEVQxSSxP9UAgxCFMAkMiOjbF/T1yx2w5fuQPLSfjEnk69o/ZKTd90bMlqNXfUYorerE8sgUyW5jNy9s/Dq+HN2PnZqlkGAMqe+cRYpQ+ETFU/+bRXHLbYVGLW6rKBiHDHJyYAj4StuyL0G999e/0UZp7qlj1QRgr3fWIMQEE42sO5/CXXE88PLdGKZtF2JQCn2o0XL8DyicfHoSQEvUUWQ5ZwUmz3MB8GIoB8Gw1WSn05gTACQPxZDUCQBSDjOurtN6/Klr1mHKh1ogRYKRi4kHPzAIFBXYelrfPbHoNsluQ9mw4XFxrvTf592THL9ckRAVaWDPxncnBJFPmw68LdsTGyLWl3bZDdX2CScflzaXXuwsm+m6yx6aII6K01JV3RLNrybTS4kHPzosiHFQG/j02TpZ3r9uzMX32OLRiEc5K4Q5HmJ7FIvFc0NHOPa9c1Qrb/Zcr8bNVUYlZh5qnuSoBKqS8HEBh0Xbj78iVZ3S3+vk9CVxdyz4M4V+QvBKyfuHZNj7StN/ytmGWA1WUDLXugzKl2QyCM6Dos7bzemsUb/ADIpk7AcanAWSrlGSSyAywnITXdo+jNAmXPEOEOUri/XjLkyPv+f493YVmrvkz9+F8AAAAASUVORK5CYIIAAAA0AEQAOgAvAE4ATQBHAG8AbABkAGUAbgAvAHAAbwByAHQAYQBiAGwAZQAvADQALgBwAG4AZwAAAB4AAAAeAAAAAAAAAAE=">
+   <dictionary name="French Morphology and Phonetics">b02635f7b08de31e9754b7a033c5d24c</dictionary>
+   <dictionary name="mtBab FV v1.0">501996dac6d74af55db0c8e85b85207a</dictionary>
+   <dictionary name="mtBab VF v1.0">cebb5560980c2ff48bcd1d271d630653</dictionary>
+   <dictionary name="Dictionnaire de l’Académie Française">2a13632331f2b21159d6742e0b4dbd71</dictionary>
+   <dictionary name="Larousse Chambers French-English-French">1fec90a12d6959b288368269585b6898</dictionary>
+   <dictionary name="GrandRobert">c2f6cf50667b478381ed47cd966bbc26</dictionary>
+   <mutedDictionaries/>
+  </group>
+  <group shortcut="Ctrl+5" icon="5" id="5" name="SPANISH" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAQKSURBVEiJ5ZZPSBxXHMe/783uzLq747oWK6ssjaVpakVJS1NosN1KMdCAlx6SSw45C4sQIUEpdXtqSfQge0n3UoQeCt4kh2BMzR9SmsQkpm2MpLTWCFZ2/dMdZ53ZnZn36yFd3a2uiquF0i8MDO/3fu/zfr/5/d484P8mttMEAnFNRRAWjjCOdpJFhEGEmWWGILjjuJU5idhTcvg1snGDckgFgD8ZGO0ZvOahsADahN85w1TjuFajyYmGhOtTubvI7/bzCdE01WT7vL6crXnGJF36FjLG1QxLllrbVcqgeSjiqOIcD5ltRlBXMocyXAkrBAlwuXPFk18HpHclupS55ItORD92p70fipQynLaoP5Bjz3YdsSbTJ+R3PnvQfKs5cuwov3l/UrS1t/DtspPXk+yC06jXS6v3mIEp9SrP8N7KHJveEax5KEJeZ9BsXmqsed8lM8+2n6qkYstx6rreleWzgW/WbN5bp7NUob0oijUPhZkqzj1ovtVcDhQAYsEoG2wdVJYDs2dVjtMEkrcEE4gLoI2HzLbIsaO8HCgAgAGxUJQNtQ5JtpLrNRXUbQnWVASF3zmjB3Xl5v1JUR51Q52BTutR+E6tLYkLBJIK9vVCaQ8d5yF9NPVBSmk4XFmy2veipZ+QlUcqskJ436rKst+AgogZR7tWo8lKWCkzx5sl13NnIHhRZRwd+bGNbyyLSKIh4UpIiX2NFgAG1MGKnsbzjJE4kR9bT7VWZf1S0WG85jqS29q7TOW+92DtO+Vp0HS/CRSm2jJDB0IskIRsOP++0ceCOwcNBjYY62DHrcwdNJZIntkElog9vf18QozTj/vWw3nNOJptL7jASHq8CUwOv9Y01WS3aC3WfoNr56uNi79/QZAwshls44bP68vFM3F5a/e96+70Q1935kJaNTC6GZxDytY8Y9GJaO5JdmHfCm0lxUwkAeIVXw0DRn58vY8JxHQ3TvFXjcuek9kq/tI+sAmwfpZhjnlm+ZL7PT/YH3nTRh+DEWSMi5QyvHqPGbHlOKGMw5McIPZrnKxJJcksd48PWCy0F/2P1QxLCp33Y0q92nW9KxtbiO8NTcDnM3E6/0PPoj0v9ZsarjCwoqItdfV5Q3hF93Jg9uxQ65DUGei0Xq6TdlV0Kylm+hfcHmtSSdrzUj8j6etKnS3+c17JW+a8n2pUjtO2kut9FL5T23K4xZLruTOgDlbE3NEivxlHs2vnq4270w99SALvJFvnmOXuMTVcqQFb3c2Gi0Qg2VDoUNrrXNa8+mpfXZ8wP8pQ9qRe9GTeNqmvuk9oytpKuoK+1EEhArm3W3vHC/3fG5DSCl5hHB2MxAkHouHFgc8dInmGkfQYEkZUA6PDgHEK7F849/9r+gs6CcSF2hd0gwAAAABJRU5ErkJgggAAADQARAA6AC8ATgBNAEcAbwBsAGQAZQBuAC8AcABvAHIAdABhAGIAbABlAC8ANQAuAHAAbgBnAAAAHgAAAB4AAAAAAAAAAQ==">
+   <mutedDictionaries/>
+  </group>
+  <group shortcut="Ctrl+6" icon="6" id="8" name="RUSSIAN" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAQQSURBVEiJ5ZZNTBtHFMf/M7Pe9QcGXIiNSR0aEYm2CNqKXoJoKIdE6iGXHpJDcsgxQkJI4cCHosqVckANHCwujVWpReqhUm5RDhGJRIIEiKIeojYCtyKITxPbK+ovdu31zvSQ2rH5SBCYQ9X/afXezPzmvX0z84D/m8i7BggBugGnC5CaJLCL4FIn5/BRPek1aIUpK2RNEL4AajymYE81GNEziP9NCMSRwevC5aMgXYzbrrMdpT2TqJGDwXppYMhSMm92Osqbm9UccySzps14wqn2C5Cd9JJ05KC1pYMcm6K6k3H7LYte22WkqpVE+gOqKE4BWGDlu/cbBWOfiLG7zNHTs/gVt8e/pEryfkTYRtwk9uehI34l3vvaNO3fLE41tlxob6JTMyHedb6NviU5Bb1YMsymczssrS9oGefSoxzNDZ0m6uI7wZuiuhNmRYCpjR/VVrbIFPJheHvkH06I3t75jF716mfQ1FA9SUWL/SVRrAuXj3HHrcWpxpbjQAHAP1BJAoFPFX1FuUFguypE6WIFsBCgFKTLotd2XWhvoseBvoHXkPHxNsaz0tAWPPX7gjfgdDFuu26kqpWpmRA/NvVfdXe7jdC01wNu9gsBlrcX/vG6cLVbU66JRPQL5ay35sBqP4rU9FJGs81kuD37WQOJvwSKIpbALmYSNfLrI1NeybLd/OE7h1MCu5y3vSkuLnUGg/VSMGgpa7QAMDpaZ+u73UAYx6W8rZDqTaPuLxfvOGflZ8rNBQCkpN+Rwq8LXkv8Y6AoYqonvSdCLJKeMXwFXv7DoBXmSYNlh7XAKIBlhaydNJiaWN4DFoQvzE5H+eTsb2U7w3kth9WcARVg4vkeMKjxuLlZzbW2vm+UG+zxZLTAnbAQIA/2gCnYU+ZIZsfG2PHvyl2amws7bvbn4gxsYg9YgxE1bcaTnp7F7Islo2yFtq0ldSAGYjPvPUNUy9sL51gIkC24rkBzf19LO6olUVUGrIDGXiKJ+RViyZ53k1g47ylE/LpHyk5SJXk/rS9o/uHEsa5OAQ7/8IbYEaGIsOQGVxGLFftL3mMvSUcIzY5knEuPenvnM/5h9YhwgW+HN0XP4B8xg6kjDObDzwlKinbf1mdD1HxIuKVPX1FujI+3se5ut+GutB+q6La1pG6tiFh3RChiMHWEM+3H0yQV2z3uwC5zU1ScIrBd5VlpKDTt9bS2+gxZtpujo3U2/wApmbccVnMeT0abmws7gBiaO7bXhCU3yGA+PEXU5H7rv7W9FQLyFjz14OaAru1c++mu29F3u4GQXd2JARWBO2Fxsz8XJzbzHgUNrCIW253eQ4OLNsBWUdUggV1mHJcEN8/qGcMnO6wmNbEMJp4LkAcMbOIZotoVghO/9/97+gc5QbIyqkOvNgAAAABJRU5ErkJgggAAADQARAA6AC8ATgBNAEcAbwBsAGQAZQBuAC8AcABvAHIAdABhAGIAbABlAC8ANgAuAHAAbgBnAAAAHgAAAB4AAAAAAAAAAQ==">
+   <dictionary name="Nga-Viet-Nga">2ce4128a9ac26f173c296269972876aa</dictionary>
+   <dictionary name="Từ điển kỹ thuật Nga - Việt">3f765743dbd82543e0a96d26257bf7b6</dictionary>
+   <dictionary name="Từ điển phổ thông Nga - Việt">5f24a26ffcaa9c4cfd2f465bc17c98ef</dictionary>
+   <dictionary name="Từ điển phổ thông Việt - Nga">dbb5ea7bde57be5a3b7f934b0e016e91</dictionary>
+   <dictionary name="Từ điển tổng hợp Nga - Việt 01">e5483169cca953aa45d0ac08138eae04</dictionary>
+   <dictionary name="Từ điển tổng hợp Nga - Việt 02">d2ef0d35e5786e6054b0a98f70d207cb</dictionary>
+   <mutedDictionaries/>
+  </group>
+  <group shortcut="Ctrl+7" icon="7" id="9" name="CHINESE JAPANESE" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsEAAA7BAbiRa+0AAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAOUSURBVEiJ5dZLbBNHGAfw/zezD282TjBSHnZxUA6IonIpqipVimqQgAOQSw8gtVx6iThzSUklsIRUqopLlRO0UiROOaOISoAEPnBCEfKlKeGAEkMax47tNA72Pma+HgJREjsP8jhU/d92d3Z/OzO73wzwfwtt1YAZ4i2iMcA4akCegTZSWiMp6ovxQLQqy6Yck56ACB4JyKc1BIUeLFSIwDuG33AsKUCnpHYuW3mn78W4tL8ObLH+tpvZkAcGSqHdbnnKCR5rURsF/CdxWpr7aHiGD6Skdq9GXrmnxyesyMm8L6gebPiS6bLB14+3Usb09YnPeck7VBkl4d/upOLktuE8H/xGTrm3hkeiR250B0ReuCHYLBwxUTrf5qlE7kEowqFPaP6vLeEZPpCypqJ3h0ciR9KxcMtvYEPcNlDod30Vn70HUR1KULWw+rpYffCGY0mp3avDI9FdoQBAXoiOsXdWaeLg9wTnEjOspjAzhACdirxyT9/oDnaFruD1AJ9OmlL7xtAsuhJN4beIxqR2Lo9PWJGPndPNIvI1vHzW0QWtBpkhG2DAOGrlnb6TeV80e8BOQ14AVICwTt9Oo/1wA2xAnnkxLu3NfpmdJpOt0++/uFEDsr8BhjZSy8Vh75OOBfTjiRaSGmcbYK2R3EYF3XGIBVir3gZY1Bfj+6a+T90Lkg1wIFrVfsOWG1kxVmDLptx+w0LhdQPMpCduZsNNl7LdRBs+IDnbAEMEjwYGSmG6bOw5ni6b/NPzKjPofgMsIJ/a7ZZ3/XjrPnzaNq4MBgsS8mEDXENQUE7wOGP6ei/JdNnkVCpkctSdDAq1D+dXescMmkXsojMd/63tjzC6VxVM9UQxf6E4Rab/VScV//5wfqXHy3sk/4l3qDJaOt/msW3sGuUWE/NfLpXYDK9No1hcfW1NiYzT0hwJ/7ZK5B4ULrg+R8xdoXPnuKy7//lZQo19QVgzhA21uZOKk6EIh1Ri9t6ffYZSPW1ge/svkC6brHqiKJxTJe6u3NKyNtJB84vr222y2WvtIDiXtG8MvXzW0YXK8iqTjjXfJKTLJgM2UqmQP+tbyLEZXpNQY81QANhwIhNULTBX785aXWPHUjM/1GvvvstkO92gtwXEawdKGz7wvIorg+UFctQdgvg1h2Jx/fBuq8erwww5jfbDBmS/1DjLWvXWvSBpuRElFF5DcpZB9yXkwwwKtYuEfa/7/738Cx7zhqxuNQL0AAAAAElFTkSuQmCCAAAANABEADoALwBOAE0ARwBvAGwAZABlAG4ALwBwAG8AcgB0AGEAYgBsAGUALwA3AC4AcABuAGcAAAAeAAAAHgAAAAAAAAAB">
+   <dictionary name="Oxford Advanced Learner's En-Ch Dictionary">2d945f6851e96ddc630006d81be548d8</dictionary>
+   <dictionary name="CALD3 by Hugh">7ff67b591bdad49de0eb4127de40dcac</dictionary>
+   <dictionary name="Cambridge">bb8e901d3b07ec1dd0800c1de5c684e5</dictionary>
+   <dictionary name="LDOCE4 by Hugh">8cf8031e82d8f8015237cd260500f6c3</dictionary>
+   <dictionary name="朗文当代双解">3242940c1f1987172b4730b5d4565d8b</dictionary>
+   <dictionary name="Oxford Dictionary of English 4">b48935ca746a73d3604298f2b65f66c4</dictionary>
+   <dictionary name="Concise Oxford American Dictionary - 1st Edition">0a4585c0359123a6f189af2d0f0a77e2</dictionary>
+   <dictionary name="CC-CEDICT">90f44241c23b1e1a9d051fe029786f06</dictionary>
+   <dictionary name="JaViDic Ja-Vi">a5d319acd13d39bbe0635d177e7b1fbc</dictionary>
+   <dictionary name="JaViDic Vi-Ja">f7437a0e8d9563aeaa7248ae6726ad21</dictionary>
+   <dictionary name="mtBab CV v1.0">2305b263aaf1c2bd3e5f8551539f53d4</dictionary>
+   <dictionary name="mtBab VC v1.0">36e42a0d46654720f60e3dec1ac43258</dictionary>
+   <dictionary name="林语堂当代汉英词典-繁简索引">9fca63f042da54c18f8be3115129b869</dictionary>
+   <dictionary name="Collins English Dictionary 12th edition">1e2e4acd0aca432b92051dfd6f466d94</dictionary>
+   <dictionary name="Microsoft Computet Dictionary 5th Ed">071c34abcd5e105c63d5bcc9deef2b96</dictionary>
+   <dictionary name="ODOCS">3e422934179518c88f8dbd874c1d788f</dictionary>
+   <dictionary name="Collins COBUILD Compact 2015">84e3b09ebc77636cd691c49485cafe2d</dictionary>
+   <dictionary name="柯林斯高阶英汉双解学习词典">8310b40d9333813d09b683228b4ad8ff</dictionary>
+   <dictionary name="21世紀電腦英漢漢英雙向辭典">079902c711def40dd65d9fc402ae304a</dictionary>
+   <dictionary name="OLCC">8f2049c08831d230180d662361ea5cc0</dictionary>
+   <dictionary name="PEU third edition">24c3e97f1035eaee5ef88df8a5fe3da9</dictionary>
+   <dictionary name="Cambridge English–Chinese Dictionary">3a2029300e1669d458ba14d618449c5d</dictionary>
+   <dictionary name="The 21st Century English-Chinese Dictionary">3a94ad9e40d840161f83fd5d1ff0b2a7</dictionary>
+   <dictionary name="Oxford Classical Dictionary-2016-02-08">b4a29cc239efa30458ce9253e7a16701</dictionary>
+   <mutedDictionaries/>
+  </group>
+  <group shortcut="Ctrl+8" icon="8" id="10" name="KNOWLEDGE" iconData="AAAAIgBRAFAAaQB4AG0AYQBwAEkAYwBvAG4ARQBuAGcAaQBuAGUAAAABAAAAAYlQTkcNChoKAAAADUlIRFIAAAAeAAAAHggGAAAAOzCuogAAAARzQklUCAgICHwIZIgAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAABOSURBVEiJY2AYBaOARoARm+CcwP//qWVBynpGrHaw4NJgnki5pSfn45Zjotx48sCoxaMWj1o8avGoxaMWj1oMBzgbAvgq8VEwCkYBNgAAe9YHkoMTi2wAAAAASUVORK5CYIIAAAA0AEQAOgAvAE4ATQBHAG8AbABkAGUAbgAvAHAAbwByAHQAYQBiAGwAZQAvADgALgBwAG4AZwAAAB4AAAAeAAAAAAAAAAE=">
+   <dictionary name="Famous Quotes And Authors 2014">75ca247dc1fe1f8d044d92fb2beae5f0</dictionary>
+   <dictionary name="Brainyquote 2014 by Authors">0687dfac18b9098c45fcb533aca0e2d0</dictionary>
+   <dictionary name="Brainyquote 2014">6a62a5bf5585b91425c3d8e0f51f591d</dictionary>
+   <dictionary name="Collins Dictionary of Quotations">1c9951d93ea10c58815f92505d1dc47e</dictionary>
+   <dictionary name="Yourdictionary Quotes by People 2014">3587cb866e0762e97a37baca0164bb57</dictionary>
+   <mutedDictionaries/>
+  </group>
+ </groups>
+ <hunspell dictionariesPath="D:/NMGolden/content/morphology"/>
+ <transliteration>
+  <enableRussianTransliteration>0</enableRussianTransliteration>
+  <enableGermanTransliteration>0</enableGermanTransliteration>
+  <enableGreekTransliteration>0</enableGreekTransliteration>
+  <enableBelarusianTransliteration>0</enableBelarusianTransliteration>
+  <chinese>
+   <enable>0</enable>
+   <enableSCToTWConversion>1</enableSCToTWConversion>
+   <enableSCToHKConversion>1</enableSCToHKConversion>
+   <enableTCToSCConversion>1</enableTCToSCConversion>
+  </chinese>
+  <romaji>
+   <enable>0</enable>
+   <enableHepburn>1</enableHepburn>
+   <enableNihonShiki>0</enableNihonShiki>
+   <enableKunreiShiki>0</enableKunreiShiki>
+   <enableHiragana>1</enableHiragana>
+   <enableKatakana>1</enableKatakana>
+  </romaji>
+ </transliteration>
+ <forvo>
+  <enable>0</enable>
+  <apiKey>83504568cb8126f30ad290c24f9578ac</apiKey>
+  <languageCodes>en</languageCodes>
+ </forvo>
+ <mediawikis>
+  <mediawiki enabled="0" url="http://en.wikipedia.org/w" icon="" id="ae6f89aac7151829681b85f035d54e48" name="English Wikipedia"/>
+  <mediawiki enabled="0" url="http://en.wiktionary.org/w" icon="" id="affcf9678e7bfe701c9b071f97eccba3" name="English Wiktionary"/>
+  <mediawiki enabled="0" url="http://ru.wikipedia.org/w" icon="" id="8e0c1c2b6821dab8bdba8eb869ca7176" name="Russian Wikipedia"/>
+  <mediawiki enabled="0" url="http://ru.wiktionary.org/w" icon="" id="b09947600ae3902654f8ad4567ae8567" name="Russian Wiktionary"/>
+  <mediawiki enabled="0" url="http://de.wikipedia.org/w" icon="" id="a8a66331a1242ca2aeb0b4aed361c41d" name="German Wikipedia"/>
+  <mediawiki enabled="0" url="http://de.wiktionary.org/w" icon="" id="21c64bca5ec10ba17ff19f3066bc962a" name="German Wiktionary"/>
+  <mediawiki enabled="0" url="http://pt.wikipedia.org/w" icon="" id="96957cb2ad73a20c7a1d561fc83c253a" name="Portuguese Wikipedia"/>
+  <mediawiki enabled="0" url="http://pt.wiktionary.org/w" icon="" id="ed4c3929196afdd93cc08b9a903aad6a" name="Portuguese Wiktionary"/>
+  <mediawiki enabled="0" url="http://el.wikipedia.org/w" icon="" id="f3b4ec8531e52ddf5b10d21e4577a7a2" name="Greek Wikipedia"/>
+  <mediawiki enabled="0" url="http://el.wiktionary.org/w" icon="" id="5d45232075d06e002dea72fe3e137da1" name="Greek Wiktionary"/>
+  <mediawiki enabled="0" url="http://vi.wiktionary.org/w" icon="" id="492f012e39fa61aa84c1f008480f8d7d" name="Vietnamese Wikipedia"/>
+ </mediawikis>
+ <websites>
+  <website enabled="0" inside_iframe="1" url="http://www.google.com/dictionary?aq=f&amp;langpair=en|en&amp;q=%GDWORD%&amp;hl=en" icon="" id="b88cb2898e634c6638df618528284c2d" name="Google En-En (Oxford)"/>
+  <website enabled="0" inside_iframe="1" url="http://www.urbandictionary.com/define.php?term=%GDWORD%" icon="" id="f376365a0de651fd7505e7e5e683aa45" name="Urban Dictionary"/>
+  <website enabled="0" inside_iframe="1" url="http://multitran.ru/c/m.exe?CL=1&amp;l1=1&amp;s=%GD1251%" icon="" id="324ca0306187df7511b26d3847f4b07c" name="Multitran (En)"/>
+  <website enabled="0" inside_iframe="1" url="http://lingvopro.abbyyonline.com/en/Search/en-ru/%GDWORD%" icon="" id="924db471b105299c82892067c0f10787" name="Lingvo (En-Ru)"/>
+  <website enabled="0" inside_iframe="1" url="http://michaelis.uol.com.br/moderno/ingles/index.php?lingua=portugues-ingles&amp;palavra=%GDISO1%" icon="" id="087a6d65615fb047f4c80eef0a9465db" name="Michaelis (Pt-En)"/>
+  <website enabled="0" inside_iframe="1" url="http://translate.google.com.vn/m?hl=vi&amp;sl=auto&amp;tl=vi&amp;ie=UTF-8&amp;prev=_m&amp;q=%GDWORD%" icon="" id="3d279d37b81aa5b26597f799c0c622d0" name="Google translate"/>
+  <website enabled="0" inside_iframe="1" url="http://news.google.com/news?q=keyword" icon="" id="5f7683b8b0e59d13b7900bd24dd3f044" name="Google News"/>
+  <website enabled="0" inside_iframe="1" url="http://oxforddictionaries.com/definition/keyword" icon="" id="6038ee81d04f8721d37d5934e75b159e" name="Oxford Dictionaries"/>
+ </websites>
+ <dictservers/>
+ <programs/>
+ <voiceEngines>
+  <voiceEngine rate="50" enabled="0" icon="ico/1.ico" volume="100" id="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\VW Julie" name="VW Julie"/>
+ </voiceEngines>
+ <mutedDictionaries/>
+ <popupMutedDictionaries/>
+ <preferences>
+  <interfaceLanguage>en_US</interfaceLanguage>
+  <helpLanguage></helpLanguage>
+  <displayStyle>modern</displayStyle>
+  <newTabsOpenAfterCurrentOne>1</newTabsOpenAfterCurrentOne>
+  <newTabsOpenInBackground>1</newTabsOpenInBackground>
+  <hideSingleTab>0</hideSingleTab>
+  <mruTabOrder>1</mruTabOrder>
+  <hideMenubar>1</hideMenubar>
+  <enableTrayIcon>1</enableTrayIcon>
+  <startToTray>1</startToTray>
+  <closeToTray>1</closeToTray>
+  <autoStart>0</autoStart>
+  <doubleClickTranslates>1</doubleClickTranslates>
+  <selectWordBySingleClick>1</selectWordBySingleClick>
+  <escKeyHidesMainWindow>1</escKeyHidesMainWindow>
+  <zoomFactor>1</zoomFactor>
+  <helpZoomFactor>1</helpZoomFactor>
+  <wordsZoomLevel>0</wordsZoomLevel>
+  <enableMainWindowHotkey>0</enableMainWindowHotkey>
+  <mainWindowHotkey>F9</mainWindowHotkey>
+  <enableClipboardHotkey>1</enableClipboardHotkey>
+  <clipboardHotkey>Ctrl+C, Ctrl+C</clipboardHotkey>
+  <enableScanPopup>1</enableScanPopup>
+  <startWithScanPopupOn>1</startWithScanPopupOn>
+  <enableScanPopupModifiers>1</enableScanPopupModifiers>
+  <scanPopupModifiers>128</scanPopupModifiers>
+  <scanPopupAltMode>1</scanPopupAltMode>
+  <scanPopupAltModeSecs>3</scanPopupAltModeSecs>
+  <scanToMainWindow>0</scanToMainWindow>
+  <scanPopupUseUIAutomation>1</scanPopupUseUIAutomation>
+  <scanPopupUseIAccessibleEx>1</scanPopupUseIAccessibleEx>
+  <scanPopupUseGDMessage>1</scanPopupUseGDMessage>
+  <pronounceOnLoadMain>1</pronounceOnLoadMain>
+  <pronounceOnLoadPopup>1</pronounceOnLoadPopup>
+  <useExternalPlayer>0</useExternalPlayer>
+  <useInternalPlayer>1</useInternalPlayer>
+  <audioPlaybackProgram></audioPlaybackProgram>
+  <alwaysOnTop>0</alwaysOnTop>
+  <searchInDock>1</searchInDock>
+  <historyStoreInterval>0</historyStoreInterval>
+  <proxyserver enabled="0" useSystemProxy="0">
+   <type>0</type>
+   <host></host>
+   <port>3128</port>
+   <user></user>
+   <password></password>
+   <systemProxyUser></systemProxyUser>
+   <systemProxyPassword></systemProxyPassword>
+  </proxyserver>
+  <checkForNewReleases>1</checkForNewReleases>
+  <disallowContentFromOtherSites>0</disallowContentFromOtherSites>
+  <enableWebPlugins>0</enableWebPlugins>
+  <hideGoldenDictHeader>0</hideGoldenDictHeader>
+  <maxStringsInHistory>800</maxStringsInHistory>
+  <storeHistory>1</storeHistory>
+  <alwaysExpandOptionalParts>1</alwaysExpandOptionalParts>
+  <addonStyle></addonStyle>
+  <collapseBigArticles>0</collapseBigArticles>
+  <articleSizeLimit>2000</articleSizeLimit>
+  <maxDictionaryRefsInContextMenu>20</maxDictionaryRefsInContextMenu>
+  <trackClipboardChanges>0</trackClipboardChanges>
+  <fullTextSearch>
+   <searchMode>2</searchMode>
+   <matchCase>0</matchCase>
+   <maxArticlesPerDictionary>100</maxArticlesPerDictionary>
+   <maxDistanceBetweenWords>3</maxDistanceBetweenWords>
+   <useMaxArticlesPerDictionary>0</useMaxArticlesPerDictionary>
+   <useMaxDistanceBetweenWords>1</useMaxDistanceBetweenWords>
+   <dialogGeometry>AdnQywABAAAAAAFxAAAAAAAABC4AAAMkAAABegAAACYAAAQlAAADGwAAAAAAAA==</dialogGeometry>
+   <disabledTypes></disabledTypes>
+   <enabled>1</enabled>
+   <maxDictionarySize>0</maxDictionarySize>
+  </fullTextSearch>
+ </preferences>
+ <lastMainGroupId>4</lastMainGroupId>
+ <lastPopupGroupId>4</lastPopupGroupId>
+ <popupWindowState>AAAA/wAAAAH9AAAAAAAAApUAAAJNAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAQAAAAEAAAAaAGQAaQBjAHQAaQBvAG4AYQByAHkAQgBhAHICAAAAAP////8AAAAAAAAAAA==</popupWindowState>
+ <popupWindowGeometry>AdnQywABAAAAAALBAAAAlQAABVUAAALhAAACwQAAAJUAAAVVAAAC4QAAAAAAAA==</popupWindowGeometry>
+ <pinPopupWindow>0</pinPopupWindow>
+ <mainWindowState>AAAA/wAAAAH9AAAAAgAAAAAAAADpAAACwvwCAAAAAvsAAAAUAHMAZQBhAHIAYwBoAFAAYQBuAGUBAAAAIgAAAiIAAACCAP////sAAAAWAGgAaQBzAHQAbwByAHkAUABhAG4AZQEAAAJFAAAAnwAAAGIA////AAAAAQAAAIwAAALC/AIAAAAB+wAAABIAZABpAGMAdABzAFAAYQBuAGUBAAAAIgAAAsIAAABiAP///wAAA+EAAALCAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAIAAAAUAG4AYQB2AFQAbwBvAGwAYgBhAHIBAAAAAP////8AAAAAAAAAAAAAABoAZABpAGMAdABpAG8AbgBhAHIAeQBCAGEAcgEAAAEA/////wAAAAAAAAAA</mainWindowState>
+ <mainWindowGeometry>AdnQywABAAD////3////4AAABV4AAALqAAAAAAAAAAD////+/////gAAAAACAA==</mainWindowGeometry>
+ <helpWindowGeometry>AdnQywABAAAAAAEOAAAAAAAABOoAAALhAAABEgAAABoAAATmAAAC3QAAAAAAAA==</helpWindowGeometry>
+ <helpSplitterState>AAAA/wAAAAAAAAACAAABBgAABAABAAAABQEAAAAB</helpSplitterState>
+ <maximizedMainWindowGeometry>
+  <x>-1</x>
+  <y>-1</y>
+  <width>1368</width>
+  <height>740</height>
+ </maximizedMainWindowGeometry>
+ <normalMainWindowGeometry>
+  <x>1276</x>
+  <y>31</y>
+  <width>1286</width>
+  <height>733</height>
+ </normalMainWindowGeometry>
+ <dictInfoGeometry>AdnQywABAAAAAADz////4gAABB4AAAPfAAAA/AAAAAgAAAQVAAAD1gAAAAAAAA==</dictInfoGeometry>
+ <inspectorGeometry>AdnQywABAAD////3////2gAACfwAAAWcAAAAAAAAAAD////+/////gAAAAACAA==</inspectorGeometry>
+ <timeForNewReleaseCheck>2016-08-15T09:33:48</timeForNewReleaseCheck>
+ <skippedRelease></skippedRelease>
+ <showingDictBarNames>0</showingDictBarNames>
+ <usingSmallIconsInToolbars>0</usingSmallIconsInToolbars>
+ <resourceSavePath>D:\NMGolden\content\1--MDict--Vocabulary.com by wa1314159</resourceSavePath>
+ <editDictionaryCommandLine></editDictionaryCommandLine>
+ <maxPictureWidth>0</maxPictureWidth>
+ <maxHeadwordSize>256</maxHeadwordSize>
+ <headwordsDialog>
+  <searchMode>0</searchMode>
+  <matchCase>0</matchCase>
+  <autoApply>0</autoApply>
+  <headwordsExportPath></headwordsExportPath>
+  <headwordsDialogGeometry>AdnQywABAAAAAAI+////4gAABX8AAANjAAACRwAAAAgAAAV2AAADWgAAAAAAAA==</headwordsDialogGeometry>
+ </headwordsDialog>
+</config>

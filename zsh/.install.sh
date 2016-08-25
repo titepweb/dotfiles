@@ -19,8 +19,11 @@ install zsh
 #=[ zplug ]====================================#
 # curl -sL zplug.sh/installer | zsh
 
-install xclip
 install neovim
+# install macvim --override-system-vim
+# install reattach-to-user-namespace 		# for osx
+
+install xclip
 install tmux
 
 install xorg-xmodmap    # for mapping Capslock --> Escape --> easily switch to NORMAL mode (Vim)

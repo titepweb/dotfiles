@@ -24,6 +24,7 @@ super + {_,shift} + q
      bspc quit 1}
 
 # ┌─────────────────────────────────────────────────────────────────────────────┐
+
 super + Return
   mkdir -p ~/PROJECT && termite -d ~/PROJECT
 
@@ -32,11 +33,16 @@ super + shift + Return
   urxvtc
   # st
 
-# open a "scratchpad" terminal (quake-style, in this case, on a 1366x768 display)
+# open a "SCRATCHPAD" terminal (quake-style, in this case, on a 1366x768 display)
 F12
-  xdotool search --onlyvisible --classname URxvtQuake windowunmap \
-    || xdotool search --classname URxvtQuake windowmap \
-    || urxvt -name URxvtQuake -geometry 110x20+297+1
+  xdotool search --onlyvisible --classname SCRATCHPAD windowunmap \
+    || xdotool search --classname SCRATCHPAD windowmap \
+    || urxvt -name SCRATCHPAD -geometry 80x10 &
+# F12
+#   xdotool search --onlyvisible --classname URxvtQuake windowunmap \
+#     || xdotool search --classname URxvtQuake windowmap \
+#     || urxvt -name URxvtQuake -geometry 110x20+297+1
+
 # └─────────────────────────────────────────────────────────────────────────────┘
 
 # program launcher

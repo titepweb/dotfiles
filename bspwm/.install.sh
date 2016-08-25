@@ -50,21 +50,8 @@ install polkit-gnome ntfs-3g gvfs
 # Change labels on MS-DOS filesystems
 install dosfstools
 
-
-# # development server setup
-# install nginx
-# install dnsmasq
-
-# # development tools
+# git is required for nmdf pull va push
 install git
-# install hub
-# install highlight
-# install nvm
-# install z
-# install markdown
-
-# install macvim --override-system-vim
-# install reattach-to-user-namespace 		# for osx
 
 WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -102,53 +89,3 @@ WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
 │   'sudo systemctl disable netctl-auto@wlp16s0.service' if needed            │
 └─────────────────────────────────────────────────────────────────────────────┘
 "
-
-######### OPTIONAL PACKAGES #########
-# return # Uncomment to ovoid install optional packages
-
-cat << EOF
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ INSTALLING OPTIONAL PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
-│ CLI/TUI                                                                     │
-│ - Video player: smplayer/[mpv]                                              │
-│ - File Manager: tree                                                        │
-│ - READER  : zathura zathura-pdf-poppler zathura-djvu                        │
-│ - HEX EDITOR  : bviplus                                                     │
-│ - htop / htop-temperature (AUR)                                             │
-│ - i3lock + xautolock                                                        │
-│ - NORTIFICATION : twmn dust                                                 │
-│ - redshift youtube-viewer                                                   │
-└─────────────────────────────────────────────────────────────────────────────┘
-EOF
-
-
-# CLI ------------------
-install ack
-install tree
-install wget
-install htop
-install mlocate # is slowly replacing slocate (old)
-	sudo updatedb               # run it immediately
-	# sudo ionice -c3 updatedb	# schedule to run for idle
-
-# GUI ------------------
-install mousepad
-install mpv
-install gpicview
-install youtube-viewer
-
-
-# install redshift
-# WARNING " >> warning from ${yellow}$BASH_SOURCE${reset} :
-# ┌─────────────────────────────────────────────────────────────────────────────┐
-# │ CONFIGURATION                                                               │
-# │ - systemctl --user enable redshift.service                                  │
-# │ - systemctl --user start redshift.service                                   │
-# └─────────────────────────────────────────────────────────────────────────────┘
-# "
-# return
-
-
-# SCREEN RECOREDER -----
-install simplescreenrecorder
-install audacity kdenlive
