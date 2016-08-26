@@ -67,8 +67,8 @@ install zathura zathura-pdf-poppler zathura-djvu
 # font ----------------------------
 install noto-fonts
 
-# Latex ---------------------------
-#
+# Science & Latex -----------------
+# install sagemath
 
 # image viewer --------------------
 install gpicview
@@ -84,10 +84,12 @@ install mpv
 # install smplayer smtube smplayer-themes smplayer-skins youtube-dl
 # install xbmc
 # install lollypop
+# install deadbeef
 
 # web browser ---------------------
 install chromium
 install --AUR google-chromium
+# install geary
 # browser pdf plugin
 # install chromium-libpdf
 # browser flash plugin
@@ -109,6 +111,8 @@ install audacity kdenlive
 # C++
 install qtcreator
 # install kdevelop
+
+# install virtualbox
 
 # install hub
 # install highlight

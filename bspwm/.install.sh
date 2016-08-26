@@ -27,7 +27,8 @@ install xorg-xsetroot # xsetroot -cursor_name left_ptr
 # use a clipboard manager for clipboard persistance
 install parcellite
 
-# su dung networkmanager service thay vi netctl, netctl-auto, ...
+# su dung networkmanager service thay vi netctl, netctl-auto, ... ma hay su dung  co trong goi sau:
+# HAY SD: nmtui   va    nm-connection-editor     co trong package sau:
 install networkmanager network-manager-applet
 # bar
 install --AUR lemonbar-xft-git xtitle-git
@@ -56,9 +57,9 @@ install polkit-gnome ntfs-3g gvfs
 install dosfstools
 
 # capture a specific area on the screen at 90% the quality of the original high quality screen.
-install main slop xdotool xclip
+install maim slop xdotool xclip
   # 1 - maim = make image la 1 script o day https://github.com/naelstrof/maim
-  # 2 - slop = lenh nay duoc main su dung
+  # 2 - slop = lenh nay duoc maim su dung
   # 3 - xdtool = Take a screenshot of the active window: (Requires xdotool.)
   # 4 - xclip = sxhkdrc > Print : su dung xclip de copy image vao clipboard
   # Ngoai ra, can 1 script nua la imgurbash.sh = sxhkdrc > shift + Print : su dung de upload -> imgur
