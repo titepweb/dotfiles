@@ -10,27 +10,33 @@
 #  hoac : https://github.com/tangphillip/Imgur-Uploader
 #  --> sau do bo vao $DOTFILES/bspwm/bin
 
-ctrl + Insert
-  file=~/Pictures/screenshots/$(date +%F-%T).png && \
-  mkdir -p ~/Pictures/screenshots/ && \
-  maim --format png -s $file && \
-  echo $file | xclip -selection c
 
+# Chup anh + Chep Noi dung vao Clipboard
 Insert
-  file=~/Pictures/screenshots/$(date +%F-%T).png && \
-  mkdir -p ~/Pictures/screenshots/ && \
-  maim --format png -s $file && \
+  file=/tmp/screenshot.png && \
+  maim -s "$file" && \
   command -v xclip >/dev/null 2>&1 && \
     TYPE=$(file -b --mime-type "$file") && \
     xclip -selection clipboard -t "$TYPE" < "$file"
 
+# Chup anh + Luu File + Chep URL vao Clipboard => de Open with...
+ctrl + Insert
+  file=~/Pictures/screenshots/$(date +%F-%T).png && \
+  mkdir -p ~/Pictures/screenshots/ && \
+  maim --format png -s $file && \
+  command -v xclip >/dev/null 2>&1 && \
+    printf $file | xclip -selection c
+
+# Chup anh + KHONG Luu File + Upload len imgur
+shift + Insert
+  maim -s /tmp/screenshot.png && ~/.dotfiles/bspwm/bin/imgur /tmp/screenshot.png
+
+# Chup anh + Luu File + Upload len imgur
 shift + Print
   file=~/Pictures/screenshots/$(date +%F-%T).png && \
   mkdir -p ~/Pictures/screenshots/ && \
   maim --format png -s $file; ~/.dotfiles/bspwm/bin/imgur "$file"
 
-shift + Insert
-  maim -s /tmp/screenshot.png && ~/.dotfiles/bspwm/bin/imgur /tmp/screenshot.png
 # ──────────────────────────────────────────────────────
   # mkdir -p ~/Pictures/screenshots/ && \
   # scrot '%Y.%m.%d.%Hh.%M.%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
