@@ -11,7 +11,7 @@ install git
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING REQUIRED PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
-│ - bspwm sxhkd rofi rxvt-unicode termite feh compton parcellite              │
+│ - bspwm sxhkd rofi rxvt-unicode termite feh compton parcellite conky        │
 │ - lemonbar-xft-git (AUR)(xft support) + net-tools + xtitle-git (AUR) + dzen2│
 │ - mutt (mail client) + newsbeuter (RSS) + weechat (IRC client)              │
 │ - ncmpcpp [mpd|mopidy] mpc cava     + codec: flac                           │
@@ -26,6 +26,7 @@ install bspwm sxhkd
 install xorg-xsetroot # xsetroot -cursor_name left_ptr
 # use a clipboard manager for clipboard persistance
 install parcellite
+install conky
 
 # su dung networkmanager service thay vi netctl, netctl-auto, ... ma hay su dung  co trong goi sau:
 # HAY SD: nmtui   va    nm-connection-editor     co trong package sau:

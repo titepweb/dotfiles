@@ -17,6 +17,7 @@ bspc config gapless_monocle       true
 bspc config focus_by_distance     true
 bspc config focus_follows_pointer true
 
+bspc config adaptive_raise        true
 bspc config normal_frame_opacity  0.0
 bspc config focused_frame_opacity 0.1
 
@@ -33,6 +34,11 @@ bspc config urgent_border_color '#cc241d'
 ############### WORKSPACES ################
 
 # bspc monitor -d I II III IV V VI VII VIII IX X
+# bspc monitor HDMI1 -d VI VII VIII IX X
+# bspc monitor VGA1 -d I II III IV V
+# bspc config -m VGA1 top_padding $PANEL_HEIGHT
+
+# bspc monitor -d     
 
 # COPY FROM : http://fontawesome.io/cheatsheet/
 bspc monitor -d $(echo -e '') $(echo -e '') $(echo -e '') $(echo -e '') $(echo -e '') $(echo -e '') $(echo -e '') \
@@ -68,14 +74,23 @@ bspc monitor -d $(echo -e '') $(echo -e '') $(echo -e '') $(echo -e '�
 
 ################## RULE ###################
 # Cach lay CLASS : $ xprop | grep WM_CLASS <-- xprop <-- pacman -S xorg-utils
-bspc rule -a SCRATCHPAD sticky=on floating=on
-bspc rule -a URxvtQuake sticky=on floating=on
+bspc rule -a conky sticky=on manage=off lower=on
+bspc rule -a skype pseudo_tiled=on
 
-bspc rule -a mplayer2 floating=on
-bspc rule -a Kupfer.py focus=on
+bspc rule -a SCRATCHPAD sticky=on state=floating
+bspc rule -a URxvt sticky=on state=floating
+bspc rule -a URxvt:updates state=floating
+bspc rule -a URxvt:pulsemixer state=floating
+bspc rule -a URxvt:upass state=floating
+bspc rule -a URxvt:ncmpcpp desktop=^7
+bspc rule -a URxvt:weechat desktop=^9 follow=on
+bspc rule -a URxvt:mutt desktop=^9 follow=on
+bspc rule -a URxvt:vpn desktop=^10 follow=on state=floating
+# bspc rule -a URxvt window=pseudo_tiled
+
 bspc rule -a Screenkey manage=off
-
-bspc rule -a urxvt window=pseudo_tiled
+bspc rule -a Kupfer.py focus=on
+bspc rule -a mplayer2 state=floating
 
 bspc rule -a Firefox desktop=^2 follow=on
 
@@ -88,14 +103,16 @@ bspc rule -a chromium desktop=^4
 bspc rule -a pcmanfm desktop=^5
 bspc rule -a Thunar desktop=^5
 
-bspc rule -a Gimp desktop=^6 follow=on floating=on
+# gimp, inscape, teamspeak needs opening floatingly. Don't open their associated file types from the context menu.
+bspc rule -a Gimp desktop='^6' state=floating follow=on
 bspc rule -a Gpicview desktop=^6
 bspc rule -a Feh desktop=^6
+bspc rule -a Steam desktop=^6 follow=on state=floating split_dir=right
 
 bspc rule -a mpv desktop=^7
 bspc rule -a smplayer desktop=^7
 bspc rule -a Vlc desktop=^7
-bspc rule -a mplayer2 floating=on
+bspc rule -a mplayer2 state=floating
 
 bspc rule -a qbittorrent desktop=^9
 
@@ -106,15 +123,11 @@ bspc rule -a Nitrogen desktop=^9
 
 bspc rule -a VirtualBox desktop=^10
 
-
-# gimp, inscape, teamspeak needs opening floatingly. Don't open their associated file types from the context menu.
-
-
-
-
-
-bspc rule -a Steam follow=off floating=on desktop=^6
-
 ########## LAUNCH SCRIPT "PANEL" ###########
 panel &
 # ~/.dotfiles/bspwm/lemonbar/panel &
+################### CONKY ##################
+conky -c ~/.conky.conf &
+
+############# SET A WALLPAPER ##############
+# hsetroot -full /home/whoami/Pictures/pattern-black.png &
