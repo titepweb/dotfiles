@@ -27,6 +27,7 @@ install xorg-xsetroot # xsetroot -cursor_name left_ptr
 # use a clipboard manager for clipboard persistance
 install parcellite
 install conky
+  install lm_sensors
 
 # su dung networkmanager service thay vi netctl, netctl-auto, ... ma hay su dung  co trong goi sau:
 # HAY SD: nmtui   va    nm-connection-editor     co trong package sau:

@@ -1,56 +1,103 @@
 # REFERENCE : http://conky.sourceforge.net/config_settings.html
+
+# Conky settings ---------------
+background no       # Run Conky in the background
+update_interval 4     # Update conky every $n seconds
+double_buffer no      # Reduces flickering, depends on compositing
+no_buffers yes        # Subtract (file system) buffers from used memory
+text_buffer_size 4096
+imlib_cache_size 100    # Imlib2 image cache size, in bytes. Defaults to 4MiB. Increase this value if you use $image lots. Set to 0 to disable the image cache
+
+uppercase no
+cpu_avg_samples 2
+net_avg_samples 1
+
+# Output to... -----------------
+out_to_x yes
+out_to_ncurses no
+out_to_console no
+
+# Text settings ----------------
 use_xft yes
 xftfont 123:size=8
 xftalpha 0.1
 update_interval 1
 total_run_times 0
+text_buffer_size 256
+override_utf8_locale yes
+
+# Window specifications --------
+alignment bottom_left
+gap_x 0           # Distance from the left edge of the display to draw conky output
+gap_y -26
+minimum_size 1366 26      # width height
+# maximum_width 500
 
 own_window yes
-own_window_type normal
+own_window_type dock      # other options are - override/normal/desktop/panel
 # own_window_type desktop
 own_window_transparent yes
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+border_inner_margin 0
+border_outer_margin 0
+
 own_window_colour 000000
 own_window_argb_visual yes
 own_window_argb_value 0
 
-double_buffer yes
-minimum_size 1366 26
-# maximum_width 500
+# Graphics settings ------------
 draw_shades no
 draw_outline no
 draw_borders no
 draw_graph_borders no
+show_graph_scale no
+show_graph_range no
+use_spacer right
+
+# Useful shortenings -----------
+short_units yes
+format_human_readable yes
+pad_percents 0
+top_name_width 7
+
+# DEFAULTS ---------------------
 default_color white
 default_shade_color red
 default_outline_color green
-alignment bottom_left
-gap_x 0
-gap_y -26
-no_buffers yes
-uppercase no
-cpu_avg_samples 2
-net_avg_samples 1
-override_utf8_locale yes
-use_spacer yes
 
+# Color scheme -----------------
+color1 FFFF00     # yellow
+color2 00FF00     # green
+color3 FF0000     # red
+color4 FF1493     # pink
+color5 9370DB     # blue
+color6 FF8C00     # orange
+color7 00FA9A     # cyan
+color8 00FFFF     # dark gray
+
+
+# Title ==> ${exec xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | sed 's/.*"\(.*\)"[^"]*$/\1/' }
 TEXT
 ${font Ubuntu:pixelsize=12}\
-${goto 20}ROOT${offset 8}${color FFFF00}${fs_used /}$color / ${color FFFF00}${fs_size /}$color\
-${goto 190}RAM${offset 8}${font Ubuntu:pixelsize=12:style=Bold}${color 00FF00}$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / ${color 00FF00}$memmax$color\
-${goto 360}CPU${offset 8}${font Ubuntu:pixelsize=12:style=Bold}${color FF0000}${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
-${goto 440}${color FF0000}$processes$color\
-${goto 480}${color FF0000}${execi 4 sensors | grep -A 0 'temp2' | cut -c15-18}$color°C\
-${goto 530}${color FF1493}${downspeed wlp16s0}$color\
-${goto 600}${color 9370DB}${totaldown wlp16s0}$color\
-${goto 690}${color FF1493}${upspeed wlp16s0}$color\
-${goto 760}${color 9370DB}${totalup wlp16s0}$color\
-${goto 840}${color FF8C00}${wireless_ap wlp16s0}$color${offset 20} IP : ${color 00FA9A}${addr wlp16s0}$color\
-${alignr}uptime : ${font Ubuntu:pixelsize=12:style=Bold}${color 00FA9A}${uptime}$color$font${voffset -1}
+${goto 20}ROOT${offset 8}$color1${fs_used /}$color / $color1${fs_size /}$color\
+${goto 190}RAM${offset 8}${font Ubuntu:pixelsize=12:bold}$color2$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / $color2$memmax$color\
+${goto 360}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color3${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
+${goto 440}$color3$processes$color\
+${goto 478}$color3${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
+${goto 530}$color4${downspeed wlp16s0}$color\
+${goto 600}$color5${totaldown wlp16s0}$color\
+${goto 690}$color4${upspeed wlp16s0}$color\
+${goto 760}$color5${totalup wlp16s0}$color\
+${goto 840}$color6${wireless_ap wlp16s0}$color${offset 20} IP : $color7${addr wlp16s0}$color\
+${alignr}uptime : ${font Ubuntu:pixelsize=12:bold}$color8${uptime}$color$font${voffset -1}
 ${voffset -2}\
-${goto 20}${color FFFF00}${fs_bar 5,148 /}$color\
-${goto 190}${color 00FF00}${membar 5,146 /}$color\
-${goto 360}${color FF0000}${cpubar 5,148 /}$color\
+${goto 20}$color1${fs_bar 5,148 /}$color\
+${goto 190}$color2${membar 5,146 /}$color\
+${goto 360}$color3${cpubar 5,148 /}$color\
 ${voffset -16}\
 ${goto 530}${downspeedgraph wlp16s0 20,120 F57900 00FA9A -t}\
-${goto 690}${upspeedgraph wlp16s0 20,120 F57900 FCAF3E -t}
+${goto 690}${upspeedgraph wlp16s0 20,120 F57900 FCAF3E -t}\
+${goto 840}\
+$if_mpd_playing
+  ${voffset 0}${offset 10}${color EAEAEA}${font GE Inspira:pixelsize=10}[${mpd_status}]${offset 5}${mpd_artist 16} - ${color FFA300}${scroll 25 ${mpd_title 32}}
+$endif
