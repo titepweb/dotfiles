@@ -1,9 +1,9 @@
 # REFERENCE : http://conky.sourceforge.net/config_settings.html
 
 # Conky settings ---------------
-background no       # Run Conky in the background
-update_interval 4     # Update conky every $n seconds
-double_buffer no      # Reduces flickering, depends on compositing
+background no         # Run Conky in the background
+update_interval 1     # Update conky every $n seconds
+double_buffer yes     # Reduces flickering, depends on compositing
 no_buffers yes        # Subtract (file system) buffers from used memory
 text_buffer_size 4096
 imlib_cache_size 100    # Imlib2 image cache size, in bytes. Defaults to 4MiB. Increase this value if you use $image lots. Set to 0 to disable the image cache
@@ -21,9 +21,7 @@ out_to_console no
 use_xft yes
 xftfont 123:size=8
 xftalpha 0.1
-update_interval 1
 total_run_times 0
-text_buffer_size 256
 override_utf8_locale yes
 
 # Window specifications --------
@@ -75,29 +73,28 @@ color6 FF8C00     # orange
 color7 00FA9A     # cyan
 color8 00FFFF     # dark gray
 
-
 # Title ==> ${exec xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | sed 's/.*"\(.*\)"[^"]*$/\1/' }
+
 TEXT
 ${font Ubuntu:pixelsize=12}\
-${goto 20}ROOT${offset 8}$color1${fs_used /}$color / $color1${fs_size /}$color\
-${goto 190}RAM${offset 8}${font Ubuntu:pixelsize=12:bold}$color2$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / $color2$memmax$color\
-${goto 360}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color3${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
-${goto 440}$color3$processes$color\
-${goto 478}$color3${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
-${goto 530}$color4${downspeed wlp16s0}$color\
-${goto 600}$color5${totaldown wlp16s0}$color\
-${goto 690}$color4${upspeed wlp16s0}$color\
-${goto 760}$color5${totalup wlp16s0}$color\
-${goto 840}$color6${wireless_ap wlp16s0}$color${offset 20} IP : $color7${addr wlp16s0}$color\
+${goto 10}ROOT${offset 8}$color1${fs_used /}$color / $color1${fs_size /}$color\
+${goto 180}RAM${offset 8}${font Ubuntu:pixelsize=12:bold}$color2$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / $color2$memmax$color\
+${goto 350}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color3${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
+${goto 430}$color3$processes$color\
+${goto 468}$color3${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
+${goto 520}$color4${downspeedf wlp16s0}$color\
+${goto 590}$color5${totaldown wlp16s0}$color\
+${goto 680}$color4${upspeedf wlp16s0}$color\
+${goto 750}$color5${totalup wlp16s0}$color\
+${goto 810}$color6${wireless_ap wlp16s0}$color${offset 20}$color7${wireless_mode wlp16s0}$color${offset 9} quality : $color7${wireless_link_qual wlp16s0}$color${offset 9} IP : $color7${addr wlp16s0}$color\
 ${alignr}uptime : ${font Ubuntu:pixelsize=12:bold}$color8${uptime}$color$font${voffset -1}
 ${voffset -2}\
-${goto 20}$color1${fs_bar 5,148 /}$color\
-${goto 190}$color2${membar 5,146 /}$color\
-${goto 360}$color3${cpubar 5,148 /}$color\
+${goto 10}$color1${fs_bar 5,148 /}$color\
+${goto 180}$color2${membar 5,146 /}$color\
+${goto 350}$color3${cpubar 5,148 /}$color\
 ${voffset -16}\
-${goto 530}${downspeedgraph wlp16s0 20,120 F57900 00FA9A -t}\
-${goto 690}${upspeedgraph wlp16s0 20,120 F57900 FCAF3E -t}\
-${goto 840}\
+${goto 520}${downspeedgraph wlp16s0 20,120 F57900 00FA9A -t}\
+${goto 680}${upspeedgraph wlp16s0 20,120 F57900 FCAF3E -t}\
 $if_mpd_playing
-  ${voffset 0}${offset 10}${color EAEAEA}${font GE Inspira:pixelsize=10}[${mpd_status}]${offset 5}${mpd_artist 16} - ${color FFA300}${scroll 25 ${mpd_title 32}}
+  ${voffset 0}${offset 9}${color EAEAEA}${font GE Inspira:pixelsize=10}[${mpd_status}]${offset 5}${mpd_artist 16} - ${color FFA300}${scroll 25 ${mpd_title 32}}
 $endif

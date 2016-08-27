@@ -52,6 +52,10 @@ install youtube-viewer
 # return
 
 # ============= GUI ===============
+
+# dictionary ----------------------
+install goldendict
+
 # office --------------------------
 install mousepad
 
@@ -73,9 +77,11 @@ install noto-fonts
 # image viewer --------------------
 install gpicview
 
-# image editor --------------------
+# photo editor --------------------
+install krita
+# install pixeluvo
+# install pinta
 # install gimp
-# install krita
 # install imagemagick
 
 # media player -----------------
@@ -86,6 +92,16 @@ install mpv
 # install lollypop
 # install deadbeef
 
+# music editor --------------------
+install audacity
+
+# screen recorder -----------------
+install simplescreenrecorder
+
+# video editor --------------------
+install kdenlive
+# install pitivi
+
 # web browser ---------------------
 install chromium
 install --AUR google-chromium
@@ -94,13 +110,6 @@ install --AUR google-chromium
 # install chromium-libpdf
 # browser flash plugin
 # install chromium-pepper-flash
-
-# dictionary ----------------------
-install goldendict
-
-# screen recorder -----------------
-install simplescreenrecorder
-install audacity kdenlive
 
 # development server setup -------
 # install nginx
