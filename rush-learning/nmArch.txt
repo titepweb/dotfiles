@@ -181,6 +181,7 @@ DE = DESKTOP MANAGER
 ----------
 ?. KDE Plasma 5.4 (DE) + sddm (display manager)
 	# pacman -S plasma-meta (da bao gom sddm – login manager)
+  # pacman -S kde-meta-kdebase
 	# systemctl enable sddm (start the display manager at system boot)
 	# systemctl start sddm (run sddm)
 ?. MATE

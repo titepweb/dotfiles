@@ -66,6 +66,7 @@ install maim slop xdotool xclip
   # 4 - xclip = sxhkdrc > Print : su dung xclip de copy image vao clipboard
   # Ngoai ra, can 1 script nua la imgurbash.sh = sxhkdrc > shift + Print : su dung de upload -> imgur
   # imgurbash.sh download tai : http://imgur.com/tools/imgurbash.sh --> bo vao $DOTFILES/bspwm/bin
+  # script tuong duong, thay the : https://github.com/tangphillip/Imgur-Uploader
 
 # nmcli_menu
 if [[ ! -f "$DOTFILES/bspwm/bin/nmcli_dmenu" ]]; then

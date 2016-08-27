@@ -5,17 +5,18 @@
 #
 
 #───────────────────────────────────────────────────────┐
-#  cần install main slop xdotool xclip va imgurbash.sh
-#  download tai : http://imgur.com/tools/imgurbash.sh
+#  cần install maim slop xdotool xclip va ...
+#  1    : http://imgur.com/tools/imgurbash.sh
+#  hoac : https://github.com/tangphillip/Imgur-Uploader
 #  --> sau do bo vao $DOTFILES/bspwm/bin
 
-Insert
+ctrl + Insert
   file=~/Pictures/screenshots/$(date +%F-%T).png && \
   mkdir -p ~/Pictures/screenshots/ && \
   maim --format png -s $file && \
   echo $file | xclip -selection c
 
-Print
+Insert
   file=~/Pictures/screenshots/$(date +%F-%T).png && \
   mkdir -p ~/Pictures/screenshots/ && \
   maim --format png -s $file && \
@@ -26,7 +27,10 @@ Print
 shift + Print
   file=~/Pictures/screenshots/$(date +%F-%T).png && \
   mkdir -p ~/Pictures/screenshots/ && \
-  maim --format png -s $file; imgur "$file"
+  maim --format png -s $file; ~/.dotfiles/bspwm/bin/imgur "$file"
+
+shift + Insert
+  maim -s /tmp/screenshot.png && ~/.dotfiles/bspwm/bin/imgur /tmp/screenshot.png
 # ──────────────────────────────────────────────────────
   # mkdir -p ~/Pictures/screenshots/ && \
   # scrot '%Y.%m.%d.%Hh.%M.%S_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
