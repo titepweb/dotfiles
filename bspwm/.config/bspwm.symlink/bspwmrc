@@ -3,9 +3,9 @@
 ############## BSPWM CONFIG ###############
 
 bspc config top_padding           26
-bspc config left_padding          4
-bspc config right_padding         4
-bspc config bottom_padding        4
+bspc config left_padding          2
+bspc config right_padding         2
+bspc config bottom_padding        18
 
 bspc config border_width          3
 bspc config window_gap            5
@@ -127,7 +127,7 @@ bspc rule -a VirtualBox desktop=^10
 panel &
 # ~/.dotfiles/bspwm/lemonbar/panel &
 ################### CONKY ##################
-conky -c ~/.conky.conf &
+conky -c ~/.config/conkyrc &
 
 ############# SET A WALLPAPER ##############
 # hsetroot -full /home/whoami/Pictures/pattern-black.png &

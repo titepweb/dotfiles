@@ -63,18 +63,18 @@ super + shift + Return
   urxvtc
   # st
 
-# ................................. Scratchpad .................................
+# program launcher
+super + space
+  rofi -show run
+  # dmenu_run -i -h 30 -p "execute>" -nb "#282828" -nf "#ebdbb2" -sb "#a89984" -sf "#282828" -fn "xft:Source\ Code\ Pro\ Medium:size=13"
 
+# ................................. Scratchpad .................................
 # open a "SCRATCHPAD" terminal (quake-style, in this case, on a 1366x768 display)
 F12
   xdotool search --onlyvisible --classname SCRATCHPAD windowunmap \
     || xdotool search --classname SCRATCHPAD windowmap \
     || urxvt -name SCRATCHPAD -geometry 110x20+230+28 &
     # || termite --class=SCRATCHPAD --geometry 900x400+230+28 &
-# program launcher
-super + space
-  rofi -show run
-  # dmenu_run -i -h 30 -p "execute>" -nb "#282828" -nf "#ebdbb2" -sb "#a89984" -sf "#282828" -fn "xft:Source\ Code\ Pro\ Medium:size=13"
 #─────────────────────────────────────────────────────────────────────────────┘
 
 ########################

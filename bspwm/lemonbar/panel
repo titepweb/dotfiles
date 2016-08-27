@@ -200,34 +200,32 @@ while true; do
     fi
 done > "$PANEL_FIFO" &
 
-# cpu
-while true; do
-    CPU="$(eval $(awk '/^cpu /{print "previdle="$5";prevtotal="$2+$3+$4+$5}' /proc/stat);sleep 0.4;eval $(awk '/^cpu /{print "idle="$5";total="$2+$3+$4+$5}' /proc/stat);intervaltotal=$((total-${prevtotal:-0}));echo -ne "$((100*((intervaltotal)-($idle-${previdle:-0}))/(intervaltotal)))")"
-    echo -e "CPU" $CPU;
-    sleep $REFRESH_CPU
-done > "$PANEL_FIFO" &
-
-# ram usage
-while true; do
-    mem_total=$(free -h | grep Mem | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
-    mem_used=$(free -h | grep Mem | awk '{print $3}' | tr '[:upper:]' '[:upper:]')
-    echo -e "RAM" $mem_used;
-    sleep $REFRESH_RAM
-done > $PANEL_FIFO &
-
-# disk root
-while true; do
-    HDDROOT="$(df -Ph /dev/sda3 | awk '$3 ~ /[0-9]+/ {print $4}')"
-    echo -e "ROOT" $HDDROOT;
-    sleep $REFRESH_DISK
-done > "$PANEL_FIFO" &
-
-# disk data
-while true; do
-    HDDDATA="$(df -Ph /dev/sda4 | awk '$3 ~ /[0-9]+/ {print $4}')"
-    echo -e "DATA" $HDDDATA;
-    sleep $REFRESH_DISK
-done > "$PANEL_FIFO" &
+# # cpu ──────────────────────────────────────────────────┐
+# while true; do
+#     CPU="$(eval $(awk '/^cpu /{print "previdle="$5";prevtotal="$2+$3+$4+$5}' /proc/stat);sleep 0.4;eval $(awk '/^cpu /{print "idle="$5";total="$2+$3+$4+$5}' /proc/stat);intervaltotal=$((total-${prevtotal:-0}));echo -ne "$((100*((intervaltotal)-($idle-${previdle:-0}))/(intervaltotal)))")"
+#     echo -e "CPU" $CPU;
+#     sleep $REFRESH_CPU
+# done > "$PANEL_FIFO" &
+# # ram usage ────────────────────────────────────────────
+# while true; do
+#     mem_total=$(free -h | grep Mem | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
+#     mem_used=$(free -h | grep Mem | awk '{print $3}' | tr '[:upper:]' '[:upper:]')
+#     echo -e "RAM" $mem_used;
+#     sleep $REFRESH_RAM
+# done > $PANEL_FIFO &
+# # disk root ────────────────────────────────────────────
+# while true; do
+#     HDDROOT="$(df -Ph /dev/sda3 | awk '$3 ~ /[0-9]+/ {print $4}')"
+#     echo -e "ROOT" $HDDROOT;
+#     sleep $REFRESH_DISK
+# done > "$PANEL_FIFO" &
+# # disk data ────────────────────────────────────────────
+# while true; do
+#     HDDDATA="$(df -Ph /dev/sda4 | awk '$3 ~ /[0-9]+/ {print $4}')"
+#     echo -e "DATA" $HDDDATA;
+#     sleep $REFRESH_DISK
+# done > "$PANEL_FIFO" &
+# # ──────────────────────────────────────────────────────┘
 
 # dump panel into panel_bar and then into lemonbar
 panel_bar < "$PANEL_FIFO" | lemonbar \

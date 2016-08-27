@@ -1,0 +1,56 @@
+# REFERENCE : http://conky.sourceforge.net/config_settings.html
+use_xft yes
+xftfont 123:size=8
+xftalpha 0.1
+update_interval 1
+total_run_times 0
+
+own_window yes
+own_window_type normal
+# own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour 000000
+own_window_argb_visual yes
+own_window_argb_value 0
+
+double_buffer yes
+minimum_size 1366 26
+# maximum_width 500
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color white
+default_shade_color red
+default_outline_color green
+alignment bottom_left
+gap_x 0
+gap_y -26
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+net_avg_samples 1
+override_utf8_locale yes
+use_spacer yes
+
+TEXT
+${font Ubuntu:pixelsize=12}\
+${goto 20}ROOT${offset 8}${color FFFF00}${fs_used /}$color / ${color FFFF00}${fs_size /}$color\
+${goto 190}RAM${offset 8}${font Ubuntu:pixelsize=12:style=Bold}${color 00FF00}$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / ${color 00FF00}$memmax$color\
+${goto 360}CPU${offset 8}${font Ubuntu:pixelsize=12:style=Bold}${color FF0000}${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
+${goto 440}${color FF0000}$processes$color\
+${goto 480}${color FF0000}${execi 4 sensors | grep -A 0 'temp2' | cut -c15-18}$color°C\
+${goto 530}${color FF1493}${downspeed wlp16s0}$color\
+${goto 600}${color 9370DB}${totaldown wlp16s0}$color\
+${goto 690}${color FF1493}${upspeed wlp16s0}$color\
+${goto 760}${color 9370DB}${totalup wlp16s0}$color\
+${goto 840}${color FF8C00}${wireless_ap wlp16s0}$color${offset 20} IP : ${color 00FA9A}${addr wlp16s0}$color\
+${alignr}uptime : ${font Ubuntu:pixelsize=12:style=Bold}${color 00FA9A}${uptime}$color$font${voffset -1}
+${voffset -2}\
+${goto 20}${color FFFF00}${fs_bar 5,148 /}$color\
+${goto 190}${color 00FF00}${membar 5,146 /}$color\
+${goto 360}${color FF0000}${cpubar 5,148 /}$color\
+${voffset -16}\
+${goto 530}${downspeedgraph wlp16s0 20,120 F57900 00FA9A -t}\
+${goto 690}${upspeedgraph wlp16s0 20,120 F57900 FCAF3E -t}
