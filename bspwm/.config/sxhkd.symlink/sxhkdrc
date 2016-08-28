@@ -10,7 +10,6 @@
 #  hoac : https://github.com/tangphillip/Imgur-Uploader
 #  --> sau do bo vao $DOTFILES/bspwm/bin
 
-
 # Chup anh + Chep Noi dung vao Clipboard
 Insert
   file=/tmp/screenshot.png && \
@@ -65,18 +64,23 @@ ctrl + alt + l
   i3lock -f -r 6 -s 15
 
 #─────────────────────────────────────────────────────────────────────────────┐
+# program launcher
+super + space
+  rofi -show run
+  # dmenu_run -i -h 30 -p "execute>" -nb "#282828" -nf "#ebdbb2" -sb "#a89984" -sf "#282828" -fn "xft:Source\ Code\ Pro\ Medium:size=13"
+
 super + Return
   mkdir -p ~/PROJECT && termite -d ~/PROJECT
 
 # open a terminal
 super + shift + Return
-  urxvtc
-  # st
+  termite --class=SCRATCHPAD --geometry 900x200+230+540
+  # Tinh toan cac con so #x#+#+#
+  # width =$(xdpyinfo | awk '/dimensions:/ { print $2; exit }' | cut -d 'x' -f1) ; \
+  # height=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }' | cut -d 'x' -f2) ; \
 
-# program launcher
-super + space
-  rofi -show run
-  # dmenu_run -i -h 30 -p "execute>" -nb "#282828" -nf "#ebdbb2" -sb "#a89984" -sf "#282828" -fn "xft:Source\ Code\ Pro\ Medium:size=13"
+  # urxvtc
+  # st
 
 # ................................. Scratchpad .................................
 # open a "SCRATCHPAD" terminal (quake-style, in this case, on a 1366x768 display)
@@ -84,7 +88,6 @@ F12
   xdotool search --onlyvisible --classname SCRATCHPAD windowunmap \
     || xdotool search --classname SCRATCHPAD windowmap \
     || urxvt -name SCRATCHPAD -geometry 110x20+230+28 &
-    # || termite --class=SCRATCHPAD --geometry 900x400+230+28 &
 #─────────────────────────────────────────────────────────────────────────────┘
 
 ########################
@@ -116,17 +119,15 @@ super + {_,shift} + q
 
 # alternate between the tiled and monocle layout
 super + t
-  bspc desktop -l next
+  bspc desktop --layout next
+
+# set the window state
+super + {d,a,s,f}
+  bspc node --state {tiled,pseudo_tiled,floating,fullscreen}
 
 # balance tree
 super + b
   bspc desktop -B
-
-# set the window state
-# super + {t,shift + t,s,f}
-  # bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-super + {s,f}
-  bspc node -t {floating,fullscreen}
 
 # if the current node is automatic, send it to the last manual, otherwise pull the last leaf
 super + y

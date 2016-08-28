@@ -101,11 +101,12 @@ bspc rule -a Subl3 desktop='^3'
 bspc rule -a google-chrome desktop='^4'
 bspc rule -a chromium desktop=^4
 
+bspc rule -a Steam desktop='^5' follow=on state=floating split_dir=right
+
 # gimp, inscape, teamspeak needs opening floatingly. Don't open their associated file types from the context menu.
 bspc rule -a Gimp desktop='^6' state=floating
 bspc rule -a Gpicview desktop='^6' follow=on
 bspc rule -a Feh desktop='^6' follow=on
-bspc rule -a Steam desktop=^6 follow=on state=floating split_dir=right
 
 bspc rule -a mpv desktop='^7'
 bspc rule -a smplayer desktop=^7
@@ -113,6 +114,7 @@ bspc rule -a Vlc desktop=^7
 bspc rule -a mplayer2 state=floating
 
 bspc rule -a krita desktop='^8'
+bspc rule -a MyPaint desktop='^8'
 bspc rule -a kdenlive desktop='^8'
 
 bspc rule -a qbittorrent desktop='^9'
@@ -120,6 +122,7 @@ bspc rule -a qbittorrent desktop='^9'
 bspc rule -a Simplescreenrecorder desktop='^9'
 bspc rule -a Nitrogen desktop=^9
 
+bspc rule -a wine desktop='^10'
 bspc rule -a VirtualBox desktop='^10'
 
 ########## LAUNCH SCRIPT "PANEL" ###########

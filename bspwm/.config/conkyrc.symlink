@@ -68,11 +68,12 @@ color1 FFFF00     # yellow
 color2 00FF00     # green
 color3 FF0000     # red
 color4 FF1493     # pink
-color5 9370DB     # blue
+color5 EA41FF     # blue
 color6 FF8C00     # orange
 color7 00FA9A     # cyan
-color8 00FFFF     # dark gray
-
+color8 FF6600     #
+color9 FF00FF     #
+color0 00FFFF     # cyan
 # Title ==> ${exec xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | sed 's/.*"\(.*\)"[^"]*$/\1/' }
 
 TEXT
@@ -86,15 +87,15 @@ ${goto 520}$color4${downspeedf wlp16s0}$color\
 ${goto 590}$color5${totaldown wlp16s0}$color\
 ${goto 680}$color4${upspeedf wlp16s0}$color\
 ${goto 750}$color5${totalup wlp16s0}$color\
-${goto 810}$color6${wireless_ap wlp16s0}$color${offset 20}$color7${wireless_mode wlp16s0}$color${offset 9} quality : $color7${wireless_link_qual wlp16s0}$color${offset 9} IP : $color7${addr wlp16s0}$color\
-${alignr}uptime : ${font Ubuntu:pixelsize=12:bold}$color8${uptime}$color$font${voffset -1}
+${goto 810}$color6${wireless_ap wlp16s0}$color${offset 20}$color7${wireless_mode wlp16s0}$color${offset 9} quality : $color8${wireless_link_qual wlp16s0}$color${offset 9} IP : $color9${addr wlp16s0}$color\
+${alignr}uptime : ${font Ubuntu:pixelsize=12:bold}$color0${uptime}$color$font${voffset -1}
 ${voffset -2}\
 ${goto 10}$color1${fs_bar 5,148 /}$color\
 ${goto 180}$color2${membar 5,146 /}$color\
 ${goto 350}$color3${cpubar 5,148 /}$color\
 ${voffset -16}\
-${goto 520}${downspeedgraph wlp16s0 20,120 F57900 00FA9A -t}\
-${goto 680}${upspeedgraph wlp16s0 20,120 F57900 FCAF3E -t}\
+${goto 520}${downspeedgraph wlp16s0 20,120 002953 52C6D7 -t}\
+${goto 680}${upspeedgraph wlp16s0 20,120 F57900 CC0000 -t}\
 $if_mpd_playing
   ${voffset 0}${offset 9}${color EAEAEA}${font GE Inspira:pixelsize=10}[${mpd_status}]${offset 5}${mpd_artist 16} - ${color FFA300}${scroll 25 ${mpd_title 32}}
 $endif

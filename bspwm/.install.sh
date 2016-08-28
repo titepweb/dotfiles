@@ -51,7 +51,12 @@ install feh
 install mpd mpc ncmpcpp flac
 # install cava
 install pcmanfm engrampa unrar zip unzip p7zip
+# install krusader
+# install --AUR sunflower
+
 install ranger w3m
+# Midnight Commander
+# install mc
 install mutt newsbeuter weechat
 
 install polkit-gnome ntfs-3g gvfs

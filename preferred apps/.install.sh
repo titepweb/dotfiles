@@ -9,7 +9,7 @@
 cat << EOF
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ INSTALLING OPTIONAL PACKAGES FOR THE BSPWM ENVIRONMENT ...                  │
-│ CLI/TUI                                                                     │
+│ GUI - TUI - CLI                                                             │
 │ - Video player: [smtube] & smplayer/[mpv]                                   │
 │ - File Manager: tree                                                        │
 │ - READER  : zathura zathura-pdf-poppler zathura-djvu                        │
@@ -73,25 +73,27 @@ install noto-fonts
 
 # Science & Latex -----------------
 # install sagemath
+# các bác có thể giải thích giúp em, vì sao compile qua LaTex+pdflatex lại cho kích thước trang khác với LaTex+dvips+ps2pdf không ạ?
 
 # image viewer --------------------
 install gpicview
 
 # photo editor --------------------
+install mypaint
 install krita
 # install pixeluvo
 # install pinta
 # install gimp
-# install imagemagick
+# install inscape
+# install shotwell gthumb imagemagick
 
 # media player -----------------
 # install vlc
 install mpv
 # install smplayer smtube smplayer-themes smplayer-skins youtube-dl
 # install xbmc
-# install lollypop
+# install lollypop epiphany
 # install deadbeef
-
 # music editor --------------------
 install audacity
 
@@ -111,21 +113,34 @@ install --AUR google-chromium
 # browser flash plugin
 # install chromium-pepper-flash
 
+# communication -------------------
+# From : https://desktop.telegram.org/
+# install --AUR telegram-desktop
+
+# network and security -----------
+# install openssh vsftpd
+# Start/Enable the vsftpd.service daemon.
+
 # development server setup -------
 # install nginx
 # install dnsmasq
 
-# development tools --------------
 
-# C++
+# development tools --------------
+# install wine
+# install virtualbox
+# install markdown
+
+# install eclipse-cpp
+# install eclipse-java
+# install eclipse-php
+
+# C++ -----------
 install qtcreator
 # install kdevelop
 
-# install virtualbox
-
+# ---------------
 # install hub
 # install highlight
 # install nvm
 # install z
-
-# install markdown
