@@ -70,10 +70,10 @@ color3 00FF00     # green
 color4 D70000     # red
 color5 FF8C00     # orange
 color6 00FFFF     # cyan
-color7 FF00FF     #
-color8 E81886     # pink
-color9 EA41FF     # blue
-color0 B669EF     #
+color7 6AA1FF     #
+color8 004FF9     #
+color9 FF00FF     # pink
+color0 EA41FF     # blue
 
 # REFERENCE : http://conky.sourceforge.net/variables.html
 # Title ==> ${exec xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | sed 's/.*"\(.*\)"[^"]*$/\1/' }
@@ -99,7 +99,7 @@ ${goto 10}${if_mounted /}ROOT${offset 8}$color1${fs_used /}$color / $color1${fs_
 ${goto 170}${if_mounted /home}HOME${offset 8}$color2${fs_used /home}$color / $color2${fs_size /home}$color${endif}\
 ${goto 330}RAM${offset 8}${font Ubuntu:pixelsize=12:bold}$color3$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / $color3$memmax$color\
 ${goto 490}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color4${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
-${goto 570}$color9${running_processes}$color/ $processes\
+${goto 570}$color0${running_processes}$color/ $processes\
 ${goto 638}$color4${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
 \
 ${if_up wlp16s0}\
@@ -116,7 +116,7 @@ ${goto 910}$color6${totalup enp0s25}$color\
 ${goto 980}$color7${addr enp0s25}$color${offset 8}\
 $endif\
 \
-${goto 1148}uptime : ${font Ubuntu:pixelsize=12:bold}$color0${uptime}$color$font${voffset -1}
+${goto 1148}uptime : ${font Ubuntu:pixelsize=12:bold}$color9${uptime}$color$font${voffset -1}
 ${voffset -2}\
 ${goto 10}$color1${fs_bar 5,140 /}$color\
 ${goto 170}$color2${fs_bar 5,140 /home}$color\
@@ -135,4 +135,4 @@ ${goto 840}${upspeedgraph enp0s25 20,120 F57900 CC0000 -t}\
 ${voffset 16}\
 $endif\
 \
-${goto 1148}$color0${battery_bar 5,132 CMB1}$color
+${goto 1148}$color9${battery_bar 5,132 CMB1}$color
