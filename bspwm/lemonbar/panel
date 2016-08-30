@@ -6,9 +6,14 @@
 
 # check if panel is already running
 if [[ $(pgrep -cx panel) -gt 1 ]]; then
+    # pkill -ox -9 panel
     printf "%s\n" "The panel is already running." >&2
     exit 1
 fi
+
+# Kill any remaining trays / xtitle instances so we don't have multiples.
+# killall -9 stalonetray
+# killall -9 xtitle
 
 # exit gracefully if terminated
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT

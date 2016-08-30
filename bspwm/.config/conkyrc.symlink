@@ -27,7 +27,7 @@ override_utf8_locale yes
 # Window specifications --------
 alignment bottom_left
 gap_x 0           # Distance from the left edge of the display to draw conky output
-gap_y -26
+gap_y -42
 minimum_size 1366 26      # width height
 # maximum_width 500
 
@@ -65,37 +65,74 @@ default_outline_color green
 
 # Color scheme -----------------
 color1 FFFF00     # yellow
-color2 00FF00     # green
-color3 FF0000     # red
-color4 FF1493     # pink
-color5 EA41FF     # blue
-color6 FF8C00     # orange
-color7 00FA9A     # cyan
-color8 FF6600     #
-color9 FF00FF     #
-color0 00FFFF     # cyan
+color2 FF6600     #
+color3 00FF00     # green
+color4 D70000     # red
+color5 FF8C00     # orange
+color6 00FFFF     # cyan
+color7 FF00FF     #
+color8 E81886     # pink
+color9 EA41FF     # blue
+color0 B669EF     #
+
+# REFERENCE : http://conky.sourceforge.net/variables.html
 # Title ==> ${exec xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | sed 's/.*"\(.*\)"[^"]*$/\1/' }
+# BATTERY=> ${alignr 2}${battery_bar 5,126 CMB1}
+# Running process ==> ${running_processes}
+# ${goto 120}${diskiograph sda 20,120 848932 b32317 0 -t -l}\
+
+# ${if_up eth0}
+#  Network ($nodename)
+#  Address: ${addr eth0}
+#  TCP Connections: ${tcp_portmon 1 65535 count}
+#  ${if_gw}gateway: ${gw_ip}$endif
+#  dns: ${nameserver}
+# ${endif}
+
+# $if_mpd_playing
+  # ${voffset 0}${offset 9}${color EAEAEA}${font GE Inspira:pixelsize=10}[${mpd_status}]${offset 5}${mpd_artist 16} - ${color FFA300}${scroll 25 ${mpd_title 32}}
+# $endif\
 
 TEXT
 ${font Ubuntu:pixelsize=12}\
-${goto 10}ROOT${offset 8}$color1${fs_used /}$color / $color1${fs_size /}$color\
-${goto 180}RAM${offset 8}${font Ubuntu:pixelsize=12:bold}$color2$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / $color2$memmax$color\
-${goto 350}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color3${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
-${goto 430}$color3$processes$color\
-${goto 468}$color3${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
-${goto 520}$color4${downspeedf wlp16s0}$color\
-${goto 590}$color5${totaldown wlp16s0}$color\
-${goto 680}$color4${upspeedf wlp16s0}$color\
-${goto 750}$color5${totalup wlp16s0}$color\
-${goto 810}$color6${wireless_ap wlp16s0}$color${offset 20}$color7${wireless_mode wlp16s0}$color${offset 9} quality : $color8${wireless_link_qual wlp16s0}$color${offset 9} IP : $color9${addr wlp16s0}$color\
-${alignr}uptime : ${font Ubuntu:pixelsize=12:bold}$color0${uptime}$color$font${voffset -1}
+${goto 10}${if_mounted /}ROOT${offset 8}$color1${fs_used /}$color / $color1${fs_size /}$color${endif}\
+${goto 170}${if_mounted /home}HOME${offset 8}$color2${fs_used /home}$color / $color1${fs_size /home}$color${endif}\
+${goto 330}RAM${offset 8}${font Ubuntu:pixelsize=12:bold}$color3$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / $color3$memmax$color\
+${goto 490}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color4${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
+${goto 560}$color4${running_processes}$color/ $processes\
+${goto 618}$color4${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
+\
+${if_up enp0s25}\
+${goto 670}$color5${downspeedf enp0s25}$color\
+${goto 740}$color6${totaldown enp0s25}$color\
+${goto 830}$color5${upspeedf enp0s25}$color\
+${goto 900}$color6${totalup enp0s25}$color\
+${goto 970}$color7${addr enp0s25}$color${offset 8}\
+$else\
+${goto 670}$color5${downspeedf wlp16s0}$color\
+${goto 740}$color6${totaldown wlp16s0}$color\
+${goto 830}$color5${upspeedf wlp16s0}$color\
+${goto 900}$color6${totalup wlp16s0}$color\
+${goto 970}$color7${addr wlp16s0}$color${offset 8}$color8${wireless_mode wlp16s0}$color\
+$endif\
+\
+${goto 1160}uptime : ${font Ubuntu:pixelsize=12:bold}$color0${uptime}$color$font${voffset -1}
 ${voffset -2}\
-${goto 10}$color1${fs_bar 5,148 /}$color\
-${goto 180}$color2${membar 5,146 /}$color\
-${goto 350}$color3${cpubar 5,148 /}$color\
+${goto 10}$color1${fs_bar 5,140 /}$color\
+${goto 170}$color2${fs_bar 5,140 /home}$color\
+${goto 330}$color3${membar 5,140 /}$color\
+${goto 490}$color4${cpubar 5,160 /}$color\
 ${voffset -16}\
-${goto 520}${downspeedgraph wlp16s0 20,120 002953 52C6D7 -t}\
-${goto 680}${upspeedgraph wlp16s0 20,120 F57900 CC0000 -t}\
-$if_mpd_playing
-  ${voffset 0}${offset 9}${color EAEAEA}${font GE Inspira:pixelsize=10}[${mpd_status}]${offset 5}${mpd_artist 16} - ${color FFA300}${scroll 25 ${mpd_title 32}}
-$endif
+\
+${if_up wlp16s0}\
+${goto 670}${downspeedgraph wlp16s0 20,120 002953 52C6D7 -t}\
+${goto 830}${upspeedgraph wlp16s0 20,120 F57900 CC0000 -t}\
+${voffset 16}\
+${goto 970}$color8${wireless_link_bar 5,148 wlp16s0}$color\
+$else\
+${goto 670}${downspeedgraph enp0s25 20,120 002953 52C6D7 -t}\
+${goto 830}${upspeedgraph enp0s25 20,120 F57900 CC0000 -t}\
+${voffset 16}\
+$endif\
+\
+${goto 1160}$color0${battery_bar 5,132 CMB1}$color

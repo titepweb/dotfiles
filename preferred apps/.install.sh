@@ -92,6 +92,7 @@ install krita
 install mpv
 # install smplayer smtube smplayer-themes smplayer-skins youtube-dl
 # install xbmc
+install cantata
 # install lollypop epiphany
 # install deadbeef
 # music editor --------------------
@@ -120,6 +121,9 @@ install --AUR google-chromium
 # network and security -----------
 # install openssh vsftpd
 # Start/Enable the vsftpd.service daemon.
+
+install openvpn
+# install rutorrent
 
 # development server setup -------
 # install nginx

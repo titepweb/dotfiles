@@ -32,7 +32,6 @@ alias ...='cd ../..'
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-
 #-------------------
 # DEFAULT PARAMETERS
 #-------------------
@@ -74,3 +73,12 @@ alias lsd="ls -F | grep '^d'"
 alias grep='grep ${colorflag}=auto --ignore-case --binary-files=without-match --line-number --initial-tab'
 # alias egrep='egrep ${colorflag}=auto'
 # alias fgrep='fgrep ${colorflag}=auto'
+
+#-----------------
+# File Association
+#-----------------
+# From : https://github.com/HaCk3Dq/dotfiles/blob/master/.zshrc
+alias -s {go,txt,cfg,c,cpp,rb,asm,nim,conf,d}=subl3
+alias -s {avi,mpeg,mpg,mov,m2v}=mpv
+alias -s {html,htm}=chromium
+alias -s {png,jpg,gif,svg}=feh

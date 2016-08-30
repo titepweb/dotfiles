@@ -80,7 +80,6 @@ super + shift + Return
   # height=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }' | cut -d 'x' -f2) ; \
 
   # urxvtc
-  # st
 
 # ................................. Scratchpad .................................
 # open a "SCRATCHPAD" terminal (quake-style, in this case, on a 1366x768 display)

@@ -130,6 +130,8 @@ panel &
 # ~/.dotfiles/bspwm/lemonbar/panel &
 ################### CONKY ##################
 conky -c ~/.config/conkyrc &
-
+################ SYSTEM TRAY ###############
+sleep 2 && stalonetray &
+# sleep 6 && stalonetray -c ~/.stalonetrayrc
 ############# SET A WALLPAPER ##############
 # hsetroot -full /home/whoami/Pictures/pattern-black.png &
