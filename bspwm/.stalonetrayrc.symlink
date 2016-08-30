@@ -1,7 +1,7 @@
 background "#000"
 decorations none
 dockapp_mode none
-geometry 3x1+1300+746
+geometry 3x1+1296+746
 grow_gravity NW
 icon_gravity NW
 icon_size 22
