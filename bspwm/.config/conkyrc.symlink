@@ -99,21 +99,21 @@ ${goto 10}${if_mounted /}ROOT${offset 8}$color1${fs_used /}$color / $color1${fs_
 ${goto 170}${if_mounted /home}HOME${offset 8}$color2${fs_used /home}$color / $color1${fs_size /home}$color${endif}\
 ${goto 330}RAM${offset 8}${font Ubuntu:pixelsize=12:bold}$color3$mem$color$font${voffset -1}${font Ubuntu:pixelsize=12} / $color3$memmax$color\
 ${goto 490}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color4${cpu cpu0}$color$font${voffset -1}${font Ubuntu:pixelsize=12}%\
-${goto 560}$color4${running_processes}$color/ $processes\
-${goto 618}$color4${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
+${goto 570}$color9${running_processes}$color/ $processes\
+${goto 638}$color4${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
 \
 ${if_up wlp16s0}\
-${goto 670}$color5${downspeedf wlp16s0}$color\
-${goto 740}$color6${totaldown wlp16s0}$color\
-${goto 830}$color5${upspeedf wlp16s0}$color\
-${goto 900}$color6${totalup wlp16s0}$color\
-${goto 970}$color7${addr wlp16s0}$color${offset 8}$color8${wireless_mode wlp16s0}$color\
+${goto 690}$color5${downspeedf wlp16s0}$color\
+${goto 760}$color6${totaldown wlp16s0}$color\
+${goto 840}$color5${upspeedf wlp16s0}$color\
+${goto 910}$color6${totalup wlp16s0}$color\
+${goto 980}$color7${addr wlp16s0}$color${offset 8}$color8${wireless_mode wlp16s0}$color\
 $else\
-${goto 670}$color5${downspeedf enp0s25}$color\
-${goto 740}$color6${totaldown enp0s25}$color\
-${goto 830}$color5${upspeedf enp0s25}$color\
-${goto 900}$color6${totalup enp0s25}$color\
-${goto 970}$color7${addr enp0s25}$color${offset 8}\
+${goto 690}$color5${downspeedf enp0s25}$color\
+${goto 760}$color6${totaldown enp0s25}$color\
+${goto 840}$color5${upspeedf enp0s25}$color\
+${goto 910}$color6${totalup enp0s25}$color\
+${goto 980}$color7${addr enp0s25}$color${offset 8}\
 $endif\
 \
 ${goto 1160}uptime : ${font Ubuntu:pixelsize=12:bold}$color0${uptime}$color$font${voffset -1}
@@ -121,17 +121,17 @@ ${voffset -2}\
 ${goto 10}$color1${fs_bar 5,140 /}$color\
 ${goto 170}$color2${fs_bar 5,140 /home}$color\
 ${goto 330}$color3${membar 5,140 /}$color\
-${goto 490}$color4${cpubar 5,160 /}$color\
+${goto 490}$color4${cpubar 5,180 /}$color\
 ${voffset -16}\
 \
 ${if_up wlp16s0}\
-${goto 670}${downspeedgraph wlp16s0 20,120 002953 52C6D7 -t}\
-${goto 830}${upspeedgraph wlp16s0 20,120 F57900 CC0000 -t}\
+${goto 690}${downspeedgraph wlp16s0 20,120 002953 52C6D7 -t}\
+${goto 840}${upspeedgraph wlp16s0 20,120 F57900 CC0000 -t}\
 ${voffset 16}\
-${goto 970}$color8${wireless_link_bar 5,148 wlp16s0}$color\
+${goto 980}$color8${wireless_link_bar 5,148 wlp16s0}$color\
 $else\
-${goto 670}${downspeedgraph enp0s25 20,120 002953 52C6D7 -t}\
-${goto 830}${upspeedgraph enp0s25 20,120 F57900 CC0000 -t}\
+${goto 690}${downspeedgraph enp0s25 20,120 002953 52C6D7 -t}\
+${goto 840}${upspeedgraph enp0s25 20,120 F57900 CC0000 -t}\
 ${voffset 16}\
 $endif\
 \
