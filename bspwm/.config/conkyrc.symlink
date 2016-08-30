@@ -102,18 +102,18 @@ ${goto 490}CPU${offset 8}${font Ubuntu:pixelsize=12:bold}$color4${cpu cpu0}$colo
 ${goto 560}$color4${running_processes}$color/ $processes\
 ${goto 618}$color4${execi 4 sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}$color°C\
 \
-${if_up enp0s25}\
-${goto 670}$color5${downspeedf enp0s25}$color\
-${goto 740}$color6${totaldown enp0s25}$color\
-${goto 830}$color5${upspeedf enp0s25}$color\
-${goto 900}$color6${totalup enp0s25}$color\
-${goto 970}$color7${addr enp0s25}$color${offset 8}\
-$else\
+${if_up wlp16s0}\
 ${goto 670}$color5${downspeedf wlp16s0}$color\
 ${goto 740}$color6${totaldown wlp16s0}$color\
 ${goto 830}$color5${upspeedf wlp16s0}$color\
 ${goto 900}$color6${totalup wlp16s0}$color\
 ${goto 970}$color7${addr wlp16s0}$color${offset 8}$color8${wireless_mode wlp16s0}$color\
+$else\
+${goto 670}$color5${downspeedf enp0s25}$color\
+${goto 740}$color6${totaldown enp0s25}$color\
+${goto 830}$color5${upspeedf enp0s25}$color\
+${goto 900}$color6${totalup enp0s25}$color\
+${goto 970}$color7${addr enp0s25}$color${offset 8}\
 $endif\
 \
 ${goto 1160}uptime : ${font Ubuntu:pixelsize=12:bold}$color0${uptime}$color$font${voffset -1}
