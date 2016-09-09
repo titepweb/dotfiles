@@ -26,6 +26,7 @@ install ack
 install tree
 install wget
 install htop
+install glances
 
 # mlocate is slowly replacing slocate (old)
 install mlocate
@@ -93,6 +94,7 @@ install mpv
 # install smplayer smtube smplayer-themes smplayer-skins youtube-dl
 # install xbmc
 install cantata
+# install noise-player
 # install lollypop epiphany
 # install deadbeef
 # music editor --------------------
@@ -119,6 +121,14 @@ install --AUR google-chromium
 # install --AUR telegram-desktop
 
 # network and security -----------
+install aria2
+# Đang dùng aria2 để:
+# - Download gói trên Archlinux
+# - Download direct link trên NAS
+# Ưu điểm của thằng này là có rất nhiều tùy chính (số luồng download trên mỗi server, cách chia từng mảnh, giới hạn tốc độ, ...), download một file trên nhiều server, download theo danh sách từ file.
+# Quan trọng nhất là hỗi trợ XML - RPC để có thể remote từ nơi khác vào xem và điều khiển quá trình download.
+# Nói chung là trình download bá đạo nhất mình từng biết.
+
 # install openssh vsftpd
 # Start/Enable the vsftpd.service daemon.
 
@@ -128,6 +138,7 @@ install openvpn
 # development server setup -------
 # install nginx
 # install dnsmasq
+# install gitlab
 
 
 # development tools --------------
@@ -148,3 +159,7 @@ install qtcreator
 # install highlight
 # install nvm
 # install z
+
+
+# Change DNS
+# /etc/resolv.con

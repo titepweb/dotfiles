@@ -65,7 +65,7 @@ if [[ $EDITOR =~ ^(vim|nvim|macvim|gvim)$ ]]; then
 	tmux rename-window "dotfiles"  # [-1-]
 	if [ -n $DOTFILES ]; then
 		tmux send-keys "cd $DOTFILES && ls" C-m
-		tmux send-keys '$EDITOR -c ":e $DOTFILES/zsh/.config/nvim/init.vim.symlink" -c ":set syntax=vim"' C-m
+		tmux send-keys "ED" '$EDITOR -c ":e $DOTFILES/zsh/.config/nvim/init.vim.symlink" -c ":set syntax=vim"' C-m
 	else
 		tmux send-keys "\$EDITOR -c ':e \$MYVIMRC' -c ':set syntax=vim'" C-m
 	fi

@@ -20,7 +20,7 @@ Insert
 
 # Chup anh + Luu File + Chep URL vao Clipboard => de Open with...
 ctrl + Insert
-  file=~/Pictures/screenshots/$(date +%F-%T).png && \
+  file=~/Pictures/screenshots/$(date +%Y.%m.%d_%Hh.%Mm.%Ss).png && \
   mkdir -p ~/Pictures/screenshots/ && \
   maim --format png -s $file && \
   command -v xclip >/dev/null 2>&1 && \

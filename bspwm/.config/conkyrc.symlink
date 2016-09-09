@@ -71,7 +71,7 @@ color4 D70000     # red
 color5 FF8C00     # orange
 color6 00FFFF     # cyan
 color7 6AA1FF     #
-color8 004FF9     #
+color8 2151DC     #
 color9 FF00FF     # pink
 color0 EA41FF     # blue
 
@@ -125,8 +125,8 @@ ${goto 490}$color4${cpubar 5,180 /}$color\
 ${voffset -16}\
 \
 ${if_up wlp16s0}\
-${goto 690}${downspeedgraph wlp16s0 20,120 002953 52C6D7 -t}\
-${goto 840}${upspeedgraph wlp16s0 20,120 F57900 CC0000 -t}\
+${goto 690}${downspeedgraph wlp16s0 20,120 F57900 CC0000 -t}\
+${goto 840}${upspeedgraph wlp16s0 20,120 002953 52C6D7 -t}\
 ${voffset 16}\
 ${goto 980}$color8${wireless_link_bar 5,148 wlp16s0}$color\
 $else\
