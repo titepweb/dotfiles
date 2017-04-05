@@ -2,7 +2,7 @@
 	"bootstrapped": true,
 	"in_process_packages":
 	[
-		"AutoHotkey",
+		"Package Control",
 		"REG"
 	],
 	"installed_packages":
@@ -20,7 +20,6 @@
 		"Filter Lines",
 		"Git",
 		"GitGutter",
-		"GitGutter-Edge",
 		"HTML-CSS-JS Prettify",
 		"Modific",
 		"Monokai Extended",
